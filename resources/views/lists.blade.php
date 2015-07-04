@@ -16,6 +16,13 @@
 
     <h1>Lists</h1>
 
+    <ul>
+    @foreach($items as $item)
+        @include('partials.item', $item)
+
+    @endforeach
+    </ul>
+
 </div>
 
 <?php include($footer); ?>

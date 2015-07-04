@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Lists;
 
+use App\Item;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -26,7 +27,9 @@ class ListsController extends Controller
      */
     public function index()
     {
-        return view('lists');
+        $items = Item::whereNull('parent_id')->get();
+
+        return view('lists', compact('items'));
     }
 
     /**
@@ -57,7 +60,9 @@ class ListsController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Item::find($id);
+
+        return $item->children;
     }
 
     /**
