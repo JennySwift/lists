@@ -10,7 +10,7 @@
 </head>
 <body>
 
-{{--@include('templates.header')--}}
+@include('templates.header')
 
 <div ng-controller="ListsController" id="lists" class="container">
 

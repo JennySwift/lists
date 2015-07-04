@@ -19,9 +19,9 @@ Route::get('/credits', function()
  */
 
 // Authentication routes...
-//Route::get('auth/login', 'Auth\AuthController@getLogin');
-//Route::post('auth/login', 'Auth\AuthController@postLogin');
-//Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
 //Route::get('auth/register', 'Auth\AuthController@getRegister');
@@ -31,24 +31,24 @@ Route::get('/credits', function()
  * Authentication
  */
 
-Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
-
-    Route::group(['middleware' => 'guest'], function(){
-        // Login
-        Route::get('login', ['as' => 'auth.login', 'uses' => 'AuthController@getLogin']);
-        Route::post('login', ['as' => 'auth.login.store', 'before' => 'throttle:2,60', 'uses' => 'AuthController@postLogin']);
-
-        // Register
-        Route::get('register', ['as' => 'auth.register', 'uses' => 'AuthController@getRegister']);
-        Route::post('register', ['as' => 'auth.register.store', 'uses' => 'AuthController@postRegister']);
-    });
-
-    Route::group(['middleware' => 'auth'], function(){
-        // Logout
-        Route::get('logout', ['as' => 'auth.logout', 'uses' => 'AuthController@getLogout']);
-    });
-
-});
+//Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+//
+//    Route::group(['middleware' => 'guest'], function(){
+//        // Login
+//        Route::get('login', ['as' => 'auth.login', 'uses' => 'AuthController@getLogin']);
+//        Route::post('login', ['as' => 'auth.login.store', 'before' => 'throttle:2,60', 'uses' => 'AuthController@postLogin']);
+//
+//        // Register
+//        Route::get('register', ['as' => 'auth.register', 'uses' => 'AuthController@getRegister']);
+//        Route::post('register', ['as' => 'auth.register.store', 'uses' => 'AuthController@postRegister']);
+//    });
+//
+//    Route::group(['middleware' => 'auth'], function(){
+//        // Logout
+//        Route::get('logout', ['as' => 'auth.logout', 'uses' => 'AuthController@getLogout']);
+//    });
+//
+//});
 
 Route::controllers([
     // 'auth' => 'Auth\AuthController',
