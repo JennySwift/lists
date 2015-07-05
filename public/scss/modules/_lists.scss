@@ -2,12 +2,27 @@
     display: flex;
     font-size: 16px;
     padding: 5px 0;
-}
-
-.before-item {
-//    background: pink;
-    flex-basis: 20px;
-    i {
-        cursor: pointer;
+    .fa-search-plus {
+        visibility: hidden;
+    }
+    &:hover {
+        .fa-search-plus {
+            visibility: visible;
+        }
+    }
+    .before-item {
+        flex-basis: 42px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        i {
+            cursor: pointer;
+        }
+        .fa-search-plus, .fa-plus {
+            font-size: 19px;
+        }
+    }
+    .item-content {
+        margin-left: 20px;
     }
 }

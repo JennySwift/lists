@@ -367,11 +367,21 @@ li {
   display: flex;
   font-size: 16px;
   padding: 5px 0; }
-
-.before-item {
-  flex-basis: 20px; }
-  .before-item i {
-    cursor: pointer; }
+  .item .fa-search-plus {
+    visibility: hidden; }
+  .item:hover .fa-search-plus {
+    visibility: visible; }
+  .item .before-item {
+    flex-basis: 42px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .item .before-item i {
+      cursor: pointer; }
+    .item .before-item .fa-search-plus, .item .before-item .fa-plus {
+      font-size: 19px; }
+  .item .item-content {
+    margin-left: 20px; }
 
 body.browser-height {
   box-sizing: border-box; }

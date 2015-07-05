@@ -24,8 +24,7 @@ var app = angular.module('lists');
         $scope.getChildren = function ($item) {
             ListsFactory.getChildren($item)
                 .then(function (response) {
-                    var $children = response.data;
-                    $item.children = $children;
+                    $item.children = response.data;
                 })
                 .catch(function (response) {
 
@@ -34,6 +33,17 @@ var app = angular.module('lists');
 
         $scope.collapseItem = function ($item) {
             $item.children = [];
+        };
+
+        $scope.zoom = function ($item) {
+            ListsFactory.getChildren($item)
+                .then(function (response) {
+                    $item.children = response.data;
+                    $scope.items = [$item];
+                })
+                .catch(function (response) {
+
+                });
         };
 
         /**
