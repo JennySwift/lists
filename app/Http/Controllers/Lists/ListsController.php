@@ -70,7 +70,12 @@ class ListsController extends Controller
     {
         $item = Item::find($id);
 
-        return $item->children;
+        return [
+            //Doing ->get() so that the children don't end up
+            //in the breadcrumb unnecessarily.
+            'children' => $item->children()->get(),
+            'breadcrumb' => $item->breadcrumb()
+        ];
     }
 
     /**

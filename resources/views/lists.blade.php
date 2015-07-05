@@ -16,6 +16,13 @@
 
     <h1>Lists</h1>
 
+    <div id="breadcrumb">
+        <div ng-repeat="item in breadcrumb">
+            <span ng-click="zoom(item)">[[item.title]]</span>
+            <i ng-if="!$last" class="fa fa-angle-right"></i>
+        </div>
+    </div>
+
     <ul>
         <li ng-repeat="item in items" ng-include src="'ItemTemplate'">
 

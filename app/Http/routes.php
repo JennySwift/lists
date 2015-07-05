@@ -4,12 +4,21 @@
  * Views
  */
 
+use App\Item;
+
 Route::get('/', 'Lists\ListsController@index');
 
 //Credits
 Route::get('/credits', function()
 {
     return view('credits');
+});
+
+Route::get('/test', function()
+{
+    $item = Item::find(13);
+    //dd($);
+    return $item->breadcrumb();
 });
 
 //ng-includes

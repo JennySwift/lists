@@ -67,4 +67,18 @@ class Item extends Model
         return false;
     }
 
+    public function breadcrumb()
+    {
+        $breadcrumb = [$this];
+
+        $index = 0;
+
+        while (!is_null($breadcrumb[$index]->parent()->first())) {
+            $breadcrumb[] = $breadcrumb[$index]->parent()->first();
+            $index++;
+        }
+
+        return array_reverse($breadcrumb);
+    }
+
 }

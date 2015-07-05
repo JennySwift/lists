@@ -1,3 +1,16 @@
+#breadcrumb {
+    display: flex;
+    margin-bottom: 27px;
+    span {
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .fa-angle-right {
+        font-size: 19px;
+        margin: 0 21px;
+    }
+}
+
 .item {
     display: flex;
     font-size: 16px;

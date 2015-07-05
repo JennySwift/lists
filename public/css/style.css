@@ -363,6 +363,16 @@ li {
     #navbar li a {
       color: #777; }
 
+#breadcrumb {
+  display: flex;
+  margin-bottom: 27px; }
+  #breadcrumb span {
+    font-size: 16px;
+    cursor: pointer; }
+  #breadcrumb .fa-angle-right {
+    font-size: 19px;
+    margin: 0 21px; }
+
 .item {
   display: flex;
   font-size: 16px;
