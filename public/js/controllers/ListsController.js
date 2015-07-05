@@ -27,11 +27,14 @@ var app = angular.module('lists');
                     var $children = response.data;
                     var $index = _.indexOf($scope.items, _.findWhere($scope.items, {id: $item.id}));
                     $scope.items[$index].children = $children;
-                    console.log(response.data);
                 })
                 .catch(function (response) {
 
                 });
+        };
+
+        $scope.collapseItem = function ($item) {
+            $item.children = [];
         };
 
         /**
