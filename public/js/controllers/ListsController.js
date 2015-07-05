@@ -25,8 +25,7 @@ var app = angular.module('lists');
             ListsFactory.getChildren($item)
                 .then(function (response) {
                     var $children = response.data;
-                    var $index = _.indexOf($scope.items, _.findWhere($scope.items, {id: $item.id}));
-                    $scope.items[$index].children = $children;
+                    $item.children = $children;
                 })
                 .catch(function (response) {
 
