@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lists;
 
 use App\Item;
 use Illuminate\Http\Request;
+use JavaScript;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -29,7 +30,14 @@ class ListsController extends Controller
     {
         $items = Item::whereNull('parent_id')->get();
 
-        return view('lists', compact('items'));
+        JavaScript::put([
+            'items' => $items,
+            'base_path' => base_path()
+        ]);
+
+        return view('lists');
+
+//        return view('lists', compact('items'));
     }
 
     /**

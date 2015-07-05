@@ -4,6 +4,12 @@ app.factory('ListsFactory', function ($http) {
         /**
          * select
          */
+        
+        getChildren: function ($item) {
+            var $url = $item.path;
+
+            return $http.get($url);
+        },
 
         /**
          * insert

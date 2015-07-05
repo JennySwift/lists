@@ -1,0 +1,13 @@
+.item {
+    display: flex;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.before-item {
+//    background: pink;
+    flex-basis: 20px;
+    i {
+        cursor: pointer;
+    }
+}

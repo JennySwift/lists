@@ -17,11 +17,23 @@
     <h1>Lists</h1>
 
     <ul>
-    @foreach($items as $item)
-        @include('partials.item', $item)
+        <li ng-repeat="item in items" ng-include src="'ItemTemplate'">
 
-    @endforeach
+
+            {{--<item--}}
+                {{--object="item"--}}
+                {{--items="items">--}}
+            {{--</item>--}}
+
+        </li>
     </ul>
+
+    {{--<ul>--}}
+    {{--@foreach($items as $item)--}}
+        {{--@include('partials.item', $item)--}}
+
+    {{--@endforeach--}}
+    {{--</ul>--}}
 
 </div>
 

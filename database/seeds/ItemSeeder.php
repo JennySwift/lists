@@ -27,27 +27,34 @@ class ItemSeeder extends Seeder
         {
             $parent = $this->createItem();
 
+            if ($index !== 3) {
+                $this->createDescendants($parent);
+            }
+        }
+
+    }
+
+    public function createDescendants($parent)
+    {
+        foreach(range(1, 3) as $index)
+        {
+            $child1 = $this->createItem($parent);
+
             foreach(range(1, 3) as $index)
             {
-                $child1 = $this->createItem($parent);
+                $child2 = $this->createItem($child1);
 
                 foreach(range(1, 3) as $index)
                 {
-                    $child2 = $this->createItem($child1);
+                    $child3 = $this->createItem($child2);
 
                     foreach(range(1, 3) as $index)
                     {
-                        $child3 = $this->createItem($child2);
-
-                        foreach(range(1, 3) as $index)
-                        {
-                            $child4 = $this->createItem($child3);
-                        }
+                        $child4 = $this->createItem($child3);
                     }
                 }
             }
         }
-
     }
 
     /**

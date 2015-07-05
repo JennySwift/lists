@@ -12,6 +12,17 @@ Route::get('/credits', function()
     return view('credits');
 });
 
+//ng-includes
+
+/**
+ * @VP:
+ * How would I return a file in the templates directory instead of the views directory?
+ */
+Route::get('/ItemTemplate', function()
+{
+    return view('ItemTemplate');
+});
+
 /**
  * Laravel 5.1 Authentication
  * Not sure if I'm supposed to use these.
@@ -63,7 +74,7 @@ Route::controllers([
  * Resources
  */
 
-//Route::resource('projects', 'ProjectsController', ['only' => ['show', 'store', 'update', 'destroy']]);
+Route::resource('items', 'Lists\ListsController', ['only' => ['show']]);
 
 /**
  * Ajax

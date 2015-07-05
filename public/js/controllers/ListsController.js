@@ -7,6 +7,12 @@ var app = angular.module('lists');
          * scope properties
          */
 
+        $scope.items = items;
+        $scope.paths = {
+            base: base_path,
+            test: base_path + '/resources/views/test.php'
+        };
+
         /**
          * watches
          */
@@ -14,6 +20,19 @@ var app = angular.module('lists');
         /**
          * select
          */
+
+        $scope.getChildren = function ($item) {
+            ListsFactory.getChildren($item)
+                .then(function (response) {
+                    var $children = response.data;
+                    var $index = _.indexOf($scope.items, _.findWhere($scope.items, {id: $item.id}));
+                    $scope.items[$index].children = $children;
+                    console.log(response.data);
+                })
+                .catch(function (response) {
+
+                });
+        };
 
         /**
          * insert

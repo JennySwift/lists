@@ -363,6 +363,16 @@ li {
     #navbar li a {
       color: #777; }
 
+.item {
+  display: flex;
+  font-size: 16px;
+  padding: 5px 0; }
+
+.before-item {
+  flex-basis: 20px; }
+  .before-item i {
+    cursor: pointer; }
+
 body.browser-height {
   box-sizing: border-box; }
 
