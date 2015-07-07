@@ -10,6 +10,15 @@ app.factory('ListsFactory', function ($http) {
 
             return $http.get($url);
         },
+        filter: function () {
+            var $url = 'filter';
+            var $typing = $("#filter").val();
+            var $data = {
+                typing: $typing
+            };
+
+            return $http.post($url, $data);
+        }
 
         /**
          * insert

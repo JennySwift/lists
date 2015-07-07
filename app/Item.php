@@ -67,6 +67,10 @@ class Item extends Model
         return false;
     }
 
+    /**
+     *
+     * @return array
+     */
     public function breadcrumb()
     {
         $breadcrumb = [$this];
@@ -79,6 +83,46 @@ class Item extends Model
         }
 
         return array_reverse($breadcrumb);
+    }
+
+    /**
+     * Same as breadcrumb method but without the item itself
+     * @return array
+     */
+    public function ancestors()
+    {
+        $ancestors = [$this->parent()->first()];
+
+        $index = 0;
+
+        while (!is_null($ancestors[$index]->parent()->first())) {
+            $ancestors[] = $ancestors[$index]->parent()->first();
+            $index++;
+        }
+
+        $ancestors = array_reverse($ancestors);
+
+        return collect($ancestors);
+    }
+
+    public function descendants()
+    {
+        $descendant_ids = [];
+
+        $index = 0;
+
+        while (true) {
+            $item = Item::find($descendant_ids[$index]);
+
+            //Add all the item's immediate children to the array
+            foreach ($item->children()->lists('id') as $child_id) {
+                $descendant_ids[] = $child_id;
+            }
+            $index++;
+        }
+
+        return $descendant_ids;
+
     }
 
 }

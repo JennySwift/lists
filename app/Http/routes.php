@@ -18,7 +18,7 @@ Route::get('/test', function()
 {
     $item = Item::find(13);
     //dd($);
-    return $item->breadcrumb();
+    return $item->breadcrumb()->lists('id');
 });
 
 //ng-includes
@@ -89,6 +89,6 @@ Route::resource('items', 'Lists\ListsController', ['only' => ['show']]);
  * Ajax
  */
 
-//Route::post('insert/startProjectTimer', 'TimersController@startProjectTimer');
+Route::post('filter', 'Lists\ListsController@filter');
 
 

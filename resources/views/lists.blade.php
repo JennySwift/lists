@@ -14,7 +14,9 @@
 
 <div ng-controller="ListsController" id="lists" class="container">
 
-    <h1>Lists</h1>
+    <div id="search-container">
+        <input ng-keyup="filter()" type="text" placeholder="search" id="filter"/>
+    </div>
 
     <div id="breadcrumb">
         <div ng-repeat="item in breadcrumb">

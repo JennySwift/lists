@@ -40,6 +40,17 @@ class ListsController extends Controller
 //        return view('lists', compact('items'));
     }
 
+    public function filter(Request $request)
+    {
+        $typing = '%' . $request->get('typing') . '%';
+
+        $items = Item::where('title', 'LIKE', $typing)
+            ->whereIn('id', $descendant_ids)
+            ->get();
+
+        return $items;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

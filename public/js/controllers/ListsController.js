@@ -47,6 +47,17 @@ var app = angular.module('lists');
                 });
         };
 
+        $scope.filter = function () {
+            ListsFactory.filter()
+                .then(function (response) {
+                    //console.log(response.data);
+                    $scope.items = response.data;
+                })
+                .catch(function (response) {
+
+                });
+        };
+
         /**
          * insert
          */
