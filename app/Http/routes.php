@@ -17,8 +17,10 @@ Route::get('/credits', function()
 Route::get('/test', function()
 {
     $item = Item::find(13);
-    //dd($);
-    return $item->breadcrumb()->lists('id');
+
+    dd($item->ancestors()->lists('id')->toArray());
+
+    return collect($item->breadcrumb())->lists('id');
 });
 
 //ng-includes
