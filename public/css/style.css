@@ -85,6 +85,9 @@ input {
 input[type="checkbox"] {
   margin: 0; }
 
+a {
+  cursor: pointer; }
+
 th, table {
   text-align: center; }
   th td, table td {
@@ -364,7 +367,8 @@ li {
 
 #breadcrumb {
   display: flex;
-  margin-bottom: 27px; }
+  margin-bottom: 50px;
+  margin-left: 67px; }
   #breadcrumb span {
     font-size: 16px;
     cursor: pointer; }
@@ -378,7 +382,8 @@ li {
   #search-container input {
     width: 360px;
     font-size: 19px;
-    padding: 6px 18px; }
+    padding: 6px 18px;
+    margin-bottom: 50px; }
 
 .item {
   display: flex;

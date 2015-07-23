@@ -6,7 +6,7 @@
 
 use App\Item;
 
-Route::get('/', 'Lists\ListsController@index');
+Route::get('/', 'Lists\ListsController@pageLoad');
 
 //Credits
 Route::get('/credits', function()
@@ -85,7 +85,7 @@ Route::controllers([
  * Resources
  */
 
-Route::resource('items', 'Lists\ListsController', ['only' => ['show']]);
+Route::resource('items', 'Lists\ListsController', ['only' => ['index', 'show']]);
 
 /**
  * Ajax

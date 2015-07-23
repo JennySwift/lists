@@ -77,6 +77,8 @@ class Item extends Model
             $index++;
         }
 
+//        $breadcrumb[] = ['title' => 'Home'];
+
         return array_reverse($breadcrumb);
     }
 

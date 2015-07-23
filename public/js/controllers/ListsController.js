@@ -31,6 +31,16 @@ var app = angular.module('lists');
                 });
         };
 
+        $scope.goHome = function () {
+            ListsFactory.goHome()
+                .then(function (response) {
+                    $scope.items = response.data;
+                })
+                .catch(function (response) {
+
+                });
+        };
+
         $scope.collapseItem = function ($item) {
             $item.children = [];
         };

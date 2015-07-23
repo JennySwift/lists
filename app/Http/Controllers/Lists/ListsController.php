@@ -26,7 +26,7 @@ class ListsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function pageLoad()
     {
         $items = Item::whereNull('parent_id')->get();
 
@@ -39,6 +39,12 @@ class ListsController extends Controller
         return view('lists');
 
 //        return view('lists', compact('items'));
+    }
+
+    public function index()
+    {
+        $items = Item::whereNull('parent_id')->get();
+        return $items;
     }
 
     public function filter(Request $request)
@@ -81,6 +87,11 @@ class ListsController extends Controller
     public function show($id)
     {
         $item = Item::find($id);
+
+        //If the user clicked on 'home'
+//        if (!$item) {
+//            return Item::whereNull('parent_id')->get();
+//        }
 
         return [
             //Doing ->get() so that the children don't end up

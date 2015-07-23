@@ -10,6 +10,9 @@ app.factory('ListsFactory', function ($http) {
 
             return $http.get($url);
         },
+        goHome: function () {
+            return $http.get('/items');
+        },
         filter: function ($typing) {
             var $url = 'filter';
             var $data = {
