@@ -399,6 +399,8 @@ li {
       font-size: 19px; }
   .item .item-content {
     margin-left: 20px; }
+  .item .highlight {
+    background: lightblue; }
 
 body.browser-height {
   box-sizing: border-box; }

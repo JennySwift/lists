@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Lists;
 
-use App\Item;
+use App\Models\Item;
 use Illuminate\Http\Request;
 use JavaScript;
 
@@ -30,6 +30,7 @@ class ListsController extends Controller
     {
         $items = Item::whereNull('parent_id')->get();
 
+
         JavaScript::put([
             'items' => $items,
             'base_path' => base_path()
@@ -45,7 +46,7 @@ class ListsController extends Controller
         $typing = '%' . $request->get('typing') . '%';
 
         $items = Item::where('title', 'LIKE', $typing)
-            ->whereIn('id', $descendant_ids)
+//            ->whereIn('id', $item->descendants)
             ->get();
 
         return $items;

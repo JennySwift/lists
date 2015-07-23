@@ -10,9 +10,8 @@ app.factory('ListsFactory', function ($http) {
 
             return $http.get($url);
         },
-        filter: function () {
+        filter: function ($typing) {
             var $url = 'filter';
-            var $typing = $("#filter").val();
             var $data = {
                 typing: $typing
             };

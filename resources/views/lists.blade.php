@@ -15,7 +15,7 @@
 <div ng-controller="ListsController" id="lists" class="container">
 
     <div id="search-container">
-        <input ng-keyup="filter()" type="text" placeholder="search" id="filter"/>
+        <input ng-keyup="filter($event.keyCode)" type="text" placeholder="search" id="filter"/>
     </div>
 
     <div id="breadcrumb">

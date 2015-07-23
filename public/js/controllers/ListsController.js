@@ -47,15 +47,32 @@ var app = angular.module('lists');
                 });
         };
 
-        $scope.filter = function () {
-            ListsFactory.filter()
+        $scope.filter = function ($keycode) {
+            if ($keycode !== 13) {
+                return false;
+            }
+            var $typing = $("#filter").val();
+            ListsFactory.filter($typing)
                 .then(function (response) {
                     //console.log(response.data);
-                    $scope.items = response.data;
+                    $scope.items = $scope.highlightLetters(response.data, $typing);
                 })
                 .catch(function (response) {
 
                 });
+        };
+
+        $scope.highlightLetters = function ($response, $typing) {
+            $typing = $typing.toLowerCase();
+
+            for (var i = 0; i < $response.length; i++) {
+                var $title = $response[i].title;
+                var $index = $title.toLowerCase().indexOf($typing);
+                var $substr = $title.substr($index, $typing.length);
+                var $html = $title.replace($substr, '<span class="highlight">' + $substr + '</span>');
+                $response[i].html = $html;
+            }
+            return $response;
         };
 
         /**

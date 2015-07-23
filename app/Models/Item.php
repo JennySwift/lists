@@ -1,16 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Item
- * @package App
- */
 class Item extends Model
 {
-
     protected $guarded = ['id', 'user_id', 'parent_id'];
 
     protected $appends = ['path', 'has_children'];
@@ -32,7 +27,7 @@ class Item extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('\App\Item');
+        return $this->belongsTo('\App\Models\Item');
     }
 
     /**
@@ -41,7 +36,7 @@ class Item extends Model
      */
     public function children()
     {
-        return $this->hasMany('\App\Item', 'parent_id');
+        return $this->hasMany('\App\Models\Item', 'parent_id');
     }
 
     /**
@@ -124,5 +119,4 @@ class Item extends Model
         return $descendant_ids;
 
     }
-
 }
