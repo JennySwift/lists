@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <ul>
+    <ul id="items">
         <li ng-repeat="item in items" ng-include src="'ItemTemplate'">
 
 

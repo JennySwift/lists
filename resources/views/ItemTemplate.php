@@ -1,4 +1,4 @@
-<div class="item">
+<div drag-directive class="item">
 
     <div class="before-item">
         <button ng-click="deleteItem(item)" class="btn-danger btn-xs delete-item">delete</button>
