@@ -175,5 +175,5 @@ var app = angular.module('lists');
         };
 
     }); //end controller
-    
+
 })();

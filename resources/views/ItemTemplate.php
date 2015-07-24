@@ -1,4 +1,6 @@
-<div drag-directive class="item">
+<drag-directive
+    something="item"
+    class="item">
 
     <div class="before-item">
         <button ng-click="deleteItem(item)" class="btn-danger btn-xs delete-item">delete</button>
@@ -26,7 +28,7 @@
     <div ng-if="!item.html" class="item-content">[[item.title]]</div>
     <div>ID: [[item.id]]</div>
 
-</div>
+</drag-directive>
 
 <ul ng-if="item.children">
     <li
