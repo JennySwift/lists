@@ -1,6 +1,7 @@
 <div class="item">
 
     <div class="before-item">
+        <button ng-click="deleteItem(item)" class="btn-danger btn-xs delete-item">delete</button>
         <i
             ng-click="zoom(item)"
             class="fa fa-search-plus">
@@ -23,6 +24,7 @@
 
     <div ng-if="item.html" ng-bind-html="item.html" class="item-content"></div>
     <div ng-if="!item.html" class="item-content">[[item.title]]</div>
+    <div>ID: [[item.id]]</div>
 
 </div>
 

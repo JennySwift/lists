@@ -85,7 +85,7 @@ Route::controllers([
  * Resources
  */
 
-Route::resource('items', 'Lists\ListsController', ['only' => ['index', 'show']]);
+Route::resource('items', 'Lists\ListsController', ['only' => ['index', 'show', 'store', 'destroy']]);
 
 /**
  * Ajax

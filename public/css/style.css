@@ -394,7 +394,7 @@ li {
   .item:hover .fa-search-plus {
     visibility: visible; }
   .item .before-item {
-    flex-basis: 42px;
+    flex-basis: 101px;
     display: flex;
     justify-content: space-between;
     align-items: center; }
@@ -403,7 +403,12 @@ li {
     .item .before-item .fa-search-plus, .item .before-item .fa-plus {
       font-size: 19px; }
   .item .item-content {
-    margin-left: 20px; }
+    margin-left: 20px;
+    margin-right: 23px; }
+  .item:hover .delete-item {
+    display: inline; }
+  .item .delete-item {
+    display: none; }
   .item .highlight {
     background: lightblue; }
 

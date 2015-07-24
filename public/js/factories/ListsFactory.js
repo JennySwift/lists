@@ -20,11 +20,27 @@ app.factory('ListsFactory', function ($http) {
             };
 
             return $http.post($url, $data);
-        }
+        },
 
         /**
          * insert
          */
+
+        insertItem: function ($zoomed_item, $new_item) {
+            if ($zoomed_item) {
+                $parent_id = $zoomed_item.id;
+            }
+            else {
+                $parent_id = null;
+            }
+            var $url = '/items';
+            var $data = {
+                parent_id: $parent_id,
+                new_item: $new_item
+            };
+
+            return $http.post($url, $data);
+        },
 
         /**
          * update
@@ -33,5 +49,11 @@ app.factory('ListsFactory', function ($http) {
         /**
          * delete
          */
+
+        deleteItem: function ($item) {
+            var $url = $item.path;
+
+            return $http.delete($url);
+        }
     };
 });

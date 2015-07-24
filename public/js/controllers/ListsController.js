@@ -12,6 +12,10 @@ var app = angular.module('lists');
             base: base_path,
             test: base_path + '/resources/views/test.php'
         };
+        $scope.new_item = {
+            title: '',
+            body: ''
+        };
 
         /**
          * watches
@@ -34,7 +38,7 @@ var app = angular.module('lists');
         $scope.goHome = function () {
             ListsFactory.goHome()
                 .then(function (response) {
-                    $scope.items = response.data;
+                    $scope.showHome(response);
                 })
                 .catch(function (response) {
 
@@ -48,13 +52,39 @@ var app = angular.module('lists');
         $scope.zoom = function ($item) {
             ListsFactory.getChildren($item)
                 .then(function (response) {
-                    $item.children = response.data.children;
-                    $scope.items = [$item];
-                    $scope.breadcrumb = response.data.breadcrumb;
+                    $scope.showChildren(response, $item);
                 })
                 .catch(function (response) {
 
                 });
+        };
+
+        $scope.showChildren = function (response, $item) {
+            $item.children = response.data.children;
+            $scope.items = [$item];
+            $scope.breadcrumb = response.data.breadcrumb;
+            $scope.zoomed_item = $item;
+        };
+
+        $scope.insertItem = function () {
+            ListsFactory.insertItem($scope.zoomed_item, $scope.new_item)
+                .then(function (response) {
+                    if ($scope.zoomed_item) {
+                        $scope.showChildren(response, $scope.zoomed_item);
+                    }
+                    else {
+                        $scope.showHome(response);
+                    }
+                })
+                .catch(function (response) {
+
+                });
+        };
+
+        $scope.showHome = function (response) {
+            $scope.items = response.data;
+            $scope.zoomed_item = null;
+            $scope.breadcrumb = [];
         };
 
         $scope.filter = function ($keycode) {
@@ -86,16 +116,52 @@ var app = angular.module('lists');
         };
 
         /**
-         * insert
-         */
-
-        /**
          * update
          */
 
         /**
          * delete
          */
+
+        $scope.deleteItem = function ($item) {
+            ListsFactory.deleteItem($item)
+                .then(function (response) {
+                    if (!$item.parent_id) {
+                        $scope.items = _.without($scope.items, $item);
+                        return true;
+                    }
+                    else {
+                        /**
+                         * @VP:
+                         * Why is $parent undefined? If I set a breakpoint on 'return $parent' in $scope.findParent,
+                         * $parent is the correct value, but then the debugger lands there again and it is undefined.
+                         */
+                        var $parent = $scope.findParent($scope.items, $item);
+                        //console.log($parent);
+                    }
+                })
+                .catch(function (response) {
+
+                });
+        };
+
+        $scope.findParent = function($array, $item) {
+            var $parent;
+             $($array).each(function () {
+                if (this.id === $item.parent_id) {
+                    this.children = _.without(this.children, $item);
+                    return $parent = this;
+                }
+                if (this.children) {
+                    $scope.findParent(this.children, $item);
+                }
+            });
+            return $parent;
+        };
+
+        //$scope.deleteJsItem = function () {
+        //
+        //};
 
         /**
          * other

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Lists;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use JavaScript;
+use Auth;
+use Debugbar;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -73,9 +75,35 @@ class ListsController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $parent_id = $request->get('parent_id');
+        $new_item = $request->get('new_item');
+        Debugbar::info('request', $request->all());
+
+        $item = new Item([
+            'title' => $new_item['title'],
+            'body' => $new_item['body']
+        ]);
+
+        if ($parent_id) {
+            $item->parent_id = $parent_id;
+        }
+
+        $item->user()->associate(Auth::user());
+        $item->save();
+
+        return $this->showSomething($parent_id);
+    }
+
+    public function showSomething($parent_id)
+    {
+        if ($parent_id) {
+            return $this->show($parent_id);
+        }
+        else {
+            return $this->index();
+        }
     }
 
     /**
@@ -131,6 +159,8 @@ class ListsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        $item->delete();
+//        return $this->showSomething($item->parent_id);
     }
 }

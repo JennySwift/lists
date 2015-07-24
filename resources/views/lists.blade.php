@@ -18,6 +18,12 @@
         <input ng-keyup="filter($event.keyCode)" type="text" placeholder="search" id="filter"/>
     </div>
 
+    <div id="new-item">
+        <input ng-model="new_item.title" type="text" placeholder="title"/>
+        <input ng-model="new_item.body" type="text" placeholder="body"/>
+        <button ng-click="insertItem()" class="btn btn-success">Add item</button>
+    </div>
+
     <div id="breadcrumb">
         <div>
             <a ng-click="goHome()">Home</a>
