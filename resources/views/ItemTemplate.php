@@ -1,6 +1,6 @@
-<drag-directive
-    something="item"
-    class="item">
+<div class="guide"></div>
+
+<div class="item"">
 
     <div class="before-item">
         <button ng-click="deleteItem(item)" class="btn-danger btn-xs delete-item">delete</button>
@@ -24,11 +24,29 @@
         </i>
     </div>
 
-    <div ng-if="item.html" ng-bind-html="item.html" class="item-content"></div>
-    <div ng-if="!item.html" class="item-content">[[item.title]]</div>
+    <drag-directive
+        something="item"
+        items="items"
+        ng-if="item.html"
+        ng-bind-html="item.html"
+        ng-mousedown="mouseDown($event, item)"
+        class="item-content">
+    </drag-directive>
+
+    <drag-directive
+        something="item"
+        items="items"
+        ng-if="!item.html"
+        ng-mousedown="mouseDown($event, item)"
+        class="item-content">
+        [[item.title]]
+    </drag-directive>
+
     <div>ID: [[item.id]]</div>
 
-</drag-directive>
+    <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
+
+</div>
 
 <ul ng-if="item.children">
     <li

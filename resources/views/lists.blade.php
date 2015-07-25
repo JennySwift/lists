@@ -35,7 +35,9 @@
         </div>
     </div>
 
-    <ul id="items">
+    {{--<button ng-click="onTest()">on test</button>--}}
+
+    <ul ng-mousemove="mouseMove($event)" id="items">
         <li ng-repeat="item in items"
             ng-include src="'ItemTemplate'"
             class="item-with-children">

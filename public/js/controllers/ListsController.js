@@ -124,39 +124,50 @@ var app = angular.module('lists');
          */
 
         $scope.deleteItem = function ($item) {
+            //var $parent = $scope.findParent($scope.items, $item);
+            //console.log($parent);
             ListsFactory.deleteItem($item)
                 .then(function (response) {
-                    if (!$item.parent_id) {
-                        $scope.items = _.without($scope.items, $item);
-                        return true;
-                    }
-                    else {
-                        /**
-                         * @VP:
-                         * Why is $parent undefined? If I set a breakpoint on 'return $parent' in $scope.findParent,
-                         * $parent is the correct value, but then the debugger lands there again and it is undefined.
-                         */
-                        var $parent = $scope.findParent($scope.items, $item);
-                        //console.log($parent);
-                    }
+                    var $parent = $scope.findParent($scope.items, $item);
+                    console.log($parent);
+                    console.log($parent.children);
+                    $scope.deleteJsItem($parent, $item);
+
                 })
                 .catch(function (response) {
 
                 });
         };
 
+        $scope.deleteJsItem = function ($parent, $item) {
+            if ($parent) {
+                $parent.children = _.without($parent.children, $item);
+            }
+            else {
+                $scope.items = _.without($scope.items, $item);
+            }
+        };
+
+        var $parent;
         $scope.findParent = function($array, $item) {
-            var $parent;
-             $($array).each(function () {
+            if (!$item.parent_id) {
+                return false;
+            }
+            $($array).each(function () {
                 if (this.id === $item.parent_id) {
-                    this.children = _.without(this.children, $item);
-                    return $parent = this;
+                    $parent = this;
+                    return false;
                 }
                 if (this.children) {
                     $scope.findParent(this.children, $item);
                 }
             });
             return $parent;
+        };
+
+        $scope.moveUp = function ($item, $index) {
+            $scope.items.splice($index, 1);
+            $scope.items.splice($index - 1, 0, $item);
         };
 
         //$scope.deleteJsItem = function () {
@@ -173,6 +184,143 @@ var app = angular.module('lists');
                 $scope.show.popups[$popup] = false;
             }
         };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //$scope.mouseDown = function (event, $item) {
+    //    event.preventDefault();
+    //    $scope.item = $item;
+    //    $scope.parent = $scope.findParentForMove($scope.items, $scope.item);
+    //    $scope.mouseMoveListen = true;
+    //    $scope.originalX = event.pageX;
+    //    $scope.originalY = event.pageY;
+    //    $scope.positionsMoved = 0;
+    //    $scope.guidePosition = $scope.getItemIndex();
+    //};
+    //
+    //    //$scope.something = function (e) {
+    //    //    $("body").on('mousemove', function (e) {
+    //    //        console.log($event);
+    //    //    });
+    //    //};
+    //
+    //    $scope.getItemIndex = function () {
+    //        if ($scope.parent) {
+    //            $scope.index = $scope.parent.indexOf($scope.item);
+    //        }
+    //        else {
+    //            $scope.index = $scope.items.indexOf($scope.item);
+    //        }
+    //        return $scope.index;
+    //    };
+    //
+    //    $scope.moveGuide = function ($pxToMoveGuide) {
+    //        $($scope.elem).prev('.guide').css({
+    //            display: 'block',
+    //            position: 'relative',
+    //            top: $pxToMoveGuide + 'px'
+    //        });
+    //    };
+    //
+    //    $scope.moveItem = function () {
+    //        $scope.getItemIndex();
+    //        $scope.items.splice($scope.index, 1);
+    //        $scope.items.splice($scope.index + $scope.positionsMoved, 0, $scope.item);
+    //        //$scope.$apply();
+    //    };
+    //
+    //    $scope.hideGuide = function () {
+    //        $($scope.elem).prev('.guide').css({
+    //            display: 'none'
+    //        });
+    //    };
+    //
+    //    $scope.mouseMove = function (event) {
+    //        if (!$scope.mouseMoveListen) {
+    //            return false;
+    //        }
+    //        $scope.diffX = event.pageX - $scope.originalX;
+    //        $scope.diffY = event.pageY - $scope.originalY;
+    //        $scope.elem = event.target;
+    //        var $pxToMoveGuide;
+    //
+    //
+    //        var $prevHeight = parseInt($($scope.elem).parent().children().eq($scope.guidePosition - 1).css('height'));
+    //        var $nextHeight = parseInt($($scope.elem).parent().children().eq(2).css('height'));
+    //        var $thisHeight = parseInt($($scope.elem).css('height'));
+    //
+    //        if ($scope.diffY >= $nextHeight) {
+    //            $scope.positionsMoved = 1;
+    //            $pxToMoveGuide = $nextHeight + $thisHeight;
+    //        }
+    //        else if ($scope.diffY <= ($prevHeight * -1)) {
+    //            $scope.positionsMoved = -1;
+    //            $pxToMoveGuide = -$prevHeight;
+    //        }
+    //        //console.log('diffY: ' + $scope.diffY);
+    //        //console.log('prevHeight: ' + $prevHeight);
+    //        //console.log('nextHeight: ' + $nextHeight);
+    //        //console.log('scope.guidePosition: ' + $scope.guidePosition);
+    //
+    //        //if ($diffY > 0) {
+    //        //    $scope.positionsMoved = Math.floor($diffY / 33);
+    //        //}
+    //        //else {
+    //        //    $scope.positionsMoved = Math.ceil($diffY / 33);
+    //        //}
+    //
+    //        //var $moveGuide = $scope.positionsMoved * 33;
+    //
+    //        //console.log('diffY: ' + $diffY);
+    //        //console.log('positionsMoved: ' + $scope.positionsMoved);
+    //        //console.log('moveGuide: ' + $moveGuide);
+    //
+    //        if ($scope.positionsMoved !== 0) {
+    //            $scope.moveGuide($pxToMoveGuide);
+    //        }
+    //    };
+    //
+    //    $scope.findParentForMove = function($array, $item) {
+    //        var $parent;
+    //        if (!$item.parent_id) {
+    //            return false;
+    //        }
+    //        $($array).each(function () {
+    //            if (this.id === $item.parent_id) {
+    //                this.children = _.without(this.children, $item);
+    //                return $parent = this;
+    //            }
+    //            if (this.children) {
+    //                $scope.findParentForMove(this.children, $item);
+    //            }
+    //        });
+    //        return $parent;
+    //    };
+    //
+    //    $scope.mouseUp = function () {
+    //        //$("document").off('mousemove', $scope.mouseMove());
+    //        //$("document").off('mouseup', $scope.mouseUp());
+    //        $scope.mouseMoveListen = false;
+    //        $scope.moveItem();
+    //        $scope.hideGuide();
+    //    };
+    //
+    //    $("document").on('mouseup', $scope.mouseUp());
 
     }); //end controller
 
