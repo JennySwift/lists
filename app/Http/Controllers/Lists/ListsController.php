@@ -30,7 +30,9 @@ class ListsController extends Controller
      */
     public function pageLoad()
     {
-        $items = Item::whereNull('parent_id')->get();
+        $items = Item::whereNull('parent_id')
+            ->orderBy('index', 'asc')
+            ->get();
 
 
         JavaScript::put([
@@ -45,7 +47,9 @@ class ListsController extends Controller
 
     public function index()
     {
-        $items = Item::whereNull('parent_id')->get();
+        $items = Item::whereNull('parent_id')
+            ->orderBy('index', 'asc')
+            ->get();
         return $items;
     }
 
@@ -146,9 +150,38 @@ class ListsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        //
+        $old_index = $request->get('old_index');
+        $new_index = $request->get('new_index');
+        $parent_id = $request->get('parent_id');
+
+        //Update the siblings
+        if ($new_index > $old_index) {
+
+        }
+        else if ($new_index < $old_index) {
+            Item::where('parent_id', $parent_id)
+                ->where('index', '>=', $new_index)
+                ->where('index', '<', $old_index)
+                ->increment('index');
+//            if ($parent_id) {
+//                Item::where('parent_id', $parent_id)
+//                    ->where('index', '>=', $new_index)
+//                    ->increment('index');
+//            }
+//            else {
+//                Item::whereNull('parent_id')
+//                    ->where('index', '>=', $new_index)
+//                    ->increment('index');
+//            }
+
+        }
+
+        //Update the item
+        $item = Item::find($id);
+        $item->index = $new_index;
+        $item->save();
     }
 
     /**

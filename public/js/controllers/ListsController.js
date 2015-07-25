@@ -16,6 +16,7 @@ var app = angular.module('lists');
             title: '',
             body: ''
         };
+        $scope.newIndex = -1;
 
         /**
          * watches

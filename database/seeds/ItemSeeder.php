@@ -79,39 +79,39 @@ class ItemSeeder extends Seeder
 //        if ($item->parent) {
 //            var_dump($item->parent->id);
 //        }
-        $item->order_number = $this->getOrderNumber($item);
+        $item->index = $this->getIndex($item);
 
         $item->save();
 
         return $item;
     }
 
-    private function getOrderNumber($item)
+    private function getIndex($item)
     {
 //        if (!$item->lastSibling()) {
 //            var_dump('none');
 //            return 1;
 //        }
-//        dd($item->lastSibling()->order_number);
+//        dd($item->lastSibling()->index);
 //        var_dump($item->lastSibling()->id);
 //        if ($item->parent) {
 //            var_dump($item->parent->id);
 //        }
 
 //        if ($item->lastSibling()) {
-//            var_dump($item->lastSibling()->order_number);
+//            var_dump($item->lastSibling()->index);
 //        }
 //
 //        return 4;
 ////        return 1;
 
         if ($item->lastSibling()) {
-            $num = $item->lastSibling()->order_number;
+            $num = $item->lastSibling()->index;
             $num+=1;
-            var_dump($item->lastSibling()->id);
+//            var_dump($item->lastSibling()->id);
         }
         else {
-            $num = 1;
+            $num = 0;
         }
 
         return $num;

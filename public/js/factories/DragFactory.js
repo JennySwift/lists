@@ -17,5 +17,9 @@ app.factory('DragFactory', function ($http) {
         return $parent;
     };
 
+    $object.setNewIndex = function ($index) {
+        $object.newIndex = $index;
+    };
+
     return $object;
 });

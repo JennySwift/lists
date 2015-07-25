@@ -26,11 +26,12 @@
 
     <drag-directive
         something="item"
-        items="items">
+        items="items"
+        newIndex="newIndex">
     </drag-directive>
 
     <div>ID: [[item.id]]</div>
-    <div class="order-number">#: <span class="badge">[[item.order_number]]</span></div>
+    <div class="order-number">#: <span class="badge">[[item.index]]</span></div>
 
     <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
 

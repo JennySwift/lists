@@ -1,7 +1,8 @@
 <div
     ng-if="!item.html"
     ng-mousedown="mouseDown($event, item)"
-    ng-mouseover="mouseOver(item)"
+    ng-mouseover="mouseOver(item, $event)"
+    ng-mouseleave="mouseLeave(item, $event)"
     class="item-content">
     [[item.title]]
 </div>
@@ -9,6 +10,8 @@
 <div
     ng-if="item.html"
     ng-mousedown="mouseDown($event, item)"
+    ng-mouseover="mouseOver(item, $event)"
+    ng-mouseleave="mouseLeave(item, $event)"
     ng-bind-html="item.html"
     class="item-content">
 </div>
@@ -22,6 +25,10 @@
         <li class="list-group-item">
             diffY:
             <span class="badge">[[diffY]]</span>
+        </li>
+        <li class="list-group-item">
+            newIndex:
+            <span class="badge">[[newIndex]]</span>
         </li>
     </ul>
 </div>

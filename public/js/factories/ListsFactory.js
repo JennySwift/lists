@@ -46,6 +46,17 @@ app.factory('ListsFactory', function ($http) {
          * update
          */
 
+        updateIndex: function ($item, $new_index) {
+            var $url = $item.path;
+            var $data = {
+                old_index: $item.index,
+                new_index: $new_index,
+                parent_id: $item.parent_id
+            };
+
+            return $http.put($url, $data);
+        },
+
         /**
          * delete
          */
