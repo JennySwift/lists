@@ -386,6 +386,10 @@ li {
   z-index: 9999;
   min-width: 200px; }
 
+.order-number {
+  position: absolute;
+  left: 0px; }
+
 #search-container {
   display: flex;
   justify-content: center; }

@@ -41,18 +41,29 @@ class Item extends Model
 
     public function siblings()
     {
-        if ($this->parent) {
-            $siblings_and_item = $this->parent->children;
+//        if ($this->parent) {
+//            $siblings_and_item = $this->parent->children;
+//        }
+//        else {
+//            $siblings_and_item = Item::whereNull('parent_id')->get();
+//        }
+//        return $siblings_and_item->except($this->id);
+        if (!$this->parent) {
+            return Item::whereNull('parent_id')
+                ->where('id', '!=', $this->id)
+                ->get();
         }
-        else {
-            $siblings_and_item = Item::whereNull('parent_id')->get();
-        }
-        return $siblings_and_item->except($this->id);
+        return Item::where('parent_id', $this->parent_id)
+            ->where('id', '!=', $this->id)
+            ->get();
     }
 
     public function lastSibling()
     {
 //        return last($this->siblings()->toArray());
+        if (!$this->siblings()) {
+            return false;
+        }
         return $this->siblings()->last();
     }
 

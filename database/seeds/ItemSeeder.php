@@ -104,9 +104,11 @@ class ItemSeeder extends Seeder
 //
 //        return 4;
 ////        return 1;
+
         if ($item->lastSibling()) {
             $num = $item->lastSibling()->order_number;
             $num+=1;
+            var_dump($item->lastSibling()->id);
         }
         else {
             $num = 1;

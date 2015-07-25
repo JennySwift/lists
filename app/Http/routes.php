@@ -27,7 +27,7 @@ Route::get('/test', function()
 {
     $item = Item::find(7);
     //dd($item);
-    return $item->lastSibling();
+    return $item->siblings();
 });
 //ng-includes
 
