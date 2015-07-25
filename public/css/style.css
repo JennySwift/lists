@@ -20,6 +20,9 @@ html, body {
   background: #fff; }
 
 body {
+  position: relative; }
+
+body {
   padding-top: 63px;
   color: #777; }
   @media (max-width: 600px) {
@@ -376,6 +379,13 @@ li {
     font-size: 19px;
     margin: 0 21px; }
 
+.debug-info {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 9999;
+  min-width: 200px; }
+
 #search-container {
   display: flex;
   justify-content: center; }
@@ -388,8 +398,7 @@ li {
 .guide {
   width: 100%;
   height: 2px;
-  background: #777;
-  display: none; }
+  background: #777; }
 
 .item {
   display: flex;

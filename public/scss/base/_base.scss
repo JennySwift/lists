@@ -6,6 +6,11 @@ html, body {
     background: #fff;
 }
 
+//for positioning my debug info absolute
+body {
+    position: relative;
+}
+
 body {
 	padding-top: 63px;
     color: #777;

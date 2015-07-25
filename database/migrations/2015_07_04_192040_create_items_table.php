@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('title');
             $table->text('body')->nullable();
+            $table->integer('order_number');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

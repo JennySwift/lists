@@ -26,23 +26,11 @@
 
     <drag-directive
         something="item"
-        items="items"
-        ng-if="item.html"
-        ng-bind-html="item.html"
-        ng-mousedown="mouseDown($event, item)"
-        class="item-content">
-    </drag-directive>
-
-    <drag-directive
-        something="item"
-        items="items"
-        ng-if="!item.html"
-        ng-mousedown="mouseDown($event, item)"
-        class="item-content">
-        [[item.title]]
+        items="items">
     </drag-directive>
 
     <div>ID: [[item.id]]</div>
+    <div>Order Number: <span class="badge">[[item.order_number]]</span></div>
 
     <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
 

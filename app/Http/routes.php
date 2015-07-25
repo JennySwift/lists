@@ -4,7 +4,7 @@
  * Views
  */
 
-use App\Item;
+use App\Models\Item;
 
 Route::get('/', 'Lists\ListsController@pageLoad');
 
@@ -14,15 +14,21 @@ Route::get('/credits', function()
     return view('credits');
 });
 
+//Route::get('/test', function()
+//{
+//    $item = Item::find(13);
+//
+//    dd($item->ancestors()->lists('id')->toArray());
+//
+//    return collect($item->breadcrumb())->lists('id');
+//});
+
 Route::get('/test', function()
 {
-    $item = Item::find(13);
-
-    dd($item->ancestors()->lists('id')->toArray());
-
-    return collect($item->breadcrumb())->lists('id');
+    $item = Item::find(7);
+    //dd($item);
+    return $item->lastSibling();
 });
-
 //ng-includes
 
 /**

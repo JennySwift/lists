@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $guarded = ['id', 'user_id', 'parent_id'];
+    protected $guarded = ['id', 'user_id', 'parent_id', 'order_number'];
 
     protected $appends = ['path', 'has_children'];
 
@@ -38,6 +38,28 @@ class Item extends Model
     {
         return $this->hasMany('\App\Models\Item', 'parent_id');
     }
+
+    public function siblings()
+    {
+        if ($this->parent) {
+            $siblings_and_item = $this->parent->children;
+        }
+        else {
+            $siblings_and_item = Item::whereNull('parent_id')->get();
+        }
+        return $siblings_and_item->except($this->id);
+    }
+
+    public function lastSibling()
+    {
+//        return last($this->siblings()->toArray());
+        return $this->siblings()->last();
+    }
+
+//    public function lastSibling()
+//    {
+//        return $this->parent()-
+//    }
 
     /**
      * Return the URL of the project

@@ -5,14 +5,15 @@
         .directive('dragDirective', drag);
 
     /* @inject */
-    function drag($document, ListsFactory) {
+    function drag($document, ListsFactory, DragFactory) {
         return {
             restrict: 'EA',
             scope: {
                 item: '=something',
                 items: '=items'
             },
-            //templateUrl: 'templates/DragTemplate.php',
+            //replace: true,
+            templateUrl: 'templates/DragTemplate.php',
             //scope: true,
             link: function($scope, elem, attrs) {
                 var $guide = $(elem).closest('.item').prev('.guide');
@@ -27,6 +28,16 @@
                     $document.on('mouseup', mouseup);
                 });
 
+                //elem.on('mouseover', function () {
+                //    $(this).addClass('highlight');
+                //}).on('mouseleave', function () {
+                //    $(this).removeClass('highlight');
+                //});
+
+                $scope.mouseOver = function ($item) {
+                    console.log($item);
+                };
+
                 $scope.getItemIndex = function () {
                     if ($scope.parent) {
                         $scope.index = $scope.parent.indexOf($scope.item);
@@ -37,13 +48,11 @@
                     return $scope.index;
                 };
 
-                $scope.moveGuide = function ($pxToMoveGuide) {
-                    $($guide).css({
-                        display: 'block',
-                        position: 'relative',
-                        top: $pxToMoveGuide + 'px'
-                    });
+                $scope.findParent = function($array, $item) {
+                    return DragFactory.findParent($array, $item);
                 };
+
+                $scope.parent = $scope.findParent($scope.items, $scope.item);
 
                 $scope.moveItem = function () {
                     $scope.getItemIndex();
@@ -52,22 +61,11 @@
                     $scope.$apply();
                 };
 
-                $scope.$watch('items', function (newValue, oldValue) {
-                    console.log(newValue);
-                });
-
-                $scope.hideGuide = function () {
-                    $($guide).css({
-                        display: 'none'
-                    });
-                };
-
                 function mousemove (event) {
                     $scope.diffX = event.pageX - $scope.originalX;
                     $scope.diffY = event.pageY - $scope.originalY;
                     var $pxToMoveGuide;
                     var $li = $(elem).closest('.item-with-children').children();
-
 
                     var $prevHeight = parseInt($($li).eq($scope.guidePosition - 1).css('height'));
                     var $nextHeight = parseInt($($li).eq($scope.guidePosition + 1).css('height'));
@@ -81,47 +79,25 @@
                         $scope.positionsMoved = -1;
                         $pxToMoveGuide = -$prevHeight;
                     }
-                    //console.log('diffY: ' + $scope.diffY);
-                    //console.log('prevHeight: ' + $prevHeight);
-                    //console.log('nextHeight: ' + $nextHeight);
-                    //console.log('scope.guidePosition: ' + $scope.guidePosition);
-                    console.log($(elem).siblings());
-
-                    //if ($diffY > 0) {
-                    //    $scope.positionsMoved = Math.floor($diffY / 33);
-                    //}
-                    //else {
-                    //    $scope.positionsMoved = Math.ceil($diffY / 33);
-                    //}
-
-                    //var $moveGuide = $scope.positionsMoved * 33;
-
-                    //console.log('diffY: ' + $diffY);
-                    //console.log('positionsMoved: ' + $scope.positionsMoved);
-                    //console.log('moveGuide: ' + $moveGuide);
 
                     if ($scope.positionsMoved !== 0) {
                         $scope.moveGuide($pxToMoveGuide);
                     }
                 }
 
-                $scope.findParent = function($array, $item) {
-                    var $parent;
-                    if (!$item.parent_id) {
-                        return false;
-                    }
-                    $($array).each(function () {
-                        if (this.id === $item.parent_id) {
-                            return $parent = this;
-                        }
-                        if (this.children) {
-                            $scope.findParent(this.children, $item);
-                        }
-                    });
-                    return $parent;
+                $scope.moveGuide = function ($pxToMoveGuide) {
+                    //$($guide).css({
+                    //    display: 'block',
+                    //    position: 'relative',
+                    //    top: $pxToMoveGuide + 'px'
+                    //});
                 };
 
-                $scope.parent = $scope.findParent($scope.items, $scope.item);
+                $scope.hideGuide = function () {
+                    //$($guide).css({
+                    //    display: 'none'
+                    //});
+                };
 
                 function mouseup (event) {
                     $document.off('mousemove', mousemove);
