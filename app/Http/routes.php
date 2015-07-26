@@ -27,7 +27,7 @@ Route::get('/test', function()
 {
     $item = Item::find(7);
     //dd($item);
-    return $item->siblings();
+    return $item->pathToItem;
 });
 //ng-includes
 

@@ -386,10 +386,6 @@ li {
   z-index: 9999;
   min-width: 200px; }
 
-.order-number {
-  position: absolute;
-  left: 0px; }
-
 #search-container {
   display: flex;
   justify-content: center; }
@@ -413,7 +409,8 @@ li {
   .item:hover .fa-search-plus {
     visibility: visible; }
   .item .before-item {
-    flex-basis: 101px;
+    flex-basis: 131px;
+    min-width: 131px;
     display: flex;
     justify-content: space-between;
     align-items: center; }
@@ -426,9 +423,9 @@ li {
     margin-right: 23px;
     cursor: move; }
   .item:hover .delete-item {
-    display: inline; }
+    visibility: visible; }
   .item .delete-item {
-    display: none; }
+    visibility: hidden; }
   .item .highlight {
     background: lightblue; }
 

@@ -27,46 +27,20 @@
 
                 elem.on('mousedown', function (event) {
                     event.preventDefault();
-                    //$scope.originalX = event.pageX;
-                    //$scope.originalY = event.pageY;
-                    //$scope.positionsMoved = 0;
-                    //$scope.guidePosition = $scope.getItemIndex();
-                    $document.on('mousemove', mousemove);
                     $document.on('mouseup', mouseup);
                 });
-
-                //elem.on('mouseover', function () {
-                //    $(this).addClass('highlight');
-                //}).on('mouseleave', function () {
-                //    $(this).removeClass('highlight');
-                //});
-
-                //$("body").on('mouseover', '.item-content', function (event) {
-                //    $scope.mouseOver(this, event);
-                //});
 
                 $scope.mouseOver = function ($item, $event) {
                     $($event.target).addClass('highlight');
                     DragFactory.setNewIndex($item.index);
-                    //$scope.$apply();
                 };
 
                 $scope.mouseLeave = function ($item, $event) {
                     $($event.target).removeClass('highlight');
                 };
 
-                //$scope.getItemIndex = function () {
-                //    if ($scope.parent) {
-                //        $scope.index = $scope.parent.indexOf($scope.item);
-                //    }
-                //    else {
-                //        $scope.index = $scope.items.indexOf($scope.item);
-                //    }
-                //    return $scope.index;
-                //};
-
-                $scope.findParent = function($array, $item) {
-                    return DragFactory.findParent($array, $item);
+                $scope.findParent = function() {
+                    return DragFactory.findParent($scope.items, $scope.item);
                 };
 
                 /**
@@ -77,27 +51,61 @@
                     return DragFactory.findSiblingsWithItem($scope.items, $scope.item);
                 };
 
-                $scope.parent = $scope.findParent($scope.items, $scope.item);
+                $scope.parent = $scope.findParent();
+                $scope.siblingsWithItem = $scope.findSiblingsWithItem();
 
+                /**
+                 * Update the index properties of the items with the JS
+                 */
                 $scope.updateJsIndexes = function () {
-                    var $siblings_with_item = $scope.findSiblingsWithItem();
-                    for (var i = 0; i < $siblings_with_item.length; i++) {
-                        $siblings_with_item[i].index = i;
+                    var $siblings = $scope.jsMoveItem();
+
+                    for (var i = 0; i < $siblings.length; i++) {
+                        $siblings[i].index = i;
                     }
                 };
+
+                //Siblings includes item
+
+                $scope.jsMoveItem = function () {
+                    var $parent = $scope.findParent();
+                    var $siblings;
+
+                    if ($parent) {
+                        $parent.children.splice($scope.item.index, 1);
+                        $parent.children.splice($scope.newIndex, 0, $scope.item);
+                        $siblings = $parent.children;
+                    }
+                    else {
+                        $scope.items.splice($scope.item.index, 1);
+                        $scope.items.splice($scope.newIndex, 0, $scope.item);
+                        $siblings = $scope.items;
+                    }
+
+                    return $siblings;
+                };
+
+                //$scope.getPathToItem = function () {
+                //    var $short_path = $scope.item.path_to_item;
+                //    var $long_path;
+                //
+                //    var $oldest_ancestor = $scope.items[$short_path[0]];
+                //
+                //    $scope.items[$short_path[0]].title = 'hi';
+                //
+                //    //$long_path = $oldest_ancestor.children[$short_path[1]];
+                //};
+
+                //$scope.getPathToItem();
 
                 function provideFeedback ($message) {
                     FeedbackFactory.provideFeedback($message);
                 };
 
                 $scope.moveItem = function () {
-                    //$scope.getItemIndex();
-                    $scope.items.splice($scope.item.index, 1);
-                    $scope.items.splice($scope.newIndex, 0, $scope.item);
                     ListsFactory.updateIndex($scope.item, $scope.newIndex)
                         .then(function (response) {
                             provideFeedback('Item moved');
-                            //Todo: Don't need to wait for the response for this.
                             //Todo: Make moving item down work, too.
                         })
                         .catch(function (response) {
@@ -107,49 +115,12 @@
                     $scope.$apply();
                 };
 
-                function mousemove (event) {
-                    //$scope.diffX = event.pageX - $scope.originalX;
-                    //$scope.diffY = event.pageY - $scope.originalY;
-                    //var $pxToMoveGuide;
-                    //var $li = $(elem).closest('.item-with-children').children();
-                    //
-                    //var $prevHeight = parseInt($($li).eq($scope.guidePosition - 1).css('height'));
-                    //var $nextHeight = parseInt($($li).eq($scope.guidePosition + 1).css('height'));
-                    //var $thisHeight = parseInt($(elem).css('height'));
-                    //
-                    //if ($scope.diffY >= $nextHeight) {
-                    //    $scope.positionsMoved = 1;
-                    //    $pxToMoveGuide = $nextHeight + $thisHeight;
-                    //}
-                    //else if ($scope.diffY <= ($prevHeight * -1)) {
-                    //    $scope.positionsMoved = -1;
-                    //    $pxToMoveGuide = -$prevHeight;
-                    //}
-                    //
-                    //if ($scope.positionsMoved !== 0) {
-                    //    $scope.moveGuide($pxToMoveGuide);
-                    //}
-                }
-
-                $scope.moveGuide = function ($pxToMoveGuide) {
-                    //$($guide).css({
-                    //    display: 'block',
-                    //    position: 'relative',
-                    //    top: $pxToMoveGuide + 'px'
-                    //});
-                };
-
-                $scope.hideGuide = function () {
-                    //$($guide).css({
-                    //    display: 'none'
-                    //});
-                };
-
                 function mouseup (event) {
-                    $document.off('mousemove', mousemove);
                     $document.off('mouseup', mouseup);
-                    $scope.moveItem();
-                    $scope.hideGuide();
+
+                    if ($scope.newIndex !== $scope.item.index) {
+                        $scope.moveItem();
+                    }
                 }
 
             }

@@ -22,6 +22,7 @@
         <i
             ng-if="!item.has_children">
         </i>
+        <span class="badge">#: [[item.index]]</span>
     </div>
 
     <drag-directive
@@ -31,7 +32,6 @@
     </drag-directive>
 
     <div>ID: [[item.id]]</div>
-    <div class="order-number">#: <span class="badge">[[item.index]]</span></div>
 
     <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
 

@@ -8,7 +8,7 @@ class Item extends Model
 {
     protected $guarded = ['id', 'user_id', 'parent_id', 'order_number'];
 
-    protected $appends = ['path', 'has_children'];
+    protected $appends = ['path', 'has_children', 'path_to_item'];
 
 //    protected $with = ['children'];
 
@@ -36,7 +36,8 @@ class Item extends Model
      */
     public function children()
     {
-        return $this->hasMany('\App\Models\Item', 'parent_id');
+        return $this->hasMany('\App\Models\Item', 'parent_id')
+            ->orderBy('index', 'asc');
     }
 
     public function siblings()
@@ -80,6 +81,12 @@ class Item extends Model
     public function getPathAttribute()
     {
         return route('items.show', $this->id);
+    }
+
+    public function getPathToItemAttribute()
+    {
+        $breadcrumb = $this->breadcrumb();
+        return collect($breadcrumb)->lists('index');
     }
 
     /**

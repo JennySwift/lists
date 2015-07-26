@@ -1,14 +1,15 @@
 app.factory('DragFactory', function ($http) {
     var $object = {};
+    var $parent;
 
     $object.findParent = function ($array, $item) {
-        var $parent;
         if (!$item.parent_id) {
             return false;
         }
         $($array).each(function () {
             if (this.id === $item.parent_id) {
-                return $parent = this;
+                $parent = this;
+                return false;
             }
             if (this.children) {
                 $object.findParent(this.children, $item);

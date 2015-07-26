@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lists;
 
 use App\Models\Item;
+use App\Repositories\ItemsRepository;
 use Illuminate\Http\Request;
 use JavaScript;
 use Auth;
@@ -13,14 +14,17 @@ use App\Http\Controllers\Controller;
 
 class ListsController extends Controller
 {
+    protected $itemsRepository;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param ItemsRepository $itemsRepository
      */
-    public function __construct()
+    public function __construct(ItemsRepository $itemsRepository)
     {
         $this->middleware('auth');
+        $this->itemsRepository = $itemsRepository;
     }
 
     /**
@@ -83,7 +87,6 @@ class ListsController extends Controller
     {
         $parent_id = $request->get('parent_id');
         $new_item = $request->get('new_item');
-        Debugbar::info('request', $request->all());
 
         $item = new Item([
             'title' => $new_item['title'],
@@ -161,10 +164,7 @@ class ListsController extends Controller
 
         }
         else if ($new_index < $old_index) {
-            Item::where('parent_id', $parent_id)
-                ->where('index', '>=', $new_index)
-                ->where('index', '<', $old_index)
-                ->increment('index');
+            $this->itemsRepository->moveUp($parent_id, $new_index, $old_index);
 //            if ($parent_id) {
 //                Item::where('parent_id', $parent_id)
 //                    ->where('index', '>=', $new_index)
