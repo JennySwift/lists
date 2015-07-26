@@ -29,6 +29,7 @@
 
 <script type="text/javascript" src="js/factories/ListsFactory.js"></script>
 <script type="text/javascript" src="js/factories/DragFactory.js"></script>
+<script type="text/javascript" src="js/factories/FeedbackFactory.js"></script>
 
 <script type="text/javascript" src="js/directives/ItemDirective.js"></script>
 <script type="text/javascript" src="js/directives/DragDirective.js"></script>

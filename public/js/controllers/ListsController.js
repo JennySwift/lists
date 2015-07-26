@@ -1,7 +1,7 @@
 var app = angular.module('lists');
 
 (function () {
-    app.controller('ListsController', function ($scope, $http, ListsFactory) {
+    app.controller('ListsController', function ($scope, $http, ListsFactory, FeedbackFactory) {
 
         /**
          * scope properties
@@ -17,10 +17,31 @@ var app = angular.module('lists');
             body: ''
         };
         $scope.newIndex = -1;
+        $scope.feedbackFactory = FeedbackFactory;
+        $scope.feedback_messages = [];
 
         /**
          * watches
          */
+
+        $scope.$watch('feedbackFactory.data', function (newValue, oldValue, scope) {
+            if (newValue && newValue.message) {
+                scope.provideFeedback(newValue.message);
+            }
+        });
+
+        //function provideFeedback ($message) {
+        //    FeedbackFactory.provideFeedback($message);
+        //};
+
+        $scope.provideFeedback = function ($message) {
+            $scope.feedback_messages.push($message);
+            setTimeout(function () {
+                $scope.feedback_messages = _.without($scope.feedback_messages, $message);
+                $scope.$apply();
+            }, 3000);
+        };
+
 
         /**
          * select

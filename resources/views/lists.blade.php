@@ -14,6 +14,12 @@
 
 <div ng-controller="ListsController" id="lists" class="container">
 
+    <div id="feedback">
+        <div ng-repeat="message in feedback_messages track by $index" class="feedback-message">
+            [[message]]
+        </div>
+    </div>
+
     <div id="search-container">
         <input ng-keyup="filter($event.keyCode)" type="text" placeholder="search" id="filter"/>
     </div>

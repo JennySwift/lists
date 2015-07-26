@@ -5,7 +5,7 @@
         .directive('dragDirective', drag);
 
     /* @inject */
-    function drag($document, ListsFactory, DragFactory) {
+    function drag($document, ListsFactory, DragFactory, FeedbackFactory) {
         return {
             restrict: 'EA',
             scope: {
@@ -82,6 +82,10 @@
                     }
                 };
 
+                function provideFeedback ($message) {
+                    FeedbackFactory.provideFeedback($message);
+                };
+
                 $scope.moveItem = function () {
                     //$scope.getItemIndex();
                     $scope.items.splice($scope.item.index, 1);
@@ -89,11 +93,12 @@
                     ListsFactory.updateIndex($scope.item, $scope.newIndex)
                         .then(function (response) {
                             $scope.updateJsIndexes();
+                            provideFeedback('Item moved');
                             //Todo: Don't need to wait for the response for this.
                             //Todo: Make moving item down work, too.
                         })
                         .catch(function (response) {
-                            //Todo: provide error feedback
+                            provideFeedback('There was an error');
                         });
                     $scope.$apply();
                 };
