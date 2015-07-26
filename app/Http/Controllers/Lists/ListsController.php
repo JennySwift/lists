@@ -37,6 +37,7 @@ class ListsController extends Controller
         $items = Item::whereNull('parent_id')
             ->orderBy('index', 'asc')
             ->get();
+//        $items = ['one', 'two'];
 
 
         JavaScript::put([
@@ -155,22 +156,18 @@ class ListsController extends Controller
      */
     public function update($id, Request $request)
     {
+        $item = Item::find($id);
+        $parent = Item::find($request->get('parent_id'));
         $old_index = $request->get('old_index');
         $new_index = $request->get('new_index');
-        $parent_id = $request->get('parent_id');
 
-        //Update the siblings
-        if ($new_index > $old_index) {
-            $this->itemsRepository->moveDown($parent_id, $new_index, $old_index);
+        if (!$request->get('new_parent')) {
+            $this->itemsRepository->moveItemSameParent($item, $old_index, $new_index, $parent);
         }
-        else if ($new_index < $old_index) {
-            $this->itemsRepository->moveUp($parent_id, $new_index, $old_index);
+        else {
+            $new_parent = Item::find($request->get('new_parent_id'));
+            $this->itemsRepository->moveToNewParent($item, Item::find($request->get('old_parent_id')), $old_index, $new_parent);
         }
-
-        //Update the item
-        $item = Item::find($id);
-        $item->index = $new_index;
-        $item->save();
     }
 
     /**

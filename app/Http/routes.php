@@ -25,9 +25,9 @@ Route::get('/credits', function()
 
 Route::get('/test', function()
 {
-    $item = Item::find(7);
-    //dd($item);
-    return $item->pathToItem;
+    return Item::whereNull('parent_id')
+            ->orderBy('index', 'asc')
+            ->get();
 });
 //ng-includes
 

@@ -25,6 +25,10 @@
                     $scope.newIndex = newValue;
                 });
 
+                $scope.$watch('dragFactory.newParentId', function (newValue) {
+                    $scope.newParentId = newValue;
+                });
+
                 elem.on('mousedown', function (event) {
                     event.preventDefault();
                     $document.on('mouseup', mouseup);
@@ -33,6 +37,7 @@
                 $scope.mouseOver = function ($item, $event) {
                     $($event.target).addClass('highlight');
                     DragFactory.setNewIndex($item.index);
+                    DragFactory.setNewParentId($item.parent_id);
                 };
 
                 $scope.mouseLeave = function ($item, $event) {
@@ -101,11 +106,10 @@
                     FeedbackFactory.provideFeedback($message);
                 };
 
-                $scope.moveItem = function () {
-                    ListsFactory.updateIndex($scope.item, $scope.newIndex)
+                $scope.moveItemSameParent = function () {
+                    ListsFactory.moveItemSameParent($scope.item, $scope.newIndex)
                         .then(function (response) {
                             provideFeedback('Item moved');
-                            //Todo: Make moving item down work, too.
                         })
                         .catch(function (response) {
                             provideFeedback('There was an error');
@@ -114,11 +118,26 @@
                     $scope.$apply();
                 };
 
+                $scope.moveToNewParent = function () {
+                    ListsFactory.moveToNewParent($scope.item, $scope.newParentId)
+                        .then(function (response) {
+                            provideFeedback('Item moved');
+                        })
+                        .catch(function (response) {
+                            provideFeedback('There was an error');
+                        });
+                    //$scope.updateJsIndexes();
+                    //$scope.$apply();
+                };
+
                 function mouseup (event) {
                     $document.off('mouseup', mouseup);
 
-                    if ($scope.newIndex !== $scope.item.index) {
-                        $scope.moveItem();
+                    if ($scope.newIndex !== $scope.item.index && $scope.newParentId === $scope.item.parent_id) {
+                        $scope.moveItemSameParent();
+                    }
+                    else if ($scope.newParentId !== $scope.item.parent_id) {
+                        $scope.moveToNewParent();
                     }
                 }
 

@@ -8,30 +8,117 @@ use App\Models\Item;
 class ItemsRepository {
 
     /**
-     * Move an item up, keeping the same parent as before.
-     * @param $parent_id
-     * @param $new_index
+     * For moving an item, keeping the same parent.
+     * Update the indexes of the siblings as well as the item.
      * @param $old_index
+     * @param $new_index
+     * @param $parent
+     * @param $item
      */
-    public function moveUp($parent_id, $new_index, $old_index)
+    public function moveItemSameParent($item, $old_index, $new_index, $parent)
     {
-        Item::where('parent_id', $parent_id)
-            ->where('index', '>=', $new_index)
-            ->where('index', '<', $old_index)
-            ->increment('index');
+        $this->updateSiblingIndexes($old_index, $new_index, $parent);
+        $item->updateIndex($new_index);
     }
 
     /**
-     * Move an item down, keeping the same parent as before.
-     * @param $parent_id
+     * For moving item up or down, keeping the same parent.
+     * Update the indexes of the item's siblings.
+     * @param $old_index
+     * @param $new_index
+     * @param $parent
+     */
+    public function updateSiblingIndexes($old_index, $new_index, $parent)
+    {
+        if ($new_index > $old_index) {
+            $this->moveDown($parent, $new_index, $old_index);
+        }
+        else if ($new_index < $old_index) {
+            $this->moveUp($parent, $new_index, $old_index);
+        }
+    }
+
+    /**
+     * Move items down, in order to move an item up,
+     * keeping the same parent as before.
+     * @param $parent
      * @param $new_index
      * @param $old_index
      */
-    public function moveDown($parent_id, $new_index, $old_index)
+    public function moveUp($parent, $new_index, $old_index)
     {
-        Item::where('parent_id', $parent_id)
+        if ($parent) {
+            Item::where('parent_id', $parent->id)
+                ->where('index', '>=', $new_index)
+                ->where('index', '<', $old_index)
+                ->increment('index');
+        }
+        else {
+            Item::whereNull('parent_id')
+                ->where('index', '>=', $new_index)
+                ->where('index', '<', $old_index)
+                ->increment('index');
+        }
+
+    }
+
+    /**
+     * Move items up, in order to move an item down,
+     * keeping the same parent as before.
+     * @param $parent
+     * @param $new_index
+     * @param $old_index
+     */
+    public function moveDown($parent, $new_index, $old_index)
+    {
+        if ($parent) {
+            Item::where('parent_id', $parent->id)
+                ->where('index', '>', $old_index)
+                ->where('index', '<=', $new_index)
+                ->decrement('index');
+        }
+        else {
+            Item::whereNull('parent_id')
+                ->where('index', '>', $old_index)
+                ->where('index', '<=', $new_index)
+                ->decrement('index');
+        }
+
+    }
+
+    /**
+     * Move item to a new parent
+     * @param $item
+     * @param $old_parent
+     * @param $old_index
+     * @param $new_parent
+     */
+    public function moveToNewParent($item, $old_parent, $old_index, $new_parent)
+    {
+        $this->moveOut($old_parent, $old_index);
+        $this->moveIn($item, $new_parent);
+        $item->moveToNewParent($new_parent);
+    }
+
+    /**
+     * For moving item to new parent. Move items in old parent up.
+     * @param $old_parent
+     * @param $old_index
+     */
+    public function moveOut($old_parent, $old_index)
+    {
+        Item::where('parent_id', $old_parent->id)
             ->where('index', '>', $old_index)
-            ->where('index', '<=', $new_index)
             ->decrement('index');
+    }
+
+    /**
+     * For moving item to new parent. Make room for the new item.
+     * @param $item
+     * @param $new_parent
+     */
+    public function moveIn($item, $new_parent)
+    {
+
     }
 }

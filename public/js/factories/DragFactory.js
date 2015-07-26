@@ -18,6 +18,12 @@ app.factory('DragFactory', function ($http) {
         return $parent;
     };
 
+    /**
+     * Return an array of the item's siblings including the item itself
+     * @param $array
+     * @param $item
+     * @returns {Array}
+     */
     $object.findSiblingsWithItem = function ($array, $item) {
         var $parent = $object.findParent($array, $item);
         var $siblings = [];
@@ -35,8 +41,20 @@ app.factory('DragFactory', function ($http) {
         return $siblings;
     };
 
+    /**
+     * For when item is hovered, setting the index to that of the hovered item
+     * @param $index
+     */
     $object.setNewIndex = function ($index) {
         $object.newIndex = $index;
+    };
+
+    /**
+     * For when item is hovered, setting the newParent to that of the hovered item
+     * @param $parent
+     */
+    $object.setNewParentId = function ($parent_id) {
+        $object.newParentId = $parent_id;
     };
 
     return $object;

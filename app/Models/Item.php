@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\ItemsRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
@@ -38,6 +39,7 @@ class Item extends Model
     {
         return $this->hasMany('\App\Models\Item', 'parent_id')
             ->orderBy('index', 'asc');
+//            ->get();
     }
 
     public function siblings()
@@ -160,5 +162,26 @@ class Item extends Model
 
         return $descendant_ids;
 
+    }
+
+    public function updateIndex($new_index)
+    {
+        $this->index = $new_index;
+        $this->save();
+    }
+
+    public function moveToNewParent($new_parent)
+    {
+        if ($new_parent) {
+            $this->parent_id = $new_parent->id;
+            $this->index = $new_parent->children->last()->index + 1;
+        }
+        else {
+            //Item is being moved to home (no parent)
+            $this->parent_id = null;
+            $this->index = Item::whereNull('parent_id')->max('index') + 1;
+        }
+
+        $this->save();
     }
 }

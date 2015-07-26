@@ -30,6 +30,10 @@
             newIndex:
             <span class="badge">[[newIndex]]</span>
         </li>
+        <li class="list-group-item">
+            newParentId:
+            <span class="badge">[[newParentId]]</span>
+        </li>
     </ul>
 </div>
 
