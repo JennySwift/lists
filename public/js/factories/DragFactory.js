@@ -17,7 +17,7 @@ app.factory('DragFactory', function ($http) {
         return $parent;
     };
 
-    $object.findSiblings = function ($array, $item) {
+    $object.findSiblingsWithItem = function ($array, $item) {
         var $parent = $object.findParent($array, $item);
         var $siblings = [];
 
@@ -29,6 +29,8 @@ app.factory('DragFactory', function ($http) {
                 $siblings.push(this);
             });
         }
+        //$siblings = _.without($siblings, $item);
+
         return $siblings;
     };
 

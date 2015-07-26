@@ -69,16 +69,20 @@
                     return DragFactory.findParent($array, $item);
                 };
 
-                $scope.findSiblings = function () {
-                    return DragFactory.findSiblings($scope.items, $scope.item);
+                /**
+                 * Get an array that include the items siblings as well as the item itself
+                 * @returns {*}
+                 */
+                $scope.findSiblingsWithItem = function () {
+                    return DragFactory.findSiblingsWithItem($scope.items, $scope.item);
                 };
 
                 $scope.parent = $scope.findParent($scope.items, $scope.item);
 
                 $scope.updateJsIndexes = function () {
-                    var $siblings = $scope.findSiblings();
-                    for (var i = 0; i < $siblings.length; i++) {
-                        $siblings[i].index = i;
+                    var $siblings_with_item = $scope.findSiblingsWithItem();
+                    for (var i = 0; i < $siblings_with_item.length; i++) {
+                        $siblings_with_item[i].index = i;
                     }
                 };
 
@@ -92,7 +96,6 @@
                     $scope.items.splice($scope.newIndex, 0, $scope.item);
                     ListsFactory.updateIndex($scope.item, $scope.newIndex)
                         .then(function (response) {
-                            $scope.updateJsIndexes();
                             provideFeedback('Item moved');
                             //Todo: Don't need to wait for the response for this.
                             //Todo: Make moving item down work, too.
@@ -100,6 +103,7 @@
                         .catch(function (response) {
                             provideFeedback('There was an error');
                         });
+                    $scope.updateJsIndexes();
                     $scope.$apply();
                 };
 
