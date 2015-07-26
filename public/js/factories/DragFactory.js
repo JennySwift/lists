@@ -42,6 +42,20 @@ app.factory('DragFactory', function ($http) {
     };
 
     /**
+     * $short_path is an array of indexes to the item, for example:
+     * [0,2,1]
+     */
+    $object.findParentByPath = function ($item, $short_path) {
+        for (var i = 0; i < $short_path.length; i++) {
+            if (i > 0 && i < $short_path.length - 1) {
+                $item = $item.children[$short_path[i]];
+            }
+        }
+
+        return $item;
+    };
+
+    /**
      * For when item is hovered, setting the index to that of the hovered item
      * @param $index
      */
@@ -53,8 +67,8 @@ app.factory('DragFactory', function ($http) {
      * For when item is hovered, setting the newParent to that of the hovered item
      * @param $parent
      */
-    $object.setNewParentId = function ($parent_id) {
-        $object.newParentId = $parent_id;
+    $object.setNewParent = function ($parent) {
+        $object.newParent = $parent;
     };
 
     return $object;

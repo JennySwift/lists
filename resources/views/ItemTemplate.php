@@ -31,7 +31,7 @@
         newIndex="newIndex">
     </drag-directive>
 
-    <div>ID: [[item.id]]</div>
+    <span class="badge">ID: [[item.id]]</span>
 
     <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
 
