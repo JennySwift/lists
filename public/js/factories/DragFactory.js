@@ -17,6 +17,21 @@ app.factory('DragFactory', function ($http) {
         return $parent;
     };
 
+    $object.findSiblings = function ($array, $item) {
+        var $parent = $object.findParent($array, $item);
+        var $siblings = [];
+
+        if ($parent) {
+            $siblings = $parent.children;
+        }
+        else {
+            $($array).each(function () {
+                $siblings.push(this);
+            });
+        }
+        return $siblings;
+    };
+
     $object.setNewIndex = function ($index) {
         $object.newIndex = $index;
     };

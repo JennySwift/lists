@@ -69,7 +69,18 @@
                     return DragFactory.findParent($array, $item);
                 };
 
+                $scope.findSiblings = function () {
+                    return DragFactory.findSiblings($scope.items, $scope.item);
+                };
+
                 $scope.parent = $scope.findParent($scope.items, $scope.item);
+
+                $scope.updateJsIndexes = function () {
+                    var $siblings = $scope.findSiblings();
+                    for (var i = 0; i < $siblings.length; i++) {
+                        $siblings[i].index = i;
+                    }
+                };
 
                 $scope.moveItem = function () {
                     //$scope.getItemIndex();
@@ -77,7 +88,7 @@
                     $scope.items.splice($scope.newIndex, 0, $scope.item);
                     ListsFactory.updateIndex($scope.item, $scope.newIndex)
                         .then(function (response) {
-                            //Todo: update the indexes in the JS.
+                            $scope.updateJsIndexes();
                             //Todo: Don't need to wait for the response for this.
                             //Todo: Make moving item down work, too.
                         })
