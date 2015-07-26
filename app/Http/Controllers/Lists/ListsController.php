@@ -161,21 +161,10 @@ class ListsController extends Controller
 
         //Update the siblings
         if ($new_index > $old_index) {
-
+            $this->itemsRepository->moveDown($parent_id, $new_index, $old_index);
         }
         else if ($new_index < $old_index) {
             $this->itemsRepository->moveUp($parent_id, $new_index, $old_index);
-//            if ($parent_id) {
-//                Item::where('parent_id', $parent_id)
-//                    ->where('index', '>=', $new_index)
-//                    ->increment('index');
-//            }
-//            else {
-//                Item::whereNull('parent_id')
-//                    ->where('index', '>=', $new_index)
-//                    ->increment('index');
-//            }
-
         }
 
         //Update the item

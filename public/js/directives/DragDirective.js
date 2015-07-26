@@ -55,7 +55,8 @@
                 $scope.siblingsWithItem = $scope.findSiblingsWithItem();
 
                 /**
-                 * Update the index properties of the items with the JS
+                 * Update the index properties of the items with the JS.
+                 * $siblings includes the item itself.
                  */
                 $scope.updateJsIndexes = function () {
                     var $siblings = $scope.jsMoveItem();
@@ -64,8 +65,6 @@
                         $siblings[i].index = i;
                     }
                 };
-
-                //Siblings includes item
 
                 $scope.jsMoveItem = function () {
                     var $parent = $scope.findParent();
