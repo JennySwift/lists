@@ -71,5 +71,14 @@ app.factory('DragFactory', function ($http) {
         $object.newParent = $parent;
     };
 
+    /**
+     * For when item is hovered, setting the newTarget to that of the hovered item,
+     * so I can show the guide at the right place
+     * @param $parent
+     */
+    $object.setNewTarget = function ($target) {
+        $object.newTarget = $target;
+    };
+
     return $object;
 });

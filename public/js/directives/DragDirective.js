@@ -18,6 +18,7 @@
             //scope: true,
             link: function($scope, elem, attrs) {
                 var $guide = $(elem).closest('.item').prev('.guide');
+                var $mouseDown = false;
                 //$scope.newIndex = $scope.item.index;
                 $scope.dragFactory = DragFactory;
 
@@ -29,13 +30,31 @@
                     $scope.newParent = newValue;
                 });
 
+                $scope.$watch('dragFactory.newTarget', function (newValue) {
+                    $scope.newTarget = newValue;
+                    //$($scope.newTarget).addClass('highlight');
+
+                    if ($mouseDown) {
+                        //If the target has the same parent and the item is being moved up,
+                        //show the guide above the target
+                        if ($scope.item.index > $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
+                            $($scope.newTarget).addClass('top-guide');
+                        }
+                        else if ($scope.item.index < $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
+                            $($scope.newTarget).addClass('bottom-guide');
+                        }
+                    }
+                });
+
                 elem.on('mousedown', function (event) {
                     event.preventDefault();
+                    $mouseDown = true;
                     $document.on('mouseup', mouseup);
                 });
 
                 $scope.mouseOver = function ($item, $event) {
-                    $($event.target).addClass('highlight');
+                    //$($event.target).addClass('highlight');
+                    DragFactory.setNewTarget($event.target);
                     DragFactory.setNewIndex($item.index);
                     DragFactory.setNewParent($scope.findParentByPath($item));
                 };
@@ -55,7 +74,7 @@
                 };
 
                 $scope.mouseLeave = function ($item, $event) {
-                    $($event.target).removeClass('highlight');
+                    $($event.target).removeClass('highlight top-guide bottom-guide');
                 };
 
                 $scope.findParent = function() {
@@ -184,12 +203,15 @@
 
                 function mouseup (event) {
                     $document.off('mouseup', mouseup);
+                    $mouseDown = false;
                     if ($scope.newIndex !== $scope.item.index && $scope.newParent.id == $scope.item.parent_id) {
                         $scope.moveItemSameParent();
                     }
-                    else if ($scope.newParent.id !== $scope.item.parent_id) {
+                    else if ($scope.newIndex !== $scope.item.index && $scope.newParent.id != $scope.item.parent_id) {
                         $scope.moveToNewParent();
                     }
+                    $(".top-guide").removeClass('top-guide');
+                    $(".bottom-guide").removeClass('bottom-guide');
                 }
 
             }
