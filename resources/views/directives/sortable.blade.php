@@ -1,6 +1,5 @@
 <div
     ng-if="!item.html"
-    ng-mousedown="mouseDown($event, item)"
     ng-mouseover="mouseOver(item, $event)"
     ng-mouseleave="mouseLeave(item, $event)"
     class="item-content">
@@ -9,7 +8,6 @@
 
 <div
     ng-if="item.html"
-    ng-mousedown="mouseDown($event, item)"
     ng-mouseover="mouseOver(item, $event)"
     ng-mouseleave="mouseLeave(item, $event)"
     ng-bind-html="item.html"

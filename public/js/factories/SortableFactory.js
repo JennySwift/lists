@@ -1,4 +1,4 @@
-app.factory('DragFactory', function ($http) {
+app.factory('SortableFactory', function ($http) {
     var $object = {};
     var $parent;
 
@@ -78,6 +78,10 @@ app.factory('DragFactory', function ($http) {
      */
     $object.setNewTarget = function ($target) {
         $object.newTarget = $target;
+    };
+
+    $object.setMouseDown = function ($boolean) {
+        $object.mouseDown = $boolean;
     };
 
     return $object;

@@ -5,7 +5,7 @@
         .directive('sortableDirective', drag);
 
     /* @inject */
-    function drag($document, ListsFactory, DragFactory, FeedbackFactory) {
+    function drag($document, ListsFactory, SortableFactory, FeedbackFactory) {
         return {
             restrict: 'EA',
             scope: {
@@ -20,47 +20,66 @@
                 var $guide = $(elem).closest('.item').prev('.guide');
                 var $mouseDown = false;
                 //$scope.newIndex = $scope.item.index;
-                $scope.dragFactory = DragFactory;
+                $scope.sortableFactory = SortableFactory;
 
-                $scope.$watch('dragFactory.newIndex', function (newValue) {
+                $scope.$watch('sortableFactory.newIndex', function (newValue) {
                     $scope.newIndex = newValue;
                 });
 
-                $scope.$watch('dragFactory.newParent', function (newValue) {
+                $scope.$watch('sortableFactory.newParent', function (newValue) {
                     $scope.newParent = newValue;
                 });
 
-                $scope.$watch('dragFactory.newTarget', function (newValue) {
-                    $scope.newTarget = newValue;
-                    //$($scope.newTarget).addClass('highlight');
+                $scope.$watch('sortableFactory.mouseDown', function (newValue) {
+                    $mouseDown = newValue;
+                });
 
-                    if ($mouseDown) {
-                        //If the target has the same parent and the item is being moved up,
-                        //show the guide above the target
-                        if ($scope.item.index > $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
-                            $($scope.newTarget).addClass('top-guide');
-                        }
-                        else if ($scope.item.index < $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
-                            $($scope.newTarget).addClass('bottom-guide');
-                        }
-                        else if ($scope.item.parent_id != $scope.newParent.id) {
-                            //New parent
-                            $($scope.newTarget).addClass('top-guide');
-                        }
+                $scope.$watch('sortableFactory.newTarget', function (newValue) {
+                    $scope.newTarget = newValue;
+
+                    if ($mouseDown && $scope.selectedItem) {
+                        $scope.showGuide();
+                    }
+                    else if (!$mouseDown) {
+                        $($scope.newTarget).addClass('highlight');
                     }
                 });
 
+                $scope.mouseLeave = function ($item, $event) {
+                    if (!$mouseDown) {
+                        $($event.target).removeClass('highlight');
+                    }
+                    $($event.target).removeClass('top-guide bottom-guide');
+                };
+
+                $scope.showGuide = function () {
+                    //If the target has the same parent and the item is being moved up,
+                    //show the guide above the target
+                    if ($scope.item.index > $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
+                        $($scope.newTarget).addClass('top-guide');
+                    }
+                    else if ($scope.item.index < $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
+                        $($scope.newTarget).addClass('bottom-guide');
+                    }
+                    else if ($scope.item.parent_id != $scope.newParent.id) {
+                        //New parent
+                        $($scope.newTarget).addClass('top-guide');
+                    }
+                };
+
                 elem.on('mousedown', function (event) {
                     event.preventDefault();
-                    $mouseDown = true;
+                    SortableFactory.setMouseDown(true);
+                    //$mouseDown = true;
                     $document.on('mouseup', mouseup);
+                    $(event.target).addClass('highlight');
+                    $scope.selectedItem = $scope.item;
                 });
 
                 $scope.mouseOver = function ($item, $event) {
-                    //$($event.target).addClass('highlight');
-                    DragFactory.setNewTarget($event.target);
-                    DragFactory.setNewIndex($item.index);
-                    DragFactory.setNewParent($scope.findParentByPath($item));
+                    SortableFactory.setNewTarget($event.target);
+                    SortableFactory.setNewIndex($item.index);
+                    SortableFactory.setNewParent($scope.findParentByPath($item));
                 };
 
                 /**
@@ -73,16 +92,12 @@
                     }
                     var $short_path = $item.path_to_item;
                     var $item = $scope.items[$short_path[0]];
-                    $item = DragFactory.findParentByPath($item, $short_path);
+                    $item = SortableFactory.findParentByPath($item, $short_path);
                     return $item;
                 };
 
-                $scope.mouseLeave = function ($item, $event) {
-                    $($event.target).removeClass('highlight top-guide bottom-guide');
-                };
-
                 $scope.findParent = function() {
-                    return DragFactory.findParent($scope.items, $scope.item);
+                    return SortableFactory.findParent($scope.items, $scope.item);
                 };
 
                 /**
@@ -90,7 +105,7 @@
                  * @returns {*}
                  */
                 $scope.findSiblingsWithItem = function () {
-                    return DragFactory.findSiblingsWithItem($scope.items, $scope.item);
+                    return SortableFactory.findSiblingsWithItem($scope.items, $scope.item);
                 };
 
                 $scope.parent = $scope.findParent();
@@ -207,17 +222,25 @@
                     $scope.$apply();
                 };
 
+                $scope.removeClasses = function () {
+                    $(".top-guide").removeClass('top-guide');
+                    $(".bottom-guide").removeClass('bottom-guide');
+                    $(".highlight").removeClass('highlight');
+                };
+
                 function mouseup (event) {
                     $document.off('mouseup', mouseup);
-                    $mouseDown = false;
+                    SortableFactory.setMouseDown(false);
+                    //$mouseDown = false;
                     if ($scope.newIndex !== $scope.item.index && $scope.newParent.id == $scope.item.parent_id) {
                         $scope.moveItemSameParent();
                     }
                     else if ($scope.newParent.id != $scope.item.parent_id) {
                         $scope.moveToNewParent();
                     }
-                    $(".top-guide").removeClass('top-guide');
-                    $(".bottom-guide").removeClass('bottom-guide');
+
+                    $scope.removeClasses();
+                    $scope.selectedItem = false;
                 }
 
             }

@@ -409,8 +409,7 @@ li {
 
 .item {
   display: flex;
-  font-size: 16px;
-  padding: 5px 0; }
+  font-size: 16px; }
   .item .fa-search-plus {
     visibility: hidden; }
   .item:hover .fa-search-plus {
@@ -431,7 +430,8 @@ li {
     cursor: move;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    min-width: 200px; }
+    min-width: 200px;
+    padding: 5px 0; }
     .item .item-content.top-guide {
       border-top: 1px solid #777; }
     .item .item-content.bottom-guide {
