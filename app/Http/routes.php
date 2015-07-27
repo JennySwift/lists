@@ -31,13 +31,16 @@ Route::get('/test', function()
 });
 //ng-includes
 
-/**
- * @VP:
- * How would I return a file in the templates directory instead of the views directory?
- */
 Route::get('/ItemTemplate', function()
 {
-    return view('ItemTemplate');
+    return view('templates/lists/item/item');
+});
+
+//angular directive templates
+
+Route::get('/sortable', function()
+{
+    return view('directives/sortable');
 });
 
 /**

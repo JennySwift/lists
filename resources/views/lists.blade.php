@@ -14,55 +14,11 @@
 
 <div ng-controller="ListsController" id="lists" class="container">
 
-    <div id="feedback">
-        <div ng-repeat="message in feedback_messages track by $index" class="feedback-message">
-            [[message]]
-        </div>
-    </div>
-
-    <div id="search-container">
-        <input ng-keyup="filter($event.keyCode)" type="text" placeholder="search" id="filter"/>
-    </div>
-
-    <div id="new-item">
-        <input ng-model="new_item.title" type="text" placeholder="title"/>
-        <input ng-model="new_item.body" type="text" placeholder="body"/>
-        <button ng-click="insertItem()" class="btn btn-success">Add item</button>
-    </div>
-
-    <div id="breadcrumb">
-        <div>
-            <a ng-click="goHome()">Home</a>
-            <i ng-if="breadcrumb.length > 0" class="fa fa-angle-right"></i>
-        </div>
-        <div ng-repeat="item in breadcrumb">
-            <a ng-click="zoom(item)">[[item.title]]</a>
-            <i ng-if="!$last" class="fa fa-angle-right"></i>
-        </div>
-    </div>
-
-    {{--<button ng-click="onTest()">on test</button>--}}
-
-    <ul ng-mousemove="mouseMove($event)" id="items">
-        <li ng-repeat="item in items"
-            ng-include src="'ItemTemplate'"
-            class="item-with-children">
-
-
-            {{--<item--}}
-                {{--object="item"--}}
-                {{--items="items">--}}
-            {{--</item>--}}
-
-        </li>
-    </ul>
-
-    {{--<ul>--}}
-    {{--@foreach($items as $item)--}}
-        {{--@include('partials.item', $item)--}}
-
-    {{--@endforeach--}}
-    {{--</ul>--}}
+    @include('templates/feedback')
+    @include('templates/lists/search')
+    @include('templates/lists/new-item')
+    @include('templates/lists/breadcrumb')
+    @include('templates/lists/lists')
 
 </div>
 

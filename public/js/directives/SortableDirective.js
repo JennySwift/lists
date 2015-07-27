@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('lists')
-        .directive('dragDirective', drag);
+        .directive('sortableDirective', drag);
 
     /* @inject */
     function drag($document, ListsFactory, DragFactory, FeedbackFactory) {
@@ -14,7 +14,7 @@
                 //newIndex: '=newindex'
             },
             //replace: true,
-            templateUrl: 'templates/DragTemplate.php',
+            templateUrl: 'sortable',
             //scope: true,
             link: function($scope, elem, attrs) {
                 var $guide = $(elem).closest('.item').prev('.guide');

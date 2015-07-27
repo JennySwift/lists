@@ -37,7 +37,6 @@ class ListsController extends Controller
         $items = Item::whereNull('parent_id')
             ->orderBy('index', 'asc')
             ->get();
-//        $items = ['one', 'two'];
 
 
         JavaScript::put([
@@ -86,28 +85,31 @@ class ListsController extends Controller
      */
     public function store(Request $request)
     {
-        $parent_id = $request->get('parent_id');
+        $parent = Item::find($request->get('parent_id'));
         $new_item = $request->get('new_item');
+        $index = $request->get('index');
 
         $item = new Item([
             'title' => $new_item['title'],
             'body' => $new_item['body']
         ]);
 
-        if ($parent_id) {
-            $item->parent_id = $parent_id;
+        if ($parent) {
+            $item->parent_id = $parent->id;
         }
+        
+        $item->index = $item->calculateIndex($index, $parent);
 
         $item->user()->associate(Auth::user());
         $item->save();
 
-        return $this->showSomething($parent_id);
+        return $this->showSomething($parent);
     }
 
-    public function showSomething($parent_id)
+    public function showSomething($parent)
     {
-        if ($parent_id) {
-            return $this->show($parent_id);
+        if ($parent) {
+            return $this->show($parent->id);
         }
         else {
             return $this->index();

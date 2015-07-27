@@ -30,9 +30,9 @@ var app = angular.module('lists');
             }
         });
 
-        //function provideFeedback ($message) {
-        //    FeedbackFactory.provideFeedback($message);
-        //};
+        function provideFeedback ($message) {
+            FeedbackFactory.provideFeedback($message);
+        };
 
         $scope.provideFeedback = function ($message) {
             $scope.feedback_messages.push($message);
@@ -88,7 +88,11 @@ var app = angular.module('lists');
             $scope.zoomed_item = $item;
         };
 
-        $scope.insertItem = function () {
+        $scope.insertItem = function ($keycode) {
+            if ($keycode !== 13) {
+                return false;
+            }
+
             ListsFactory.insertItem($scope.zoomed_item, $scope.new_item)
                 .then(function (response) {
                     if ($scope.zoomed_item) {
@@ -97,9 +101,10 @@ var app = angular.module('lists');
                     else {
                         $scope.showHome(response);
                     }
+                    provideFeedback('Item added');
                 })
                 .catch(function (response) {
-
+                    provideFeedback('There was an error');
                 });
         };
 

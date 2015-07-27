@@ -59,13 +59,6 @@ class Item extends Model
      */
     public function siblings()
     {
-//        if ($this->parent) {
-//            $siblings_and_item = $this->parent->children;
-//        }
-//        else {
-//            $siblings_and_item = Item::whereNull('parent_id')->get();
-//        }
-//        return $siblings_and_item->except($this->id);
         if (!$this->parent) {
             return Item::whereNull('parent_id')
                 ->where('id', '!=', $this->id)
@@ -82,17 +75,11 @@ class Item extends Model
      */
     public function lastSibling()
     {
-//        return last($this->siblings()->toArray());
         if (!$this->siblings()) {
             return false;
         }
         return $this->siblings()->last();
     }
-
-//    public function lastSibling()
-//    {
-//        return $this->parent()-
-//    }
 
     /**
      * Return the URL of the project
@@ -141,8 +128,6 @@ class Item extends Model
             $breadcrumb[] = $breadcrumb[$index]->parent()->first();
             $index++;
         }
-
-//        $breadcrumb[] = ['title' => 'Home'];
 
         return array_reverse($breadcrumb);
     }
@@ -208,31 +193,46 @@ class Item extends Model
      */
     public function moveToNewParent($new_parent, $new_index)
     {
-        Debugbar::info('new_index: ' . $new_index);
-        if ($new_parent) {
-            Debugbar::info('new parent');
-            $this->parent_id = $new_parent->id;
+        $this->parent_id = $this->calculateParentId($new_parent);
+        $this->index = $this->calculateIndex($new_index, $new_parent);
+        $this->save();
+    }
 
-            if (isset($new_index)) {
-                $this->index = $new_index;
-            }
-            else {
-                $this->index = $new_parent->children->last()->index + 1;
-            }
+    /**
+     *
+     * @param $new_parent
+     * @return null
+     */
+    public function calculateParentId($new_parent)
+    {
+        if ($new_parent) {
+            return $new_parent->id;
         }
         else {
-            Debugbar::info('home, no parent');
             //Item is being moved to home (no parent)
-            $this->parent_id = null;
+            return null;
+        }
+    }
 
-            if (isset($new_index)) {
-                $this->index = $new_index;
+    /**
+     * Calculate what the index of an item should be if it is not specified,
+     * in order to add it as the last child of the parent.
+     * @param $new_index
+     * @param $parent
+     * @return mixed
+     */
+    public function calculateIndex($new_index, $parent)
+    {
+        if (isset($new_index)) {
+            return $new_index;
+        }
+        else {
+            if ($parent) {
+                return $parent->children->last()->index + 1;
             }
             else {
-                $this->index = Item::whereNull('parent_id')->max('index') + 1;
+                return Item::whereNull('parent_id')->max('index') + 1;
             }
         }
-
-        $this->save();
     }
 }
