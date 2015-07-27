@@ -156,17 +156,21 @@ class ListsController extends Controller
      */
     public function update($id, Request $request)
     {
+        Debugbar::info('id: ' . $id);
+        Debugbar::info('request', $request->all());
         $item = Item::find($id);
         $parent = Item::find($request->get('parent_id'));
         $old_index = $request->get('old_index');
         $new_index = $request->get('new_index');
 
-        if (!$request->get('new_parent')) {
-            $this->itemsRepository->moveItemSameParent($item, $old_index, $new_index, $parent);
-        }
-        else {
+        if ($request->get('new_parent')) {
+            Debugbar::info('new parent');
             $new_parent = Item::find($request->get('new_parent_id'));
             $this->itemsRepository->moveToNewParent($item, Item::find($request->get('old_parent_id')), $old_index, $new_parent);
+        }
+        else {
+            Debugbar::info('same parent');
+            $this->itemsRepository->moveItemSameParent($item, $old_index, $new_index, $parent);
         }
     }
 

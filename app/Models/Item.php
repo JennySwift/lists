@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Repositories\ItemsRepository;
 use Illuminate\Database\Eloquent\Model;
+use Debugbar;
 
 class Item extends Model
 {
@@ -173,10 +174,12 @@ class Item extends Model
     public function moveToNewParent($new_parent)
     {
         if ($new_parent) {
+            Debugbar::info('new parent');
             $this->parent_id = $new_parent->id;
             $this->index = $new_parent->children->last()->index + 1;
         }
         else {
+            Debugbar::info('no parent');
             //Item is being moved to home (no parent)
             $this->parent_id = null;
             $this->index = Item::whereNull('parent_id')->max('index') + 1;

@@ -87,6 +87,8 @@
                     else {
                         $siblings = $scope.jsMoveToNewParent();
                         $scope.updateJsIndexes($siblings);
+                        $scope.updateJsIndexes($new_siblings);
+                        $scope.item.parent_id = $scope.newParent.id;
                     }
                 };
 
@@ -101,14 +103,24 @@
                 //    return $parent.children;
                 //};
 
+                var $siblings;
+                var $new_siblings;
                 $scope.jsMoveToNewParent = function () {
                     var $parent = $scope.findParent();
-                    var $siblings;
 
                     if ($parent) {
                         $parent.children.splice($scope.item.index, 1);
                         $siblings = $parent.children;
-                        $scope.newParent.children.push($scope.item);
+                        if ($scope.newParent) {
+                            $scope.newParent.children.push($scope.item);
+                            $new_siblings = $scope.newParent.children;
+                        }
+                        else {
+                            //The item is being move home (no new parent)
+                            $scope.items.push($scope.item);
+                            $new_siblings = $scope.items;
+                        }
+
                     }
                     else {
                         //The item is home (no parent)
@@ -172,8 +184,7 @@
 
                 function mouseup (event) {
                     $document.off('mouseup', mouseup);
-                    //Todo: Fix this if/else if-$scope.newParent.id is false and therefore does not equal $scope.item.parent_id when it should.
-                    if ($scope.newIndex !== $scope.item.index && $scope.newParent.id === $scope.item.parent_id) {
+                    if ($scope.newIndex !== $scope.item.index && $scope.newParent.id == $scope.item.parent_id) {
                         $scope.moveItemSameParent();
                     }
                     else if ($scope.newParent.id !== $scope.item.parent_id) {

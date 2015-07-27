@@ -32,7 +32,7 @@
         </li>
         <li class="list-group-item">
             newParentId:
-            <span class="badge">[[newParentId]]</span>
+            <span class="badge">[[newParent.id]]</span>
         </li>
     </ul>
 </div>
