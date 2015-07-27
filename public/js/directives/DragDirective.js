@@ -43,6 +43,10 @@
                         else if ($scope.item.index < $scope.newIndex && $scope.item.parent_id == $scope.newParent.id) {
                             $($scope.newTarget).addClass('bottom-guide');
                         }
+                        else if ($scope.item.parent_id != $scope.newParent.id) {
+                            //New parent
+                            $($scope.newTarget).addClass('top-guide');
+                        }
                     }
                 });
 
@@ -131,12 +135,14 @@
                         $parent.children.splice($scope.item.index, 1);
                         $siblings = $parent.children;
                         if ($scope.newParent) {
-                            $scope.newParent.children.push($scope.item);
+                            //$scope.newParent.children.push($scope.item);
+                            $scope.newParent.children.splice($scope.newIndex, 0, $scope.item);
                             $new_siblings = $scope.newParent.children;
                         }
                         else {
                             //The item is being move home (no new parent)
-                            $scope.items.push($scope.item);
+                            //$scope.items.push($scope.item);
+                            $scope.items.splice($scope.newIndex, 0, $scope.item);
                             $new_siblings = $scope.items;
                         }
 
@@ -190,7 +196,7 @@
                 };
 
                 $scope.moveToNewParent = function () {
-                    ListsFactory.moveToNewParent($scope.item, $scope.newParent)
+                    ListsFactory.moveToNewParent($scope.item, $scope.newParent, $scope.newIndex)
                         .then(function (response) {
                             provideFeedback('Item moved');
                         })
@@ -207,7 +213,7 @@
                     if ($scope.newIndex !== $scope.item.index && $scope.newParent.id == $scope.item.parent_id) {
                         $scope.moveItemSameParent();
                     }
-                    else if ($scope.newIndex !== $scope.item.index && $scope.newParent.id != $scope.item.parent_id) {
+                    else if ($scope.newParent.id != $scope.item.parent_id) {
                         $scope.moveToNewParent();
                     }
                     $(".top-guide").removeClass('top-guide');

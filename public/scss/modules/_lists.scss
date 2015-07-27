@@ -79,6 +79,7 @@
         cursor: move;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
+        min-width: 200px;
         &.top-guide {
             border-top: 1px solid #777;
         }

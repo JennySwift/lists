@@ -424,7 +424,8 @@ li {
     margin-right: 23px;
     cursor: move;
     border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent; }
+    border-bottom: 1px solid transparent;
+    min-width: 200px; }
     .item .item-content.top-guide {
       border-top: 1px solid #777; }
     .item .item-content.bottom-guide {

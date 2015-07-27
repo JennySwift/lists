@@ -57,13 +57,14 @@ app.factory('ListsFactory', function ($http) {
             return $http.put($url, $data);
         },
 
-        moveToNewParent: function ($item, $new_parent) {
+        moveToNewParent: function ($item, $new_parent, $new_index) {
             var $url = $item.path;
             var $data = {
                 old_index: $item.index,
                 old_parent_id: $item.parent_id,
                 new_parent_id: $new_parent.id,
-                new_parent: true
+                new_parent: true,
+                new_index: $new_index
             };
 
             return $http.put($url, $data);

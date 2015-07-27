@@ -6,10 +6,20 @@ use App\Repositories\ItemsRepository;
 use Illuminate\Database\Eloquent\Model;
 use Debugbar;
 
+/**
+ * Class Item
+ * @package App\Models
+ */
 class Item extends Model
 {
+    /**
+     * @var array
+     */
     protected $guarded = ['id', 'user_id', 'parent_id', 'order_number'];
 
+    /**
+     * @var array
+     */
     protected $appends = ['path', 'has_children', 'path_to_item'];
 
 //    protected $with = ['children'];
@@ -43,6 +53,10 @@ class Item extends Model
 //            ->get();
     }
 
+    /**
+     *
+     * @return mixed
+     */
     public function siblings()
     {
 //        if ($this->parent) {
@@ -62,6 +76,10 @@ class Item extends Model
             ->get();
     }
 
+    /**
+     *
+     * @return bool
+     */
     public function lastSibling()
     {
 //        return last($this->siblings()->toArray());
@@ -86,6 +104,10 @@ class Item extends Model
         return route('items.show', $this->id);
     }
 
+    /**
+     *
+     * @return static
+     */
     public function getPathToItemAttribute()
     {
         $breadcrumb = $this->breadcrumb();
@@ -145,6 +167,10 @@ class Item extends Model
         return collect($ancestors);
     }
 
+    /**
+     *
+     * @return array
+     */
     public function descendants()
     {
         $descendant_ids = [];
@@ -165,24 +191,46 @@ class Item extends Model
 
     }
 
+    /**
+     *
+     * @param $new_index
+     */
     public function updateIndex($new_index)
     {
         $this->index = $new_index;
         $this->save();
     }
 
-    public function moveToNewParent($new_parent)
+    /**
+     *
+     * @param $new_parent
+     * @param $new_index
+     */
+    public function moveToNewParent($new_parent, $new_index)
     {
+        Debugbar::info('new_index: ' . $new_index);
         if ($new_parent) {
             Debugbar::info('new parent');
             $this->parent_id = $new_parent->id;
-            $this->index = $new_parent->children->last()->index + 1;
+
+            if (isset($new_index)) {
+                $this->index = $new_index;
+            }
+            else {
+                $this->index = $new_parent->children->last()->index + 1;
+            }
         }
         else {
-            Debugbar::info('no parent');
+            Debugbar::info('home, no parent');
             //Item is being moved to home (no parent)
             $this->parent_id = null;
-            $this->index = Item::whereNull('parent_id')->max('index') + 1;
+
+            if (isset($new_index)) {
+                $this->index = $new_index;
+            }
+            else {
+                $this->index = Item::whereNull('parent_id')->max('index') + 1;
+            }
         }
 
         $this->save();

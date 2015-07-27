@@ -166,11 +166,24 @@ class ListsController extends Controller
         if ($request->get('new_parent')) {
             Debugbar::info('new parent');
             $new_parent = Item::find($request->get('new_parent_id'));
-            $this->itemsRepository->moveToNewParent($item, Item::find($request->get('old_parent_id')), $old_index, $new_parent);
+
+            $this->itemsRepository->moveToNewParent(
+                $item,
+                Item::find($request->get('old_parent_id')),
+                $old_index,
+                $new_parent,
+                $new_index
+            );
         }
         else {
             Debugbar::info('same parent');
-            $this->itemsRepository->moveItemSameParent($item, $old_index, $new_index, $parent);
+
+            $this->itemsRepository->moveItemSameParent(
+                $item,
+                $old_index,
+                $new_index,
+                $parent
+            );
         }
     }
 

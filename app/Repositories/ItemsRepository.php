@@ -92,12 +92,13 @@ class ItemsRepository {
      * @param $old_parent
      * @param $old_index
      * @param $new_parent
+     * @param $new_index
      */
-    public function moveToNewParent($item, $old_parent, $old_index, $new_parent)
+    public function moveToNewParent($item, $old_parent, $old_index, $new_parent, $new_index)
     {
         $this->moveOut($old_parent, $old_index);
-        $this->moveIn($item, $new_parent);
-        $item->moveToNewParent($new_parent);
+        $this->moveIn($new_parent, $new_index);
+        $item->moveToNewParent($new_parent, $new_index);
     }
 
     /**
@@ -114,11 +115,21 @@ class ItemsRepository {
 
     /**
      * For moving item to new parent. Make room for the new item.
-     * @param $item
      * @param $new_parent
+     * @param $new_index
      */
-    public function moveIn($item, $new_parent)
+    public function moveIn($new_parent, $new_index)
     {
-
+        if ($new_parent) {
+            Item::where('parent_id', $new_parent->id)
+                ->where('index', '>=', $new_index)
+                ->increment('index');
+        }
+        else {
+            //Moving home
+            Item::whereNull('parent_id')
+                ->where('index', '>=', $new_index)
+                ->increment('index');
+        }
     }
 }

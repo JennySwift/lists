@@ -4,7 +4,7 @@
     ng-mouseover="mouseOver(item, $event)"
     ng-mouseleave="mouseLeave(item, $event)"
     class="item-content">
-    [[item.title]]
+    [[item.id]]
 </div>
 
 <div
@@ -12,7 +12,7 @@
     ng-mousedown="mouseDown($event, item)"
     ng-mouseover="mouseOver(item, $event)"
     ng-mouseleave="mouseLeave(item, $event)"
-    ng-bind-html="item.html"
+    ng-bind-html="item.id"
     class="item-content">
 </div>
 
