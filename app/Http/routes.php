@@ -6,7 +6,8 @@
 
 use App\Models\Item;
 
-Route::get('/', 'Lists\ListsController@pageLoad');
+Route::get('/', 'ListsController@pageLoad');
+Route::get('/categories', 'CategoriesController@pageLoad');
 
 //Credits
 Route::get('/credits', function()
@@ -94,12 +95,13 @@ Route::controllers([
  * Resources
  */
 
-Route::resource('items', 'Lists\ListsController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+Route::resource('items', 'ListsController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
+Route::resource('categories', 'CategoriesController', ['only' => ['show', 'store']]);
 
 /**
  * Ajax
  */
 
-Route::post('filter', 'Lists\ListsController@filter');
+Route::post('filter', 'ListsController@filter');
 
 

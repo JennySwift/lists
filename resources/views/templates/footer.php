@@ -26,9 +26,11 @@
 
 <script type="text/javascript" src="js/controllers/controllers.js"></script>
 <script type="text/javascript" src="js/controllers/ListsController.js"></script>
+<script type="text/javascript" src="js/controllers/CategoriesController.js"></script>
 
 <script type="text/javascript" src="js/factories/ListsFactory.js"></script>
 <script type="text/javascript" src="js/factories/SortableFactory.js"></script>
 <script type="text/javascript" src="js/factories/FeedbackFactory.js"></script>
+<script type="text/javascript" src="js/factories/CategoriesFactory.js"></script>
 
 <script type="text/javascript" src="js/directives/SortableDirective.js"></script>

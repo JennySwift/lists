@@ -14,15 +14,18 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->string('title');
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('parent_id')->unsigned()->nullable()->index();
+            $table->string('title')->index();
+            //I got an error when I tried using index() here
             $table->text('body')->nullable();
             $table->integer('index');
+            $table->integer('category')->unsigned()->nullable()->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

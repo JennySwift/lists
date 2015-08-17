@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Lists;
+namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Repositories\ItemsRepository;
@@ -97,7 +97,7 @@ class ListsController extends Controller
         if ($parent) {
             $item->parent_id = $parent->id;
         }
-        
+
         $item->index = $item->calculateIndex($index, $parent);
 
         $item->user()->associate(Auth::user());

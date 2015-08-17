@@ -10,5 +10,13 @@
         </ul>
     </li>
 
+    <li>
+        <a href="/">lists</a>
+    </li>
+
+    <li>
+        <a href="/categories">categories</a>
+    </li>
+
 </ul>
 
