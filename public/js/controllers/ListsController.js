@@ -220,7 +220,7 @@ var app = angular.module('lists');
                         $scope.items[$scope.itemPopup.path_to_item] = response.data;
                     }
 
-                    $scope.provideFeedback('Category updated');
+                    $scope.provideFeedback('Item updated');
                     //$scope.hideLoading();
                 })
                 .catch(function (response) {
