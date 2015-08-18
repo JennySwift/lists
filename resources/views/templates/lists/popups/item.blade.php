@@ -8,7 +8,8 @@
 	<div id="item-popup" class="popup-inner">
         <h3>[[itemPopup.title]]</h3>
         <h3>[[itemPopup.id]]</h3>
-        <p>[[itemPopup.body]]</p>
+
+        <textarea ng-model="itemPopup.body" cols="30" rows="10">[[itemPopup.body]]</textarea>
 
         <select
                 ng-model="itemPopup.category_id"
@@ -20,6 +21,7 @@
                 [[category.name]]
             </option>
         </select>
+
 
         <input ng-model="itemPopup.priority" type="number" placeholder="priority"/>
 
