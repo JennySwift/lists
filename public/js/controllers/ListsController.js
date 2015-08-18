@@ -8,6 +8,7 @@ var app = angular.module('lists');
          */
 
         $scope.items = items;
+        $scope.categories = categories;
         $scope.paths = {
             base: base_path,
             test: base_path + '/resources/views/test.php'

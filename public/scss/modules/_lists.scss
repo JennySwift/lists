@@ -18,17 +18,7 @@
     top: 20px;
     z-index: 9999;
     min-width: 200px;
-//    background: lightblue;
-//    padding: 10px;
-//    border-radius: 5px;
-//    font-size: 20px;
-//    width: 50px;
-//    height: 50px;
 }
-//.order-number {
-//    position: absolute;
-//    left: 0px;
-//}
 
 #search-container {
     display: flex;
@@ -59,7 +49,6 @@
 .item {
     display: flex;
     font-size: 16px;
-//    padding: 5px 0;
     .fa-search-plus {
         visibility: hidden;
     }
@@ -87,13 +76,26 @@
         cursor: move;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
-        min-width: 200px;
+        width: 400px;
         padding: 5px 0;
         &.top-guide {
             border-top: 1px solid #777;
         }
         &.bottom-guide {
             border-bottom: 1px solid #777;
+        }
+    }
+    .item-id {
+        width: 200px;
+        display: flex;
+        align-items: center;
+    }
+    .category {
+        width: 200px;
+        display: flex;
+        justify-content: center;
+        > span {
+            width: 100px;
         }
     }
     &:hover {

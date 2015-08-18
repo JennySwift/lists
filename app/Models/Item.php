@@ -20,6 +20,11 @@ class Item extends Model
     /**
      * @var array
      */
+    protected $with = ['category'];
+
+    /**
+     * @var array
+     */
     protected $appends = ['path', 'has_children', 'path_to_item'];
 
 //    protected $with = ['children'];
@@ -40,6 +45,15 @@ class Item extends Model
     public function parent()
     {
         return $this->belongsTo('\App\Models\Item');
+    }
+
+    /**
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
     }
 
     /**

@@ -430,12 +430,22 @@ li {
     cursor: move;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    min-width: 200px;
+    width: 400px;
     padding: 5px 0; }
     .item .item-content.top-guide {
       border-top: 1px solid #777; }
     .item .item-content.bottom-guide {
       border-bottom: 1px solid #777; }
+  .item .item-id {
+    width: 200px;
+    display: flex;
+    align-items: center; }
+  .item .category {
+    width: 200px;
+    display: flex;
+    justify-content: center; }
+    .item .category > span {
+      width: 100px; }
   .item:hover .delete-item {
     visibility: visible; }
   .item .delete-item {

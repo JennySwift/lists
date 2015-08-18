@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Repositories\CategoriesRepository;
 use App\Repositories\ItemsRepository;
 use Illuminate\Http\Request;
 use JavaScript;
@@ -15,16 +16,21 @@ use App\Http\Controllers\Controller;
 class ListsController extends Controller
 {
     protected $itemsRepository;
+    /**
+     * @var CategoriesRepository
+     */
+    protected $categoriesRepository;
 
     /**
      * Create a new controller instance.
      *
      * @param ItemsRepository $itemsRepository
      */
-    public function __construct(ItemsRepository $itemsRepository)
+    public function __construct(ItemsRepository $itemsRepository, CategoriesRepository $categoriesRepository)
     {
         $this->middleware('auth');
         $this->itemsRepository = $itemsRepository;
+        $this->categoriesRepository = $categoriesRepository;
     }
 
     /**
@@ -38,9 +44,9 @@ class ListsController extends Controller
             ->orderBy('index', 'asc')
             ->get();
 
-
         JavaScript::put([
             'items' => $items,
+            'categories' => $this->categoriesRepository->getCategories(),
             'base_path' => base_path()
         ]);
 
@@ -91,7 +97,8 @@ class ListsController extends Controller
 
         $item = new Item([
             'title' => $new_item['title'],
-            'body' => $new_item['body']
+            'body' => $new_item['body'],
+            'category_id' => $new_item['category_id']
         ]);
 
         if ($parent) {
@@ -158,15 +165,12 @@ class ListsController extends Controller
      */
     public function update($id, Request $request)
     {
-        Debugbar::info('id: ' . $id);
-        Debugbar::info('request', $request->all());
         $item = Item::find($id);
         $parent = Item::find($request->get('parent_id'));
         $old_index = $request->get('old_index');
         $new_index = $request->get('new_index');
 
         if ($request->get('new_parent')) {
-            Debugbar::info('new parent');
             $new_parent = Item::find($request->get('new_parent_id'));
 
             $this->itemsRepository->moveToNewParent(
@@ -178,8 +182,6 @@ class ListsController extends Controller
             );
         }
         else {
-            Debugbar::info('same parent');
-
             $this->itemsRepository->moveItemSameParent(
                 $item,
                 $old_index,

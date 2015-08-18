@@ -20,12 +20,12 @@ class CreateItemsTable extends Migration
             //I got an error when I tried using index() here
             $table->text('body')->nullable();
             $table->integer('index');
-            $table->integer('category')->unsigned()->nullable()->index();
+            $table->integer('category_id')->unsigned()->nullable()->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('items')->onDelete('cascade');
-            $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

@@ -23,9 +23,11 @@ class CategorySeeder extends Seeder
     {
         Category::truncate();
 
-        foreach(range(1, 3) as $index)
+        $categoryNames = ['coding', 'social', 'faith', 'health', 'minimalism'];
+
+        foreach($categoryNames as $name)
         {
-            $category = new Category(['name' => $this->faker->word]);
+            $category = new Category(['name' => $name]);
             $category->user()->associate(User::first());
             $category->save();
         }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Item;
 use App\User;
 use Faker\Factory as Faker;
@@ -63,8 +64,11 @@ class ItemSeeder extends Seeder
      */
     public function createItem($parent = NULL)
     {
+        $categoryIds = Category::lists('id')->all();
+
         $item = new Item([
-            'title' => $this->faker->sentence
+            'title' => $this->faker->sentence,
+            'category_id' => $this->faker->randomElement($categoryIds)
         ]);
 
         $item->user()->associate(User::first());
@@ -76,9 +80,6 @@ class ItemSeeder extends Seeder
 
         $item->save();
 
-//        if ($item->parent) {
-//            var_dump($item->parent->id);
-//        }
         $item->index = $this->getIndex($item);
 
         $item->save();
@@ -88,27 +89,9 @@ class ItemSeeder extends Seeder
 
     private function getIndex($item)
     {
-//        if (!$item->lastSibling()) {
-//            var_dump('none');
-//            return 1;
-//        }
-//        dd($item->lastSibling()->index);
-//        var_dump($item->lastSibling()->id);
-//        if ($item->parent) {
-//            var_dump($item->parent->id);
-//        }
-
-//        if ($item->lastSibling()) {
-//            var_dump($item->lastSibling()->index);
-//        }
-//
-//        return 4;
-////        return 1;
-
         if ($item->lastSibling()) {
             $num = $item->lastSibling()->index;
             $num+=1;
-//            var_dump($item->lastSibling()->id);
         }
         else {
             $num = 0;

@@ -9,7 +9,13 @@
         newIndex="newIndex">
     </sortable-directive>
 
-    <span class="badge">ID: [[item.id]]</span>
+    <div class="item-id">
+        <span class="badge">ID: [[item.id]]</span>
+    </div>
+
+    <div class="category">
+        <span>[[item.category.name]]</span>
+    </div>
 
     <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
 
