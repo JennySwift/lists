@@ -99,7 +99,8 @@ class ListsController extends Controller
         $item = new Item([
             'title' => $new_item['title'],
             'body' => $new_item['body'],
-            'category_id' => $new_item['category_id']
+            'category_id' => $new_item['category_id'],
+            'priority' => $new_item['priority']
         ]);
 
         if ($parent) {
@@ -158,11 +159,13 @@ class ListsController extends Controller
         //
     }
 
-    public function updateCategory(Request $request)
+    public function updateItem(Request $request)
     {
-        $item = Item::find($request->get('item_id'));
-        $category = Category::find($request->get('category_id'));
+        $data = $request->get('item');
+        $item = Item::find($data['id']);
+        $category = Category::find($data['category_id']);
         $item->category()->associate($category);
+        $item->priority = $data['priority'];
         $item->save();
 //        Debugbar::info('category_id: ' . $request->get('category_id'));
 //        Debugbar::info('item', $item);

@@ -21,6 +21,10 @@
             </option>
         </select>
 
+        <input ng-model="itemPopup.priority" type="number" placeholder="priority"/>
+
+        <button ng-click="updateItem()" class="btn btn-success">Save</button>
+
 	</div>
 
 </div>

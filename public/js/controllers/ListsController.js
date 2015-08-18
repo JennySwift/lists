@@ -207,9 +207,9 @@ var app = angular.module('lists');
         //
         //};
 
-        $scope.updateItemCategory = function () {
+        $scope.updateItem = function () {
             //$scope.showLoading();
-            ListsFactory.updateItemCategory($scope.itemPopup, $scope.itemPopup.category_id)
+            ListsFactory.updateItem($scope.itemPopup)
                 .then(function (response) {
                     var $parent = $scope.findParentByPath($scope.itemPopup);
                     if ($parent) {

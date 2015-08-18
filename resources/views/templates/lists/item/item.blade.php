@@ -17,6 +17,10 @@
         <span>[[item.category.name]]</span>
     </div>
 
+    <div class="priority">
+        <span class="badge">[[item.priority]]</span>
+    </div>
+
     <div class="note">
         <i ng-if="item.body" class="fa fa-sticky-note-o"></i>
     </div>

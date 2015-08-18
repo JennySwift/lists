@@ -46,11 +46,10 @@ app.factory('ListsFactory', function ($http) {
          * update
          */
 
-        updateItemCategory: function ($item, $category_id) {
-            var $url = 'updateItemCategory';
+        updateItem: function ($item) {
+            var $url = 'updateItem';
             var $data = {
-                item_id: $item.id,
-                category_id: $category_id
+                item: $item
             };
 
             return $http.post($url, $data);

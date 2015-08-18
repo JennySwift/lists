@@ -393,6 +393,8 @@ li {
       width: 100px; }
   .item .note {
     width: 100px; }
+  .item .priority {
+    width: 100px; }
   .item:hover .delete-item {
     visibility: visible; }
   .item .delete-item {

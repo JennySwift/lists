@@ -11,6 +11,12 @@
         type="text"
         placeholder="body"/>
 
+    <input
+            ng-keyup="insertItem($event.keyCode)"
+            ng-model="new_item.priority"
+            type="number"
+            placeholder="priority"/>
+
     <select
         ng-keyup="insertItem($event.keyCode)"
         ng-model="new_item.category_id">

@@ -103,6 +103,6 @@ Route::resource('categories', 'CategoriesController', ['only' => ['show', 'store
  */
 
 Route::post('filter', 'ListsController@filter');
-Route::post('updateItemCategory', 'ListsController@updateCategory');
+Route::post('updateItem', 'ListsController@updateItem');
 
 
