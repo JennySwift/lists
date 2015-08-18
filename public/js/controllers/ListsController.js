@@ -107,6 +107,7 @@ var app = angular.module('lists');
                     else {
                         $scope.showHome(response);
                     }
+                    $scope.clearNewItemFields();
                     provideFeedback('Item added');
                 })
                 .catch(function (response) {
@@ -226,6 +227,11 @@ var app = angular.module('lists');
                     //$scope.responseError(response);
                     $scope.provideFeedback('error');
                 });
+        };
+
+        $scope.clearNewItemFields = function () {
+            $scope.new_item.title = '';
+            $scope.new_item.body = '';
         };
 
         /**
