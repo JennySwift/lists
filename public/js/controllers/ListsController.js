@@ -17,6 +17,11 @@ var app = angular.module('lists');
             title: '',
             body: ''
         };
+        $scope.show = {
+            popups: {
+                item: false
+            }
+        };
         $scope.newIndex = -1;
         $scope.feedbackFactory = FeedbackFactory;
         $scope.feedback_messages = [];
@@ -211,6 +216,11 @@ var app = angular.module('lists');
             if ($target.className === 'popup-outer') {
                 $scope.show.popups[$popup] = false;
             }
+        };
+
+        $scope.showItemPopup = function ($item) {
+            $scope.show.popups.item = true;
+            $scope.itemPopup = $item;
         };
 
 

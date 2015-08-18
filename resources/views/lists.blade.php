@@ -13,7 +13,7 @@
 @include('templates.header')
 
 <div ng-controller="ListsController" id="lists" class="container">
-
+    @include('templates.lists.popups.index')
     @include('templates/feedback')
     @include('templates/lists/search')
     @include('templates/lists/new-item')

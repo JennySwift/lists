@@ -73,6 +73,10 @@ class ItemSeeder extends Seeder
 
         $item->user()->associate(User::first());
 
+        if ($this->faker->boolean(50)) {
+            $item->body = 'item body';
+        }
+
         if(!is_null($parent))
         {
             $item->parent()->associate($parent);

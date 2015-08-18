@@ -17,7 +17,11 @@
         <span>[[item.category.name]]</span>
     </div>
 
-    <button ng-click="moveUp(item, $index)" class="btn btn-xs">move up</button>
+    <div class="note">
+        <i ng-if="item.body" class="fa fa-sticky-note-o"></i>
+    </div>
+
+    <button ng-click="showItemPopup(item)" class="btn btn-xs">view</button>
 
 </div>
 

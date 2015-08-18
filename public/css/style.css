@@ -163,63 +163,8 @@ li {
 @media all and (min-width: 680px) {
   .popup-inner {
     padding: 22px; } }
-#food-info-popup .default-unit {
-  background: lightgreen; }
-#food-info-popup input {
-  background: #FEE6BE; }
-
-#recipe-popup button, #recipe-popup ul {
-  width: 100%; }
-#recipe-popup > div {
-  margin-bottom: 100px; }
-  #recipe-popup > div:last-child {
-    margin-bottom: 10px; }
-#recipe-popup #steps-table td {
-  text-align: left; }
-  #recipe-popup #steps-table td:nth-child(1) {
-    padding: 0px 20px;
-    position: relative; }
-    #recipe-popup #steps-table td:nth-child(1) div {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0; }
-      #recipe-popup #steps-table td:nth-child(1) div input {
-        margin: 0;
-        height: 30px;
-        width: 30px; }
-#recipe-popup .flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-#recipe-popup .transition {
-  opacity: 1;
-  height: 400px; }
-#recipe-popup .transition.ng-hide-add.ng-hide-add-active,
-#recipe-popup .transition.ng-hide-remove.ng-hide-remove-active {
-  -webkit-transition: all linear .5s;
-  transition: all linear .5s; }
-#recipe-popup .transition.ng-hide {
-  opacity: 0;
-  height: 0px; }
-
-#exercise-popup h3:first-child {
-  margin-top: 0;
-  margin-bottom: 25px; }
-#exercise-popup .flex {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; }
-#exercise-popup input {
-  background: #FEE6BE; }
-
-#project-popup .flex {
-  display: flex;
-  justify-content: center; }
-  #project-popup .flex button {
-    margin: 20px 20px 20px 20px;
-    padding: 10px 43px; }
+#item-popup {
+  width: 300px; }
 
 /*==============================font awesome==============================*/
 .fa-home {
@@ -446,6 +391,8 @@ li {
     justify-content: center; }
     .item .category > span {
       width: 100px; }
+  .item .note {
+    width: 100px; }
   .item:hover .delete-item {
     visibility: visible; }
   .item .delete-item {
