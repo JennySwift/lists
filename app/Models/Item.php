@@ -242,7 +242,14 @@ class Item extends Model
         }
         else {
             if ($parent) {
-                return $parent->children->last()->index + 1;
+                if (count($parent->children) > 0) {
+                    Debugbar::info('parent->children', $parent->children);
+                    return $parent->children->last()->index + 1;
+                }
+                else {
+                    return 0;
+                }
+
             }
             else {
                 return Item::whereNull('parent_id')->max('index') + 1;
