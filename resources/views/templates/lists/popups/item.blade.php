@@ -6,10 +6,22 @@
     class="popup-outer">
 
 	<div id="item-popup" class="popup-inner">
-        <h3>[[itemPopup.title]]</h3>
+
+        <textarea
+            ng-model="itemPopup.title"
+            cols="30"
+            rows="10">
+            [[itemPopup.title]]
+        </textarea>
+
         <h3>[[itemPopup.id]]</h3>
 
-        <textarea ng-model="itemPopup.body" cols="30" rows="10">[[itemPopup.body]]</textarea>
+        <textarea
+            ng-model="itemPopup.body"
+            cols="30"
+            rows="10">
+            [[itemPopup.body]]
+        </textarea>
 
         <select
                 ng-model="itemPopup.category_id"

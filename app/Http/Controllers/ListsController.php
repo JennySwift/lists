@@ -166,6 +166,7 @@ class ListsController extends Controller
         $category = Category::find($data['category_id']);
         $item->category()->associate($category);
         $item->priority = $data['priority'];
+        $item->title = $data['title'];
         $item->body = $data['body'];
         $item->save();
 //        Debugbar::info('category_id: ' . $request->get('category_id'));
