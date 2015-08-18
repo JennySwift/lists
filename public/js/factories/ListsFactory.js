@@ -46,6 +46,16 @@ app.factory('ListsFactory', function ($http) {
          * update
          */
 
+        updateItemCategory: function ($item, $category_id) {
+            var $url = 'updateItemCategory';
+            var $data = {
+                item_id: $item.id,
+                category_id: $category_id
+            };
+
+            return $http.post($url, $data);
+        },
+
         moveItemSameParent: function ($item, $new_index) {
             var $url = $item.path;
             var $data = {

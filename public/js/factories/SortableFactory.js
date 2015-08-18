@@ -56,6 +56,16 @@ app.factory('SortableFactory', function ($http) {
     };
 
     /**
+     * For when I have the item object (in the popup) but need to modify it
+     * in the original $scope.items array
+     * @param $item
+     */
+    //$object.findItemByPath = function ($item) {
+    //    var $path = $item.path_to_item;
+    //
+    //};
+
+    /**
      * For when item is hovered, setting the index to that of the hovered item
      * @param $index
      */

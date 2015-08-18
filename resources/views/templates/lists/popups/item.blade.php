@@ -7,7 +7,20 @@
 
 	<div id="item-popup" class="popup-inner">
         <h3>[[itemPopup.title]]</h3>
+        <h3>[[itemPopup.id]]</h3>
         <p>[[itemPopup.body]]</p>
+
+        <select
+                ng-model="itemPopup.category_id"
+                ng-change="updateItemCategory()">
+            <option
+                    ng-repeat="category in categories"
+                    ng-value="category.id"
+                    ng-selected="category.id == itemPopup.category_id">
+                [[category.name]]
+            </option>
+        </select>
+
 	</div>
 
 </div>

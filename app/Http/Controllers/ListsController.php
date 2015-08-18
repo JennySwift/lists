@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\ItemsRepository;
@@ -155,6 +156,17 @@ class ListsController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    public function updateCategory(Request $request)
+    {
+        $item = Item::find($request->get('item_id'));
+        $category = Category::find($request->get('category_id'));
+        $item->category()->associate($category);
+        $item->save();
+//        Debugbar::info('category_id: ' . $request->get('category_id'));
+//        Debugbar::info('item', $item);
+        return $item;
     }
 
     /**

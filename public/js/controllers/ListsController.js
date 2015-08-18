@@ -1,7 +1,7 @@
 var app = angular.module('lists');
 
 (function () {
-    app.controller('ListsController', function ($scope, $http, ListsFactory, FeedbackFactory) {
+    app.controller('ListsController', function ($scope, $http, ListsFactory, FeedbackFactory, SortableFactory) {
 
         /**
          * scope properties
@@ -206,6 +206,42 @@ var app = angular.module('lists');
         //$scope.deleteJsItem = function () {
         //
         //};
+
+        $scope.updateItemCategory = function () {
+            //$scope.showLoading();
+            ListsFactory.updateItemCategory($scope.itemPopup, $scope.itemPopup.category_id)
+                .then(function (response) {
+                    var $parent = $scope.findParentByPath($scope.itemPopup);
+                    if ($parent) {
+                        $parent.children[$scope.itemPopup.index] = response.data;
+                    }
+                    else {
+                        $scope.items[$scope.itemPopup.path_to_item] = response.data;
+                    }
+
+                    $scope.provideFeedback('Category updated');
+                    //$scope.hideLoading();
+                })
+                .catch(function (response) {
+                    //$scope.responseError(response);
+                    $scope.provideFeedback('error');
+                });
+        };
+
+        /**
+         * $short_path is an array of indexes to the item, for example:
+         * [0,2,1]
+         * Duplicate from sortable directive
+         */
+        $scope.findParentByPath = function ($item) {
+            if (!$item.parent_id) {
+                return false;
+            }
+            var $short_path = $item.path_to_item;
+            var $item = $scope.items[$short_path[0]];
+            $item = SortableFactory.findParentByPath($item, $short_path);
+            return $item;
+        };
 
         /**
          * other
