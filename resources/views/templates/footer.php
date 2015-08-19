@@ -1,7 +1,10 @@
 <!-- privacy policy -->
 
 <footer>
-	<a href="http://jennyswiftcreations.com/privacy-policy">Privacy Policy</a>
+    <li>
+        <a href="http://jennyswiftcreations.com/privacy-policy">Privacy Policy</a>
+    </li>
+
 </footer>
 
 <!-- plugins -->

@@ -3,7 +3,7 @@
 	display: -webkit-flex;
 	justify-content: space-around;
 	-webkit-justify-content: space-around;
-	background: white;
+	background: black;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -11,7 +11,7 @@
 	li {
 		padding: 10px 0;
 		a {
-			color: #777;
+			color: #337ab7;
 		}
 	}
 }

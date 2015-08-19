@@ -14,6 +14,6 @@
     class="item-content">
 </div>
 
-@include('templates/lists/debug-info')
+{{--@include('templates/lists/debug-info')--}}
 
 

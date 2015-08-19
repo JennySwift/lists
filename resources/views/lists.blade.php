@@ -22,7 +22,7 @@
 
 </div>
 
-<?php include($footer); ?>
+@include('templates.footer')
 
 @include('footer')
 
