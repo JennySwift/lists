@@ -7,6 +7,13 @@ use App\Models\Item;
  */
 class ItemsRepository {
 
+    public function getHomeItems()
+    {
+        return Item::whereNull('parent_id')
+            ->order('priority')
+            ->get();
+    }
+
     /**
      * For moving an item, keeping the same parent.
      * Update the indexes of the siblings as well as the item.

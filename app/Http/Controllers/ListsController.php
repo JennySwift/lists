@@ -41,12 +41,8 @@ class ListsController extends Controller
      */
     public function pageLoad()
     {
-        $items = Item::whereNull('parent_id')
-            ->orderBy('index', 'asc')
-            ->get();
-
         JavaScript::put([
-            'items' => $items,
+            'items' => $this->itemsRepository->getHomeItems(),
             'categories' => $this->categoriesRepository->getCategories(),
             'base_path' => base_path()
         ]);
@@ -56,33 +52,28 @@ class ListsController extends Controller
 //        return view('lists', compact('items'));
     }
 
+    /**
+     * Get home items
+     * @return mixed
+     */
     public function index()
     {
-        $items = Item::whereNull('parent_id')
-            ->orderBy('index', 'asc')
-            ->get();
-        return $items;
+        return $this->itemsRepository->getHomeItems();
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function filter(Request $request)
     {
         $typing = '%' . $request->get('typing') . '%';
 
         $items = Item::where('title', 'LIKE', $typing)
-//            ->whereIn('id', $item->descendants)
             ->get();
 
         return $items;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -115,6 +106,11 @@ class ListsController extends Controller
         return $this->showSomething($parent);
     }
 
+    /**
+     * Get items of a chosen parent (or home items if no parent)
+     * @param $parent
+     * @return Response|mixed
+     */
     public function showSomething($parent)
     {
         if ($parent) {
@@ -135,28 +131,10 @@ class ListsController extends Controller
     {
         $item = Item::find($id);
 
-        //If the user clicked on 'home'
-//        if (!$item) {
-//            return Item::whereNull('parent_id')->get();
-//        }
-
         return [
-            //Doing ->get() so that the children don't end up
-            //in the breadcrumb unnecessarily.
-            'children' => $item->children()->get(),
+            'children' => $item->children()->order('priority')->get(),
             'breadcrumb' => $item->breadcrumb()
         ];
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     public function updateItem(Request $request)
@@ -169,8 +147,6 @@ class ListsController extends Controller
         $item->title = $data['title'];
         $item->body = $data['body'];
         $item->save();
-//        Debugbar::info('category_id: ' . $request->get('category_id'));
-//        Debugbar::info('item', $item);
         return $item;
     }
 
@@ -218,6 +194,5 @@ class ListsController extends Controller
     {
         $item = Item::findOrFail($id);
         $item->delete();
-//        return $this->showSomething($item->parent_id);
     }
 }

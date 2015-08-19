@@ -62,9 +62,7 @@ class Item extends Model
      */
     public function children()
     {
-        return $this->hasMany('\App\Models\Item', 'parent_id')
-            ->orderBy('index', 'asc');
-//            ->get();
+        return $this->hasMany('\App\Models\Item', 'parent_id');
     }
 
     /**
@@ -81,6 +79,11 @@ class Item extends Model
         return Item::where('parent_id', $this->parent_id)
             ->where('id', '!=', $this->id)
             ->get();
+    }
+
+    public function scopeOrder($query, $type)
+    {
+        return $query->orderBy($type, 'asc');
     }
 
     /**
