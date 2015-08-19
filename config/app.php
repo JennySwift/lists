@@ -144,7 +144,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Laracasts\Utilities\JavaScript\JavascriptServiceProvider::class
+        Laracasts\Utilities\JavaScript\JavascriptServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class
 
     ],
 
