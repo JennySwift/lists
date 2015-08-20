@@ -42,17 +42,46 @@ app.factory('SortableFactory', function ($http) {
     };
 
     /**
+     * This doesn't work anymore since I started ordering by priority.
      * $short_path is an array of indexes to the item, for example:
      * [0,2,1]
      */
-    $object.findParentByPath = function ($item, $short_path) {
-        for (var i = 0; i < $short_path.length; i++) {
-            if (i > 0 && i < $short_path.length - 1) {
-                $item = $item.children[$short_path[i]];
+    //$object.findParentByPath = function ($item, $short_path) {
+    //    for (var i = 0; i < $short_path.length; i++) {
+    //        if (i > 0 && i < $short_path.length - 1) {
+    //            $item = $item.children[$short_path[i]];
+    //        }
+    //    }
+    //
+    //    return $item;
+    //};
+
+    /**
+     * For when items are ordered by priority, not index.
+     * $parent variable is in the process of being found, so it isn't the
+     * correct value until the end.
+     * $path is an array of indexes to the item, for example:
+     * [0,2,1]
+     */
+    $object.findParentByPath = function ($item, $items) {
+        if (!$item.parent_id) {
+            return false;
+        }
+
+        var $path = $item.path_to_item;
+
+        for (var i = 0; i < $path.length; i++) {
+            if (i === 0) {
+                $parent = _.findWhere($items, {index: i});
+            }
+            //Check i is less than $short_path.length -1, otherwise it would
+            //be the child and not the parent
+            else if (i < $path.length - 1) {
+                $parent = _.findWhere($parent.children, {index: $path[i]});
             }
         }
 
-        return $item;
+        return $parent;
     };
 
     /**

@@ -10,6 +10,22 @@
         </ul>
     </li>
 
+    <li id="menu-dropdown" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            actions
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a
+                    ng-click="undoDeleteItem()"
+                    href="#">
+                    undo delete item
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li>
         <a href="/">lists</a>
     </li>

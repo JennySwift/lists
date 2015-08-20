@@ -79,6 +79,12 @@ app.factory('ListsFactory', function ($http) {
             return $http.put($url, $data);
         },
 
+        undoDeleteItem: function () {
+            var $url = 'undoDeleteItem';
+
+            return $http.put($url);
+        },
+
         /**
          * delete
          */

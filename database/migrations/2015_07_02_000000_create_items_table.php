@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->integer('index');
             $table->integer('category_id')->unsigned()->nullable()->index();
             $table->integer('priority')->index();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

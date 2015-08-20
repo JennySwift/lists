@@ -195,4 +195,14 @@ class ListsController extends Controller
         $item = Item::findOrFail($id);
         $item->delete();
     }
+
+    public function undoDeleteItem()
+    {
+        $item = Item::onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->first();
+        $item->restore();
+
+        return $item;
+    }
 }

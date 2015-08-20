@@ -163,8 +163,7 @@ var app = angular.module('lists');
             ListsFactory.deleteItem($item)
                 .then(function (response) {
                     var $parent = $scope.findParent($scope.items, $item);
-                    console.log($parent);
-                    console.log($parent.children);
+                    $scope.provideFeedback('Item deleted');
                     $scope.deleteJsItem($parent, $item);
 
                 })
@@ -173,12 +172,17 @@ var app = angular.module('lists');
                 });
         };
 
+        $scope.test = function () {
+            console.log($scope.items);
+        };
+
         $scope.deleteJsItem = function ($parent, $item) {
             if ($parent) {
                 $parent.children = _.without($parent.children, $item);
             }
             else {
                 $scope.items = _.without($scope.items, $item);
+                console.log($scope.items);
             }
         };
 
@@ -234,19 +238,49 @@ var app = angular.module('lists');
             $scope.new_item.body = '';
         };
 
+        $scope.undoDeleteItem = function () {
+            //$scope.showLoading();
+            ListsFactory.undoDeleteItem()
+                .then(function (response) {
+                    $scope.jsRestoreItem(response.data);
+                    $scope.provideFeedback('Item restored');
+                    //$scope.hideLoading();
+                })
+                .catch(function (response) {
+                    $scope.responseError(response);
+                });
+        };
+
+        /**
+         * After undoing delete item, restored item is returned in the response.
+         * Add this item to the items with the JS.
+         * @param $item
+         */
+        $scope.jsRestoreItem = function ($item) {
+            if (!$item.parent_id) {
+                //Restore the item back home.
+                if (!$scope.breadcrumb || $scope.breadcrumb.length < 1) {
+                    //We are home
+                    $scope.items.push($item);
+                }
+
+            }
+            else {
+                var $parent = $scope.findParentByPath($item);
+                if ($parent) {
+                    //Todo: put it in the right spot, not just at the end
+                    $parent.children.push($item);
+                }
+            }
+        };
+
         /**
          * $short_path is an array of indexes to the item, for example:
          * [0,2,1]
          * Duplicate from sortable directive
          */
         $scope.findParentByPath = function ($item) {
-            if (!$item.parent_id) {
-                return false;
-            }
-            var $short_path = $item.path_to_item;
-            var $item = $scope.items[$short_path[0]];
-            $item = SortableFactory.findParentByPath($item, $short_path);
-            return $item;
+            return SortableFactory.findParentByPath($item, $scope.items);
         };
 
         /**

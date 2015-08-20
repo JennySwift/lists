@@ -104,5 +104,6 @@ Route::resource('categories', 'CategoriesController', ['only' => ['show', 'store
 
 Route::post('filter', 'ListsController@filter');
 Route::post('updateItem', 'ListsController@updateItem');
+Route::put('undoDeleteItem', 'ListsController@undoDeleteItem');
 
 

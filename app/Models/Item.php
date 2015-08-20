@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Repositories\ItemsRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Debugbar;
 
 /**
@@ -12,6 +13,14 @@ use Debugbar;
  */
 class Item extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     /**
      * @var array
      */

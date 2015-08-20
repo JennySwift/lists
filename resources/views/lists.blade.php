@@ -8,15 +8,16 @@
     include($head_links);
     ?>
 </head>
-<body>
+<body ng-controller="ListsController">
 
 @include('templates.header')
 
-<div ng-controller="ListsController" id="lists" class="container">
+<div id="lists" class="container">
     @include('templates.lists.popups.index')
     @include('templates/feedback')
     @include('templates/lists/search')
     @include('templates/lists/new-item')
+    <button ng-click="test()" class="btn">test</button>
     @include('templates/lists/breadcrumb')
     @include('templates/lists/lists')
 
