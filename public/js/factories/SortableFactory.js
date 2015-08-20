@@ -62,6 +62,7 @@ app.factory('SortableFactory', function ($http) {
      * correct value until the end.
      * $path is an array of indexes to the item, for example:
      * [0,2,1]
+     * //Todo: It might make more sense to make the $item.path_to_item an array of ids rather than indexes since I'm now ordering by priority
      */
     $object.findParentByPath = function ($item, $items) {
         if (!$item.parent_id) {
