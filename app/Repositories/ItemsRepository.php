@@ -1,6 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\Item;
+use Auth;
 
 /**
  * Class ItemsRepository
@@ -11,6 +12,13 @@ class ItemsRepository {
     {
         return Item::whereNull('parent_id')
             ->order('priority')
+            ->get();
+    }
+
+    public function getFavourites()
+    {
+        return Item::where('user_id', Auth::user()->id)
+            ->where('favourite', 1)
             ->get();
     }
 

@@ -32,4 +32,19 @@
         </button>
     </div>
 
+    <div>
+        <button ng-click="toggleFavourites()" class="btn btn-info fa fa-star-o"></button>
+    </div>
+
+    <div ng-show="show.favourites" id="favourites">
+        <ul class="list-group">
+            <li
+                ng-repeat="favourite in favourites"
+                ng-click="goToFavourite(favourite)"
+                class="list-group-item">
+                [[favourite.title]]
+            </li>
+        </ul>
+    </div>
+
 </div>

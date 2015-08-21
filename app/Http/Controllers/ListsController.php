@@ -44,6 +44,7 @@ class ListsController extends Controller
         JavaScript::put([
             'items' => $this->itemsRepository->getHomeItems(),
             'categories' => $this->categoriesRepository->getCategories(),
+            'favourites' => $this->itemsRepository->getFavourites(),
             'base_path' => base_path()
         ]);
 
@@ -146,6 +147,7 @@ class ListsController extends Controller
         $item->priority = $data['priority'];
         $item->title = $data['title'];
         $item->body = $data['body'];
+        $item->favourite = $data['favourite'];
         $item->save();
         return $item;
     }

@@ -69,7 +69,8 @@ class ItemSeeder extends Seeder
         $item = new Item([
             'title' => $this->faker->sentence,
             'category_id' => $this->faker->randomElement($categoryIds),
-            'priority' => $this->faker->numberBetween(1,5)
+            'priority' => $this->faker->numberBetween(1,5),
+            'favourite' => $this->faker->boolean(2)
         ]);
 
         $item->user()->associate(User::first());

@@ -1,0 +1,13 @@
+#breadcrumb {
+    display: flex;
+    margin-bottom: 50px;
+    margin-left: 67px;
+    span {
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .fa-angle-right {
+        font-size: 19px;
+        margin: 0 21px;
+    }
+}

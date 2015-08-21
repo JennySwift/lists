@@ -1,0 +1,16 @@
+#search-container {
+    display: flex;
+    justify-content: center;
+    input {
+        //        width: 360px;
+        font-size: 19px;
+        padding: 6px 18px;
+        //        margin-bottom: 50px;
+        &:nth-child(2) {
+            width: 166px;
+        }
+    }
+    > * {
+        margin: 0 11px 50px 0;
+    }
+}

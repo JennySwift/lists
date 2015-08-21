@@ -9,6 +9,7 @@ var app = angular.module('lists');
 
         $scope.items = items;
         $scope.categories = categories;
+        $scope.favourites = favourites;
         $scope.paths = {
             base: base_path,
             test: base_path + '/resources/views/test.php'
@@ -20,7 +21,8 @@ var app = angular.module('lists');
         $scope.show = {
             popups: {
                 item: false
-            }
+            },
+            favourites: false
         };
         $scope.newIndex = -1;
         $scope.feedbackFactory = FeedbackFactory;
@@ -52,6 +54,10 @@ var app = angular.module('lists');
         /**
          * select
          */
+
+        $scope.toggleFavourites = function () {
+            $scope.show.favourites = !$scope.show.favourites;
+        };
 
         $scope.getChildren = function ($item) {
             ListsFactory.getChildren($item)
@@ -85,6 +91,10 @@ var app = angular.module('lists');
                 .catch(function (response) {
 
                 });
+        };
+
+        $scope.goToFavourite = function ($favourite) {
+            $scope.zoom($favourite);
         };
 
         $scope.showChildren = function (response, $item) {
@@ -172,10 +182,6 @@ var app = angular.module('lists');
                 });
         };
 
-        $scope.test = function () {
-            console.log($scope.items);
-        };
-
         $scope.deleteJsItem = function ($parent, $item) {
             if ($parent) {
                 $parent.children = _.without($parent.children, $item);
@@ -223,14 +229,32 @@ var app = angular.module('lists');
                     else {
                         $scope.items[$scope.itemPopup.path_to_item] = response.data;
                     }
-
+                    $scope.show.popups.item = false;
                     $scope.provideFeedback('Item updated');
+                    $scope.toggleFavourite();
                     //$scope.hideLoading();
                 })
                 .catch(function (response) {
                     //$scope.responseError(response);
                     $scope.provideFeedback('error');
                 });
+        };
+
+        /**
+         * For when the 'favourite' button in the item popup is toggled,
+         * after the item is saved
+         */
+        $scope.toggleFavourite = function () {
+            var $itemInFavourites = _.findWhere($scope.favourites, {id: $scope.itemPopup.id});
+            //Remove the item from the $scope.favourites if it is no longer a favourite
+            if ($itemInFavourites && !$scope.itemPopup.favourite) {
+                $scope.favourites = _.without($scope.favourites, $itemInFavourites);
+            }
+            //Add the item to $scope.favourites if it is now a favourite
+            else if (!$itemInFavourites && $scope.itemPopup.favourite) {
+                //Todo: put the item in the correct place rather than at the end
+                $scope.favourites.push($scope.itemPopup);
+            }
         };
 
         $scope.clearNewItemFields = function () {

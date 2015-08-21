@@ -1,5 +1,4 @@
 
-
 <div
     ng-show="show.popups.item"
     ng-click="closePopup($event, 'item')"
@@ -7,25 +6,40 @@
 
 	<div id="item-popup" class="popup-inner">
 
+        <button
+            ng-if="!itemPopup.favourite"
+            ng-click="itemPopup.favourite = !itemPopup.favourite"
+            class="favourite fa fa-star-o">
+        </button>
+
+        <button
+            ng-if="itemPopup.favourite"
+            ng-click="itemPopup.favourite = !itemPopup.favourite"
+            class="favourite fa fa-star">
+        </button>
+
+        <h3>Title (id: [[itemPopup.id]])</h3>
+
         <textarea
             ng-model="itemPopup.title"
-            cols="30"
-            rows="10">
+            rows="2">
             [[itemPopup.title]]
         </textarea>
 
-        <h3>[[itemPopup.id]]</h3>
+        <h3>Note</h3>
 
         <textarea
             ng-model="itemPopup.body"
-            cols="30"
             rows="10">
             [[itemPopup.body]]
         </textarea>
 
+        <h3>Category</h3>
+
         <select
-                ng-model="itemPopup.category_id"
-                ng-change="updateItemCategory()">
+            ng-model="itemPopup.category_id"
+            ng-change="updateItemCategory()"
+            class="form-control">
             <option
                     ng-repeat="category in categories"
                     ng-value="category.id"
@@ -34,10 +48,11 @@
             </option>
         </select>
 
+        <h3>Priority</h3>
 
         <input ng-model="itemPopup.priority" type="number" placeholder="priority"/>
 
-        <button ng-click="updateItem()" class="btn btn-success">Save</button>
+        <button ng-click="updateItem()" class="btn btn-success save">Save</button>
 
 	</div>
 

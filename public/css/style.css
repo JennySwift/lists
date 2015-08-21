@@ -143,12 +143,14 @@ li {
   background: rgba(0, 0, 0, 0.4);
   z-index: 999; }
   .popup-outer .popup-inner {
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
     border-radius: 5px;
-    margin-top: 10%;
     background: white;
-    margin-left: auto;
-    margin-right: auto;
     width: 80%;
     overflow: scroll;
     height: 500px;
@@ -161,7 +163,57 @@ li {
   .popup-inner {
     padding: 22px; } }
 #item-popup {
-  width: 300px; }
+  width: 600px;
+  height: 650px; }
+  #item-popup > input, #item-popup select, #item-popup textarea, #item-popup .save {
+    width: 100%; }
+  #item-popup button.save {
+    margin-top: 28px; }
+  #item-popup button.favourite {
+    position: absolute;
+    right: 5px;
+    top: 5px; }
+  #item-popup .fa-star {
+    color: #fca700; }
+
+#search-container {
+  display: flex;
+  justify-content: center; }
+  #search-container input {
+    font-size: 19px;
+    padding: 6px 18px; }
+    #search-container input:nth-child(2) {
+      width: 166px; }
+  #search-container > * {
+    margin: 0 11px 50px 0; }
+
+#new-item {
+  display: flex;
+  justify-content: center; }
+  #new-item > * {
+    margin: 0 10px 0 10px; }
+
+#breadcrumb {
+  display: flex;
+  margin-bottom: 50px;
+  margin-left: 67px; }
+  #breadcrumb span {
+    font-size: 16px;
+    cursor: pointer; }
+  #breadcrumb .fa-angle-right {
+    font-size: 19px;
+    margin: 0 21px; }
+
+#favourites {
+  position: fixed;
+  max-height: 500px;
+  overflow: scroll;
+  right: 0;
+  width: 250px; }
+  #favourites li {
+    cursor: pointer; }
+    #favourites li:hover {
+      background: lightblue; }
 
 /*==============================font awesome==============================*/
 .fa-home {
@@ -310,40 +362,12 @@ li {
     #navbar li a {
       color: #337ab7; }
 
-#breadcrumb {
-  display: flex;
-  margin-bottom: 50px;
-  margin-left: 67px; }
-  #breadcrumb span {
-    font-size: 16px;
-    cursor: pointer; }
-  #breadcrumb .fa-angle-right {
-    font-size: 19px;
-    margin: 0 21px; }
-
 .debug-info {
   position: absolute;
   left: 20px;
   top: 20px;
   z-index: 9999;
   min-width: 200px; }
-
-#search-container {
-  display: flex;
-  justify-content: center; }
-  #search-container input {
-    font-size: 19px;
-    padding: 6px 18px; }
-    #search-container input:nth-child(2) {
-      width: 166px; }
-  #search-container > * {
-    margin: 0 11px 50px 0; }
-
-#new-item {
-  display: flex;
-  justify-content: center; }
-  #new-item > * {
-    margin: 0 10px 0 10px; }
 
 .guide {
   width: 100%;
