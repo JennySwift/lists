@@ -196,6 +196,14 @@ li {
   justify-content: center; }
   #new-item > * {
     margin: 0 10px 0 10px; }
+  #new-item .priority {
+    width: 84px; }
+  #new-item .note {
+    width: 250px; }
+  #new-item textarea {
+    height: 40px; }
+    #new-item textarea::-webkit-input-placeholder {
+      text-align: center; }
 
 #breadcrumb {
   display: flex;

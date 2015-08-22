@@ -5,21 +5,23 @@
         type="text"
         placeholder="title"/>
 
-    <input
-        ng-keyup="insertItem($event.keyCode)"
+    <textarea
         ng-model="new_item.body"
-        type="text"
-        placeholder="body"/>
+        placeholder="note"
+        class="note">
+    </textarea>
 
     <input
             ng-keyup="insertItem($event.keyCode)"
             ng-model="new_item.priority"
             type="number"
-            placeholder="priority"/>
+            placeholder="priority"
+            class="priority"/>
 
     <select
         ng-keyup="insertItem($event.keyCode)"
-        ng-model="new_item.category_id">
+        ng-model="new_item.category_id"
+        class="form-control">
         <option
             ng-repeat="category in categories"
             ng-value="category.id">
@@ -27,5 +29,8 @@
         </option>
     </select>
 
-    <button ng-click="insertItem(13)" class="btn btn-success">Add item</button>
+    <div>
+        <button ng-click="insertItem(13)" class="btn btn-success">Add item</button>
+    </div>
+
 </div>
