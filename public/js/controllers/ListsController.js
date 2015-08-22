@@ -162,7 +162,7 @@ var app = angular.module('lists');
                         $scope.showHome(response);
                     }
                     $scope.clearNewItemFields();
-                    provideFeedback('Item added');
+                    $scope.provideFeedback('Item added');
                     $scope.hideLoading();
                 })
                 .catch(function (response) {
