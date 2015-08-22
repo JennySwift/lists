@@ -217,15 +217,18 @@ li {
     margin: 0 21px; }
 
 #favourites {
-  position: fixed;
-  max-height: 500px;
-  overflow: scroll;
-  right: 0;
-  width: 250px; }
-  #favourites li {
-    cursor: pointer; }
-    #favourites li:hover {
-      background: lightblue; }
+  position: relative; }
+  #favourites ul {
+    position: fixed;
+    max-height: 500px;
+    overflow: scroll;
+    right: 5px;
+    top: 94px;
+    width: 250px; }
+    #favourites ul li {
+      cursor: pointer; }
+      #favourites ul li:hover {
+        background: lightblue; }
 
 /*==============================font awesome==============================*/
 .fa-home {

@@ -375,6 +375,12 @@ var app = angular.module('lists');
             $scope.itemPopup = $item;
         };
 
+        //$("body").on('click', function (event) {
+        //    if (!$("#favourites")[0].contains(event.target)) {
+        //        $scope.show.favourites = false;
+        //    }
+        //});
+
     }); //end controller
 
 })();

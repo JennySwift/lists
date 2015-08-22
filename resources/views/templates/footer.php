@@ -37,3 +37,4 @@
 <script type="text/javascript" src="js/factories/CategoriesFactory.js"></script>
 
 <script type="text/javascript" src="js/directives/SortableDirective.js"></script>
+<!--<script type="text/javascript" src="js/directives/DropdownsDirective.js"></script>-->
