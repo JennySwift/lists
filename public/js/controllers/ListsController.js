@@ -55,14 +55,24 @@ var app = angular.module('lists');
          * select
          */
 
+        $scope.showLoading = function () {
+            $scope.loading = true;
+        };
+
+        $scope.hideLoading = function () {
+            $scope.loading = false;
+        };
+
         $scope.toggleFavourites = function () {
             $scope.show.favourites = !$scope.show.favourites;
         };
 
         $scope.getChildren = function ($item) {
+            $scope.showLoading();
             ListsFactory.getChildren($item)
                 .then(function (response) {
                     $item.children = response.data.children;
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
 
@@ -70,9 +80,11 @@ var app = angular.module('lists');
         };
 
         $scope.goHome = function () {
+            $scope.showLoading();
             ListsFactory.goHome()
                 .then(function (response) {
                     $scope.showHome(response);
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
 
@@ -84,9 +96,11 @@ var app = angular.module('lists');
         };
 
         $scope.zoom = function ($item) {
+            $scope.showLoading();
             ListsFactory.getChildren($item)
                 .then(function (response) {
                     $scope.showChildren(response, $item);
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
 
@@ -110,6 +124,7 @@ var app = angular.module('lists');
                 return false;
             }
 
+            $scope.showLoading();
             ListsFactory.insertItem($scope.zoomed_item, $scope.new_item)
                 .then(function (response) {
                     if ($scope.zoomed_item) {
@@ -120,6 +135,7 @@ var app = angular.module('lists');
                     }
                     $scope.clearNewItemFields();
                     provideFeedback('Item added');
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
                     provideFeedback('There was an error');
@@ -137,10 +153,11 @@ var app = angular.module('lists');
                 return false;
             }
             var $typing = $("#filter").val();
+            $scope.showLoading();
             ListsFactory.filter($typing)
                 .then(function (response) {
-                    //console.log(response.data);
                     $scope.items = $scope.highlightLetters(response.data, $typing);
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
 
@@ -169,14 +186,13 @@ var app = angular.module('lists');
          */
 
         $scope.deleteItem = function ($item) {
-            //var $parent = $scope.findParent($scope.items, $item);
-            //console.log($parent);
+            $scope.showLoading();
             ListsFactory.deleteItem($item)
                 .then(function (response) {
                     var $parent = $scope.findParent($scope.items, $item);
                     $scope.provideFeedback('Item deleted');
                     $scope.deleteJsItem($parent, $item);
-
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
 
@@ -189,7 +205,6 @@ var app = angular.module('lists');
             }
             else {
                 $scope.items = _.without($scope.items, $item);
-                console.log($scope.items);
             }
         };
 
@@ -215,20 +230,12 @@ var app = angular.module('lists');
             $scope.items.splice($index - 1, 0, $item);
         };
 
-        //$scope.deleteJsItem = function () {
-        //
-        //};
-
         $scope.updateItem = function () {
-            //$scope.showLoading();
+            $scope.showLoading();
             ListsFactory.updateItem($scope.itemPopup)
                 .then(function (response) {
                     var $parent = SortableFactory.findParentById($scope.itemPopup, $scope.items);
                     if ($parent) {
-                        //$parent.children[$scope.itemPopup.index] = response.data;
-                        //var $item = _.findWhere($parent.children, {index: $scope.itemPopup.index});
-                        //$item = response.data;
-
                         var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: $scope.itemPopup.id}));
                         $parent.children[$index] = response.data;
                     }
@@ -239,7 +246,7 @@ var app = angular.module('lists');
                     $scope.provideFeedback('Item updated');
                     $scope.toggleFavourite();
                     $scope.itemPopup = {};
-                    //$scope.hideLoading();
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
                     //$scope.responseError(response);
@@ -270,12 +277,12 @@ var app = angular.module('lists');
         };
 
         $scope.undoDeleteItem = function () {
-            //$scope.showLoading();
+            $scope.showLoading();
             ListsFactory.undoDeleteItem()
                 .then(function (response) {
                     $scope.jsRestoreItem(response.data);
                     $scope.provideFeedback('Item restored');
-                    //$scope.hideLoading();
+                    $scope.hideLoading();
                 })
                 .catch(function (response) {
                     $scope.responseError(response);

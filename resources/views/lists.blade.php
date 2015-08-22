@@ -11,6 +11,7 @@
 <body ng-controller="ListsController">
 
 @include('templates.header')
+@include('templates.loading')
 
 <div id="lists" class="container">
     @include('templates.lists.popups.index')
