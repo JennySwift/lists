@@ -6,6 +6,7 @@ use App\Repositories\ItemsRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Debugbar;
+use Auth;
 
 /**
  * Class Item
@@ -81,7 +82,8 @@ class Item extends Model
     public function siblings()
     {
         if (!$this->parent) {
-            return Item::whereNull('parent_id')
+            return Item::where('user_id', Auth::user()->id)
+                ->whereNull('parent_id')
                 ->where('id', '!=', $this->id)
                 ->get();
         }
@@ -255,7 +257,6 @@ class Item extends Model
         else {
             if ($parent) {
                 if (count($parent->children) > 0) {
-                    Debugbar::info('parent->children', $parent->children);
                     return $parent->children->last()->index + 1;
                 }
                 else {
@@ -264,7 +265,8 @@ class Item extends Model
 
             }
             else {
-                return Item::whereNull('parent_id')->max('index') + 1;
+                return Item::where('user_id', Auth::user()->id)
+                    ->whereNull('parent_id')->max('index') + 1;
             }
         }
     }

@@ -71,7 +71,8 @@ class ListsController extends Controller
     {
         $typing = '%' . $request->get('typing') . '%';
 
-        $items = Item::where('title', 'LIKE', $typing)
+        $items = Item::where('user_id', Auth::user()->id)
+            ->where('title', 'LIKE', $typing)
             ->get();
 
         return $items;
@@ -200,9 +201,11 @@ class ListsController extends Controller
 
     public function undoDeleteItem()
     {
-        $item = Item::onlyTrashed()
+        $item = Item::where('user_id', Auth::user()->id)
+            ->onlyTrashed()
             ->orderBy('deleted_at', 'desc')
             ->first();
+
         $item->restore();
 
         return $item;

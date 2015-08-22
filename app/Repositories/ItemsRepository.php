@@ -10,7 +10,8 @@ class ItemsRepository {
 
     public function getHomeItems()
     {
-        return Item::whereNull('parent_id')
+        return Item::where('user_id', Auth::user()->id)
+            ->whereNull('parent_id')
             ->order('priority')
             ->get();
     }
@@ -69,7 +70,8 @@ class ItemsRepository {
                 ->increment('index');
         }
         else {
-            Item::whereNull('parent_id')
+            Item::where('user_id', Auth::user()->id)
+                ->whereNull('parent_id')
                 ->where('index', '>=', $new_index)
                 ->where('index', '<', $old_index)
                 ->increment('index');
@@ -93,7 +95,8 @@ class ItemsRepository {
                 ->decrement('index');
         }
         else {
-            Item::whereNull('parent_id')
+            Item::where('user_id', Auth::user()->id)
+                ->whereNull('parent_id')
                 ->where('index', '>', $old_index)
                 ->where('index', '<=', $new_index)
                 ->decrement('index');
@@ -142,7 +145,8 @@ class ItemsRepository {
         }
         else {
             //Moving home
-            Item::whereNull('parent_id')
+            Item::where('user_id', Auth::user()->id)
+                ->whereNull('parent_id')
                 ->where('index', '>=', $new_index)
                 ->increment('index');
         }

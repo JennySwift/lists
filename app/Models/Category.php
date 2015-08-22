@@ -34,11 +34,4 @@ class Category extends Model
     {
         return $this->belongsTo('\App\User');
     }
-
-//    public function getCategories()
-//    {
-//        return Category::where('user_id', Auth::user()->id)
-//            ->orderBy('name', 'asc')
-//            ->get();
-//    }
 }
