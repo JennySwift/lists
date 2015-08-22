@@ -95,6 +95,7 @@ var app = angular.module('lists');
 
         $scope.goToFavourite = function ($favourite) {
             $scope.zoom($favourite);
+            $scope.show.favourites = false;
         };
 
         $scope.showChildren = function (response, $item) {
@@ -237,6 +238,7 @@ var app = angular.module('lists');
                     $scope.show.popups.item = false;
                     $scope.provideFeedback('Item updated');
                     $scope.toggleFavourite();
+                    $scope.itemPopup = {};
                     //$scope.hideLoading();
                 })
                 .catch(function (response) {
