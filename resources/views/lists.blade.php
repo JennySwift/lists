@@ -16,9 +16,9 @@
 <div id="lists" class="container">
     @include('templates.lists.popups.index')
     @include('templates/feedback')
+    @include('templates/lists/breadcrumb')
     @include('templates/lists/search')
     @include('templates/lists/new-item')
-    @include('templates/lists/breadcrumb')
     @include('templates/lists/lists')
 
 </div>

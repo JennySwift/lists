@@ -1,7 +1,11 @@
 #breadcrumb {
     display: flex;
-    margin-bottom: 50px;
-    margin-left: 67px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    padding: 10px;
+    width: 900px;
+//    margin-left: 67px;
+    background: $lightgrey;
     span {
         font-size: 16px;
         cursor: pointer;

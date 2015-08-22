@@ -1,16 +1,25 @@
 #search-container {
-    display: flex;
-    justify-content: center;
+    position: fixed;
+    top: 63px;
+    right: 10px;
+    width: 200px;
+//    display: flex;
+//    flex-wrap: wrap;
+//    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid #777;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 3px 3px 5px #777;
     input {
-        //        width: 360px;
         font-size: 19px;
         padding: 6px 18px;
-        //        margin-bottom: 50px;
-        &:nth-child(2) {
-            width: 166px;
-        }
+//        &:nth-child(2) {
+//            width: 166px;
+//        }
     }
-    > * {
-        margin: 0 11px 50px 0;
+    input, select {
+        width: 100%;
+        margin: 0 0 5px 0;
     }
 }

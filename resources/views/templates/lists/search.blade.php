@@ -1,21 +1,27 @@
 <div id="search-container">
 
+    @include('templates.lists.favourites')
+
+    <label>Search all items by title</label>
     <input
         ng-keyup="filter($event.keyCode)"
         type="text"
-        placeholder="search all items by title"
+        placeholder="title"
         id="filter"/>
 
+    <label>Filter by title</label>
     <input
         ng-model="filterTitle"
         type="text"
-        placeholder="filter by title"/>
+        placeholder="title"/>
 
+    <label>Filter by priority</label>
     <input
         ng-model="filterPriority"
         type="text"
-        placeholder="filter by priority"/>
+        placeholder="priority"/>
 
+    <label>Filter by category</label>
     <select ng-model="filterCategory" class="form-control">
         <option
             ng-repeat="category in categories"
@@ -31,7 +37,5 @@
             clear
         </button>
     </div>
-
-    @include('templates.lists.favourites')
 
 </div>

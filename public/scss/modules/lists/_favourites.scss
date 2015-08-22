@@ -1,11 +1,11 @@
 #favourites {
     position: relative;
     ul {
-        position: fixed;
+        position: absolute;
         max-height: 500px;
         overflow: scroll;
         right: 5px;
-        top: 94px;
+        top: 30px;
         width: 250px;
         li {
             cursor: pointer;
