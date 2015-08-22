@@ -3,29 +3,29 @@
 
     @include('templates.lists.item.before-item')
 
-    <sortable-directive
-        something="item"
-        items="items"
-        newIndex="newIndex">
-    </sortable-directive>
+    <div
+        ng-if="!item.html"
+        ng-click="showItemPopup(item)"
+        class="item-content">
 
-    <div class="item-id">
-        <span class="badge">ID: [[item.id]]</span>
+        <div class="title">[[item.title]]</div>
+
+        <i ng-if="item.body" class="fa fa-sticky-note note"></i>
+
     </div>
 
-    <div class="category">
-        <span>[[item.category.name]]</span>
+    <div
+        ng-if="item.html"
+        ng-click="showItemPopup(item)"
+        ng-bind-html="item.html"
+        class="item-content">
+
+        <div class="note">
+            <i ng-if="item.body" class="fa fa-sticky-note"></i>
+        </div>
     </div>
 
-    <div class="priority">
-        <span class="badge">[[item.priority]]</span>
-    </div>
-
-    <div class="note">
-        <i ng-if="item.body" class="fa fa-sticky-note-o"></i>
-    </div>
-
-    <button ng-click="showItemPopup(item)" class="btn btn-xs">view</button>
+    @include('templates.lists.item.after-item')
 
 </div>
 

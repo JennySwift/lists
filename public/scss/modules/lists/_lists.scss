@@ -16,6 +16,10 @@
 .item {
     display: flex;
     font-size: 16px;
+    padding: 5px 0;
+    &:hover {
+        background: lighten($info, 30%);
+    }
     .fa-search-plus {
         visibility: hidden;
     }
@@ -25,52 +29,87 @@
         }
     }
     .before-item {
-        flex-basis: 131px;
-        min-width: 131px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        .badge {
+            background: $info;
+        }
         i {
             cursor: pointer;
         }
+        .my-hidden {
+            visibility: hidden;
+        }
+//        .fa-plus, .fa-minus {
+//            visibility: hidden;
+//            &.visible {
+//                visibility: visible;
+//            }
+//        }
         .fa-search-plus, .fa-plus {
             font-size: 19px;
         }
+        > * {
+            margin: 0 5px;
+        }
     }
     .item-content {
-        margin-left: 20px;
-        margin-right: 23px;
-        cursor: move;
+        margin-left: 5px;
+//        margin-right: 23px;
+        cursor: pointer;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
         width: 400px;
-        padding: 5px 0;
         &.top-guide {
             border-top: 1px solid #777;
         }
         &.bottom-guide {
             border-bottom: 1px solid #777;
         }
-    }
-    .item-id {
-        width: 200px;
-        display: flex;
-        align-items: center;
-    }
-    .category {
-        width: 200px;
-        display: flex;
-        justify-content: center;
-        > span {
-            width: 100px;
+//        &:hover {
+//            background: lightblue;
+//        }
+        .title {
+            text-align: left;
+            display: inline;
+//            display: inline-flex;
+//            align-items: center;
+        }
+        .note {
+            color: $warning;
+            //Increasing font size too much wrecks up the vertical alignment of the text
+            font-size: 20px;
+            display: inline;
         }
     }
-    .note {
-        width: 100px;
+    .after-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        > * {
+            margin: 0 5px;
+        }
     }
-    .priority {
-        width: 100px;
-    }
+//    .item-id {
+//        width: 200px;
+//        display: flex;
+//        align-items: center;
+//    }
+//    .category {
+//        width: 200px;
+//        display: flex;
+//        justify-content: center;
+//        > span {
+//            width: 100px;
+//        }
+//    }
+//    .note {
+//        width: 100px;
+//    }
+//    .priority {
+//        width: 100px;
+//    }
     &:hover {
         .delete-item {
             visibility: visible;
