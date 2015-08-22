@@ -222,9 +222,14 @@ var app = angular.module('lists');
             //$scope.showLoading();
             ListsFactory.updateItem($scope.itemPopup)
                 .then(function (response) {
-                    var $parent = $scope.findParentByPath($scope.itemPopup);
+                    var $parent = SortableFactory.findParentById($scope.itemPopup, $scope.items);
                     if ($parent) {
-                        $parent.children[$scope.itemPopup.index] = response.data;
+                        //$parent.children[$scope.itemPopup.index] = response.data;
+                        //var $item = _.findWhere($parent.children, {index: $scope.itemPopup.index});
+                        //$item = response.data;
+
+                        var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: $scope.itemPopup.id}));
+                        $parent.children[$index] = response.data;
                     }
                     else {
                         $scope.items[$scope.itemPopup.path_to_item] = response.data;
@@ -290,7 +295,7 @@ var app = angular.module('lists');
 
             }
             else {
-                var $parent = $scope.findParentByPath($item);
+                var $parent = $scope.findParentById($item, $scope.items);
                 if ($parent) {
                     //Todo: put it in the right spot, not just at the end
                     $parent.children.push($item);
@@ -303,9 +308,9 @@ var app = angular.module('lists');
          * [0,2,1]
          * Duplicate from sortable directive
          */
-        $scope.findParentByPath = function ($item) {
-            return SortableFactory.findParentByPath($item, $scope.items);
-        };
+        //$scope.findParentByPath = function ($item) {
+        //    return SortableFactory.findParentByPath($item, $scope.items);
+        //};
 
         /**
          * other

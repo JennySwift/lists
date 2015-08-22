@@ -10,16 +10,12 @@
             restrict: 'EA',
             scope: {
                 item: '=something',
-                items: '=items',
-                //newIndex: '=newindex'
+                items: '=items'
             },
-            //replace: true,
             templateUrl: 'sortable',
-            //scope: true,
             link: function($scope, elem, attrs) {
                 var $guide = $(elem).closest('.item').prev('.guide');
                 var $mouseDown = false;
-                //$scope.newIndex = $scope.item.index;
                 $scope.sortableFactory = SortableFactory;
 
                 $scope.$watch('sortableFactory.newIndex', function (newValue) {
@@ -70,7 +66,6 @@
                 elem.on('mousedown', function (event) {
                     event.preventDefault();
                     SortableFactory.setMouseDown(true);
-                    //$mouseDown = true;
                     $document.on('mouseup', mouseup);
                     $(event.target).addClass('highlight');
                     $scope.selectedItem = $scope.item;
@@ -79,22 +74,17 @@
                 $scope.mouseOver = function ($item, $event) {
                     SortableFactory.setNewTarget($event.target);
                     SortableFactory.setNewIndex($item.index);
-                    SortableFactory.setNewParent($scope.findParentByPath($item));
+                    //SortableFactory.setNewParent($scope.findParentByPath($item));
                 };
 
                 /**
                  * $short_path is an array of indexes to the item, for example:
                  * [0,2,1]
+                 * Duplicate from ListsController
                  */
-                $scope.findParentByPath = function ($item) {
-                    if (!$item.parent_id) {
-                        return false;
-                    }
-                    var $short_path = $item.path_to_item;
-                    var $item = $scope.items[$short_path[0]];
-                    $item = SortableFactory.findParentByPath($item, $short_path);
-                    return $item;
-                };
+                //$scope.findParentByPath = function ($item) {
+                //    return SortableFactory.findParentByPath($item, $scope.items);
+                //};
 
                 $scope.findParent = function() {
                     return SortableFactory.findParent($scope.items, $scope.item);

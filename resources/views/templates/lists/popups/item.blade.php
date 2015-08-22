@@ -18,7 +18,7 @@
             class="favourite fa fa-star">
         </button>
 
-        <h3>Title (id: [[itemPopup.id]])</h3>
+        <h3>Title (id: [[itemPopup.id]], parentId: [[itemPopup.parent_id]])</h3>
 
         <textarea
             ng-model="itemPopup.title"

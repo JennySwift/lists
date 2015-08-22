@@ -64,25 +64,33 @@ app.factory('SortableFactory', function ($http) {
      * [0,2,1]
      * //Todo: It might make more sense to make the $item.path_to_item an array of ids rather than indexes since I'm now ordering by priority
      */
-    $object.findParentByPath = function ($item, $items) {
+    //$object.findParentByPath = function ($item, $items) {
+    //    if (!$item.parent_id) {
+    //        return false;
+    //    }
+    //
+    //    var $path = $item.path_to_item;
+    //
+    //    for (var i = 0; i < $path.length; i++) {
+    //        if (i === 0) {
+    //            $parent = _.findWhere($items, {index: i});
+    //        }
+    //        //Check i is less than $short_path.length -1, otherwise it would
+    //        //be the child and not the parent
+    //        else if (i < $path.length - 1) {
+    //            $parent = _.findWhere($parent.children, {index: $path[i]});
+    //        }
+    //    }
+    //
+    //    return $parent;
+    //};
+
+    $object.findParentById = function ($item, $items) {
         if (!$item.parent_id) {
             return false;
         }
 
-        var $path = $item.path_to_item;
-
-        for (var i = 0; i < $path.length; i++) {
-            if (i === 0) {
-                $parent = _.findWhere($items, {index: i});
-            }
-            //Check i is less than $short_path.length -1, otherwise it would
-            //be the child and not the parent
-            else if (i < $path.length - 1) {
-                $parent = _.findWhere($parent.children, {index: $path[i]});
-            }
-        }
-
-        return $parent;
+        return _.findWhere(_.flatten($items), {id: $item.parent_id});
     };
 
     /**
