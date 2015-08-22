@@ -18,14 +18,12 @@
     @include('templates/feedback')
     @include('templates/lists/search')
     @include('templates/lists/new-item')
-    <button ng-click="test()" class="btn">test</button>
     @include('templates/lists/breadcrumb')
     @include('templates/lists/lists')
 
 </div>
 
 @include('templates.footer')
-
 @include('footer')
 
 </body>
