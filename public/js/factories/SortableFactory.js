@@ -40,12 +40,20 @@ app.factory('SortableFactory', function ($http) {
         return $siblings;
     };
 
+    /**
+     * This breaks down when not zoomed on an item
+     * and items are expanded several levels. findParent works better.
+     * @param $item
+     * @param $items
+     * @returns {*}
+     */
     $object.findParentById = function ($item, $items) {
         if (!$item.parent_id) {
             return false;
         }
 
-        return _.findWhere(_.flatten($items), {id: $item.parent_id});
+        var $parent = _.findWhere(_.flatten($items), {id: $item.parent_id});
+        return $parent;
     };
 
     /**

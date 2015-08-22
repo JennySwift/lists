@@ -273,14 +273,7 @@ var app = angular.module('lists');
             $scope.showLoading();
             ListsFactory.updateItem($scope.itemPopup)
                 .then(function (response) {
-                    var $parent = SortableFactory.findParentById($scope.itemPopup, $scope.items);
-                    if ($parent) {
-                        var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: $scope.itemPopup.id}));
-                        $parent.children[$index] = response.data;
-                    }
-                    else {
-                        $scope.items[$scope.itemPopup.path_to_item] = response.data;
-                    }
+                    $scope.jsUpdateItem(response);
                     $scope.show.popups.item = false;
                     $scope.provideFeedback('Item updated');
                     $scope.toggleFavourite();
@@ -290,6 +283,18 @@ var app = angular.module('lists');
                 .catch(function (response) {
                     $scope.responseError(response);
                 });
+        };
+
+        $scope.jsUpdateItem = function (response) {
+            var $parent = SortableFactory.findParent($scope.items, $scope.itemPopup);
+            if ($parent) {
+                var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: $scope.itemPopup.id}));
+                $parent.children[$index] = response.data;
+            }
+            else {
+                var $index = _.indexOf($scope.items, _.findWhere($scope.items, {id: $scope.itemPopup.id}));
+                $scope.items[$index] = response.data;
+            }
         };
 
         /**
