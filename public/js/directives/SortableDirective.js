@@ -74,17 +74,7 @@
                 $scope.mouseOver = function ($item, $event) {
                     SortableFactory.setNewTarget($event.target);
                     SortableFactory.setNewIndex($item.index);
-                    //SortableFactory.setNewParent($scope.findParentByPath($item));
                 };
-
-                /**
-                 * $short_path is an array of indexes to the item, for example:
-                 * [0,2,1]
-                 * Duplicate from ListsController
-                 */
-                //$scope.findParentByPath = function ($item) {
-                //    return SortableFactory.findParentByPath($item, $scope.items);
-                //};
 
                 $scope.findParent = function() {
                     return SortableFactory.findParent($scope.items, $scope.item);
@@ -126,11 +116,6 @@
                     }
                 };
 
-                //$scope.jsMoveItemOut = function ($parent) {
-                //    $parent.children.splice($scope.item.index, 1);
-                //    return $parent.children;
-                //};
-
                 var $siblings;
                 var $new_siblings;
                 $scope.jsMoveToNewParent = function () {
@@ -140,7 +125,6 @@
                         $parent.children.splice($scope.item.index, 1);
                         $siblings = $parent.children;
                         if ($scope.newParent) {
-                            //$scope.newParent.children.push($scope.item);
                             $scope.newParent.children.splice($scope.newIndex, 0, $scope.item);
                             $new_siblings = $scope.newParent.children;
                         }
@@ -221,7 +205,6 @@
                 function mouseup (event) {
                     $document.off('mouseup', mouseup);
                     SortableFactory.setMouseDown(false);
-                    //$mouseDown = false;
                     if ($scope.newIndex !== $scope.item.index && $scope.newParent.id == $scope.item.parent_id) {
                         $scope.moveItemSameParent();
                     }
