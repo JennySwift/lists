@@ -12,6 +12,8 @@
             class="favourite fa fa-star-o">
         </button>
 
+        <button ng-click="deleteItem(itemPopup)" class="btn btn-danger delete-item">Delete</button>
+
         <button
             ng-if="itemPopup.favourite"
             ng-click="itemPopup.favourite = !itemPopup.favourite"

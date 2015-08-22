@@ -221,10 +221,21 @@ var app = angular.module('lists');
                     $scope.provideFeedback('Item deleted');
                     $scope.deleteJsItem($parent, $item);
                     $scope.hideLoading();
+                    $scope.closeItemPopup();
                 })
                 .catch(function (response) {
                     $scope.responseError(response);
                 });
+        };
+
+        /**
+         * For when item is deleted from the item popup
+         */
+        $scope.closeItemPopup = function () {
+            if ($scope.show.popups.item) {
+                $scope.show.popups.item = false;
+                $scope.itemPopup = {};
+            }
         };
 
         $scope.deleteJsItem = function ($parent, $item) {
