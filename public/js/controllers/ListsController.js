@@ -295,7 +295,7 @@ var app = angular.module('lists');
 
             }
             else {
-                var $parent = $scope.findParentById($item, $scope.items);
+                var $parent = SortableFactory.findParentById($item, $scope.items);
                 if ($parent) {
                     //Todo: put it in the right spot, not just at the end
                     $parent.children.push($item);
