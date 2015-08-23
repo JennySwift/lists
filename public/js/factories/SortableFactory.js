@@ -2,6 +2,19 @@ app.factory('SortableFactory', function ($http) {
     var $object = {};
     var $parent;
 
+    /**
+     * This works. It seems kind of complicated, but I tried other ways
+     * and they both had problems.
+     *
+     * Finding parent by path broke down when zoomed on an item, because path was not the full path.
+     *
+     * Finding parent with _.flatten broke down when not zoomed on an item
+     * and items were expanded several levels.
+     *
+     * @param $array
+     * @param $item
+     * @returns {*}
+     */
     $object.findParent = function ($array, $item) {
         if (!$item.parent_id) {
             return false;
