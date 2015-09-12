@@ -86,15 +86,16 @@ class ItemSeeder extends Seeder
 
         $item->save();
 
-        $item->index = $this->getIndex($item);
-
-        $item->save();
+//        $item->index = $this->getIndex($item);
+//
+//        $item->save();
 
         return $item;
     }
 
     private function getIndex($item)
     {
+        //This is erroring because siblings method uses Auth. Not sure why it was working before.
         if ($item->lastSibling()) {
             $num = $item->lastSibling()->index;
             $num+=1;

@@ -106,6 +106,7 @@ class Item extends Model
         if (!$this->siblings()) {
             return false;
         }
+
         return $this->siblings()->last();
     }
 
