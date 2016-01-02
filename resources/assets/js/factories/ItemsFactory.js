@@ -4,6 +4,12 @@ app.factory('ItemsFactory', function ($http) {
         /**
          * select
          */
+
+        getPinnedItems: function () {
+            var url = '/api/items?pinned=true';
+
+            return $http.get(url);
+        },
         
         getChildren: function ($item) {
             var $url = $item.path;

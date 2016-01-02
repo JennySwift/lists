@@ -418,6 +418,11 @@ li {
   background: #777;
   display: none; }
 
+#pinned-items {
+  padding: 5px 55px 30px; }
+  #pinned-items h5 {
+    margin-bottom: 23px; }
+
 #items {
   margin-top: 45px; }
 

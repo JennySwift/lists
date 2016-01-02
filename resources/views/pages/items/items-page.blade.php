@@ -9,10 +9,12 @@
 
 @include('templates.shared.header')
 @include('templates.shared.loading')
+@include('templates.shared.feedback')
+
+@include('pages.items.popups.index')
+@include('pages.items.pinned-items')
 
 <div id="lists" class="container">
-    @include('pages.items.popups.index')
-    @include('templates.shared.feedback')
     @include('pages.items.breadcrumb')
     @include('pages.items.search')
     @include('pages.items.new-item')

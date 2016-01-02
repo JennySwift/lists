@@ -13327,7 +13327,7 @@ var app = angular.module('lists');
 var app = angular.module('lists');
 
 (function () {
-    app.controller('ItemsController', function ($scope, $http, ItemsFactory, FeedbackFactory, SortableFactory) {
+    app.controller('ItemsController', function ($rootScope, $scope, $http, ItemsFactory, FeedbackFactory, SortableFactory) {
 
         /**
          * scope properties
@@ -13380,68 +13380,49 @@ var app = angular.module('lists');
             }, 3000);
         };
 
-        //$scope.provideFeedback = function ($message) {
-        //    $scope.feedback_messages.push($message);
-        //    setTimeout(function () {
-        //        $scope.feedback_messages = _.without($scope.feedback_messages, $message);
-        //        $scope.$apply();
-        //    }, 3000);
-        //};
-
-
         /**
          * select
          */
 
-        $scope.showLoading = function () {
-            $scope.loading = true;
-        };
+        function getPinnedItems () {
+            $rootScope.showLoading();
+            ItemsFactory.getPinnedItems()
+                .then(function (response) {
+                    $scope.pinnedItems = response.data;
+                    $rootScope.hideLoading();
+                })
+                .catch(function (response) {
+                    $rootScope.responseError(response);
+                });
+        }
 
-        $scope.hideLoading = function () {
-            $scope.loading = false;
-        };
-
-        $scope.responseError = function (response) {
-            if (response.status === 503) {
-                $scope.provideFeedback('Sorry, application under construction. Please try again later.', 'error');
-            }
-            else if (response.status === 401) {
-                $scope.provideFeedback('You are not logged in', 'error');
-            }
-            else if (response.data.error) {
-                $scope.provideFeedback(response.data.error, 'error');
-            }
-            else {
-                $scope.provideFeedback('There was an error', 'error');
-            }
-            $scope.hideLoading();
-        };
+        getPinnedItems();
 
         $scope.toggleFavourites = function () {
             $scope.show.favourites = !$scope.show.favourites;
         };
 
         $scope.getChildren = function ($item) {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.getChildren($item)
                 .then(function (response) {
                     $item.children = response.data.children;
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
         $scope.goHome = function () {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.goHome()
                 .then(function (response) {
                     $scope.showHome(response);
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13450,14 +13431,14 @@ var app = angular.module('lists');
         };
 
         $scope.zoom = function ($item) {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.getChildren($item)
                 .then(function (response) {
                     $scope.showChildren(response, $item);
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13478,7 +13459,7 @@ var app = angular.module('lists');
                 return false;
             }
 
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.insertItem($scope.zoomed_item, $scope.new_item)
                 .then(function (response) {
                     if ($scope.zoomed_item) {
@@ -13489,10 +13470,10 @@ var app = angular.module('lists');
                     }
                     $scope.clearNewItemFields();
                     $scope.provideFeedback('Item added');
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13507,14 +13488,14 @@ var app = angular.module('lists');
                 return false;
             }
             var $typing = $("#filter").val();
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.filter($typing)
                 .then(function (response) {
                     $scope.items = $scope.highlightLetters(response.data, $typing);
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13540,17 +13521,17 @@ var app = angular.module('lists');
          */
 
         $scope.deleteItem = function ($item) {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.deleteItem($item)
                 .then(function (response) {
                     var $parent = $scope.findParent($scope.items, $item);
                     $scope.provideFeedback('Item deleted');
                     $scope.deleteJsItem($parent, $item);
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                     $scope.closeItemPopup();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13596,7 +13577,7 @@ var app = angular.module('lists');
         };
 
         $scope.updateItem = function () {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.updateItem($scope.itemPopup)
                 .then(function (response) {
                     $scope.jsUpdateItem(response);
@@ -13604,10 +13585,10 @@ var app = angular.module('lists');
                     $scope.provideFeedback('Item updated');
                     $scope.toggleFavourite();
                     $scope.itemPopup = {};
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13646,15 +13627,15 @@ var app = angular.module('lists');
         };
 
         $scope.undoDeleteItem = function () {
-            $scope.showLoading();
+            $rootScope.showLoading();
             ItemsFactory.undoDeleteItem()
                 .then(function (response) {
                     $scope.jsRestoreItem(response.data);
                     $scope.provideFeedback('Item restored');
-                    $scope.hideLoading();
+                    $rootScope.hideLoading();
                 })
                 .catch(function (response) {
-                    $scope.responseError(response);
+                    $rootScope.responseError(response);
                 });
         };
 
@@ -13792,6 +13773,12 @@ app.factory('ItemsFactory', function ($http) {
         /**
          * select
          */
+
+        getPinnedItems: function () {
+            var url = '/api/items?pinned=true';
+
+            return $http.get(url);
+        },
         
         getChildren: function ($item) {
             var $url = $item.path;
