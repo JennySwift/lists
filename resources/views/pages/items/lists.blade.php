@@ -1,16 +1,25 @@
-<ul v-on:mousemove="mouseMove($event)" id="items">
+<ul id="items">
     {{--Only apply filter here if home--}}
-    <li
+    <item
         v-if="breadcrumb.length > 0"
         v-for="item in items"
-        ng-include src="'ItemTemplate'"
-        class="item-with-children">
-    </li>
+        class="item-with-children"
+    >
+    </item>
 
-    <li
+    {{--<div>I am item</div>--}}
+
+    <item
         v-if="!breadcrumb || breadcrumb.length < 1"
-        v-for="item in items | filter: {priority: filterPriority, category_id: filterCategory, title: filterTitle}"
-        ng-include src="'ItemTemplate'"
-        class="item-with-children">
-    </li>
+        v-for="item in items | filterBy itemsFilter"
+        :show-loading="showLoading"
+        :show-item-popup="showItemPopup"
+        :items="items"
+        :item="item"
+        :item-popup="itemPopup"
+        :zoomed-item="zoomedItem"
+        :categories="categories"
+        class="item-with-children"
+    >
+    </item>
 </ul>

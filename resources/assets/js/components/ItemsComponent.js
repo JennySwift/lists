@@ -3,8 +3,11 @@ var Items = Vue.component('items', {
     data: function () {
         return {
             showLoading: false,
+            showItemPopup: false,
+            itemPopup: {},
             items: [],
             pinnedItems: [],
+            breadcrumb: [],
             addingNewItems: false,
             editingItems: false,
             //selectedItems: {}
@@ -21,15 +24,30 @@ var Items = Vue.component('items', {
                 pinned: false
             },
             show: {
-                popups: {
-                    item: false
-                },
                 favourites: false
             },
             newIndex: -1,
+            filterPriority: '',
+            filterCategory: '',
+            filterTitle: ''
         }
     },
     components: {},
+    filters: {
+        itemsFilter: function (item) {
+            var filteredIn = true;
+            if (this.filterTitle && item.title.indexOf(this.filterTitle) === -1) {
+                filteredIn = false;
+            }
+            else if (this.filterPriority && item.priority !== this.filterPriority) {
+                filteredIn = false;
+            }
+            else if (this.filterCategory && item.category_id !== this.filterCategory) {
+                filteredIn = false;
+            }
+            return filteredIn;
+        }
+    },
     methods: {
 
         /**
@@ -69,21 +87,6 @@ var Items = Vue.component('items', {
 
         /**
          *
-         * @param $item
-         */
-        getChildren: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                $item.children = response.children;
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
          */
         goHome: function () {
             this.showLoading = true;
@@ -102,39 +105,11 @@ var Items = Vue.component('items', {
 
         /**
          *
-         * @param $item
-         */
-        zoom: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                $item.children = response.children;
-                this.showChildren(response, $item);
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
          * @param $favourite
          */
         goToFavourite: function ($favourite) {
             zoom($favourite);
             show.favourites = false;
-        },
-
-        /**
-         *
-         * @param response
-         * @param $item
-         */
-        showChildren: function (response, $item) {
-            $item.children = response.children;
-            items = [$item];
-            breadcrumb = response.breadcrumb;
-            zoomed_item = $item;
         },
 
         /**
@@ -167,8 +142,8 @@ var Items = Vue.component('items', {
             };
 
             this.$http.post('/api/items', data, function (response) {
-                if (zoomed_item) {
-                    this.showChildren(response, zoomed_item);
+                if (zoomedItem) {
+                    this.showChildren(response, zoomedItem);
                 }
                 else {
                     this.showHome(response);
@@ -196,7 +171,7 @@ var Items = Vue.component('items', {
          */
         showHome: function (response) {
             items = response;
-            zoomed_item = null;
+            zoomedItem = null;
             breadcrumb = [];
         },
 
@@ -268,8 +243,8 @@ var Items = Vue.component('items', {
          * For when item is deleted from the item popup
          */
         closeItemPopup: function () {
-            if (show.popups.item) {
-                show.popups.item = false;
+            if (showItemPopup) {
+                showItemPopup = false;
                 itemPopup = {};
             }
         },
@@ -336,7 +311,7 @@ var Items = Vue.component('items', {
 
             this.$http.put('/api/items/' + item.id, data, function (response) {
                 jsUpdateItem(response);
-                    show.popups.item = false;
+                    showItemPopup = false;
                     toggleFavourite();
                     itemPopup = {};
                 this.$broadcast('provide-feedback', 'Item updated', 'success');
@@ -423,28 +398,6 @@ var Items = Vue.component('items', {
                 }
             }
         },
-
-        /**
-         *
-         * @param $event
-         * @param $popup
-         */
-        closePopup: function ($event, $popup) {
-            var $target = $event.target;
-            if ($target.className === 'popup-outer') {
-                show.popups[$popup] = false;
-            }
-        },
-
-        /**
-         *
-         * @param $item
-         */
-        showItemPopup: function ($item) {
-            show.popups.item = true;
-            itemPopup = $item;
-        },
-
 
         /**
          *

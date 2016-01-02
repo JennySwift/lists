@@ -12,13 +12,13 @@
     </i>
 
     <i
-            v-if="item.has_children && !item.children || item.children.length < 1"
+            v-if="item.has_children && !item.children"
             v-on:click="getChildren(item)"
             class="fa fa-plus">
     </i>
 
     <i
-            v-if="item.has_children && item.children.length > 0"
+            v-if="item.has_children && item.children"
             v-on:click="collapseItem(item)"
             class="fa fa-minus">
     </i>

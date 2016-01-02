@@ -9,7 +9,6 @@
 
 @include('templates.shared.header')
 
-@include('pages.items.popups.index')
 @include('pages.items.pinned-items')
 
 <items></items>

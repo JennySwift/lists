@@ -1,7 +1,7 @@
 
 <div
-    v-show="show.popups.item"
-    v-on:click="closePopup($event, 'item')"
+    v-show="showItemPopup"
+    v-on:click="closePopup($event, 'showItemPopup')"
     class="popup-outer">
 
 	<div id="item-popup" class="popup-inner">
@@ -63,7 +63,10 @@
 
         <input v-model="itemPopup.priority" type="number" placeholder="priority"/>
 
-        <button v-on:click="updateItem()" class="btn btn-success save">Save</button>
+        <div class="buttons">
+            <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>
+            <button v-on:click="updateItem()" class="btn btn-success">Save</button>
+        </div>
 
 	</div>
 
