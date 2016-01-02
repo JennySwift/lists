@@ -106,6 +106,32 @@ class ItemsTest extends TestCase
     }
 
     /**
+     * @test
+     * @return void
+     */
+    public function it_throws_an_exception_for_store_method_without_required_fields()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = [
+
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertArrayHasKey('title', $content);
+        $this->assertArrayHasKey('priority', $content);
+        $this->assertArrayHasKey('category_id', $content);
+
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
      *
      * @test
      * @return void
@@ -170,5 +196,4 @@ class ItemsTest extends TestCase
 
         DB::rollBack();
     }
-
 }

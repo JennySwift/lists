@@ -425,6 +425,8 @@ li {
   padding: 5px 55px 30px; }
   #pinned-items h5 {
     margin-bottom: 23px; }
+  #pinned-items .pinned {
+    display: none; }
 
 #items {
   margin-top: 45px; }
@@ -476,6 +478,10 @@ li {
       text-align: left;
       display: inline; }
     .item .item-content .note {
+      color: #fca700;
+      font-size: 20px;
+      display: inline; }
+    .item .item-content .pinned {
       color: #fca700;
       font-size: 20px;
       display: inline; }

@@ -13327,7 +13327,7 @@ var app = angular.module('lists');
 var app = angular.module('lists');
 
 (function () {
-    app.controller('ItemsController', function ($rootScope, $scope, $http, ItemsFactory, FeedbackFactory, SortableFactory) {
+    app.controller('ItemsController', function ($rootScope, $scope, $http, ItemsFactory, SortableFactory) {
 
         /**
          * scope properties
@@ -13339,7 +13339,7 @@ var app = angular.module('lists');
             base: base_path,
             test: base_path + '/resources/views/test.php'
         };
-        $scope.new_item = {
+        $scope.newItem = {
             title: '',
             body: '',
             favourite: false,
@@ -13352,34 +13352,6 @@ var app = angular.module('lists');
             favourites: false
         };
         $scope.newIndex = -1;
-        $scope.feedbackFactory = FeedbackFactory;
-        $scope.feedback_messages = [];
-
-        /**
-         * watches
-         */
-
-        $scope.$watch('feedbackFactory.data', function (newValue, oldValue, scope) {
-            if (newValue && newValue.message) {
-                scope.provideFeedback(newValue.message);
-            }
-        });
-
-        $scope.provideFeedback = function ($message, $type) {
-            var $new = {
-                message: $message,
-                type: $type
-            };
-
-            $scope.feedback_messages.push($new);
-
-            //$scope.feedback_messages.push($message);
-
-            setTimeout(function () {
-                $scope.feedback_messages = _.without($scope.feedback_messages, $new);
-                $scope.$apply();
-            }, 3000);
-        };
 
         /**
          * select
@@ -13475,7 +13447,7 @@ var app = angular.module('lists');
             }
 
             $rootScope.showLoading();
-            ItemsFactory.insertItem($scope.zoomed_item, $scope.new_item)
+            ItemsFactory.insertItem($scope.zoomed_item, $scope.newItem)
                 .then(function (response) {
                     if ($scope.zoomed_item) {
                         $scope.showChildren(response, $scope.zoomed_item);
@@ -13484,7 +13456,7 @@ var app = angular.module('lists');
                         $scope.showHome(response);
                     }
                     $scope.clearNewItemFields();
-                    $scope.provideFeedback('Item added');
+                    $rootScope.$broadcast('provideFeedback', 'Item added', 'success');
                     $rootScope.hideLoading();
                 })
                 .catch(function (response) {
@@ -13540,7 +13512,7 @@ var app = angular.module('lists');
             ItemsFactory.deleteItem($item)
                 .then(function (response) {
                     var $parent = $scope.findParent($scope.items, $item);
-                    $scope.provideFeedback('Item deleted');
+                    $rootScope.$broadcast('provideFeedback', 'Item deleted');
                     $scope.deleteJsItem($parent, $item);
                     $rootScope.hideLoading();
                     $scope.closeItemPopup();
@@ -13597,7 +13569,7 @@ var app = angular.module('lists');
                 .then(function (response) {
                     $scope.jsUpdateItem(response);
                     $scope.show.popups.item = false;
-                    $scope.provideFeedback('Item updated');
+                    $rootScope.$broadcast('provideFeedback', 'Item updated');
                     $scope.toggleFavourite();
                     $scope.itemPopup = {};
                     $rootScope.hideLoading();
@@ -13637,8 +13609,8 @@ var app = angular.module('lists');
         };
 
         $scope.clearNewItemFields = function () {
-            $scope.new_item.title = '';
-            $scope.new_item.body = '';
+            $scope.newItem.title = '';
+            $scope.newItem.body = '';
         };
 
         $scope.undoDeleteItem = function () {
@@ -13646,7 +13618,7 @@ var app = angular.module('lists');
             ItemsFactory.undoDeleteItem()
                 .then(function (response) {
                     $scope.jsRestoreItem(response.data);
-                    $scope.provideFeedback('Item restored');
+                    $rootScope.$broadcast('provideFeedback', 'Item restored');
                     $rootScope.hideLoading();
                 })
                 .catch(function (response) {
@@ -13766,22 +13738,6 @@ app.factory('ErrorsFactory', function ($q) {
 
     };
 });
-app.factory('FeedbackFactory', function ($http) {
-    var $object = {};
-
-    $object.provideFeedback = function ($message) {
-        //My watch in my controller would only work once unless I made an object here.
-        //(Just $object.message would not work.)
-        $object.data = {
-            message: $message,
-            update: true
-        };
-        return $object.data;
-    };
-
-    return $object;
-});
-
 app.factory('ItemsFactory', function ($http) {
     return {
 
@@ -14004,6 +13960,31 @@ app.factory('SortableFactory', function ($http) {
 
     return $object;
 });
+
+angular.module('lists')
+    .directive('feedbackDirective', function ($sce, $timeout) {
+        return {
+            scope: {},
+            templateUrl: 'feedback-template',
+
+            link: function ($scope) {
+                $scope.feedbackMessages = [];
+                $scope.$on('provideFeedback', function (event, message, type) {
+                    var newMessage = {
+                        message: $sce.trustAsHtml(message),
+                        type: type
+                    };
+
+                    $scope.feedbackMessages.push(newMessage);
+
+                    $timeout(function () {
+                        $scope.feedbackMessages = _.without($scope.feedbackMessages, newMessage);
+                    }, 3000);
+                });
+            }
+        }
+    });
+
 
 ;(function(){
     'use strict';

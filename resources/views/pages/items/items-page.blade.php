@@ -9,7 +9,7 @@
 
 @include('templates.shared.header')
 @include('templates.shared.loading')
-@include('templates.shared.feedback')
+<feedback-directive></feedback-directive>
 
 @include('pages.items.popups.index')
 @include('pages.items.pinned-items')

@@ -12,7 +12,7 @@
 
 <div ng-controller="CategoriesController" id="categories" class="container">
 
-    @include('templates.shared.feedback')
+    <feedback-directive></feedback-directive>
 
     <h1>categories</h1>
 

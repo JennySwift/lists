@@ -18,6 +18,9 @@
     h5 {
         margin-bottom: 23px;
     }
+    .pinned {
+        display: none;
+    }
 }
 
 #items {
@@ -91,6 +94,11 @@
         .note {
             color: $warning;
             //Increasing font size too much wrecks up the vertical alignment of the text
+            font-size: 20px;
+            display: inline;
+        }
+        .pinned {
+            color: $warning;
             font-size: 20px;
             display: inline;
         }

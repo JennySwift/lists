@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Category;
 use App\Models\Item;
 use App\Repositories\CategoriesRepository;
@@ -91,7 +92,7 @@ class ItemsController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
         $parent = false;
 
