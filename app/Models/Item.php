@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Repositories\ItemsRepository;
+use App\Traits\ForCurrentUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Debugbar;
@@ -15,6 +16,7 @@ use Auth;
 class Item extends Model
 {
     use SoftDeletes;
+    use ForCurrentUser;
 
     /**
      * The attributes that should be mutated to dates
@@ -117,7 +119,7 @@ class Item extends Model
      */
     public function getPathAttribute()
     {
-        return route('items.show', $this->id);
+        return route('api.items.show', $this->id);
     }
 
     /**

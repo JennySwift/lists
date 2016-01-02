@@ -31,6 +31,13 @@ class ItemSeeder extends Seeder
             if ($index !== 3) {
                 $this->createDescendants($parent);
             }
+
+            //Pin some items
+            $items = Item::limit(4)->get();
+            foreach ($items as $item) {
+                $item->pinned = 1;
+                $item->save();
+            }
         }
 
     }

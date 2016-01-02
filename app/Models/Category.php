@@ -23,7 +23,7 @@ class Category extends Model
      */
     public function getPathAttribute()
     {
-        return route('categories.show', $this->id);
+        return route('api.categories.show', $this->id);
     }
 
     /**
