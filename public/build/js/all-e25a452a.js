@@ -13792,6 +13792,7 @@ app.factory('ItemsFactory', function ($http) {
                 priority: item.priority,
                 favourite: item.favourite,
                 pinned: item.pinned,
+                category_id: item.category_id,
                 parent_id: parent_id
             };
 
