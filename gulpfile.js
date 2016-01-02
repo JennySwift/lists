@@ -5,11 +5,12 @@ elixir(function(mix) {
 
     mix.scripts([
         'plugins/*.js',
+        //'config.js',
+        //'helpers.js',
+        'repositories/**/*.js',
+        'components/**/*.js',
         'app.js',
-        'controllers/**/*.js',
-        'factories/**/*.js',
-        'directives/**/*.js',
-        'filters/**/*.js'
+        //'routes.js'
     ], 'public/js/all.js');
 
     mix.version(["css/app.css", "js/all.js"]);

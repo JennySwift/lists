@@ -18,7 +18,7 @@
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a
-                    ng-click="undoDeleteItem()"
+                    v-on:click="undoDeleteItem()"
                     href="#">
                     undo delete item
                 </a>

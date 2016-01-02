@@ -3,8 +3,8 @@
     <div>
         <label for="new-item-title">Title</label>
         <input
-            ng-model="newItem.title"
-            ng-keyup="insertItem($event.keyCode)"
+            v-model="newItem.title"
+            v-on:keyup="insertItem($event.keyCode)"
             type="text"
             id="new-item-title"
             name="new-item-title"
@@ -16,7 +16,7 @@
     <div>
         <label for="new-item-body">Body</label>
         <textarea
-                ng-model="newItem.body"
+                v-model="newItem.body"
                 placeholder="note"
                 class="note"
                 name="new-item-body"
@@ -27,8 +27,8 @@
     <div>
         <label for="new-item-priority">Priority</label>
         <input
-            ng-model="newItem.priority"
-            ng-keyup="insertItem($event.keyCode)"
+            v-model="newItem.priority"
+            v-on:keyup="insertItem($event.keyCode)"
             type="number"
             id="new-item-priority"
             name="new-item-priority"
@@ -37,28 +37,21 @@
         >
     </div>
 
-    <div>
+    <div class="form-group">
         <label for="new-item-category">Category</label>
-        <select
-                ng-keyup="insertItem($event.keyCode)"
-                ng-model="newItem.category_id"
-                class="form-control"
-                name="new-item-category"
-        >
-            <option
-                    ng-repeat="category in categories"
-                    ng-value="category.id">
-                [[category.name]]
+
+        <select v-model="newItem.category" v-on:keyup="insertItem($event.keyCode)" id="new-item-category" class="form-control">
+            <option v-for="category in categories" v-bind:value="category">
+                @{{ category.name }}
             </option>
         </select>
     </div>
 
-
     <div>
         <label for="new-item-pinned">Pinned</label>
         <input
-            ng-model="newItem.pinned"
-            ng-keyup="insertItem($event.keyCode)"
+            v-model="newItem.pinned"
+            v-on:keyup="insertItem($event.keyCode)"
             type="checkbox"
             id="new-item-pinned"
             name="new-item-pinned"
@@ -68,7 +61,7 @@
     </div>
 
     <div>
-        <button ng-click="insertItem(13)" class="btn btn-success">Add item</button>
+        <button v-on:click="insertItem(13)" class="btn btn-success">Add item</button>
     </div>
 
 </div>

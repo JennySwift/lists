@@ -1,6 +1,6 @@
-app.factory('SortableFactory', function ($http) {
-    var $object = {};
-    var $parent;
+var SortableRepository = {
+    //This should be uncommented but I commented it during switch to Vue
+    //var $parent;
 
     /**
      * This works. It seems kind of complicated, but I tried other ways
@@ -15,7 +15,7 @@ app.factory('SortableFactory', function ($http) {
      * @param $item
      * @returns {*}
      */
-    $object.findParent = function ($array, $item) {
+     findParent: function ($array, $item) {
         if (!$item.parent_id) {
             return false;
         }
@@ -25,11 +25,12 @@ app.factory('SortableFactory', function ($http) {
                 return false;
             }
             if (this.children) {
-                $object.findParent(this.children, $item);
+                findParent(this.children, $item);
             }
         });
+
         return $parent;
-    };
+    },
 
     /**
      * Return an array of the item's siblings including the item itself
@@ -37,8 +38,8 @@ app.factory('SortableFactory', function ($http) {
      * @param $item
      * @returns {Array}
      */
-    $object.findSiblingsWithItem = function ($array, $item) {
-        var $parent = $object.findParent($array, $item);
+    findSiblingsWithItem: function ($array, $item) {
+        var $parent = findParent($array, $item);
         var $siblings = [];
 
         if ($parent) {
@@ -51,7 +52,7 @@ app.factory('SortableFactory', function ($http) {
         }
 
         return $siblings;
-    };
+    },
 
     /**
      * This breaks down when not zoomed on an item
@@ -60,43 +61,42 @@ app.factory('SortableFactory', function ($http) {
      * @param $items
      * @returns {*}
      */
-    $object.findParentById = function ($item, $items) {
+    findParentById: function ($item, $items) {
         if (!$item.parent_id) {
             return false;
         }
 
         var $parent = _.findWhere(_.flatten($items), {id: $item.parent_id});
         return $parent;
-    };
+    },
 
     /**
      * For when item is hovered, setting the index to that of the hovered item
      * @param $index
      */
-    $object.setNewIndex = function ($index) {
-        $object.newIndex = $index;
-    };
+    setNewIndex: function ($index) {
+        newIndex = $index;
+    },
 
     /**
      * For when item is hovered, setting the newParent to that of the hovered item
      * @param $parent
      */
-    $object.setNewParent = function ($parent) {
-        $object.newParent = $parent;
-    };
+    setNewParent: function ($parent) {
+        newParent = $parent;
+    },
 
     /**
      * For when item is hovered, setting the newTarget to that of the hovered item,
      * so I can show the guide at the right place
      * @param $parent
      */
-    $object.setNewTarget = function ($target) {
-        $object.newTarget = $target;
-    };
+    setNewTarget: function ($target) {
+        newTarget = $target;
+    },
 
-    $object.setMouseDown = function ($boolean) {
-        $object.mouseDown = $boolean;
-    };
+    setMouseDown: function ($boolean) {
+        mouseDown = $boolean;
+    },
 
-    return $object;
-});
+};

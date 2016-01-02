@@ -4,35 +4,36 @@
 
     <label>Search all items by title</label>
     <input
-        ng-keyup="filter($event.keyCode)"
+        v-on:keyup="filter($event.keyCode)"
         type="text"
         placeholder="title"
         id="filter"/>
 
     <label>Filter by title</label>
     <input
-        ng-model="filterTitle"
+        v-model="filterTitle"
         type="text"
         placeholder="title"/>
 
     <label>Filter by priority</label>
     <input
-        ng-model="filterPriority"
+        v-model="filterPriority"
         type="text"
         placeholder="priority"/>
 
-    <label>Filter by category</label>
-    <select ng-model="filterCategory" class="form-control">
-        <option
-            ng-repeat="category in categories"
-            ng-value="category.id">
-            [[category.name]]
-        </option>
-    </select>
+    <div class="form-group">
+        <label for="filter-category">Filter by category</label>
+
+        <select v-model="filterCategory" id="filter-category" class="form-control">
+            <option v-for="category in categories" v-bind:value="category.id">
+                @{{ category.name }}
+            </option>
+        </select>
+    </div>
 
     <div>
         <button
-            ng-click="filterCategory=''"
+            v-on:click="filterCategory=''"
             class="btn btn-xs btn-info">
             clear
         </button>

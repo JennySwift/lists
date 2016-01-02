@@ -13,3 +13,6 @@
 <script type="text/javascript" src="{{ elixir("js/all.js") }}"></script>
 
 @include('templates.shared.feedback')
+@include('templates.shared.loading-component')
+@include('pages.items.components.items-component')
+@include('pages.categories.components.categories-component')

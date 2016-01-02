@@ -1,12 +1,12 @@
 <div id="favourites">
-    <button ng-click="toggleFavourites()" class="btn btn-info fa fa-star-o"></button>
+    <button v-on:click="toggleFavourites()" class="btn btn-info fa fa-star-o"></button>
 
-    <ul ng-show="show.favourites" class="list-group">
+    <ul v-show="show.favourites" class="list-group">
         <li
-                ng-repeat="favourite in favourites"
-                ng-click="goToFavourite(favourite)"
+                v-for="favourite in favourites"
+                v-on:click="goToFavourite(favourite)"
                 class="list-group-item">
-            [[favourite.title]]
+            @{{ favourite.title }}
         </li>
     </ul>
 </div>
