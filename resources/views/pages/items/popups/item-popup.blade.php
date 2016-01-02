@@ -20,6 +20,12 @@
             class="favourite fa fa-star">
         </button>
 
+        <button
+                ng-click="itemPopup.pinned = !itemPopup.pinned"
+                ng-class="{'pinned': itemPopup.pinned, 'unpinned': !itemPopup.pinned}"
+                class="pin-btn fa fa-map-pin">
+        </button>
+
         <h3>Title (id: [[itemPopup.id]], parentId: [[itemPopup.parent_id]])</h3>
 
         <textarea

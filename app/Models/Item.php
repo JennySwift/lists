@@ -19,6 +19,11 @@ class Item extends Model
     use ForCurrentUser;
 
     /**
+     * @var array
+     */
+    protected $fillable = ['title', 'body', 'priority', 'favourite', 'pinned'];
+
+    /**
      * The attributes that should be mutated to dates
      * @var array
      */
@@ -27,19 +32,12 @@ class Item extends Model
     /**
      * @var array
      */
-    protected $guarded = ['id', 'user_id', 'parent_id', 'order_number'];
+//    protected $with = ['category'];
 
     /**
      * @var array
      */
-    protected $with = ['category'];
-
-    /**
-     * @var array
-     */
-    protected $appends = ['path', 'has_children', 'path_to_item'];
-
-//    protected $with = ['children'];
+//    protected $appends = ['path', 'has_children', 'path_to_item'];
 
     /**
      *
@@ -94,6 +92,12 @@ class Item extends Model
             ->get();
     }
 
+    /**
+     *
+     * @param $query
+     * @param $type
+     * @return mixed
+     */
     public function scopeOrder($query, $type)
     {
         return $query->orderBy($type, 'asc');
@@ -272,5 +276,30 @@ class Item extends Model
                     ->whereNull('parent_id')->max('index') + 1;
             }
         }
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function transform()
+    {
+        $array = [
+            'id' => $this->id,
+            'parent_id' => $this->parent_id,
+            'title' => $this->title,
+            'body' => $this->body,
+            'index' => $this->index,
+            'category_id' => $this->category_id,
+            'priority' => $this->priority,
+            'favourite' => $this->favourite,
+            'pinned' => $this->pinned,
+            'path' => $this->path,
+            'path_to_item' => $this->path_to_item,
+            'has_children' => $this->has_children,
+            'category' => $this->category
+        ];
+
+        return $array;
     }
 }

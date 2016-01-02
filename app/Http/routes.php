@@ -16,7 +16,6 @@ Route::get('/sortable', function()
 });
 
 Route::post('filter', 'API\ItemsController@filter');
-Route::post('updateItem', 'API\ItemsController@updateItem');
 Route::put('undoDeleteItem', 'API\ItemsController@undoDeleteItem');
 
 // API

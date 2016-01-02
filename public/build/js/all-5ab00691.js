@@ -13333,7 +13333,6 @@ var app = angular.module('lists');
          * scope properties
          */
 
-        $scope.items = items;
         $scope.categories = categories;
         $scope.favourites = favourites;
         $scope.paths = {
@@ -13342,7 +13341,9 @@ var app = angular.module('lists');
         };
         $scope.new_item = {
             title: '',
-            body: ''
+            body: '',
+            favourite: false,
+            pinned: false
         };
         $scope.show = {
             popups: {
@@ -13383,6 +13384,20 @@ var app = angular.module('lists');
         /**
          * select
          */
+
+        function getItems () {
+            $rootScope.showLoading();
+            ItemsFactory.index()
+                .then(function (response) {
+                    $scope.items = response.data;
+                    $rootScope.hideLoading();
+                })
+                .catch(function (response) {
+                    $rootScope.responseError(response);
+                });
+        }
+
+        getItems();
 
         function getPinnedItems () {
             $rootScope.showLoading();
@@ -13774,6 +13789,12 @@ app.factory('ItemsFactory', function ($http) {
          * select
          */
 
+        index: function () {
+            var url = '/api/items';
+
+            return $http.get(url);
+        },
+
         getPinnedItems: function () {
             var url = '/api/items?pinned=true';
 
@@ -13801,33 +13822,42 @@ app.factory('ItemsFactory', function ($http) {
          * insert
          */
 
-        insertItem: function ($zoomed_item, $new_item) {
-            if ($zoomed_item) {
-                $parent_id = $zoomed_item.id;
+        insertItem: function (zoomedItem, item) {
+            if (zoomedItem) {
+                parent_id = zoomedItem.id;
             }
             else {
-                $parent_id = null;
+                parent_id = null;
             }
-            var $url = '/api/items';
-            var $data = {
-                parent_id: $parent_id,
-                new_item: $new_item
+            var url = '/api/items';
+            var data = {
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                favourite: item.favourite,
+                pinned: item.pinned,
+                parent_id: parent_id
             };
 
-            return $http.post($url, $data);
+            return $http.post(url, data);
         },
 
         /**
          * update
          */
 
-        updateItem: function ($item) {
-            var $url = 'updateItem';
-            var $data = {
-                item: $item
+        updateItem: function (item) {
+            var url = '/api/items/' + item.id;
+            var data = {
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                favourite: item.favourite,
+                pinned: item.pinned,
+                parent_id: item.parent_id
             };
 
-            return $http.post($url, $data);
+            return $http.put(url, data);
         },
 
         moveItemSameParent: function ($item, $new_index) {

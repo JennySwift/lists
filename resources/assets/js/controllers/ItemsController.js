@@ -7,7 +7,6 @@ var app = angular.module('lists');
          * scope properties
          */
 
-        $scope.items = items;
         $scope.categories = categories;
         $scope.favourites = favourites;
         $scope.paths = {
@@ -16,7 +15,9 @@ var app = angular.module('lists');
         };
         $scope.new_item = {
             title: '',
-            body: ''
+            body: '',
+            favourite: false,
+            pinned: false
         };
         $scope.show = {
             popups: {
@@ -57,6 +58,20 @@ var app = angular.module('lists');
         /**
          * select
          */
+
+        function getItems () {
+            $rootScope.showLoading();
+            ItemsFactory.index()
+                .then(function (response) {
+                    $scope.items = response.data;
+                    $rootScope.hideLoading();
+                })
+                .catch(function (response) {
+                    $rootScope.responseError(response);
+                });
+        }
+
+        getItems();
 
         function getPinnedItems () {
             $rootScope.showLoading();

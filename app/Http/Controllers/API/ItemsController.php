@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\ItemsRepository;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use JavaScript;
 use Auth;
 use Debugbar;
@@ -14,8 +15,15 @@ use Debugbar;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class ItemsController
+ * @package App\Http\Controllers\API
+ */
 class ItemsController extends Controller
 {
+    /**
+     * @var ItemsRepository
+     */
     protected $itemsRepository;
     /**
      * @var CategoriesRepository
@@ -41,7 +49,6 @@ class ItemsController extends Controller
     public function pageLoad()
     {
         JavaScript::put([
-            'items' => $this->itemsRepository->getHomeItems(),
             'categories' => $this->categoriesRepository->getCategories(),
             'favourites' => $this->itemsRepository->getFavourites(),
             'base_path' => base_path()
@@ -58,9 +65,9 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pinned')) {
-            return Item::forCurrentUser()->where('pinned', 1)->get();
+            return $this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get());
         }
-        return $this->itemsRepository->getHomeItems();
+        return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
     }
 
     /**
@@ -76,34 +83,35 @@ class ItemsController extends Controller
             ->where('title', 'LIKE', $typing)
             ->get();
 
-        return $items;
+        return $this->itemsRepository->transform($items);
     }
-
+    
     /**
-     * Store a newly created resource in storage.
      *
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
-        $parent = Item::find($request->get('parent_id'));
-        $new_item = $request->get('new_item');
-        $index = $request->get('index');
+        $parent = false;
 
-        $item = new Item([
-            'title' => $new_item['title'],
-            'body' => $new_item['body'],
-            'category_id' => $new_item['category_id'],
-            'priority' => $new_item['priority']
-        ]);
+        $item = new Item($request->only([
+            'title',
+            'body',
+            'priority',
+            'favourite',
+            'pinned',
+        ]));
 
-        if ($parent) {
-            $item->parent_id = $parent->id;
+        if ($request->get('parent_id')) {
+            $parent = Item::find($request->get('parent_id'));
+            $item->parent()->associate($parent);
         }
 
-        $item->index = $item->calculateIndex($index, $parent);
-
         $item->user()->associate(Auth::user());
+        $item->category()->associate(Category::find($request->get('category_id')));
+        $item->index = $item->calculateIndex($request->get('index'), $parent);
+
         $item->save();
 
         return $this->showSomething($parent);
@@ -111,95 +119,101 @@ class ItemsController extends Controller
 
     /**
      * Get items of a chosen parent (or home items if no parent)
+     * Todo: make RESTful
      * @param $parent
      * @return Response|mixed
      */
     public function showSomething($parent)
     {
         if ($parent) {
-            return $this->show($parent->id);
+            return $this->show($parent);
         }
         else {
-            return $this->index();
+            return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
         }
     }
 
     /**
-     * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Item $item
+     * @return array
      */
-    public function show($id)
+    public function show(Item $item)
     {
-        $item = Item::find($id);
+        $breadcrumb = $item->breadcrumb();
+        $array = [];
+        foreach (collect($breadcrumb) as $item) {
+            $array[] = $item->transform();
+        }
 
         return [
-            'children' => $item->children()->order('priority')->get(),
-            'breadcrumb' => $item->breadcrumb()
+            'children' => $this->itemsRepository->transform($item->children()->order('priority')->get()),
+            'breadcrumb' => $array
         ];
     }
 
-    public function updateItem(Request $request)
+    /**
+     *
+     * @param Request $request
+     * @param Item $item
+     * @return Response
+     */
+    public function update(Request $request, Item $item)
     {
-        $data = $request->get('item');
-        $item = Item::find($data['id']);
-        $category = Category::find($data['category_id']);
-        $item->category()->associate($category);
-        $item->priority = $data['priority'];
-        $item->title = $data['title'];
-        $item->body = $data['body'];
-        $item->favourite = $data['favourite'];
-        $item->save();
-        return $item;
+        // Create an array with the new fields merged
+        $data = array_compare($item->toArray(), $request->only([
+            'priority', 'title', 'body', 'favourite', 'pinned'
+        ]));
+
+        $item->update($data);
+
+        if ($request->has('parent_id')) {
+            $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
+            $item->save();
+        }
+
+        if ($request->has('category_id')) {
+            $item->category()->associate(Category::findOrFail($request->get('category_id')));
+            $item->save();
+        }
+
+        if ($request->has('moveItem')) {
+            $this->itemsRepository->moveItem($request, $item);
+        }
+
+        return response($item->transform(), Response::HTTP_OK);
     }
 
     /**
-     * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param Item $item
      * @return Response
      */
-    public function update($id, Request $request)
+    public function destroy(Item $item)
     {
-        $item = Item::find($id);
-        $parent = Item::find($request->get('parent_id'));
-        $old_index = $request->get('old_index');
-        $new_index = $request->get('new_index');
-
-        if ($request->get('new_parent')) {
-            $new_parent = Item::find($request->get('new_parent_id'));
-
-            $this->itemsRepository->moveToNewParent(
-                $item,
-                Item::find($request->get('old_parent_id')),
-                $old_index,
-                $new_parent,
-                $new_index
-            );
+        try {
+            $item->delete();
+            return response([], Response::HTTP_NO_CONTENT);
         }
-        else {
-            $this->itemsRepository->moveItemSameParent(
-                $item,
-                $old_index,
-                $new_index,
-                $parent
-            );
+        catch (\Exception $e) {
+            //Integrity constraint violation
+            if ($e->getCode() === '23000') {
+                $message = 'Item could not be deleted. It is in use.';
+            }
+            else {
+                $message = 'There was an error';
+            }
+            return response([
+                'error' => $message,
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
     /**
-     * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @return mixed
      */
-    public function destroy($id)
-    {
-        $item = Item::findOrFail($id);
-        $item->delete();
-    }
-
     public function undoDeleteItem()
     {
         $item = Item::where('user_id', Auth::user()->id)
@@ -209,6 +223,6 @@ class ItemsController extends Controller
 
         $item->restore();
 
-        return $item;
+        return $item->transform();
     }
 }

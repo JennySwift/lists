@@ -1,1 +1,1 @@
-@include('pages.items.popups.item')
+@include('pages.items.popups.item-popup')

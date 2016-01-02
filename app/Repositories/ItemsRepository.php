@@ -2,12 +2,32 @@
 
 use App\Models\Item;
 use Auth;
+use Illuminate\Http\Request;
 
 /**
  * Class ItemsRepository
  */
 class ItemsRepository {
 
+    /**
+     * Transform a collection
+     * @param $items
+     * @return mixed
+     */
+    public function transform($items)
+    {
+        $array = [];
+        foreach ($items as $item) {
+            $array[] = $item->transform();
+        }
+
+        return $array;
+    }
+
+    /**
+     *
+     * @return mixed
+     */
     public function getHomeItems()
     {
         return Item::where('user_id', Auth::user()->id)
@@ -16,11 +36,46 @@ class ItemsRepository {
             ->get();
     }
 
+    /**
+     *
+     * @return mixed
+     */
     public function getFavourites()
     {
         return Item::where('user_id', Auth::user()->id)
             ->where('favourite', 1)
             ->get();
+    }
+
+    /**
+     *
+     * @param Request $request
+     */
+    public function moveItem(Request $request, $item)
+    {
+        $parent = Item::find($request->get('parent_id'));
+        $old_index = $request->get('old_index');
+        $new_index = $request->get('new_index');
+
+        if ($request->get('new_parent')) {
+            $new_parent = Item::find($request->get('new_parent_id'));
+
+            $this->itemsRepository->moveToNewParent(
+                $item,
+                Item::find($request->get('old_parent_id')),
+                $old_index,
+                $new_parent,
+                $new_index
+            );
+        }
+        else {
+            $this->itemsRepository->moveItemSameParent(
+                $item,
+                $old_index,
+                $new_index,
+                $parent
+            );
+        }
     }
 
     /**

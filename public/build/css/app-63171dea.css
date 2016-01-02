@@ -177,6 +177,12 @@ li {
     position: absolute;
     right: 5px;
     top: 5px; }
+  #item-popup .pin-btn {
+    position: absolute;
+    right: 60px;
+    top: 5px; }
+    #item-popup .pin-btn.pinned {
+      color: #fca700; }
   #item-popup .delete-item {
     position: absolute;
     top: 5px;
@@ -337,9 +343,6 @@ li {
 
 .margin-bottom-lg {
   margin-bottom: 140px; }
-
-.bg-blue {
-  background: #6D84B4; }
 
 .hover:hover {
   background: #b5b5b5; }

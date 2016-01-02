@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Item;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,9 +26,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
-
         parent::boot($router);
+
+        Route::bind('items', function($id)
+        {
+            return Item::forCurrentUser()->findOrFail($id);
+        });
     }
 
     /**
