@@ -34,7 +34,6 @@ var Item = Vue.component('item', {
         updateItemSuccess: function (response) {
             //jsUpdateItem(response);
             this.showItemPopup = false;
-            this.toggleFavourite();
             this.itemPopup = {};
             this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;

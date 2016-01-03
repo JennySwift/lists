@@ -7,7 +7,7 @@
             :show-loading.sync="showLoading"
             :show-item-popup.sync="showItemPopup"
             :show-children="showChildren"
-            :items.sync="items"
+            :items.sy="items"
             :item="item"
             :item-popup="itemPopup"
             :zoomed-item="zoomedItem"
