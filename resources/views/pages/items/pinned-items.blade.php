@@ -1,8 +1,20 @@
 <div id="pinned-items">
     <h5>Pinned Items</h5>
-    <div
-        v-for="item in pinnedItems"
-        ng-include src="'ItemTemplate'"
+
+    <item
+            {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
+            v-for="item in pinnedItems | itemsFilter | orderBy 'priority'"
+            :show-loading.sync="showLoading"
+            :show-item-popup.sync="showItemPopup"
+            :show-children="showChildren"
+            :items.sync="items"
+            :item="item"
+            :item-popup="itemPopup"
+            :zoomed-item="zoomedItem"
+            :get-items="getItems"
+            :categories="categories"
+            :zoom="zoom"
+            class="item-with-children"
     >
-    </div>
+    </item>
 </div>

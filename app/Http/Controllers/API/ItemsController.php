@@ -197,7 +197,7 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         try {
-//            $item->delete();
+            $item->delete();
             return response([], Response::HTTP_NO_CONTENT);
         }
         catch (\Exception $e) {

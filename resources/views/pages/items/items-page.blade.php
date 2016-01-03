@@ -10,8 +10,6 @@
 @include('templates.shared.header')
 <feedback></feedback>
 
-@include('pages.items.pinned-items')
-
 <items></items>
 
 @include('templates.shared.footer')
