@@ -77,4 +77,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('path_to_item', $item);
         $this->assertArrayHasKey('category', $item);
     }
+
+    /**
+     *
+     * @param $category
+     */
+    public function checkCategoryKeysExist($category)
+    {
+        $this->assertArrayHasKey('id', $category);
+        $this->assertArrayHasKey('name', $category);
+        $this->assertArrayHasKey('path', $category);
+    }
 }

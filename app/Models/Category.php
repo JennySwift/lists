@@ -34,4 +34,19 @@ class Category extends Model
     {
         return $this->belongsTo('\App\User');
     }
+
+    /**
+     *
+     * @return array
+     */
+    public function transform()
+    {
+        $array = [
+            'id' => $this->id,
+            'name' => $this->name,
+            'path' => $this->path,
+        ];
+
+        return $array;
+    }
 }
