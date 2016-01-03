@@ -4,7 +4,9 @@
         <i v-if="breadcrumb.length > 0" class="fa fa-angle-right"></i>
     </div>
     <div v-for="item in breadcrumb">
-        <a v-on:click="zoom(item)">@{{ item.title }}</a>
-        <i v-if="!$last" class="fa fa-angle-right"></i>
+        <a v-link="{ path: '/items/:' + item.id }">
+            @{{ item.title }}
+        </a>
+        <i v-if="$index !== breadcrumb.length - 1" class="fa fa-angle-right"></i>
     </div>
 </div>

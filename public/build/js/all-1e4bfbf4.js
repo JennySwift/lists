@@ -22589,6 +22589,7 @@ var Items = Vue.component('items', {
             this.$http.get(url, function (response) {
                 this.zoomedItem = response;
                 this.items = response.children;
+                this.breadcrumb = response.breadcrumb;
                 //this.zoomItemThatMatchesRoute();
                 this.showLoading = false;
             })
@@ -22692,12 +22693,12 @@ var Items = Vue.component('items', {
          * @param response
          * @param $item
          */
-        showChildren: function (response, $item) {
-            //$item.children = response.children;
-            this.items = [$item];
-            this.breadcrumb = response.breadcrumb;
-            this.zoomedItem = $item;
-        },
+        //showChildren: function (response, $item) {
+        //    //$item.children = response.children;
+        //    this.items = [$item];
+        //    this.breadcrumb = response.breadcrumb;
+        //    this.zoomedItem = $item;
+        //},
 
         /**
          *
@@ -22730,11 +22731,11 @@ var Items = Vue.component('items', {
          *
          * @param response
          */
-        showHome: function (response) {
-            this.items = response;
-            this.zoomedItem = null;
-            this.breadcrumb = [];
-        },
+        //showHome: function (response) {
+        //    this.items = response;
+        //    this.zoomedItem = null;
+        //    this.breadcrumb = [];
+        //},
 
         /**
          *
