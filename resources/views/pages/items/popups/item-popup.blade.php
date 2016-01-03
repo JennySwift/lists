@@ -49,7 +49,6 @@
 
             <select
                 v-model="itemPopup.category"
-                v-on:change="updateItemCategory()"
                 id="item-popup-category"
                 class="form-control"
             >
@@ -65,7 +64,7 @@
 
         <div class="buttons">
             <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>
-            <button v-on:click="updateItem()" class="btn btn-success">Save</button>
+            <button v-on:click="updateItem(itemPopup)" class="btn btn-success">Save</button>
         </div>
 
 	</div>

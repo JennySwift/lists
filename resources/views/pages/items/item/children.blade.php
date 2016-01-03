@@ -5,7 +5,7 @@
             {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
             v-for="item in item.children | itemsFilter"
             :show-loading.sync="showLoading"
-            :show-item-popup="showItemPopup"
+            :show-item-popup.sync="showItemPopup"
             :show-children="showChildren"
             :items.sync="items"
             :item="item"

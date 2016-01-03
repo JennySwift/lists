@@ -22362,46 +22362,47 @@ var Item = Vue.component('item', {
         /**
          *
          */
-        updateItem: function () {
+        updateItem: function (item) {
             this.showLoading = true;
 
-            var data = {
-                title: item.title,
-                body: item.body,
-                priority: item.priority,
-                favourite: item.favourite,
-                pinned: item.pinned,
-                parent_id: item.parent_id
-            };
+            var data = ItemsRepository.setData(item);
 
             this.$http.put('/api/items/' + item.id, data, function (response) {
-                    jsUpdateItem(response);
-                    this.showItemPopup = false;
-                    this.toggleFavourite();
-                    this.itemPopup = {};
-                    this.$broadcast('provide-feedback', 'Item updated', 'success');
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
+                    this.updateItemSuccess(response);
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
         },
 
         /**
          *
          * @param response
          */
-        jsUpdateItem: function (response) {
-            var $parent = ItemsRepository.findParent(items, itemPopup);
-            if ($parent) {
-                var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
-                $parent.children[$index] = response.data;
-            }
-            else {
-                var $index = _.indexOf(items, _.findWhere(items, {id: itemPopup.id}));
-                items[$index] = response.data;
-            }
+        updateItemSuccess: function (response) {
+            //jsUpdateItem(response);
+            this.showItemPopup = false;
+            this.toggleFavourite();
+            this.itemPopup = {};
+            this.$broadcast('provide-feedback', 'Item updated', 'success');
+            this.showLoading = false;
         },
+
+        /**
+         *
+         * @param response
+         */
+        //jsUpdateItem: function (response) {
+        //    var $parent = ItemsRepository.findParent(items, itemPopup);
+        //    if ($parent) {
+        //        var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
+        //        $parent.children[$index] = response.data;
+        //    }
+        //    else {
+        //        var $index = _.indexOf(items, _.findWhere(items, {id: itemPopup.id}));
+        //        items[$index] = response.data;
+        //    }
+        //},
 
         /**
          * For when item is deleted from the item popup
