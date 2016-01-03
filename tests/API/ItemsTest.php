@@ -49,6 +49,23 @@ class ItemsTest extends TestCase
 
     /**
      * @test
+     */
+    public function it_throws_an_exception_if_item_does_not_exist()
+    {
+        $this->logInUser();
+
+        $response = $this->call('GET', '/api/items/500');
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertEquals('Item not found.', $content['error']);
+        $this->assertEquals(404, $content['status']);
+
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+    }
+
+    /**
+     * @test
      * @return void
      */
     public function it_gets_the_pinned_items()

@@ -7,12 +7,12 @@ Vue.component('feedback', {
         };
     },
     methods: {
-        //listen: function () {
-        //    var that = this;
-        //    $(document).on('provide-feedback', function (event, message, type) {
-        //        that.provideFeedback(message, type);
-        //    });
-        //},
+        listen: function () {
+            var that = this;
+            $(document).on('provide-feedback', function (event, message, type) {
+                that.provideFeedback(message, type);
+            });
+        },
         provideFeedback: function (message, type) {
             var newMessage = {
                 message: message,
@@ -72,7 +72,7 @@ Vue.component('feedback', {
             this.provideFeedback(this.handleResponseError(response), 'error');
         }
     },
-    //ready: function () {
-    //    this.listen();
-    //},
+    ready: function () {
+        this.listen();
+    },
 });

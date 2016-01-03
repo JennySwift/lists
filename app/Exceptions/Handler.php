@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -39,6 +41,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        // Model not found exception handler (app-wide)
+        if ($e instanceof ModelNotFoundException) {
+
+            // Build a "fake" instance of the model which was not found
+            // and fetch the shortname of the class
+            // Ex.: If we have a App\Models\Projects\Project model
+            // Then we would return Project
+            $model = (new \ReflectionClass($e->getModel()))->getShortName();
+
+            return response([
+                'error' => "{$model} not found.",
+                'status' => Response::HTTP_NOT_FOUND
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         return parent::render($request, $e);
     }
 }

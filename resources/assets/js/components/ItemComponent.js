@@ -2,10 +2,7 @@ var Item = Vue.component('item', {
     template: '#item-template',
     data: function () {
         return {
-            //showLoading: false,
-            //addingNewItem: false,
-            //editingItem: false,
-            //selectedItem: {}
+
         };
     },
     components: {},
@@ -32,28 +29,12 @@ var Item = Vue.component('item', {
          * @param response
          */
         updateItemSuccess: function (response) {
-            //jsUpdateItem(response);
             this.showItemPopup = false;
             this.itemPopup = {};
-            this.$broadcast('provide-feedback', 'Item updated', 'success');
+            $.event.trigger('provide-feedback', ['Item updated', 'success']);
+            //this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;
         },
-
-        /**
-         *
-         * @param response
-         */
-        //jsUpdateItem: function (response) {
-        //    var $parent = ItemsRepository.findParent(items, itemPopup);
-        //    if ($parent) {
-        //        var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
-        //        $parent.children[$index] = response.data;
-        //    }
-        //    else {
-        //        var $index = _.indexOf(items, _.findWhere(items, {id: itemPopup.id}));
-        //        items[$index] = response.data;
-        //    }
-        //},
 
         /**
          * For when item is deleted from the item popup
@@ -79,8 +60,8 @@ var Item = Vue.component('item', {
                 this.$http.delete('/api/items/' + item.id, function (response) {
                         this.deleteJsItem(item);
                         this.closeItemPopup();
-                        //$.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                        this.$broadcast('provide-feedback', 'Item deleted', 'success');
+                        $.event.trigger('provide-feedback', ['Item deleted', 'success']);
+                        //this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         this.showLoading = false;
                     })
                     .error(function (response) {

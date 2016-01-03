@@ -48,7 +48,8 @@ var Items = Vue.component('items', {
         zoomItemThatMatchesRoute: function () {
             this.zoomedItem = this.findItemThatMatchesRoute();
             if (!this.zoomedItem) {
-                this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
+                $.event.trigger('provide-feedback', ['There is no item with an id of ' + this.$route.params.id.slice(1), 'error']);
+                //this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
             }
         },
 
@@ -152,29 +153,6 @@ var Items = Vue.component('items', {
 
         /**
          *
-         */
-        //goHome: function () {
-        //    this.showLoading = true;
-        //    this.$http.get('api/items', function (response) {
-        //        showHome(response);
-        //        this.showLoading = false;
-        //    })
-        //    .error(function (response) {
-        //        this.handleResponseError(response);
-        //    });
-        //},
-
-        ///**
-        // *
-        // * @param $favourite
-        // */
-        //goToFavourite: function ($favourite) {
-        //    this.zoom($favourite);
-        //    this.showFavourites = false;
-        //},
-
-        /**
-         *
          * @param keycode
          * @returns {boolean}
          */
@@ -200,49 +178,11 @@ var Items = Vue.component('items', {
          */
         insertItemSuccess: function (response) {
             this.items.push(response);
-            //if (this.zoomedItem) {
-            //    this.zoomedItem.children.push(response);
-            //}
-            //else {
-            //    //home page
-            //    this.items.push(response);
-            //}
-
             //this.clearNewItemFields();
-            this.$broadcast('provide-feedback', 'Item created', 'success');
+            $.event.trigger('provide-feedback', ['Item created', 'success']);
+            //this.$broadcast('provide-feedback', 'Item created', 'success');
             this.showLoading = false;
         },
-
-        /**
-         *
-         * @param response
-         * @param $item
-         */
-        //showChildren: function (response, $item) {
-        //    //$item.children = response.children;
-        //    this.items = [$item];
-        //    this.breadcrumb = response.breadcrumb;
-        //    this.zoomedItem = $item;
-        //},
-
-        /**
-         *
-         * @param item
-         */
-        //zoom: function (item) {
-        //    this.showLoading = true;
-        //    this.$http.get('/api/items/' + item.id, function (response) {
-        //        var parentOfItem = ItemsRepository.findParent(this.items, item);
-        //        if (!parentOfItem) {
-        //            this.items[0].children = response.children;
-        //        }
-        //        this.showChildren(response, item);
-        //        this.showLoading = false;
-        //        })
-        //        .error(function (response) {
-        //            this.handleResponseError(response);
-        //        });
-        //},
 
         /**
          *
@@ -251,16 +191,6 @@ var Items = Vue.component('items', {
             this.addingNewItem = true;
             this.editingItem = false;
         },
-
-        /**
-         *
-         * @param response
-         */
-        //showHome: function (response) {
-        //    this.items = response;
-        //    this.zoomedItem = null;
-        //    this.breadcrumb = [];
-        //},
 
         /**
          *
@@ -315,7 +245,6 @@ var Items = Vue.component('items', {
             items.splice($index, 1);
             items.splice($index - 1, 0, $item);
         },
-
 
         /**
          * For when the 'favourite' button in the item popup is toggled,

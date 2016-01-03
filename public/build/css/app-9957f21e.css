@@ -513,6 +513,7 @@ li {
   top: 44px;
   z-index: 9999; }
   #feedback .feedback-message {
+    min-height: 25px;
     background: white;
     color: #777;
     line-height: 40px;
