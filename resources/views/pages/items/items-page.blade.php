@@ -10,7 +10,10 @@
 @include('templates.shared.header')
 <feedback></feedback>
 
-<items></items>
+<router-view></router-view>
+
+{{--<items></items>--}}
+{{--<categories></categories>--}}
 
 @include('templates.shared.footer')
 

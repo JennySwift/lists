@@ -6,7 +6,7 @@ var App = Vue.component('app', {
 var router = new VueRouter();
 
 router.map({
-    '/': {
+    '/items': {
         component: Items,
         subRoutes: {
             //default for if no id is specified
@@ -17,6 +17,9 @@ router.map({
                 component: Item
             }
         }
+    },
+    '/categories': {
+        component: Categories
     }
 });
 

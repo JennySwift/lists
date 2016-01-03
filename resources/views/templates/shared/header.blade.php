@@ -27,11 +27,11 @@
     </li>
 
     <li>
-        <a href="/">lists</a>
+        <a v-link="{ path: '/items/' }">lists</a>
     </li>
 
     <li>
-        <a href="/categories">categories</a>
+        <a v-link="{ path: '/categories/'  }">categories</a>
     </li>
 
 </ul>
