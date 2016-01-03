@@ -97,7 +97,7 @@ var Item = Vue.component('item', {
         deleteJsItem: function (item) {
             var parent = ItemsRepository.findParent(this.items, item);
             if (parent) {
-                parent.children = _.without(parent.children, item);
+                //parent.children = _.without(parent.children, item);
             }
             else {
                 this.items = _.without(this.items, item);
