@@ -58,7 +58,7 @@ var Item = Vue.component('item', {
          * @param response
          */
         jsUpdateItem: function (response) {
-            var $parent = SortableFactory.findParent(items, itemPopup);
+            var $parent = ItemsRepository.findParent(items, itemPopup);
             if ($parent) {
                 var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
                 $parent.children[$index] = response.data;
@@ -73,9 +73,9 @@ var Item = Vue.component('item', {
          * For when item is deleted from the item popup
          */
         closeItemPopup: function () {
-            if (showItemPopup) {
-                showItemPopup = false;
-                itemPopup = {};
+            if (this.showItemPopup) {
+                this.showItemPopup = false;
+                this.itemPopup = {};
             }
         },
 
@@ -108,7 +108,7 @@ var Item = Vue.component('item', {
          * @param item
          */
         deleteJsItem: function (item) {
-            var parent = this.findParent(this.items, item);
+            var parent = ItemsRepository.findParent(this.items, item);
             if (parent) {
                 parent.children = _.without(parent.children, item);
             }

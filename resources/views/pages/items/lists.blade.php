@@ -11,7 +11,7 @@
         v-if="!breadcrumb || breadcrumb.length < 1"
         {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
         v-for="item in items | itemsFilter"
-        :show-loading="showLoading"
+        :show-loading.sync="showLoading"
         :show-item-popup="showItemPopup"
         :show-children="showChildren"
         :items.sync="items"
