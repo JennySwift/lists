@@ -54,6 +54,123 @@ var Item = Vue.component('item', {
 
         /**
          *
+         */
+        updateItem: function () {
+            this.showLoading = true;
+
+            var data = {
+                title: item.title,
+                body: item.body,
+                priority: item.priority,
+                favourite: item.favourite,
+                pinned: item.pinned,
+                parent_id: item.parent_id
+            };
+
+            this.$http.put('/api/items/' + item.id, data, function (response) {
+                    jsUpdateItem(response);
+                    this.showItemPopup = false;
+                    this.toggleFavourite();
+                    this.itemPopup = {};
+                    this.$broadcast('provide-feedback', 'Item updated', 'success');
+                    this.showLoading = false;
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        },
+
+        /**
+         *
+         * @param response
+         */
+        jsUpdateItem: function (response) {
+            var $parent = SortableFactory.findParent(items, itemPopup);
+            if ($parent) {
+                var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
+                $parent.children[$index] = response.data;
+            }
+            else {
+                var $index = _.indexOf(items, _.findWhere(items, {id: itemPopup.id}));
+                items[$index] = response.data;
+            }
+        },
+
+        /**
+         * For when item is deleted from the item popup
+         */
+        closeItemPopup: function () {
+            if (showItemPopup) {
+                showItemPopup = false;
+                itemPopup = {};
+            }
+        },
+
+        collapseItem: function ($item) {
+            $item.children = [];
+        },
+
+        //var $parent;
+        /**
+         *
+         * @param $array
+         * @param $item
+         * @returns {*}
+         */
+        findParent: function($array, $item) {
+            if (!$item.parent_id) {
+                return false;
+            }
+            $($array).each(function () {
+                if (this.id === $item.parent_id) {
+                    $parent = this;
+                    return false;
+                }
+                if (this.children) {
+                    findParent(this.children, $item);
+                }
+            });
+            return $parent;
+        },
+
+        /**
+         *
+         * @param item
+         */
+        deleteItem: function (item) {
+            if (confirm("Are you sure?")) {
+                this.showLoading = true;
+                this.$http.delete('/api/items/' + item.id, function (response) {
+                        var $parent = findParent(items, $item);
+                        this.deleteJsItem($parent, $item);
+                        this.closeItemPopup();
+                        this.$broadcast('provide-feedback', 'Item deleted', 'success');
+                        this.showLoading = false;
+                    })
+                    .error(function (response) {
+                        this.handleResponseError(response);
+                    });
+            }
+        },
+
+
+        /**
+         *
+         * @param $parent
+         * @param $item
+         */
+        deleteJsItem: function ($parent, $item) {
+            if ($parent) {
+                $parent.children = _.without($parent.children, $item);
+            }
+            else {
+                items = _.without(items, $item);
+            }
+        },
+
+
+        /**
+         *
          * @param $item
          */
         openItemPopup: function ($item) {

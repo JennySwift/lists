@@ -34,18 +34,21 @@ var Items = Vue.component('items', {
     },
     components: {},
     filters: {
-        itemsFilter: function (item) {
-            var filteredIn = true;
-            if (this.filterTitle && item.title.indexOf(this.filterTitle) === -1) {
-                filteredIn = false;
-            }
-            else if (this.filterPriority && item.priority !== this.filterPriority) {
-                filteredIn = false;
-            }
-            else if (this.filterCategory && item.category_id !== this.filterCategory) {
-                filteredIn = false;
-            }
-            return filteredIn;
+        itemsFilter: function (items) {
+            var that = this;
+
+            return items.filter(function (item) {
+                var filteredIn = item.title.indexOf(that.filterTitle) !== -1;
+
+                if (that.filterPriority && item.priority != that.filterPriority) {
+                    filteredIn = false;
+                }
+                else if (that.filterCategory && item.category_id !== that.filterCategory) {
+                    filteredIn = false;
+                }
+
+                return filteredIn;
+            });
         }
     },
     methods: {
@@ -97,10 +100,6 @@ var Items = Vue.component('items', {
             .error(function (response) {
                 this.handleResponseError(response);
             });
-        },
-
-        collapseItem: function ($item) {
-            $item.children = [];
         },
 
         /**
@@ -221,74 +220,6 @@ var Items = Vue.component('items', {
 
         /**
          *
-         * @param item
-         */
-        deleteItem: function (item) {
-            if (confirm("Are you sure?")) {
-                this.showLoading = true;
-                this.$http.delete('/api/items/' + item.id, function (response) {
-                    var $parent = findParent(items, $item);
-                    this.deleteJsItem($parent, $item);
-                    this.closeItemPopup();
-                    this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-            }
-        },
-
-        /**
-         * For when item is deleted from the item popup
-         */
-        closeItemPopup: function () {
-            if (showItemPopup) {
-                showItemPopup = false;
-                itemPopup = {};
-            }
-        },
-
-        /**
-         *
-         * @param $parent
-         * @param $item
-         */
-        deleteJsItem: function ($parent, $item) {
-            if ($parent) {
-                $parent.children = _.without($parent.children, $item);
-            }
-            else {
-                items = _.without(items, $item);
-            }
-        },
-
-        //var $parent;
-
-        /**
-         *
-         * @param $array
-         * @param $item
-         * @returns {*}
-         */
-        findParent: function($array, $item) {
-            if (!$item.parent_id) {
-                return false;
-            }
-            $($array).each(function () {
-                if (this.id === $item.parent_id) {
-                    $parent = this;
-                    return false;
-                }
-                if (this.children) {
-                    findParent(this.children, $item);
-                }
-            });
-            return $parent;
-        },
-
-        /**
-         *
          * @param $item
          * @param $index
          */
@@ -297,46 +228,6 @@ var Items = Vue.component('items', {
             items.splice($index - 1, 0, $item);
         },
 
-        updateItem: function () {
-            this.showLoading = true;
-
-            var data = {
-                title: item.title,
-                body: item.body,
-                priority: item.priority,
-                favourite: item.favourite,
-                pinned: item.pinned,
-                parent_id: item.parent_id
-            };
-
-            this.$http.put('/api/items/' + item.id, data, function (response) {
-                jsUpdateItem(response);
-                    showItemPopup = false;
-                    toggleFavourite();
-                    itemPopup = {};
-                this.$broadcast('provide-feedback', 'Item updated', 'success');
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        jsUpdateItem: function (response) {
-            var $parent = SortableFactory.findParent(items, itemPopup);
-            if ($parent) {
-                var $index = _.indexOf($parent.children, _.findWhere($parent.children, {id: itemPopup.id}));
-                $parent.children[$index] = response.data;
-            }
-            else {
-                var $index = _.indexOf(items, _.findWhere(items, {id: itemPopup.id}));
-                items[$index] = response.data;
-            }
-        },
 
         /**
          * For when the 'favourite' button in the item popup is toggled,
@@ -361,19 +252,6 @@ var Items = Vue.component('items', {
         clearNewItemFields: function () {
             newItem.title = '';
             newItem.body = '';
-        },
-
-        updateItem: function () {
-            this.showLoading = true;
-
-            this.$http.put('undoDeleteItem', function (response) {
-                this.jsRestoreItem(response.data);
-                this.$broadcast('provide-feedback', 'Item restored', 'success');
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
         },
 
         /**

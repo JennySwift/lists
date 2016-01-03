@@ -1,6 +1,16 @@
 <ul v-if="item.children">
-    <li
-        v-for="item in item.children | filter: {priority: filterPriority, category_id: filterCategory, title: filterTitle}"
-        ng-include src="'ItemTemplate'">
-    </li>
+
+    <item
+        v-if="!breadcrumb || breadcrumb.length < 1"
+        v-for="item in items | filterBy itemsFilter"
+        :show-loading="showLoading"
+        :show-item-popup="showItemPopup"
+        :items="items"
+        :item="item"
+        :item-popup="itemPopup"
+        :zoomed-item="zoomedItem"
+        :categories="categories"
+        class="item-with-children"
+    >
+    </item>
 </ul>
