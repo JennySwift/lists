@@ -22553,6 +22553,10 @@ var Items = Vue.component('items', {
         itemsFilter: function (items) {
             var that = this;
 
+            //Sort
+            items = _.chain(items).sortBy('id').sortBy('priority').value();
+
+            //Filter
             return items.filter(function (item) {
                 var filteredIn = item.title.indexOf(that.filterTitle) !== -1;
 
