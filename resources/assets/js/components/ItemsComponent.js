@@ -121,40 +121,45 @@ var Items = Vue.component('items', {
                 return false;
             }
 
+            var data = ItemsRepository.setData(this.newItem, this.zoomedItem);
+
             this.showLoading = true;
-
-            if (zoomedItem) {
-                parent_id = zoomedItem.id;
-            }
-            else {
-                parent_id = null;
-            }
-
-            var data = {
-                title: item.title,
-                body: item.body,
-                priority: item.priority,
-                favourite: item.favourite,
-                pinned: item.pinned,
-                category_id: item.category_id,
-                parent_id: parent_id
-            };
-
             this.$http.post('/api/items', data, function (response) {
-                if (zoomedItem) {
-                    this.showChildren(response, zoomedItem);
-                }
-                else {
-                    this.showHome(response);
-                }
-                this.clearNewItemFields();
-                this.$broadcast('provide-feedback', 'Item created', 'success');
-                this.showLoading = false;
+                this.insertItemSuccess(response);
             })
             .error(function (response) {
                 this.handleResponseError(response);
             });
         },
+
+        /**
+         *
+         * @param response
+         */
+        insertItemSuccess: function (response) {
+            if (this.zoomedItem) {
+                this.showChildren(response, this.zoomedItem);
+            }
+            else {
+                this.showHome(response);
+            }
+            this.clearNewItemFields();
+            this.$broadcast('provide-feedback', 'Item created', 'success');
+            this.showLoading = false;
+        },
+
+        /**
+         *
+         * @param response
+         * @param $item
+         */
+        showChildren: function (response, $item) {
+            $item.children = response.children;
+            this.items = [$item];
+            this.breadcrumb = response.breadcrumb;
+            this.zoomedItem = $item;
+        },
+
 
         /**
          *
@@ -169,9 +174,9 @@ var Items = Vue.component('items', {
          * @param response
          */
         showHome: function (response) {
-            items = response;
-            zoomedItem = null;
-            breadcrumb = [];
+            this.items = response;
+            this.zoomedItem = null;
+            this.breadcrumb = [];
         },
 
         /**

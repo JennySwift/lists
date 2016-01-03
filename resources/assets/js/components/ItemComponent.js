@@ -42,18 +42,6 @@ var Item = Vue.component('item', {
 
         /**
          *
-         * @param response
-         * @param $item
-         */
-        showChildren: function (response, $item) {
-            $item.children = response.children;
-            this.items = [$item];
-            this.breadcrumb = response.breadcrumb;
-            this.zoomed_item = $item;
-        },
-
-        /**
-         *
          */
         updateItem: function () {
             this.showLoading = true;
@@ -208,7 +196,8 @@ var Item = Vue.component('item', {
         'item',
         'itemPopup',
         'zoomedItem',
-        'categories'
+        'categories',
+        'showChildren'
     ],
     ready: function () {
 
