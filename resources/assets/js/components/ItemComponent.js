@@ -10,20 +10,6 @@ var Item = Vue.component('item', {
     },
     components: {},
     methods: {
-        /**
-         *
-         * @param $item
-         */
-        getChildren: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                    $item.children = response.children;
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-        },
 
         /**
          *
@@ -160,7 +146,8 @@ var Item = Vue.component('item', {
         'zoomedItem',
         'zoom',
         'categories',
-        'showChildren'
+        'showChildren',
+        'getItems'
     ],
     ready: function () {
 

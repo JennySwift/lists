@@ -22358,20 +22358,6 @@ var Item = Vue.component('item', {
     },
     components: {},
     methods: {
-        /**
-         *
-         * @param $item
-         */
-        getChildren: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                    $item.children = response.children;
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-        },
 
         /**
          *
@@ -22508,7 +22494,8 @@ var Item = Vue.component('item', {
         'zoomedItem',
         'zoom',
         'categories',
-        'showChildren'
+        'showChildren',
+        'getItems'
     ],
     ready: function () {
 
@@ -22530,7 +22517,7 @@ var Items = Vue.component('items', {
         '$route': function (val, oldVal) {
             //So this doesn't run on page load before the companies are loaded
             if (oldVal) {
-                this.getItems();
+                this.getItems('zoom');
             }
         }
     },
@@ -22576,26 +22563,47 @@ var Items = Vue.component('items', {
         /**
          *
          */
-        getItems: function () {
+        getItems: function (expandOrZoom, item) {
             this.showLoading = true;
-            var id = ItemsRepository.getIdFromUrl(this);
             var url;
-            if (!id) {
-                url = '/api/items';
+            if (item) {
+                url = '/api/items/' + item.id;
             }
             else {
-                url = '/api/items/' + id;
+                var id = ItemsRepository.getIdFromUrl(this);
+                if (id) {
+                    url = '/api/items/' + id;
+                }
+                else {
+                    url = '/api/items';
+                }
             }
+
             this.$http.get(url, function (response) {
-                this.zoomedItem = response;
-                this.items = response.children;
-                this.breadcrumb = response.breadcrumb;
-                //this.zoomItemThatMatchesRoute();
-                this.showLoading = false;
+                this.getItemsSuccess(response, expandOrZoom, item);
             })
             .error(function (response) {
                 this.handleResponseError(response);
             });
+        },
+
+        /**
+         *
+         * @param response
+         * @param expandOrZoom
+         * @param item
+         */
+        getItemsSuccess: function (response, expandOrZoom, item) {
+            if (expandOrZoom === 'zoom') {
+                this.zoomedItem = response;
+                this.items = response.children;
+                this.breadcrumb = response.breadcrumb;
+            }
+            else if (expandOrZoom === 'expand') {
+                item.children = response.children;
+            }
+
+            this.showLoading = false;
         },
 
         /**
@@ -22853,7 +22861,7 @@ var Items = Vue.component('items', {
         //data to be received from parent
     ],
     ready: function () {
-        this.getItems();
+        this.getItems('zoom');
         this.getPinnedItems();
         this.getFavouriteItems();
     }

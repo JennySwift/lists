@@ -1,5 +1,5 @@
 <div class="before-item">
-
+    
     <span class="badge">@{{ item.priority }}</span>
 
     <button v-on:click="deleteItem(item)" class="btn-danger btn-xs delete-item">
@@ -12,13 +12,13 @@
     </i>
 
     <i
-            v-if="item.has_children && !item.children"
-            v-on:click="getChildren(item)"
+            v-if="item.has_children && (!item.children || item.children.length === 0)"
+            v-on:click="getItems('expand', item)"
             class="fa fa-plus">
     </i>
 
     <i
-            v-if="item.has_children && item.children"
+            v-if="item.has_children && item.children && item.children.length > 0"
             v-on:click="collapseItem(item)"
             class="fa fa-minus">
     </i>
