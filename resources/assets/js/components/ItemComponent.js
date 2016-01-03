@@ -80,6 +80,7 @@ var Item = Vue.component('item', {
                 this.$http.delete('/api/items/' + item.id, function (response) {
                         this.deleteJsItem(item);
                         this.closeItemPopup();
+                        //$.event.trigger('provide-feedback', ['Item deleted', 'success']);
                         this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         this.showLoading = false;
                     })

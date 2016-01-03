@@ -10,7 +10,7 @@
     </li>
 </footer>
 
-@include('templates.shared.feedback')
+@include('templates.shared.feedback-component')
 @include('templates.shared.loading-component')
 @include('pages.items.components.items-component')
 @include('pages.items.components.item-component')

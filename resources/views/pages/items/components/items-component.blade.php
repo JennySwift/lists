@@ -1,7 +1,6 @@
 
 <script id="items-template" type="x-template">
 
-    <feedback></feedback>
     <loading :show-loading="showLoading"></loading>
 
     <div id="lists" class="container">

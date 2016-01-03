@@ -22286,6 +22286,12 @@ Vue.component('feedback', {
         };
     },
     methods: {
+        //listen: function () {
+        //    var that = this;
+        //    $(document).on('provide-feedback', function (event, message, type) {
+        //        that.provideFeedback(message, type);
+        //    });
+        //},
         provideFeedback: function (message, type) {
             var newMessage = {
                 message: message,
@@ -22344,7 +22350,10 @@ Vue.component('feedback', {
         'response-error': function (response) {
             this.provideFeedback(this.handleResponseError(response), 'error');
         }
-    }
+    },
+    //ready: function () {
+    //    this.listen();
+    //},
 });
 var Item = Vue.component('item', {
     template: '#item-template',
@@ -22428,6 +22437,7 @@ var Item = Vue.component('item', {
                 this.$http.delete('/api/items/' + item.id, function (response) {
                         this.deleteJsItem(item);
                         this.closeItemPopup();
+                        //$.event.trigger('provide-feedback', ['Item deleted', 'success']);
                         this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         this.showLoading = false;
                     })

@@ -8,6 +8,7 @@
 <body>
 
 @include('templates.shared.header')
+<feedback></feedback>
 
 @include('pages.items.pinned-items')
 
