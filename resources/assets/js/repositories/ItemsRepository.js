@@ -73,6 +73,7 @@ var ItemsRepository = {
      */
     findParent: function (array, item) {
         var parent;
+        var that = this;
         if (!item.parent_id) {
             return false;
         }
@@ -82,7 +83,7 @@ var ItemsRepository = {
                 return false;
             }
             if (this.children) {
-                findParent(this.children, item);
+                that.findParent(this.children, item);
             }
         });
 

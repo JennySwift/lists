@@ -22092,6 +22092,7 @@ var ItemsRepository = {
      */
     findParent: function (array, item) {
         var parent;
+        var that = this;
         if (!item.parent_id) {
             return false;
         }
@@ -22101,7 +22102,7 @@ var ItemsRepository = {
                 return false;
             }
             if (this.children) {
-                findParent(this.children, item);
+                that.findParent(this.children, item);
             }
         });
 
@@ -22472,7 +22473,7 @@ var Item = Vue.component('item', {
         deleteJsItem: function (item) {
             var parent = ItemsRepository.findParent(this.items, item);
             if (parent) {
-                //parent.children = _.without(parent.children, item);
+                parent.children = _.without(parent.children, item);
             }
             else {
                 this.items = _.without(this.items, item);
