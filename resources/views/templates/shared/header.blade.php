@@ -5,8 +5,6 @@
         <a href="#" class="dropdown-toggle fa fa-bars" data-toggle="dropdown"><span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
             <li><a href="/auth/logout">Logout <?php echo Auth::user()->name; ?></a></li>
-            <li><a href="#" style="cursor:default">branch:master</a></li>
-            <li><a href="/credits">credits</a></li>
         </ul>
     </li>
 
