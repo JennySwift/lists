@@ -22389,8 +22389,7 @@ var Item = Vue.component('item', {
             if (confirm("Are you sure?")) {
                 this.showLoading = true;
                 this.$http.delete('/api/items/' + item.id, function (response) {
-                        var $parent = findParent(items, $item);
-                        this.deleteJsItem($parent, $item);
+                        this.deleteJsItem(item);
                         this.closeItemPopup();
                         this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         this.showLoading = false;
@@ -22404,15 +22403,15 @@ var Item = Vue.component('item', {
 
         /**
          *
-         * @param $parent
-         * @param $item
+         * @param item
          */
-        deleteJsItem: function ($parent, $item) {
-            if ($parent) {
-                $parent.children = _.without($parent.children, $item);
+        deleteJsItem: function (item) {
+            var parent = this.findParent(this.items, item);
+            if (parent) {
+                parent.children = _.without(parent.children, item);
             }
             else {
-                items = _.without(items, $item);
+                this.items = _.without(this.items, item);
             }
         },
 

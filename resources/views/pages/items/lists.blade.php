@@ -15,7 +15,7 @@
         v-for="item in items | itemsFilter"
         :show-loading="showLoading"
         :show-item-popup="showItemPopup"
-        :items="items"
+        :items.sync="items"
         :item="item"
         :item-popup="itemPopup"
         :zoomed-item="zoomedItem"
