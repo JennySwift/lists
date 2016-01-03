@@ -12,9 +12,6 @@
 
 <router-view></router-view>
 
-{{--<items></items>--}}
-{{--<categories></categories>--}}
-
 @include('templates.shared.footer')
 
 </body>

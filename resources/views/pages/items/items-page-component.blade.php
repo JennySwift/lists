@@ -8,7 +8,7 @@
         @include('pages.items.breadcrumb')
         @include('pages.items.search')
         @include('pages.items.new-item')
-        @include('pages.items.lists')
+        @include('pages.items.items')
 
     </div>
 

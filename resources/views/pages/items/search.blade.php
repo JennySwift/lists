@@ -1,6 +1,6 @@
 <div id="search-container">
 
-    @include('pages.items.favourites')
+    @include('pages.items.favourite-items')
 
     <label>Search all items by title</label>
     <input
