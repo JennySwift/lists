@@ -22467,8 +22467,7 @@ var Item = Vue.component('item', {
          * @param $popup
          */
         closePopup: function ($event, $popup) {
-            var $target = $event.currentTarget;
-            if ($target.className === 'popup-outer') {
+            if ($event.target.className === 'popup-outer') {
                 //show.popups[$popup] = false;
                 this[$popup] = false;
             }
