@@ -117,7 +117,7 @@ class ItemsController extends Controller
 
         $item->save();
 
-        return $this->showSomething($parent);
+        return $item->transform();
     }
 
     /**

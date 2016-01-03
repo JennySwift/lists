@@ -70,6 +70,7 @@ var Items = Vue.component('items', {
                 url = '/api/items/' + id;
             }
             this.$http.get(url, function (response) {
+                this.zoomedItem = response;
                 this.items = response.children;
                 //this.zoomItemThatMatchesRoute();
                 this.showLoading = false;
@@ -163,13 +164,8 @@ var Items = Vue.component('items', {
          * @param response
          */
         insertItemSuccess: function (response) {
-            if (this.zoomedItem) {
-                this.showChildren(response, this.zoomedItem);
-            }
-            else {
-                this.showHome(response);
-            }
-            this.clearNewItemFields();
+            this.zoomedItem.children.push(response);
+            //this.clearNewItemFields();
             this.$broadcast('provide-feedback', 'Item created', 'success');
             this.showLoading = false;
         },

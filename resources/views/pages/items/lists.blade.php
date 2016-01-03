@@ -10,7 +10,7 @@
     <item
         v-if="!breadcrumb || breadcrumb.length < 1"
         {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
-        v-for="item in items | itemsFilter"
+        v-for="item in items | itemsFilter | orderBy 'priority'"
         :show-loading.sync="showLoading"
         :show-item-popup="showItemPopup"
         :show-children="showChildren"

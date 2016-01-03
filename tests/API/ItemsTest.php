@@ -108,7 +108,7 @@ class ItemsTest extends TestCase
 
         $response = $this->call('POST', '/api/items', $item);
         $content = json_decode($response->getContent(), true);
-//      dd($content);
+      dd($content);
 
         $this->checkItemKeysExist($content['children'][0]);
 
