@@ -24,21 +24,6 @@ var Item = Vue.component('item', {
                     this.handleResponseError(response);
                 });
         },
-        /**
-         *
-         * @param $item
-         */
-        zoom: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                    $item.children = response.children;
-                    this.showChildren(response, $item);
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-        },
 
         /**
          *
@@ -96,29 +81,6 @@ var Item = Vue.component('item', {
 
         collapseItem: function ($item) {
             $item.children = [];
-        },
-
-        //var $parent;
-        /**
-         *
-         * @param $array
-         * @param $item
-         * @returns {*}
-         */
-        findParent: function($array, $item) {
-            if (!$item.parent_id) {
-                return false;
-            }
-            $($array).each(function () {
-                if (this.id === $item.parent_id) {
-                    $parent = this;
-                    return false;
-                }
-                if (this.children) {
-                    findParent(this.children, $item);
-                }
-            });
-            return $parent;
         },
 
         /**
@@ -196,6 +158,7 @@ var Item = Vue.component('item', {
         'item',
         'itemPopup',
         'zoomedItem',
+        'zoom',
         'categories',
         'showChildren'
     ],

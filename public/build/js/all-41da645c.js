@@ -22019,6 +22019,35 @@ return this;}};
 Vue.config.debug = true;
 var ItemsRepository = {
 
+    initialData: {
+        showLoading: false,
+        showItemPopup: false,
+        showFavourites: false,
+        itemPopup: {},
+        items: [],
+        pinnedItems: [],
+        breadcrumb: [],
+        addingNewItems: false,
+        editingItems: false,
+        //selectedItems: {}
+        categories: categories,
+        favouriteItems: [],
+        paths: {
+            base: base_path,
+            test: base_path + '/resources/views/test.php'
+        },
+        newItem: {
+            title: '',
+            body: '',
+            favourite: false,
+            pinned: false
+        },
+        newIndex: -1,
+        filterPriority: '',
+        filterCategory: '',
+        filterTitle: ''
+    },
+
     /**
      *
      * @param item
@@ -22042,9 +22071,8 @@ var ItemsRepository = {
         }
 
         return data;
-    }
-};
-var SortableRepository = {
+    },
+
     //This should be uncommented but I commented it during switch to Vue
     //var $parent;
 
@@ -22057,26 +22085,70 @@ var SortableRepository = {
      * Finding parent with _.flatten broke down when not zoomed on an item
      * and items were expanded several levels.
      *
-     * @param $array
-     * @param $item
+     * @param array
+     * @param item
      * @returns {*}
      */
-     findParent: function ($array, $item) {
-        if (!$item.parent_id) {
+    findParent: function (array, item) {
+        var parent;
+        if (!item.parent_id) {
             return false;
         }
-        $($array).each(function () {
-            if (this.id === $item.parent_id) {
-                $parent = this;
+        $(array).each(function () {
+            if (this.id === item.parent_id) {
+                parent = this;
                 return false;
             }
             if (this.children) {
-                findParent(this.children, $item);
+                findParent(this.children, item);
             }
         });
 
-        return $parent;
+        return parent;
     },
+
+    /**
+     * If url is /items/:2, return 2
+     * @param that
+     * @returns {*}
+     */
+    getIdFromUrl: function (that) {
+        //For some reason $route.params was undefined.
+        //if (that.$route.params.id) {
+        //    return that.$route.params.id.slice(1);
+        //}
+        var path = that.$route.path;
+        var index = path.indexOf(':');
+        if (index != -1) {
+            return that.$route.path.slice(index+1);
+        }
+        return false;
+    },
+
+    //findModelThatMatchesRoute: function (that, array) {
+        //Get the id from the url
+        //var path = that.$route.path;
+        //var index = path.indexOf(':');
+        //if (index != -1) {
+        //    return that.$route.path.slice(index+1);
+        //}
+        //For some reason $route.params was undefined.
+        //if (that.$route.params.id) {
+        //    var id = that.$route.params.id.slice(1);
+        //
+        //    //The ids in that[resource] were a string for Chris,
+        //    //and an integer for me, so check the datatype here
+        //    if (typeof array[0].id == 'number') {
+        //        id = parseInt(id, 10);
+        //    }
+        //
+        //    var something = _.findWhere(array, {id: id});
+        //    return something;
+        //}
+        //return {};
+    //}
+};
+var SortableRepository = {
 
     /**
      * Return an array of the item's siblings including the item itself
@@ -22299,21 +22371,6 @@ var Item = Vue.component('item', {
                     this.handleResponseError(response);
                 });
         },
-        /**
-         *
-         * @param $item
-         */
-        zoom: function ($item) {
-            this.showLoading = true;
-            this.$http.get($item.path, function (response) {
-                    $item.children = response.children;
-                    this.showChildren(response, $item);
-                    this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-        },
 
         /**
          *
@@ -22371,29 +22428,6 @@ var Item = Vue.component('item', {
 
         collapseItem: function ($item) {
             $item.children = [];
-        },
-
-        //var $parent;
-        /**
-         *
-         * @param $array
-         * @param $item
-         * @returns {*}
-         */
-        findParent: function($array, $item) {
-            if (!$item.parent_id) {
-                return false;
-            }
-            $($array).each(function () {
-                if (this.id === $item.parent_id) {
-                    $parent = this;
-                    return false;
-                }
-                if (this.children) {
-                    findParent(this.children, $item);
-                }
-            });
-            return $parent;
         },
 
         /**
@@ -22471,6 +22505,7 @@ var Item = Vue.component('item', {
         'item',
         'itemPopup',
         'zoomedItem',
+        'zoom',
         'categories',
         'showChildren'
     ],
@@ -22482,35 +22517,20 @@ var Item = Vue.component('item', {
 var Items = Vue.component('items', {
     template: '#items-template',
     data: function () {
-        return {
-            showLoading: false,
-            showItemPopup: false,
-            itemPopup: {},
-            items: [],
-            pinnedItems: [],
-            breadcrumb: [],
-            addingNewItems: false,
-            editingItems: false,
-            //selectedItems: {}
-            categories: categories,
-            favourites: favourites,
-            paths: {
-                base: base_path,
-                test: base_path + '/resources/views/test.php'
-            },
-            newItem: {
-                title: '',
-                body: '',
-                favourite: false,
-                pinned: false
-            },
-            show: {
-                favourites: false
-            },
-            newIndex: -1,
-            filterPriority: '',
-            filterCategory: '',
-            filterTitle: ''
+        return ItemsRepository.initialData;
+    },
+    watch: {
+        /**
+         * This is so that if the item id in the URL is changed without
+         * reloading the page, the zoomedItem changes
+         * @param val
+         * @param oldVal
+         */
+        '$route': function (val, oldVal) {
+            //So this doesn't run on page load before the companies are loaded
+            if (oldVal) {
+                this.getItems();
+            }
         }
     },
     components: {},
@@ -22535,12 +22555,39 @@ var Items = Vue.component('items', {
     methods: {
 
         /**
+         * If the url specifies an item, zoom on that item
+         */
+        zoomItemThatMatchesRoute: function () {
+            this.zoomedItem = this.findItemThatMatchesRoute();
+            if (!this.zoomedItem) {
+                this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
+            }
+        },
+
+        /**
+         * Called on on page load (from getItemsSuccess-todo), and when the url is changed
+         * @returns {*}
+         */
+        findItemThatMatchesRoute: function () {
+            return ItemsRepository.findModelThatMatchesRoute(this, this.items);
+        },
+
+        /**
          *
          */
         getItems: function () {
             this.showLoading = true;
-            this.$http.get('/api/items', function (response) {
-                this.items = response;
+            var id = ItemsRepository.getIdFromUrl(this);
+            var url;
+            if (!id) {
+                url = '/api/items';
+            }
+            else {
+                url = '/api/items/' + id;
+            }
+            this.$http.get(url, function (response) {
+                this.items = response.children;
+                //this.zoomItemThatMatchesRoute();
                 this.showLoading = false;
             })
             .error(function (response) {
@@ -22565,8 +22612,22 @@ var Items = Vue.component('items', {
         /**
          *
          */
+        getFavouriteItems: function () {
+            this.showLoading = true;
+            this.$http.get('/api/items?favourite=true', function (response) {
+                this.favouriteItems = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
+         *
+         */
         toggleFavourites: function () {
-            show.favourites = !show.favourites;
+            this.showFavourites = !this.showFavourites;
         },
 
         /**
@@ -22588,8 +22649,8 @@ var Items = Vue.component('items', {
          * @param $favourite
          */
         goToFavourite: function ($favourite) {
-            zoom($favourite);
-            show.favourites = false;
+            this.zoom($favourite);
+            this.showFavourites = false;
         },
 
         /**
@@ -22635,12 +22696,30 @@ var Items = Vue.component('items', {
          * @param $item
          */
         showChildren: function (response, $item) {
-            $item.children = response.children;
+            //$item.children = response.children;
             this.items = [$item];
             this.breadcrumb = response.breadcrumb;
             this.zoomedItem = $item;
         },
 
+        /**
+         *
+         * @param item
+         */
+        zoom: function (item) {
+            this.showLoading = true;
+            this.$http.get('/api/items/' + item.id, function (response) {
+                var parentOfItem = ItemsRepository.findParent(this.items, item);
+                if (!parentOfItem) {
+                    this.items[0].children = response.children;
+                }
+                this.showChildren(response, item);
+                this.showLoading = false;
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        },
 
         /**
          *
@@ -22778,6 +22857,7 @@ var Items = Vue.component('items', {
     ready: function () {
         this.getItems();
         this.getPinnedItems();
+        this.getFavouriteItems();
     }
 });
 Vue.component('loading', {
@@ -22785,73 +22865,28 @@ Vue.component('loading', {
     props: ['showLoading']
 });
 
-//var App = Vue.component('app', {
-//
-//});
+var App = Vue.component('app', {
 
-//var router = new VueRouter();
-//
-//router.map({
-//    '/': {
-//        component: Projects
-//    },
-//    '/calendar': {
-//        component: Calendar,
-//    },
-//    '/people': {
-//        component: People,
-//        subRoutes: {
-//            //default for if no id is specified
-//            '/': {
-//                component: Person
-//            },
-//            '/:id': {
-//                component: Person
-//            }
-//        }
-//    },
-//    '/projects': {
-//        component: Projects,
-//        subRoutes: {
-//            //default for if no id is specified
-//            '/': {
-//                component: Project
-//            },
-//            '/:id': {
-//                component: Project
-//            }
-//        }
-//    },
-//    '/tasks': {
-//        component: Tasks,
-//        subRoutes: {
-//            //default for if no id is specified
-//            '/': {
-//                component: Task
-//            },
-//            '/:id': {
-//                component: Task
-//            }
-//        }
-//    },
-//    '/companies': {
-//        component: Companies,
-//        subRoutes: {
-//            //default for if no id is specified
-//            '/': {
-//                component: Company
-//            },
-//            '/:id': {
-//                component: Company
-//            }
-//        }
-//    },
-//    '/products': {
-//        component: Products
-//    }
-//});
-//
-//router.start(App, 'body');
+});
+
+var router = new VueRouter();
+
+router.map({
+    '/': {
+        component: Items,
+        subRoutes: {
+            //default for if no id is specified
+            '/': {
+                component: Item
+            },
+            '/:id': {
+                component: Item
+            }
+        }
+    }
+});
+
+router.start(App, 'body');
 
 new Vue({
     el: 'body',

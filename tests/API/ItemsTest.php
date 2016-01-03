@@ -40,6 +40,7 @@ class ItemsTest extends TestCase
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
+        $this->checkItemKeysExist($content);
         $this->checkItemKeysExist($content['children'][0]);
         $this->checkItemKeysExist($content['breadcrumb'][0]);
 
@@ -61,6 +62,26 @@ class ItemsTest extends TestCase
 
         foreach ($content as $item) {
             $this->assertEquals(1, $item['pinned']);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_gets_the_favourite_items()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?favourites=true');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertEquals(1, $item['favourite']);
         }
 
         $this->assertEquals(200, $response->getStatusCode());

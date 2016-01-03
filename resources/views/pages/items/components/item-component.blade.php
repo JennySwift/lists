@@ -3,7 +3,6 @@
 <li>
     <div class="item">
 
-{{--        <pre>@{{$data.item | json}}</pre>--}}
         @include('pages.items.popups.index')
         @include('pages.items.item.before-item')
 

@@ -1,35 +1,20 @@
 var Items = Vue.component('items', {
     template: '#items-template',
     data: function () {
-        return {
-            showLoading: false,
-            showItemPopup: false,
-            itemPopup: {},
-            items: [],
-            pinnedItems: [],
-            breadcrumb: [],
-            addingNewItems: false,
-            editingItems: false,
-            //selectedItems: {}
-            categories: categories,
-            favourites: favourites,
-            paths: {
-                base: base_path,
-                test: base_path + '/resources/views/test.php'
-            },
-            newItem: {
-                title: '',
-                body: '',
-                favourite: false,
-                pinned: false
-            },
-            show: {
-                favourites: false
-            },
-            newIndex: -1,
-            filterPriority: '',
-            filterCategory: '',
-            filterTitle: ''
+        return ItemsRepository.initialData;
+    },
+    watch: {
+        /**
+         * This is so that if the item id in the URL is changed without
+         * reloading the page, the zoomedItem changes
+         * @param val
+         * @param oldVal
+         */
+        '$route': function (val, oldVal) {
+            //So this doesn't run on page load before the companies are loaded
+            if (oldVal) {
+                this.getItems();
+            }
         }
     },
     components: {},
@@ -54,12 +39,39 @@ var Items = Vue.component('items', {
     methods: {
 
         /**
+         * If the url specifies an item, zoom on that item
+         */
+        zoomItemThatMatchesRoute: function () {
+            this.zoomedItem = this.findItemThatMatchesRoute();
+            if (!this.zoomedItem) {
+                this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
+            }
+        },
+
+        /**
+         * Called on on page load (from getItemsSuccess-todo), and when the url is changed
+         * @returns {*}
+         */
+        findItemThatMatchesRoute: function () {
+            return ItemsRepository.findModelThatMatchesRoute(this, this.items);
+        },
+
+        /**
          *
          */
         getItems: function () {
             this.showLoading = true;
-            this.$http.get('/api/items', function (response) {
-                this.items = response;
+            var id = ItemsRepository.getIdFromUrl(this);
+            var url;
+            if (!id) {
+                url = '/api/items';
+            }
+            else {
+                url = '/api/items/' + id;
+            }
+            this.$http.get(url, function (response) {
+                this.items = response.children;
+                //this.zoomItemThatMatchesRoute();
                 this.showLoading = false;
             })
             .error(function (response) {
@@ -84,8 +96,22 @@ var Items = Vue.component('items', {
         /**
          *
          */
+        getFavouriteItems: function () {
+            this.showLoading = true;
+            this.$http.get('/api/items?favourite=true', function (response) {
+                this.favouriteItems = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
+         *
+         */
         toggleFavourites: function () {
-            show.favourites = !show.favourites;
+            this.showFavourites = !this.showFavourites;
         },
 
         /**
@@ -107,8 +133,8 @@ var Items = Vue.component('items', {
          * @param $favourite
          */
         goToFavourite: function ($favourite) {
-            zoom($favourite);
-            show.favourites = false;
+            this.zoom($favourite);
+            this.showFavourites = false;
         },
 
         /**
@@ -154,12 +180,30 @@ var Items = Vue.component('items', {
          * @param $item
          */
         showChildren: function (response, $item) {
-            $item.children = response.children;
+            //$item.children = response.children;
             this.items = [$item];
             this.breadcrumb = response.breadcrumb;
             this.zoomedItem = $item;
         },
 
+        /**
+         *
+         * @param item
+         */
+        zoom: function (item) {
+            this.showLoading = true;
+            this.$http.get('/api/items/' + item.id, function (response) {
+                var parentOfItem = ItemsRepository.findParent(this.items, item);
+                if (!parentOfItem) {
+                    this.items[0].children = response.children;
+                }
+                this.showChildren(response, item);
+                this.showLoading = false;
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        },
 
         /**
          *
@@ -297,5 +341,6 @@ var Items = Vue.component('items', {
     ready: function () {
         this.getItems();
         this.getPinnedItems();
+        this.getFavouriteItems();
     }
 });

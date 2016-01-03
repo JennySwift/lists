@@ -297,7 +297,9 @@ class Item extends Model
             'path' => $this->path,
             'path_to_item' => $this->path_to_item,
             'has_children' => $this->has_children,
-            'category' => $this->category
+            'category' => $this->category,
+            //For Vue
+            'children' => false
         ];
 
         return $array;

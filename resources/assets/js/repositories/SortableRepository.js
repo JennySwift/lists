@@ -1,36 +1,4 @@
 var SortableRepository = {
-    //This should be uncommented but I commented it during switch to Vue
-    //var $parent;
-
-    /**
-     * This works. It seems kind of complicated, but I tried other ways
-     * and they both had problems.
-     *
-     * Finding parent by path broke down when zoomed on an item, because path was not the full path.
-     *
-     * Finding parent with _.flatten broke down when not zoomed on an item
-     * and items were expanded several levels.
-     *
-     * @param $array
-     * @param $item
-     * @returns {*}
-     */
-     findParent: function ($array, $item) {
-        if (!$item.parent_id) {
-            return false;
-        }
-        $($array).each(function () {
-            if (this.id === $item.parent_id) {
-                $parent = this;
-                return false;
-            }
-            if (this.children) {
-                findParent(this.children, $item);
-            }
-        });
-
-        return $parent;
-    },
 
     /**
      * Return an array of the item's siblings including the item itself

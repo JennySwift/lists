@@ -51,7 +51,6 @@ class ItemsController extends Controller
     {
         JavaScript::put([
             'categories' => $this->categoriesRepository->getCategories(),
-            'favourites' => $this->itemsRepository->getFavourites(),
             'base_path' => base_path()
         ]);
 
@@ -67,6 +66,9 @@ class ItemsController extends Controller
     {
         if ($request->has('pinned')) {
             return $this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get());
+        }
+        else if ($request->has('favourites')) {
+            return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
         }
         return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
     }
@@ -147,10 +149,12 @@ class ItemsController extends Controller
             $array[] = $item->transform();
         }
 
-        return [
-            'children' => $this->itemsRepository->transform($item->children()->order('priority')->get()),
-            'breadcrumb' => $array
-        ];
+        $children = $this->itemsRepository->transform($item->children()->order('priority')->get());
+        $item = $item->transform();
+        $item['children'] = $children;
+        $item['breadcrumb'] = $array;
+
+        return $item;
     }
 
     /**

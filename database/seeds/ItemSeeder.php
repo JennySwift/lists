@@ -31,13 +31,20 @@ class ItemSeeder extends Seeder
             if ($index !== 3) {
                 $this->createDescendants($parent);
             }
+        }
 
-            //Pin some items
-            $items = Item::limit(4)->get();
-            foreach ($items as $item) {
-                $item->pinned = 1;
-                $item->save();
-            }
+        //Pin some items
+        $items = Item::limit(4)->get();
+        foreach ($items as $item) {
+            $item->pinned = 1;
+            $item->save();
+        }
+
+        //Favourite some items
+        $items = Item::orderBy('id', 'desc')->limit(6)->get();
+        foreach ($items as $item) {
+            $item->favourite = 1;
+            $item->save();
         }
 
     }
@@ -76,8 +83,7 @@ class ItemSeeder extends Seeder
         $item = new Item([
             'title' => $this->faker->sentence,
             'category_id' => $this->faker->randomElement($categoryIds),
-            'priority' => $this->faker->numberBetween(1,5),
-            'favourite' => $this->faker->boolean(2)
+            'priority' => $this->faker->numberBetween(1,5)
         ]);
 
         $item->user()->associate(User::first());

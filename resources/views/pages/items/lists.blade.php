@@ -19,6 +19,7 @@
         :item-popup="itemPopup"
         :zoomed-item="zoomedItem"
         :categories="categories"
+        :zoom="zoom"
         class="item-with-children"
     >
     </item>
