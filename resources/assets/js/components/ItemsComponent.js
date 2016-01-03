@@ -91,9 +91,18 @@ var Items = Vue.component('items', {
          */
         getItemsSuccess: function (response, expandOrZoom, item) {
             if (expandOrZoom === 'zoom') {
-                this.zoomedItem = response;
-                this.items = response.children;
-                this.breadcrumb = response.breadcrumb;
+                if (response.children) {
+                    this.zoomedItem = response;
+                    this.items = response.children;
+                    this.breadcrumb = response.breadcrumb;
+                }
+                else {
+                    //home page
+                    this.zoomedItem = false;
+                    this.items = response;
+                    this.breadcrumb = [];
+                }
+
             }
             else if (expandOrZoom === 'expand') {
                 item.children = response.children;
@@ -140,16 +149,16 @@ var Items = Vue.component('items', {
         /**
          *
          */
-        goHome: function () {
-            this.showLoading = true;
-            this.$http.get('api/items', function (response) {
-                showHome(response);
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
+        //goHome: function () {
+        //    this.showLoading = true;
+        //    this.$http.get('api/items', function (response) {
+        //        showHome(response);
+        //        this.showLoading = false;
+        //    })
+        //    .error(function (response) {
+        //        this.handleResponseError(response);
+        //    });
+        //},
 
         ///**
         // *

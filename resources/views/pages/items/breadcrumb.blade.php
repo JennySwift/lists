@@ -1,6 +1,6 @@
 <div id="breadcrumb">
     <div>
-        <a v-on:click="goHome()">Home</a>
+        <a v-link="{ path: '/items/' }">Home</a>
         <i v-if="breadcrumb.length > 0" class="fa fa-angle-right"></i>
     </div>
     <div v-for="item in breadcrumb">
