@@ -22730,13 +22730,14 @@ var Items = Vue.component('items', {
          * @param response
          */
         insertItemSuccess: function (response) {
-            if (this.zoomedItem) {
-                this.zoomedItem.children.push(response);
-            }
-            else {
-                //home page
-                this.items.push(response);
-            }
+            this.items.push(response);
+            //if (this.zoomedItem) {
+            //    this.zoomedItem.children.push(response);
+            //}
+            //else {
+            //    //home page
+            //    this.items.push(response);
+            //}
 
             //this.clearNewItemFields();
             this.$broadcast('provide-feedback', 'Item created', 'success');
