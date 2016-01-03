@@ -7,7 +7,6 @@
     </button>
 
     <i
-        v-on:click="zoom(item)"
         v-link="{ path: '/items/:' + item.id }"
         class="fa fa-search-plus">
     </i>

@@ -22706,20 +22706,20 @@ var Items = Vue.component('items', {
          *
          * @param item
          */
-        zoom: function (item) {
-            this.showLoading = true;
-            this.$http.get('/api/items/' + item.id, function (response) {
-                var parentOfItem = ItemsRepository.findParent(this.items, item);
-                if (!parentOfItem) {
-                    this.items[0].children = response.children;
-                }
-                this.showChildren(response, item);
-                this.showLoading = false;
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
-        },
+        //zoom: function (item) {
+        //    this.showLoading = true;
+        //    this.$http.get('/api/items/' + item.id, function (response) {
+        //        var parentOfItem = ItemsRepository.findParent(this.items, item);
+        //        if (!parentOfItem) {
+        //            this.items[0].children = response.children;
+        //        }
+        //        this.showChildren(response, item);
+        //        this.showLoading = false;
+        //        })
+        //        .error(function (response) {
+        //            this.handleResponseError(response);
+        //        });
+        //},
 
         /**
          *
