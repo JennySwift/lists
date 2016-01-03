@@ -3,10 +3,12 @@
 
     <ul v-show="showFavourites" class="list-group">
         <li
-                v-for="favourite in favouriteItems"
-                v-on:click="goToFavourite(favourite)"
+                v-for="item in favouriteItems"
+                v-link="{ path: '/items/:' + item.id }"
+                v-on:click="showFavourites = false"
                 class="list-group-item">
-            @{{ favourite.title }}
+            @{{ item.title }}
+            <span class="badge">@{{ item.id }}</span>
         </li>
     </ul>
 </div>

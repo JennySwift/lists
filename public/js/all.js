@@ -22616,7 +22616,7 @@ var Items = Vue.component('items', {
          */
         getFavouriteItems: function () {
             this.showLoading = true;
-            this.$http.get('/api/items?favourite=true', function (response) {
+            this.$http.get('/api/items?favourites=true', function (response) {
                 this.favouriteItems = response;
                 this.showLoading = false;
             })
@@ -22646,14 +22646,14 @@ var Items = Vue.component('items', {
             });
         },
 
-        /**
-         *
-         * @param $favourite
-         */
-        goToFavourite: function ($favourite) {
-            this.zoom($favourite);
-            this.showFavourites = false;
-        },
+        ///**
+        // *
+        // * @param $favourite
+        // */
+        //goToFavourite: function ($favourite) {
+        //    this.zoom($favourite);
+        //    this.showFavourites = false;
+        //},
 
         /**
          *

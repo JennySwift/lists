@@ -23,4 +23,6 @@
         class="item-with-children"
     >
     </item>
+
+    <div v-if="items.length === 0">No items here</div>
 </ul>

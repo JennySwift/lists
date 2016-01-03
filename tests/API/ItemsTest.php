@@ -76,7 +76,7 @@ class ItemsTest extends TestCase
         $this->logInUser();
         $response = $this->call('GET', '/api/items?favourites=true');
         $content = json_decode($response->getContent(), true);
-//      dd($content);
+      dd($content);
 
         $this->checkItemKeysExist($content[0]);
 
