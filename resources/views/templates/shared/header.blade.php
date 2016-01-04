@@ -32,5 +32,9 @@
         <a v-link="{ path: '/categories/'  }">categories</a>
     </li>
 
+    <li>
+        <a v-link="{ path: '/trash/'  }"><i class="fa fa-trash"></i></a>
+    </li>
+
 </ul>
 

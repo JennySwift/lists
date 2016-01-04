@@ -40,6 +40,21 @@ class Item extends Model
 //    protected $appends = ['path', 'has_children', 'path_to_item'];
 
     /**
+     * When an item is soft deleted, soft delete it's descendants, too
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        Item::deleting(function($item)
+        {
+            foreach ($item->children as $child) {
+                $child->delete();
+            }
+        });
+    }
+
+    /**
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -91,6 +106,7 @@ class Item extends Model
             ->where('id', '!=', $this->id)
             ->get();
     }
+
 
     /**
      *
@@ -301,6 +317,10 @@ class Item extends Model
             //For Vue
             'children' => false
         ];
+
+        if ($this->trashed()) {
+            $array['deleted_at'] = $this->deleted_at->format('Y-m-d H:i:s');
+        }
 
         return $array;
     }

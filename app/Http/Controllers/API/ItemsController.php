@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use JavaScript;
 use Auth;
 use Debugbar;
+use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -70,6 +71,10 @@ class ItemsController extends Controller
         else if ($request->has('favourites')) {
             return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
         }
+        else if ($request->has('trashed')) {
+            return $this->itemsRepository->transform($this->itemsRepository->getTrashed());
+        }
+
         return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
     }
 
@@ -190,6 +195,21 @@ class ItemsController extends Controller
     }
 
     /**
+     * Force delete all the user's trashed items
+     */
+    public function emptyTrash()
+    {
+        $items = Item::forCurrentUser()->onlyTrashed()->get();
+
+        var_dump(count($items));
+
+        foreach ($items as $item) {
+            $item->forceDelete();
+        }
+        var_dump(Item::withTrashed()->count());
+    }
+
+    /**
      *
      * @param Item $item
      * @return Response
@@ -198,6 +218,7 @@ class ItemsController extends Controller
     {
         try {
             $item->delete();
+
             return response([], Response::HTTP_NO_CONTENT);
         }
         catch (\Exception $e) {

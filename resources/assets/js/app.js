@@ -20,6 +20,9 @@ router.map({
     },
     '/categories': {
         component: Categories
+    },
+    '/trash': {
+        component: Trash
     }
 });
 

@@ -47,6 +47,12 @@ class ItemSeeder extends Seeder
             $item->save();
         }
 
+        //Delete some items
+        $items = Item::limit(6)->get();
+        foreach ($items as $item) {
+            $item->delete();
+        }
+
     }
 
     public function createDescendants($parent)

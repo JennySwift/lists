@@ -29,6 +29,46 @@ class ItemsTest extends TestCase
 
     /**
      * @test
+     * @return void
+     */
+    public function it_gets_the_deleted_items()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?trashed=true');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertArrayHasKey('deleted_at', $item);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_empty_the_trash()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?trashed=true');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertArrayHasKey('deleted_at', $item);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
      */
     public function it_can_show_an_item()
     {

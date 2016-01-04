@@ -49,6 +49,17 @@ class ItemsRepository {
 
     /**
      *
+     * @return mixed
+     */
+    public function getTrashed()
+    {
+        return Item::forCurrentUser()
+            ->onlyTrashed()
+            ->get();
+    }
+
+    /**
+     *
      * @param Request $request
      */
     public function moveItem(Request $request, $item)
