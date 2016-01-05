@@ -22046,7 +22046,8 @@ var ItemsRepository = {
         newIndex: -1,
         priorityFilter: '',
         categoryFilter: '',
-        titleFilter: ''
+        titleFilter: '',
+        urgencyFilter: ''
     },
 
     /**
@@ -22137,11 +22138,18 @@ var ItemsRepository = {
 
         //Filter
         return items.filter(function (item) {
+            //Title filter
             var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
 
+            //Priority filter
             if (that.priorityFilter && item.priority != that.priorityFilter) {
                 filteredIn = false;
             }
+            //Urgency filter
+            else if (that.urgencyFilter && item.urgency != that.urgencyFilter) {
+                filteredIn = false;
+            }
+            //Category filter
             else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
                 filteredIn = false;
             }

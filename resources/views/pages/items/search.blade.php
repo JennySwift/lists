@@ -21,6 +21,12 @@
         type="text"
         placeholder="priority"/>
 
+    <label>Filter by urgency</label>
+    <input
+            v-model="urgencyFilter"
+            type="text"
+            placeholder="urgency"/>
+
     <div class="form-group">
         <label for="category-filter">Filter by category</label>
 
