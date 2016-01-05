@@ -22047,7 +22047,8 @@ var ItemsRepository = {
         priorityFilter: '',
         categoryFilter: '',
         titleFilter: '',
-        urgencyFilter: ''
+        urgencyFilter: '',
+        urgencyOutFilter: ''
     },
 
     /**
@@ -22147,6 +22148,10 @@ var ItemsRepository = {
             }
             //Urgency filter
             else if (that.urgencyFilter && item.urgency != that.urgencyFilter) {
+                filteredIn = false;
+            }
+            //Urgency out filter
+            else if (that.urgencyOutFilter && item.urgency >= that.urgencyOutFilter) {
                 filteredIn = false;
             }
             //Category filter

@@ -21,9 +21,15 @@
         type="text"
         placeholder="priority"/>
 
-    <label>Filter by urgency</label>
+    <label>Filter in by urgency</label>
     <input
             v-model="urgencyFilter"
+            type="text"
+            placeholder="urgency"/>
+
+    <label>Filter out by urgency >=</label>
+    <input
+            v-model="urgencyOutFilter"
             type="text"
             placeholder="urgency"/>
 

@@ -61,6 +61,13 @@ class ItemSeeder extends Seeder
             $item->save();
         }
 
+        //Give some items on the home page an urgency of 3
+        $items = Item::whereNull('parent_id')->limit(2)->offset(4)->get();
+        foreach ($items as $item) {
+            $item->urgency = 3;
+            $item->save();
+        }
+
         //Delete some items
         //This broke my tests, because I then had children existing
         //whose parents were deleted, so when I tried to update the child,
