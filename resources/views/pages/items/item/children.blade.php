@@ -9,7 +9,7 @@
             :show-children="showChildren"
             :items.sync="items"
             :item="item"
-            :selected-item="selectedItem"
+            :selected-item.sync="selectedItem"
             :zoomed-item="zoomedItem"
             :get-items="getItems"
             :categories="categories"

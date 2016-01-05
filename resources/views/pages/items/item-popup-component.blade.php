@@ -6,7 +6,7 @@
         class="popup-outer">
 
         <div id="item-popup" class="popup-inner">
-            
+
             <button
                     v-if="!selectedItem.favourite"
                     v-on:click="selectedItem.favourite = !selectedItem.favourite"
