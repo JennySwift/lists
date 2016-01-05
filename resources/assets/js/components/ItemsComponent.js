@@ -27,12 +27,12 @@ var Items = Vue.component('items', {
 
             //Filter
             return items.filter(function (item) {
-                var filteredIn = item.title.toLowerCase().indexOf(that.filterTitle.toLowerCase()) !== -1;
+                var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
 
-                if (that.filterPriority && item.priority != that.filterPriority) {
+                if (that.priorityFilter && item.priority != that.priorityFilter) {
                     filteredIn = false;
                 }
-                else if (that.filterCategory && item.category_id !== that.filterCategory) {
+                else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
                     filteredIn = false;
                 }
 

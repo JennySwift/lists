@@ -5,6 +5,9 @@
 
         @include('pages.items.item.before-item')
         <feedback></feedback>
+        
+{{--        <pre>@{{$data.itemsFilter | json}}</pre>--}}
+        {{--<pre>@{{$data.priorityFilter | json}}</pre>--}}
 
         <div
                 v-if="!item.html"

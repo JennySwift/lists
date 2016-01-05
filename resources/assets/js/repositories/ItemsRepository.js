@@ -25,9 +25,9 @@ var ItemsRepository = {
             pinned: false
         },
         newIndex: -1,
-        filterPriority: '',
-        filterCategory: '',
-        filterTitle: ''
+        priorityFilter: '',
+        categoryFilter: '',
+        titleFilter: ''
     },
 
     /**

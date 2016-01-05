@@ -2,8 +2,11 @@
 
     <item
             v-if="!breadcrumb || breadcrumb.length < 1"
-            {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
             v-for="item in item.children | itemsFilter"
+            :items-filter="itemsFilter"
+            :title-filter="titleFilter"
+            :priority-filter="priorityFilter"
+            :category-filter="categoryFilter"
             :show-loading.sync="showLoading"
             :show-item-popup.sync="showItemPopup"
             :show-children="showChildren"

@@ -3,7 +3,7 @@
 
     <item
             {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
-            v-for="item in pinnedItems | itemsFilter | orderBy 'priority'"
+            v-for="item in pinnedItems | orderBy 'priority'"
             :show-loading.sync="showLoading"
             :show-item-popup.sync="showItemPopup"
             :show-children="showChildren"
