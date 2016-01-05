@@ -9,34 +9,6 @@ var Item = Vue.component('item', {
     methods: {
 
         /**
-         *
-         */
-        updateItem: function (item) {
-            this.showLoading = true;
-
-            var data = ItemsRepository.setData(item);
-
-            this.$http.put('/api/items/' + item.id, data, function (response) {
-                    this.updateItemSuccess(response);
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        updateItemSuccess: function (response) {
-            this.showItemPopup = false;
-            this.selectedItem = {};
-            $.event.trigger('provide-feedback', ['Item updated', 'success']);
-            //this.$broadcast('provide-feedback', 'Item updated', 'success');
-            this.showLoading = false;
-        },
-
-        /**
          * For when item is deleted from the item popup
          */
         closeItemPopup: function () {

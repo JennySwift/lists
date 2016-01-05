@@ -4,6 +4,7 @@
     <loading :show-loading="showLoading"></loading>
     @include('pages.items.pinned-items')
     <item-popup
+        :show-loading="showLoading"
         :show-item-popup.sync="showItemPopup"
         :selected-item="selectedItem"
         :categories="categories"
