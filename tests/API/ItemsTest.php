@@ -31,6 +31,26 @@ class ItemsTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_filter_the_items()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?filter=au');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertContains('au', $item['title'], '', true);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_gets_the_deleted_items()
     {
         $this->logInUser();

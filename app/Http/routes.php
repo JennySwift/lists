@@ -15,7 +15,6 @@ Route::get('/sortable', function()
     return view('directives/sortable');
 });
 
-Route::post('filter', 'API\ItemsController@filter');
 Route::put('undoDeleteItem', 'API\ItemsController@undoDeleteItem');
 Route::delete('items/emptyTrash', 'API\ItemsController@emptyTrash');
 

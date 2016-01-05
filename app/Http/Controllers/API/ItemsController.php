@@ -74,24 +74,15 @@ class ItemsController extends Controller
         else if ($request->has('trashed')) {
             return $this->itemsRepository->transform($this->itemsRepository->getTrashed());
         }
+        else if ($request->has('filter')) {
+            $items = Item::forCurrentUser()
+                ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
+                ->get();
+
+            return $this->itemsRepository->transform($items);
+        }
 
         return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
-    }
-
-    /**
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function filter(Request $request)
-    {
-        $typing = '%' . $request->get('typing') . '%';
-
-        $items = Item::where('user_id', Auth::user()->id)
-            ->where('title', 'LIKE', $typing)
-            ->get();
-
-        return $this->itemsRepository->transform($items);
     }
     
     /**

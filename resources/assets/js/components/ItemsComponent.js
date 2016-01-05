@@ -177,22 +177,16 @@ var Items = Vue.component('items', {
 
         /**
          *
-         * @param $keycode
          * @returns {boolean}
          */
-        filter: function ($keycode) {
-            if ($keycode !== 13) {
-                return false;
-            }
-
+        filter: function () {
             this.showLoading = true;
 
-            var data = {
-                typing: $("#filter").val()
-            };
+            var filter = $("#filter").val();
 
-            this.$http.post('filter', data, function (response) {
-                items = highlightLetters(response, typing);
+            this.$http.get('/api/items?filter=' + filter, function (response) {
+                //this.items = this.highlightLetters(response, filter);
+                this.items = response;
                 this.showLoading = false;
             })
             .error(function (response) {

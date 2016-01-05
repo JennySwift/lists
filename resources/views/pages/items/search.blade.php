@@ -4,7 +4,7 @@
 
     <label>Search all items by title</label>
     <input
-        v-on:keyup="filter($event.keyCode)"
+        v-on:keyup.13="filter"
         type="text"
         placeholder="title"
         id="filter"/>
