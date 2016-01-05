@@ -24,7 +24,7 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
-        foreach(range(1, 3) as $index)
+        foreach(range(1, 8) as $index)
         {
             $parent = $this->createItem();
 
@@ -47,11 +47,28 @@ class ItemSeeder extends Seeder
             $item->save();
         }
 
-        //Delete some items
-        $items = Item::limit(6)->get();
+        //Give some items on the home page an urgency of 1
+        $items = Item::whereNull('parent_id')->limit(2)->get();
         foreach ($items as $item) {
-            $item->delete();
+            $item->urgency = 1;
+            $item->save();
         }
+
+        //Give some items on the home page an urgency of 2
+        $items = Item::whereNull('parent_id')->limit(2)->offset(2)->get();
+        foreach ($items as $item) {
+            $item->urgency = 2;
+            $item->save();
+        }
+
+        //Delete some items
+        //This broke my tests, because I then had children existing
+        //whose parents were deleted, so when I tried to update the child,
+        //it errored saying that parent didn't exist.
+//        $items = Item::limit(6)->get();
+//        foreach ($items as $item) {
+//            $item->delete();
+//        }
 
     }
 
@@ -91,6 +108,13 @@ class ItemSeeder extends Seeder
             'category_id' => $this->faker->randomElement($categoryIds),
             'priority' => $this->faker->numberBetween(1,5)
         ]);
+
+        if ($item->priority === 1) {
+            $urgent = $this->faker->boolean(50);
+            if ($urgent) {
+                $item->urgency = 1;
+            }
+        }
 
         $item->user()->associate(User::first());
 

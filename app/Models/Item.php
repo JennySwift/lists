@@ -21,7 +21,7 @@ class Item extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'body', 'priority', 'favourite', 'pinned'];
+    protected $fillable = ['title', 'body', 'priority', 'urgency', 'favourite', 'pinned'];
 
     /**
      * The attributes that should be mutated to dates
@@ -308,6 +308,7 @@ class Item extends Model
             'index' => $this->index,
             'category_id' => $this->category_id,
             'priority' => $this->priority,
+            'urgency' => $this->urgency,
             'favourite' => $this->favourite,
             'pinned' => $this->pinned,
             'path' => $this->path,

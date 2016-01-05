@@ -222,8 +222,8 @@ li {
   width: 900px; }
   #new-item > * {
     margin: 0 10px 0 10px; }
-  #new-item .priority {
-    width: 84px; }
+  #new-item .priority, #new-item .urgency {
+    width: 50px; }
   #new-item .note {
     width: 250px; }
   #new-item textarea {
@@ -457,8 +457,10 @@ li {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center; }
-    .item .before-item .badge {
+    .item .before-item .priority {
       background: #5bc0de; }
+    .item .before-item .urgency-one {
+      background: #d9534f; }
     .item .before-item i {
       cursor: pointer; }
     .item .before-item .my-hidden {

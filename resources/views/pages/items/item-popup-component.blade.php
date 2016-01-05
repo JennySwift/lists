@@ -61,6 +61,8 @@
 
             <input v-model="selectedItem.priority" type="number" placeholder="priority"/>
 
+            <input v-model="selectedItem.urgency" type="number" placeholder="urgency"/>
+
             <div class="buttons">
                 <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>
                 <button v-on:click="updateItem(selectedItem)" class="btn btn-success">Save</button>

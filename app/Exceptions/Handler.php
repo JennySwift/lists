@@ -41,13 +41,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        // Model not found exception handler (app-wide)
         if ($e instanceof ModelNotFoundException) {
-
-            // Build a "fake" instance of the model which was not found
-            // and fetch the shortname of the class
-            // Ex.: If we have a App\Models\Projects\Project model
-            // Then we would return Project
             $model = (new \ReflectionClass($e->getModel()))->getShortName();
 
             return response([

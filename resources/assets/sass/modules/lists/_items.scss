@@ -47,8 +47,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .badge {
+        .priority {
             background: $info;
+        }
+        .urgency-one {
+            background: $danger;
         }
         i {
             cursor: pointer;

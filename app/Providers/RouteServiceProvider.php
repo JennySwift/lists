@@ -30,6 +30,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('items', function($id)
         {
+//            dd(Item::findOrFail($id));
             return Item::forCurrentUser()->findOrFail($id);
         });
     }

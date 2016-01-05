@@ -1,6 +1,19 @@
 <div class="before-item">
     
-    <span class="badge">@{{ item.priority }}</span>
+    <span class="badge priority">@{{ item.priority }}</span>
+
+    <span v-if="item.urgency"
+        v-bind:class="{'urgency-one': item.urgency == 1}"
+        class="badge"
+    >
+        @{{ item.urgency }}
+    </span>
+
+    <span v-if="!item.urgency"
+          class="badge my-hidden"
+    >
+        0
+    </span>
 
     <button v-on:click="deleteItem(item)" class="btn-danger btn-xs delete-item">
         <span class="fa fa-times"></span>

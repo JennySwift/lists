@@ -94,7 +94,7 @@ class ItemsTest extends TestCase
     {
         $this->logInUser();
 
-        $response = $this->call('GET', '/api/items/500');
+        $response = $this->call('GET', '/api/items/5000');
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
@@ -133,7 +133,7 @@ class ItemsTest extends TestCase
         $this->logInUser();
         $response = $this->call('GET', '/api/items?favourites=true');
         $content = json_decode($response->getContent(), true);
-      dd($content);
+//      dd($content);
 
         $this->checkItemKeysExist($content[0]);
 
@@ -157,6 +157,7 @@ class ItemsTest extends TestCase
             'title' => 'numbat',
             'body' => 'koala',
             'priority' => 2,
+            'urgency' => 1,
             'favourite' => 1,
             'pinned' => 1,
             'parent_id' => 5,
@@ -165,17 +166,18 @@ class ItemsTest extends TestCase
 
         $response = $this->call('POST', '/api/items', $item);
         $content = json_decode($response->getContent(), true);
-      dd($content);
+//      dd($content);
 
-        $this->checkItemKeysExist($content['children'][0]);
+        $this->checkItemKeysExist($content);
 
-        $this->assertEquals('numbat', $content['children'][0]['title']);
-        $this->assertEquals('koala', $content['children'][0]['body']);
-        $this->assertEquals(2, $content['children'][0]['priority']);
-        $this->assertEquals(1, $content['children'][0]['favourite']);
-        $this->assertEquals(1, $content['children'][0]['pinned']);
-        $this->assertEquals(5, $content['children'][0]['parent_id']);
-        $this->assertEquals(2, $content['children'][0]['category_id']);
+        $this->assertEquals('numbat', $content['title']);
+        $this->assertEquals('koala', $content['body']);
+        $this->assertEquals(2, $content['priority']);
+        $this->assertEquals(1, $content['urgency']);
+        $this->assertEquals(1, $content['favourite']);
+        $this->assertEquals(1, $content['pinned']);
+        $this->assertEquals(5, $content['parent_id']);
+        $this->assertEquals(2, $content['category_id']);
 
         //Should be HTTP_CREATED
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
@@ -224,20 +226,21 @@ class ItemsTest extends TestCase
             ->where('pinned', 0)
             ->where('category_id', 1)
             ->where('priority', 1)
+            ->whereNull('urgency')
             ->first();
-
-//        $priority = $item->priority + 1;
 
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'title' => 'numbat',
             'body' => 'koala',
             'priority' => 2,
+            'urgency' => 1,
             'favourite' => 1,
             'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2
         ]);
 
+//        dd($response);
         $content = json_decode($response->getContent(), true);
         //dd($content);
 

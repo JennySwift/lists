@@ -22059,6 +22059,7 @@ var ItemsRepository = {
             title: item.title,
             body: item.body,
             priority: item.priority,
+            urgency: item.urgency,
             favourite: item.favourite,
             pinned: item.pinned,
             category_id: item.category.id
@@ -22126,6 +22127,28 @@ var ItemsRepository = {
         }
         return false;
     },
+
+    filter: function (items, that) {
+        //var that = this;
+
+        //Sort
+        //items = _.chain(items).sortBy('id').sortBy('priority').sortBy('urgency').partition('urgency').flatten().value();
+        items = _.chain(items).sortBy('id').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
+
+        //Filter
+        return items.filter(function (item) {
+            var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
+
+            if (that.priorityFilter && item.priority != that.priorityFilter) {
+                filteredIn = false;
+            }
+            else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
+                filteredIn = false;
+            }
+
+            return filteredIn;
+        });
+    }
 
     //findModelThatMatchesRoute: function (that, array) {
         //Get the id from the url
@@ -22384,24 +22407,7 @@ var Item = Vue.component('item', {
     components: {},
     filters: {
         itemsFilter: function (items) {
-            var that = this;
-
-            //Sort
-            items = _.chain(items).sortBy('id').sortBy('priority').value();
-
-            //Filter
-            return items.filter(function (item) {
-                var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
-
-                if (that.priorityFilter && item.priority != that.priorityFilter) {
-                    filteredIn = false;
-                }
-                else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
-                    filteredIn = false;
-                }
-
-                return filteredIn;
-            });
+            return ItemsRepository.filter(items, this);
         }
     },
     methods: {
@@ -22578,24 +22584,7 @@ var Items = Vue.component('items', {
     components: {},
     filters: {
         itemsFilter: function (items) {
-            var that = this;
-
-            //Sort
-            items = _.chain(items).sortBy('id').sortBy('priority').value();
-
-            //Filter
-            return items.filter(function (item) {
-                var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
-
-                if (that.priorityFilter && item.priority != that.priorityFilter) {
-                    filteredIn = false;
-                }
-                else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
-                    filteredIn = false;
-                }
-
-                return filteredIn;
-            });
+            return ItemsRepository.filter(items, this);
         }
     },
     methods: {

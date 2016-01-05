@@ -107,6 +107,7 @@ class ItemsController extends Controller
             'title',
             'body',
             'priority',
+            'urgency',
             'favourite',
             'pinned',
         ]));
@@ -172,7 +173,7 @@ class ItemsController extends Controller
     {
         // Create an array with the new fields merged
         $data = array_compare($item->toArray(), $request->only([
-            'priority', 'title', 'body', 'favourite', 'pinned'
+            'priority', 'urgency', 'title', 'body', 'favourite', 'pinned'
         ]));
 
         $item->update($data);

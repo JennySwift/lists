@@ -32,8 +32,21 @@
             type="number"
             id="new-item-priority"
             name="new-item-priority"
-            placeholder="priority"
+            placeholder=""
             class="form-control priority"
+        >
+    </div>
+
+    <div>
+        <label for="new-item-urgency">Urgency</label>
+        <input
+                v-model="newItem.urgency"
+                v-on:keyup="insertItem($event.keyCode)"
+                type="number"
+                id="new-item-urgency"
+                name="new-item-urgency"
+                placeholder=""
+                class="form-control urgency"
         >
     </div>
 
