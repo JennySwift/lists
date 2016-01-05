@@ -30,7 +30,7 @@ var Item = Vue.component('item', {
          */
         updateItemSuccess: function (response) {
             this.showItemPopup = false;
-            this.itemPopup = {};
+            this.selectedItem = {};
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             //this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;
@@ -42,7 +42,7 @@ var Item = Vue.component('item', {
         closeItemPopup: function () {
             if (this.showItemPopup) {
                 this.showItemPopup = false;
-                this.itemPopup = {};
+                this.selectedItem = {};
             }
         },
 
@@ -92,21 +92,8 @@ var Item = Vue.component('item', {
          */
         openItemPopup: function ($item) {
             this.showItemPopup = true;
-            this.itemPopup = $item;
+            this.selectedItem = $item;
         },
-
-        /**
-         *
-         * @param $event
-         * @param $popup
-         */
-        closePopup: function ($event, $popup) {
-            if ($event.target.className === 'popup-outer') {
-                //show.popups[$popup] = false;
-                this[$popup] = false;
-            }
-        },
-
 
         /**
          *
@@ -123,7 +110,7 @@ var Item = Vue.component('item', {
         'showItemPopup',
         'items',
         'item',
-        'itemPopup',
+        'selectedItem',
         'zoomedItem',
         'zoom',
         'categories',

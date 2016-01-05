@@ -4,7 +4,7 @@ var ItemsRepository = {
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
-        itemPopup: {},
+        selectedItem: {},
         items: [],
         zoomedItem: {},
         pinnedItems: [],

@@ -4,11 +4,11 @@
         {{--v-for="item in items | filterBy filterTitle in 'title'"--}}
         v-for="item in items | itemsFilter"
         :show-loading.sync="showLoading"
-        :show-item-popup="showItemPopup"
+        :show-item-popup.sync="showItemPopup"
         :show-children="showChildren"
         :items.sync="items"
         :item="item"
-        :item-popup="itemPopup"
+        :selected-item.sync="selectedItem"
         :zoomed-item="zoomedItem"
         :get-items="getItems"
         :categories="categories"

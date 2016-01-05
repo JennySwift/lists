@@ -3,6 +3,13 @@
 
     <loading :show-loading="showLoading"></loading>
     @include('pages.items.pinned-items')
+    <item-popup
+        :show-item-popup.sync="showItemPopup"
+        :selected-item="selectedItem"
+        :categories="categories"
+        :close-popup="closePopup"
+    >
+    </item-popup>
 
     <div id="lists" class="container">
         @include('pages.items.breadcrumb')

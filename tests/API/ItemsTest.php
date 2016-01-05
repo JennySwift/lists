@@ -187,7 +187,7 @@ class ItemsTest extends TestCase
      * @test
      * @return void
      */
-    public function it_throws_an_exception_for_store_method_without_required_fields()
+    public function it_throws_an_exception_for_item_store_method_without_required_fields()
     {
         DB::beginTransaction();
         $this->logInUser();

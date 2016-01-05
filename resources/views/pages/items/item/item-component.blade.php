@@ -3,7 +3,6 @@
 <li>
     <div class="item">
 
-        @include('pages.items.popups.index')
         @include('pages.items.item.before-item')
         <feedback></feedback>
 

@@ -272,6 +272,18 @@ var Items = Vue.component('items', {
         },
 
         /**
+         *
+         * @param $event
+         * @param $popup
+         */
+        closePopup: function ($event, $popup) {
+            if ($event.target.className === 'popup-outer') {
+                //show.popups[$popup] = false;
+                this[$popup] = false;
+            }
+        },
+
+        /**
          * After undoing delete item, restored item is returned in the response.
          * Add this item to the items with the JS.
          * @param $item
