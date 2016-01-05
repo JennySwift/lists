@@ -166,22 +166,22 @@ class Item extends Model
     }
 
     /**
-     *
+     * For some reason this used to work fine but then it started
+     * causing Postman and my test to behave like it was an endless loop.
      * @return array
      */
-    public function breadcrumb()
-    {
-        $breadcrumb = [$this];
-
-        $index = 0;
-
-        while (!is_null($breadcrumb[$index]->parent()->first())) {
-            $breadcrumb[] = $breadcrumb[$index]->parent()->first();
-            $index++;
-        }
-
-        return array_reverse($breadcrumb);
-    }
+//    public function breadcrumb()
+//    {
+//        $breadcrumb = [$this];
+//
+//        $index = 0;
+//        while (!is_null($breadcrumb[$index]->parent()->first())) {
+//            $breadcrumb[] = $breadcrumb[$index]->parent()->first();
+//            $index++;
+//        }
+//
+//        return array_reverse($breadcrumb);
+//    }
 
     /**
      * Same as breadcrumb method but without the item itself
@@ -312,7 +312,7 @@ class Item extends Model
             'favourite' => $this->favourite,
             'pinned' => $this->pinned,
             'path' => $this->path,
-            'path_to_item' => $this->path_to_item,
+//            'path_to_item' => $this->path_to_item,
             'has_children' => $this->has_children,
             'category' => $this->category,
             //For Vue

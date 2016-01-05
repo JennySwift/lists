@@ -22067,6 +22067,11 @@ var ItemsRepository = {
             category_id: item.category.id
         };
 
+        if (!data.pinned) {
+            //Make sure it's a boolean for the PHP
+            data.pinned = 0;
+        }
+
         if (zoomedItem) {
             data.parent_id = zoomedItem.id;
         }

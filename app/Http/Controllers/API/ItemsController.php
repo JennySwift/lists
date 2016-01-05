@@ -171,9 +171,14 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        // Create an array with the new fields merged
+//         Create an array with the new fields merged
         $data = array_compare($item->toArray(), $request->only([
-            'priority', 'urgency', 'title', 'body', 'favourite', 'pinned'
+            'priority',
+            'urgency',
+            'title',
+            'body',
+            'favourite',
+            'pinned'
         ]));
 
         $item->update($data);
