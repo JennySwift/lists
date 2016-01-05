@@ -22557,7 +22557,7 @@ var Items = Vue.component('items', {
 
             //Filter
             return items.filter(function (item) {
-                var filteredIn = item.title.indexOf(that.filterTitle) !== -1;
+                var filteredIn = item.title.toLowerCase().indexOf(that.filterTitle.toLowerCase()) !== -1;
 
                 if (that.filterPriority && item.priority != that.filterPriority) {
                     filteredIn = false;
