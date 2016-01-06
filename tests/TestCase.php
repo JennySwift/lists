@@ -78,6 +78,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('category', $item);
         $this->assertArrayHasKey('urgency', $item);
         $this->assertArrayHasKey('alarm', $item);
+        $this->assertArrayHasKey('timeLeft', $item);
     }
 
     /**

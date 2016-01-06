@@ -9,6 +9,9 @@ var Item = Vue.component('item', {
     filters: {
         itemsFilter: function (items) {
             return ItemsRepository.filter(items, this);
+        },
+        timeLeftFilter: function (seconds) {
+            return ItemsRepository.timeLeftFilter(seconds);
         }
     },
     methods: {

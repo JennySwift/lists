@@ -71,7 +71,8 @@ class ItemSeeder extends Seeder
 
         //Create alarm
         $item = Item::whereNull('parent_id')->first();
-        $item->alarm = Carbon::now()->addSeconds(20);
+//        $item->alarm = Carbon::now()->addSeconds(50);
+        $item->alarm = Carbon::today()->hour(18)->minute(46)->second(0);
         $item->save();
 
         //Delete some items

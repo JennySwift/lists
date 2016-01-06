@@ -315,6 +315,7 @@ class Item extends Model
             'has_children' => $this->has_children,
             'category' => $this->category,
             'alarm' => $this->alarm,
+            'timeLeft' => null,
             //For Vue
             'children' => false
         ];

@@ -132,17 +132,17 @@ var Items = Vue.component('items', {
          *
          */
         startAlarmCountDown: function () {
-            //$('#alarm').timer({
-            //    duration: '0m10s',
-            //    callback: function() {
-            //        alert('Time up!');
-            //    }
-            //});
-            $('#alarm').countdown(this.alarms[0].alarm, function(event) {
-                $(this).html(event.strftime('%w weeks %d days %H:%M:%S'));
-            }).on('finish.countdown', function () {
-                    alert('Time up!');
-                });
+            var that = this;
+            var timer = setInterval(function () {
+                var timeLeft = moment(that.alarms[0].alarm, 'YYYY-MM-DD HH:mm:ss')
+                    .diff(moment(), 'seconds');
+                that.alarms[0].timeLeft = timeLeft;
+
+                if (timeLeft < 1) {
+                    alert(that.alarms[0].title);
+                    clearInterval(timer);
+                }
+            }, 1000);
         },
 
         /**

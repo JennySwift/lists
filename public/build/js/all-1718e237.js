@@ -22203,7 +22203,33 @@ var ItemsRepository = {
 
             return filteredIn;
         });
-    }
+    },
+
+    /**
+     *
+     * @param seconds
+     * @returns {string}
+     */
+    timeLeftFilter: function (seconds) {
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor(seconds / 60) % 60;
+        seconds = seconds % 60;
+
+        return this.addZeros(hours) + ':' + this.addZeros(minutes) + ':' + this.addZeros(seconds);
+    },
+
+    /**
+     *
+     * @param number
+     * @returns {*}
+     */
+    addZeros: function (number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+
+        return number;
+    },
 
     //findModelThatMatchesRoute: function (that, array) {
         //Get the id from the url
@@ -22463,6 +22489,9 @@ var Item = Vue.component('item', {
     filters: {
         itemsFilter: function (items) {
             return ItemsRepository.filter(items, this);
+        },
+        timeLeftFilter: function (seconds) {
+            return ItemsRepository.timeLeftFilter(seconds);
         }
     },
     methods: {
@@ -22782,17 +22811,17 @@ var Items = Vue.component('items', {
          *
          */
         startAlarmCountDown: function () {
-            //$('#alarm').timer({
-            //    duration: '0m10s',
-            //    callback: function() {
-            //        alert('Time up!');
-            //    }
-            //});
-            $('#alarm').countdown(this.alarms[0].alarm, function(event) {
-                $(this).html(event.strftime('%w weeks %d days %H:%M:%S'));
-            }).on('finish.countdown', function () {
-                    alert('Time up!');
-                });
+            var that = this;
+            var timer = setInterval(function () {
+                var timeLeft = moment(that.alarms[0].alarm, 'YYYY-MM-DD HH:mm:ss')
+                    .diff(moment(), 'seconds');
+                that.alarms[0].timeLeft = timeLeft;
+
+                if (timeLeft < 1) {
+                    alert(that.alarms[0].title);
+                    clearInterval(timer);
+                }
+            }, 1000);
         },
 
         /**

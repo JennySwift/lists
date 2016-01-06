@@ -161,7 +161,33 @@ var ItemsRepository = {
 
             return filteredIn;
         });
-    }
+    },
+
+    /**
+     *
+     * @param seconds
+     * @returns {string}
+     */
+    timeLeftFilter: function (seconds) {
+        var hours = Math.floor(seconds / 3600);
+        var minutes = Math.floor(seconds / 60) % 60;
+        seconds = seconds % 60;
+
+        return this.addZeros(hours) + ':' + this.addZeros(minutes) + ':' + this.addZeros(seconds);
+    },
+
+    /**
+     *
+     * @param number
+     * @returns {*}
+     */
+    addZeros: function (number) {
+        if (number < 10) {
+            return '0' + number;
+        }
+
+        return number;
+    },
 
     //findModelThatMatchesRoute: function (that, array) {
         //Get the id from the url
