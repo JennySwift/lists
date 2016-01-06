@@ -75,6 +75,7 @@
             <label for="new-item-alarm">Alarm</label>
             <input
                     v-model="newItem.alarm"
+                    v-on:keyup="insertItem($event.keyCode)"
                     type="text"
                     id="new-item-alarm"
                     name="new-item-alarm"

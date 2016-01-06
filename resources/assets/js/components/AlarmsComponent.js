@@ -2,7 +2,7 @@ var Alarms = Vue.component('alarms', {
     template: '#alarms-template',
     data: function () {
         return {
-            alarms: []
+            items: []
         };
     },
     components: {},
@@ -14,11 +14,11 @@ var Alarms = Vue.component('alarms', {
         getItemsWithAlarm: function () {
             this.showLoading = true;
             this.$http.get('/api/items?alarm=true', function (response) {
-                    this.alarms = response;
+                    this.items = response;
                     this.showLoading = false;
 
-                    for (var i = 0; i < this.alarms.length; i++) {
-                        this.startAlarmCountDown(this.alarms[i]);
+                    for (var i = 0; i < this.items.length; i++) {
+                        this.startAlarmCountDown(this.items[i]);
                     }
 
                 })
@@ -46,6 +46,17 @@ var Alarms = Vue.component('alarms', {
 
         /**
          *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('alarm-created', function (event, item) {
+                that.items.push(item);
+                that.startAlarmCountDown(item);
+            });
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -58,5 +69,6 @@ var Alarms = Vue.component('alarms', {
     ],
     ready: function () {
         this.getItemsWithAlarm();
+        this.listen();
     }
 });

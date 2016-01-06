@@ -6,7 +6,7 @@
         <div id="alarm"></div>
 
         <item
-                v-for="item in alarms | orderBy 'priority'"
+                v-for="item in items | orderBy 'priority'"
                 :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
                 :show-children="showChildren"

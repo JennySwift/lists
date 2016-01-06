@@ -164,6 +164,9 @@ var Items = Vue.component('items', {
             //this.clearNewItemFields();
             $.event.trigger('provide-feedback', ['Item created', 'success']);
             //this.$broadcast('provide-feedback', 'Item created', 'success');
+            if (response.alarm) {
+                $.event.trigger('alarm-created', [response]);
+            }
             this.showLoading = false;
         },
 
