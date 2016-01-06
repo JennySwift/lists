@@ -14,6 +14,7 @@
 @include('templates.shared.loading-component')
 @include('pages.items.items-page-component')
 @include('pages.items.item-popup-component')
+@include('pages.items.alarms-component')
 @include('pages.items.trash-page-component')
 @include('pages.items.item.item-component')
 @include('pages.categories.components.categories-component')
