@@ -77,6 +77,9 @@ var ItemsRepository = {
      * @returns {*}
      */
     formatAlarm: function (alarm) {
+        if (!alarm) {
+            return false;
+        }
         if (alarm.indexOf('mins') != -1) {
             var index = alarm.indexOf('mins');
             var minutesFromNow = alarm.substring(0, index).trim();
