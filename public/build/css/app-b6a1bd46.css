@@ -210,7 +210,7 @@ li {
     width: 100%;
     margin: 0 0 5px 0; }
 
-#new-item {
+#new-item .flex {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -220,15 +220,16 @@ li {
   margin-bottom: 20px;
   border-radius: 8px;
   width: 900px; }
-  #new-item > * {
+  #new-item .flex > * {
     margin: 0 10px 0 10px; }
-  #new-item .priority, #new-item .urgency {
+  #new-item .flex .priority, #new-item .flex .urgency {
     width: 50px; }
-  #new-item .note {
+  #new-item .flex .note {
     width: 250px; }
-  #new-item textarea {
-    height: 40px; }
-    #new-item textarea::-webkit-input-placeholder {
+  #new-item .flex textarea {
+    height: 40px;
+    display: block; }
+    #new-item .flex textarea::-webkit-input-placeholder {
       text-align: center; }
 
 #breadcrumb {

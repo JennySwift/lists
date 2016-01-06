@@ -21,7 +21,7 @@ class Item extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'body', 'priority', 'urgency', 'favourite', 'pinned'];
+    protected $fillable = ['title', 'body', 'priority', 'urgency', 'favourite', 'pinned', 'alarm'];
 
     /**
      * The attributes that should be mutated to dates

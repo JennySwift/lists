@@ -22088,7 +22088,8 @@ var ItemsRepository = {
             urgency: item.urgency,
             favourite: item.favourite,
             pinned: item.pinned,
-            category_id: item.category.id
+            category_id: item.category.id,
+            alarm: item.alarm
         };
 
         if (!data.pinned) {
@@ -22343,7 +22344,11 @@ var Alarms = Vue.component('alarms', {
             this.$http.get('/api/items?alarm=true', function (response) {
                     this.alarms = response;
                     this.showLoading = false;
-                    this.startAlarmCountDown();
+
+                    for (var i = 0; i < this.alarms.length; i++) {
+                        this.startAlarmCountDown(this.alarms[i]);
+                    }
+
                 })
                 .error(function (response) {
                     this.handleResponseError(response);
@@ -22353,15 +22358,15 @@ var Alarms = Vue.component('alarms', {
         /**
          *
          */
-        startAlarmCountDown: function () {
+        startAlarmCountDown: function (item) {
             var that = this;
             var timer = setInterval(function () {
-                var timeLeft = moment(that.alarms[0].alarm, 'YYYY-MM-DD HH:mm:ss')
+                var timeLeft = moment(item.alarm, 'YYYY-MM-DD HH:mm:ss')
                     .diff(moment(), 'seconds');
-                that.alarms[0].timeLeft = timeLeft;
+                item.timeLeft = timeLeft;
 
                 if (timeLeft < 1) {
-                    alert(that.alarms[0].title);
+                    alert(item.title);
                     clearInterval(timer);
                 }
             }, 1000);

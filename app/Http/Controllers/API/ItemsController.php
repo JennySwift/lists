@@ -104,6 +104,7 @@ class ItemsController extends Controller
             'urgency',
             'favourite',
             'pinned',
+            'alarm'
         ]));
 
         if ($request->get('parent_id')) {
@@ -172,7 +173,8 @@ class ItemsController extends Controller
             'title',
             'body',
             'favourite',
-            'pinned'
+            'pinned',
+            'alarm'
         ]));
 
         $item->update($data);

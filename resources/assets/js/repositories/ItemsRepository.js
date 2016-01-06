@@ -46,7 +46,8 @@ var ItemsRepository = {
             urgency: item.urgency,
             favourite: item.favourite,
             pinned: item.pinned,
-            category_id: item.category.id
+            category_id: item.category.id,
+            alarm: item.alarm
         };
 
         if (!data.pinned) {

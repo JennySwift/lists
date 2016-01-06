@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 
@@ -18,6 +19,7 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
         $item = [
             'title' => 'numbat',
@@ -27,7 +29,8 @@ class ItemsStoreTest extends TestCase
             'favourite' => 1,
             'pinned' => 1,
             'parent_id' => 5,
-            'category_id' => 2
+            'category_id' => 2,
+            'alarm' => $alarm
         ];
 
         $response = $this->call('POST', '/api/items', $item);
@@ -44,6 +47,7 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
+        $this->assertEquals($alarm, $content['alarm']);
 
         //Should be HTTP_CREATED
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
