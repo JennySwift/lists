@@ -116,6 +116,38 @@ var Items = Vue.component('items', {
         /**
          *
          */
+        getItemsWithAlarm: function () {
+            this.showLoading = true;
+            this.$http.get('/api/items?alarm=true', function (response) {
+                    this.alarms = response;
+                    this.showLoading = false;
+                    this.startAlarmCountDown();
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        },
+
+        /**
+         *
+         */
+        startAlarmCountDown: function () {
+            //$('#alarm').timer({
+            //    duration: '0m10s',
+            //    callback: function() {
+            //        alert('Time up!');
+            //    }
+            //});
+            $('#alarm').countdown(this.alarms[0].alarm, function(event) {
+                $(this).html(event.strftime('%w weeks %d days %H:%M:%S'));
+            }).on('finish.countdown', function () {
+                    alert('Time up!');
+                });
+        },
+
+        /**
+         *
+         */
         getFavouriteItems: function () {
             this.showLoading = true;
             this.$http.get('/api/items?favourites=true', function (response) {
@@ -298,6 +330,7 @@ var Items = Vue.component('items', {
     ready: function () {
         this.getItems('zoom');
         this.getPinnedItems();
+        this.getItemsWithAlarm();
         this.getFavouriteItems();
     }
 });

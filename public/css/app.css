@@ -424,12 +424,13 @@ li {
   background: #777;
   display: none; }
 
-#pinned-items {
+#pinned-items, #alarms {
   padding: 5px 55px 30px; }
-  #pinned-items h5 {
+  #pinned-items h5, #alarms h5 {
     margin-bottom: 23px; }
-  #pinned-items .pinned {
-    display: none; }
+
+#pinned-items .pinned {
+  display: none; }
 
 #items {
   margin-top: 45px; }
@@ -474,7 +475,7 @@ li {
     cursor: pointer;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    width: 400px; }
+    width: 415px; }
     .item .item-content.top-guide {
       border-top: 1px solid #777; }
     .item .item-content.bottom-guide {
@@ -482,14 +483,10 @@ li {
     .item .item-content .title {
       text-align: left;
       display: inline; }
-    .item .item-content .note {
-      color: #fca700;
+    .item .item-content .note, .item .item-content .pinned, .item .item-content .alarm {
       font-size: 20px;
-      display: inline; }
-    .item .item-content .pinned {
-      color: #fca700;
-      font-size: 20px;
-      display: inline; }
+      display: inline;
+      color: #fca700; }
   .item .after-item {
     display: -webkit-flex;
     display: -ms-flexbox;

@@ -314,6 +314,7 @@ class Item extends Model
 //            'path_to_item' => $this->path_to_item,
             'has_children' => $this->has_children,
             'category' => $this->category,
+            'alarm' => $this->alarm,
             //For Vue
             'children' => false
         ];

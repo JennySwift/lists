@@ -6,6 +6,7 @@ var ItemsRepository = {
         showFavourites: false,
         selectedItem: {},
         items: [],
+        alarms: [],
         zoomedItem: {},
         pinnedItems: [],
         breadcrumb: [],

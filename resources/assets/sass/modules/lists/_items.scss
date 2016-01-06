@@ -13,11 +13,14 @@
     display: none;
 }
 
-#pinned-items {
+#pinned-items, #alarms {
     padding: 5px 55px 30px;
     h5 {
         margin-bottom: 23px;
     }
+}
+
+#pinned-items {
     .pinned {
         display: none;
     }
@@ -78,7 +81,7 @@
         cursor: pointer;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
-        width: 400px;
+        width: 415px;
         &.top-guide {
             border-top: 1px solid #777;
         }
@@ -94,16 +97,11 @@
 //            display: inline-flex;
 //            align-items: center;
         }
-        .note {
-            color: $warning;
+        .note, .pinned, .alarm {
             //Increasing font size too much wrecks up the vertical alignment of the text
             font-size: 20px;
             display: inline;
-        }
-        .pinned {
             color: $warning;
-            font-size: 20px;
-            display: inline;
         }
     }
     .after-item {

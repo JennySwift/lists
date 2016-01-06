@@ -3,6 +3,7 @@
 use App\Models\Category;
 use App\Models\Item;
 use App\User;
+use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -67,6 +68,11 @@ class ItemSeeder extends Seeder
             $item->urgency = 3;
             $item->save();
         }
+
+        //Create alarm
+        $item = Item::whereNull('parent_id')->first();
+        $item->alarm = Carbon::now()->addSeconds(20);
+        $item->save();
 
         //Delete some items
         //This broke my tests, because I then had children existing

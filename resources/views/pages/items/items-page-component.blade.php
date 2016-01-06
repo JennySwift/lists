@@ -3,6 +3,8 @@
 
     <loading :show-loading="showLoading"></loading>
     @include('pages.items.pinned-items')
+    @include('pages.items.alarms')
+
     <item-popup
         :show-loading="showLoading"
         :show-item-popup.sync="showItemPopup"

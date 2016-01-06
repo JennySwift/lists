@@ -148,6 +148,26 @@ class ItemsTest extends TestCase
      * @test
      * @return void
      */
+    public function it_gets_the_items_with_an_alarm()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?alarm=true');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertNotNull($item['alarm']);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_gets_the_favourite_items()
     {
         $this->logInUser();

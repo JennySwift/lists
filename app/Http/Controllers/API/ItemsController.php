@@ -68,6 +68,9 @@ class ItemsController extends Controller
         if ($request->has('pinned')) {
             return $this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get());
         }
+        if ($request->has('alarm')) {
+            return $this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get());
+        }
         else if ($request->has('favourites')) {
             return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
         }

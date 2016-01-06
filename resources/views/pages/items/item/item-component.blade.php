@@ -18,6 +18,7 @@
 
             <i v-if="item.body" class="fa fa-sticky-note note"></i>
             <i v-if="item.pinned" class="fa fa-map-pin pinned"></i>
+            <i v-if="item.alarm" class="fa fa-bell alarm"></i>
 
         </div>
 
