@@ -22504,6 +22504,12 @@ var Alarms = Vue.component('alarms', {
                 that.items.push(item);
                 that.startAlarmCountDown(item);
             });
+            $(document).on('alarm-updated', function (event, item) {
+                //Updating didn't work so I'm instead deleting then adding it.
+                that.items = _.without(that.items, _.findWhere(that.items, {id: item.id}));
+                that.items.push(item);
+                that.startAlarmCountDown(item);
+            });
         },
 
         /**
@@ -22822,7 +22828,12 @@ var ItemPopup = Vue.component('item-popup', {
                 this.jsMoveToNewParent(response);
             }
             if (this.selectedItem.oldAlarm === null && this.selectedItem.alarm) {
+                //the alarm has been created
                 $.event.trigger('alarm-created', [response]);
+            }
+            else if (this.selectedItem.oldAlarm && this.selectedItem.oldAlarm != this.selectedItem.alarm) {
+                //the alarm has been changed
+                $.event.trigger('alarm-updated', [response]);
             }
             this.showItemPopup = false;
             this.selectedItem = {};

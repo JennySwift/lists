@@ -53,6 +53,12 @@ var Alarms = Vue.component('alarms', {
                 that.items.push(item);
                 that.startAlarmCountDown(item);
             });
+            $(document).on('alarm-updated', function (event, item) {
+                //Updating didn't work so I'm instead deleting then adding it.
+                that.items = _.without(that.items, _.findWhere(that.items, {id: item.id}));
+                that.items.push(item);
+                that.startAlarmCountDown(item);
+            });
         },
 
         /**
