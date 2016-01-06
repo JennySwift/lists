@@ -74,6 +74,7 @@ var Item = Vue.component('item', {
             this.showItemPopup = true;
             this.selectedItem = $item;
             this.selectedItem.oldParentId = $item.parent_id;
+            this.selectedItem.oldAlarm = $item.alarm;
         },
 
         /**

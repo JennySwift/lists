@@ -22753,6 +22753,7 @@ var Item = Vue.component('item', {
             this.showItemPopup = true;
             this.selectedItem = $item;
             this.selectedItem.oldParentId = $item.parent_id;
+            this.selectedItem.oldAlarm = $item.alarm;
         },
 
         /**
@@ -22819,6 +22820,9 @@ var ItemPopup = Vue.component('item-popup', {
         updateItemSuccess: function (response) {
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
+            }
+            if (this.selectedItem.oldAlarm === null && this.selectedItem.alarm) {
+                $.event.trigger('alarm-created', [response]);
             }
             this.showItemPopup = false;
             this.selectedItem = {};

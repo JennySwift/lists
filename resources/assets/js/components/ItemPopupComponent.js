@@ -32,6 +32,9 @@ var ItemPopup = Vue.component('item-popup', {
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
             }
+            if (this.selectedItem.oldAlarm === null && this.selectedItem.alarm) {
+                $.event.trigger('alarm-created', [response]);
+            }
             this.showItemPopup = false;
             this.selectedItem = {};
             $.event.trigger('provide-feedback', ['Item updated', 'success']);

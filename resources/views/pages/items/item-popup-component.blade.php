@@ -90,6 +90,18 @@
                     class="form-control"
                 >
             </div>
+            
+            <div class="form-group">
+                <label for="selected-item-alarm">Alarm</label>
+                <input
+                    v-model="selectedItem.alarm"
+                    type="text"
+                    id="selected-item-alarm"
+                    name="selected-item-alarm"
+                    placeholder="alarm"
+                    class="form-control"
+                >
+            </div>
 
             <div class="buttons">
                 <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>
