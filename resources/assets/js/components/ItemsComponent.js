@@ -302,5 +302,6 @@ var Items = Vue.component('items', {
         this.getItems('zoom');
         this.getPinnedItems();
         this.getFavouriteItems();
+        //ItemsRepository.formatAlarm('5:45pm jan 8');
     }
 });

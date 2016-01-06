@@ -47,7 +47,7 @@ var ItemsRepository = {
             favourite: item.favourite,
             pinned: item.pinned,
             category_id: item.category.id,
-            alarm: item.alarm
+            alarm: this.formatAlarm(item.alarm)
         };
 
         if (!data.pinned) {
@@ -69,6 +69,24 @@ var ItemsRepository = {
         }
 
         return data;
+    },
+
+    /**
+     *
+     * @param alarm
+     * @returns {*}
+     */
+    formatAlarm: function (alarm) {
+        if (alarm.indexOf('mins') != -1) {
+            var index = alarm.indexOf('mins');
+            var minutesFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(minutesFromNow, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else {
+            alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
+        }
+        console.log(alarm);
+        return alarm;
     },
 
     //This should be uncommented but I commented it during switch to Vue
