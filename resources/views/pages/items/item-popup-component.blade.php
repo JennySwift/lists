@@ -41,8 +41,6 @@
                 rows="10">
         </textarea>
 
-            <h3>Category</h3>
-
             <div class="form-group">
                 <label for="item-popup-category">Category</label>
 
@@ -56,12 +54,42 @@
                     </option>
                 </select>
             </div>
+            
+            <div class="form-group">
+                <label for="selected-item-priority">Priority</label>
+                <input
+                    v-model="selectedItem.priority"
+                    type="number"
+                    id="selected-item-priority"
+                    name="selected-item-priority"
+                    placeholder="priority"
+                    class="form-control"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="selected-item-urgency">Urgency</label>
+                <input
+                    v-model="selectedItem.urgency"
+                    type="number"
+                    id="selected-item-urgency"
+                    name="selected-item-urgency"
+                    placeholder="urgency"
+                    class="form-control"
+                >
+            </div>
 
-            <h3>Priority</h3>
-
-            <input v-model="selectedItem.priority" type="number" placeholder="priority"/>
-
-            <input v-model="selectedItem.urgency" type="number" placeholder="urgency"/>
+            <div class="form-group">
+                <label for="selected-item-parent">Parent Id</label>
+                <input
+                    v-model="selectedItem.parent_id"
+                    type="text"
+                    id="selected-item-parent"
+                    name="selected-item-parent"
+                    placeholder="parent.id"
+                    class="form-control"
+                >
+            </div>
 
             <div class="buttons">
                 <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>

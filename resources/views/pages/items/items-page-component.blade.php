@@ -9,6 +9,8 @@
         :selected-item="selectedItem"
         :categories="categories"
         :close-popup="closePopup"
+        :items.sync="items"
+        :get-items="getItems"
     >
     </item-popup>
 

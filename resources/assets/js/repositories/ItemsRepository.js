@@ -53,7 +53,13 @@ var ItemsRepository = {
             data.pinned = 0;
         }
 
-        if (zoomedItem) {
+        if (item.parent) {
+            data.parent_id = item.parent.id;
+        }
+        else if (item.parent_id) {
+            data.parent_id = item.parent_id;
+        }
+        else if (zoomedItem) {
             data.parent_id = zoomedItem.id;
         }
         else {
@@ -77,16 +83,23 @@ var ItemsRepository = {
      *
      * @param array
      * @param item
+     * @param oldParentId
      * @returns {*}
      */
-    findParent: function (array, item) {
+    findParent: function (array, item, oldParentId) {
         var parent;
         var that = this;
-        if (!item.parent_id) {
+        var parentId = item.parent_id;
+
+        if (oldParentId) {
+            parentId = oldParentId;
+        }
+
+        if (!parentId || oldParentId === null) {
             return false;
         }
         $(array).each(function () {
-            if (this.id === item.parent_id) {
+            if (this.id === parentId) {
                 parent = this;
                 return false;
             }

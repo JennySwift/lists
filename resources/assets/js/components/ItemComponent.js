@@ -70,6 +70,7 @@ var Item = Vue.component('item', {
         openItemPopup: function ($item) {
             this.showItemPopup = true;
             this.selectedItem = $item;
+            this.selectedItem.oldParentId = $item.parent_id;
         },
 
         /**

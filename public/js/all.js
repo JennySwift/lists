@@ -22072,7 +22072,13 @@ var ItemsRepository = {
             data.pinned = 0;
         }
 
-        if (zoomedItem) {
+        if (item.parent) {
+            data.parent_id = item.parent.id;
+        }
+        else if (item.parent_id) {
+            data.parent_id = item.parent_id;
+        }
+        else if (zoomedItem) {
             data.parent_id = zoomedItem.id;
         }
         else {
@@ -22096,16 +22102,23 @@ var ItemsRepository = {
      *
      * @param array
      * @param item
+     * @param oldParentId
      * @returns {*}
      */
-    findParent: function (array, item) {
+    findParent: function (array, item, oldParentId) {
         var parent;
         var that = this;
-        if (!item.parent_id) {
+        var parentId = item.parent_id;
+
+        if (oldParentId) {
+            parentId = oldParentId;
+        }
+
+        if (!parentId || oldParentId === null) {
             return false;
         }
         $(array).each(function () {
-            if (this.id === item.parent_id) {
+            if (this.id === parentId) {
                 parent = this;
                 return false;
             }
@@ -22487,6 +22500,7 @@ var Item = Vue.component('item', {
         openItemPopup: function ($item) {
             this.showItemPopup = true;
             this.selectedItem = $item;
+            this.selectedItem.oldParentId = $item.parent_id;
         },
 
         /**
@@ -22551,11 +22565,39 @@ var ItemPopup = Vue.component('item-popup', {
          * @param response
          */
         updateItemSuccess: function (response) {
+            if (this.selectedItem.oldParentId != response.parent_id) {
+                this.jsMoveToNewParent(response);
+            }
             this.showItemPopup = false;
             this.selectedItem = {};
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             //this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;
+        },
+
+        /**
+         *
+         * @param response
+         */
+        jsMoveToNewParent: function (response) {
+            var parent = ItemsRepository.findParent(this.items, response);
+            if (parent && !parent.children) {
+                this.getItems('expand', parent);
+                //parent.children.push(response);
+            }
+            else if (parent) {
+                parent.children.push(response);
+            }
+
+            //Remove item from old parent
+            var oldParent = ItemsRepository.findParent(this.items, response, this.selectedItem.oldParentId);
+            if (oldParent) {
+                oldParent.children = _.without(oldParent.children, this.selectedItem);
+            }
+            else {
+                this.items = _.without(this.items, this.selectedItem);
+            }
+
         },
 
         /**
@@ -22573,7 +22615,9 @@ var ItemPopup = Vue.component('item-popup', {
         'showItemPopup',
         'selectedItem',
         'categories',
-        'closePopup'
+        'closePopup',
+        'items',
+        'getItems'
     ],
     ready: function () {
 

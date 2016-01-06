@@ -29,11 +29,39 @@ var ItemPopup = Vue.component('item-popup', {
          * @param response
          */
         updateItemSuccess: function (response) {
+            if (this.selectedItem.oldParentId != response.parent_id) {
+                this.jsMoveToNewParent(response);
+            }
             this.showItemPopup = false;
             this.selectedItem = {};
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             //this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;
+        },
+
+        /**
+         *
+         * @param response
+         */
+        jsMoveToNewParent: function (response) {
+            var parent = ItemsRepository.findParent(this.items, response);
+            if (parent && !parent.children) {
+                this.getItems('expand', parent);
+                //parent.children.push(response);
+            }
+            else if (parent) {
+                parent.children.push(response);
+            }
+
+            //Remove item from old parent
+            var oldParent = ItemsRepository.findParent(this.items, response, this.selectedItem.oldParentId);
+            if (oldParent) {
+                oldParent.children = _.without(oldParent.children, this.selectedItem);
+            }
+            else {
+                this.items = _.without(this.items, this.selectedItem);
+            }
+
         },
 
         /**
@@ -51,7 +79,9 @@ var ItemPopup = Vue.component('item-popup', {
         'showItemPopup',
         'selectedItem',
         'categories',
-        'closePopup'
+        'closePopup',
+        'items',
+        'getItems'
     ],
     ready: function () {
 
