@@ -7,17 +7,21 @@
 
         <item
                 v-for="item in items | orderBy 'priority'"
+                {{--:items-filter="itemsFilter"--}}
+                {{--:title-filter="titleFilter"--}}
+                {{--:priority-filter="priorityFilter"--}}
+                {{--:category-filter="categoryFilter"--}}
                 :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
-                :show-children="showChildren"
-                :items.sync="items"
+                {{--:show-children="showChildren"--}}
+                {{--:items.sync="items"--}}
                 :item="item"
-                :selected-item="selectedItem"
-                :zoomed-item="zoomedItem"
-                :get-items="getItems"
+                :selected-item.sync="selectedItem"
+                {{--:zoomed-item="zoomedItem"--}}
+                {{--:get-items="getItems"--}}
                 :categories="categories"
-                :zoom="zoom"
-                class="item-with-children"
+                {{--:zoom="zoom"--}}
+                {{--class="item-with-children"--}}
         >
         </item>
     </div>

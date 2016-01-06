@@ -82,6 +82,16 @@ var ItemsRepository = {
             var minutesFromNow = alarm.substring(0, index).trim();
             alarm = moment().add(minutesFromNow, 'minutes').format('YYYY-MM-DD HH:mm:ss');
         }
+        else if (alarm.indexOf('hours') != -1) {
+            var index = alarm.indexOf('hours');
+            var hoursFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(hoursFromNow, 'hours').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('secs') != -1) {
+            var index = alarm.indexOf('secs');
+            var secondsFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+        }
         else {
             alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
         }

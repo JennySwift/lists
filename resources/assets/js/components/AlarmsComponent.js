@@ -71,7 +71,9 @@ var Alarms = Vue.component('alarms', {
         }
     },
     props: [
-
+        'showLoading',
+        'showItemPopup',
+        'selectedItem'
     ],
     ready: function () {
         this.getItemsWithAlarm();
