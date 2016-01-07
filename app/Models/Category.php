@@ -16,21 +16,7 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $appends = ['path'];
-
-    /**
-     * @var array
-     */
     protected $fillable = ['name'];
-
-    /**
-     * Return the URL of the resource
-     * @return string
-     */
-    public function getPathAttribute()
-    {
-        return route('api.categories.show', $this->id);
-    }
 
     /**
      *

@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Repositories\ItemsRepository;
 use App\Traits\ForCurrentUser;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Debugbar;
-use Auth;
 
 /**
  * Class Item
@@ -21,7 +19,15 @@ class Item extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'body', 'priority', 'urgency', 'favourite', 'pinned', 'alarm'];
+    protected $fillable = [
+        'title',
+        'body',
+        'priority',
+        'urgency',
+        'favourite',
+        'pinned',
+        'alarm'
+    ];
 
     /**
      * The attributes that should be mutated to dates
@@ -30,24 +36,13 @@ class Item extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * @var array
-     */
-//    protected $with = ['category'];
-
-    /**
-     * @var array
-     */
-//    protected $appends = ['path', 'has_children', 'path_to_item'];
-
-    /**
      * When an item is soft deleted, soft delete it's descendants, too
      */
     public static function boot()
     {
         parent::boot();
 
-        Item::deleting(function($item)
-        {
+        Item::deleting(function ($item) {
             foreach ($item->children as $child) {
                 $child->delete();
             }
@@ -97,11 +92,12 @@ class Item extends Model
     public function siblings()
     {
         if (!$this->parent) {
-            return Item::where('user_id', Auth::user()->id)
+            return Item::forCurrentUser()
                 ->whereNull('parent_id')
                 ->where('id', '!=', $this->id)
                 ->get();
         }
+
         return Item::where('parent_id', $this->parent_id)
             ->where('id', '!=', $this->id)
             ->get();
@@ -133,22 +129,13 @@ class Item extends Model
     }
 
     /**
-     * Return the URL of the project
-     * it needs to be called getFieldAttribute
-     * @return string
-     */
-    public function getPathAttribute()
-    {
-        return route('api.items.show', $this->id);
-    }
-
-    /**
      *
      * @return static
      */
     public function getPathToItemAttribute()
     {
         $breadcrumb = $this->breadcrumb();
+
         return collect($breadcrumb)->lists('index');
     }
 
@@ -156,7 +143,7 @@ class Item extends Model
      * Does the item have any children?
      * @return string
      */
-    public function gethasChildrenAttribute()
+    public function getHasChildrenAttribute()
     {
         if (count($this->children()->get())) {
             return true;
@@ -287,7 +274,7 @@ class Item extends Model
 
             }
             else {
-                return Item::where('user_id', Auth::user()->id)
+                return Item::forCurrentUser()
                     ->whereNull('parent_id')->max('index') + 1;
             }
         }
