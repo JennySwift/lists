@@ -22194,9 +22194,10 @@ var ItemsRepository = {
             favourite: item.favourite,
             pinned: item.pinned,
             category_id: item.category.id,
+            alarm: null
         };
 
-        if (item.alarm) {
+        if (item.alarm && item.alarm !== '') {
             //This check is here because if item.alarm was false,
             //I think PHP was getting value 0, making the item have an alarm
             //at '0000-00-00 00:00:00.'
