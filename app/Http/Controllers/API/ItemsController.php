@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Http\Requests\StoreItemRequest;
 use App\Models\Category;
 use App\Models\Item;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\ItemsRepository;
+use Auth;
+use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use JavaScript;
-use Auth;
-use Debugbar;
-use DB;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 /**
  * Class ItemsController
@@ -51,7 +49,6 @@ class ItemsController extends Controller
     public function pageLoad()
     {
         JavaScript::put([
-            'categories' => $this->categoriesRepository->getCategories(),
             'base_path' => base_path()
         ]);
 
@@ -71,23 +68,29 @@ class ItemsController extends Controller
         if ($request->has('alarm')) {
             return $this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get());
         }
-        else if ($request->has('favourites')) {
-            return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
-        }
-        else if ($request->has('trashed')) {
-            return $this->itemsRepository->transform($this->itemsRepository->getTrashed());
-        }
-        else if ($request->has('filter')) {
-            $items = Item::forCurrentUser()
-                ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
-                ->get();
+        else {
+            if ($request->has('favourites')) {
+                return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
+            }
+            else {
+                if ($request->has('trashed')) {
+                    return $this->itemsRepository->transform($this->itemsRepository->getTrashed());
+                }
+                else {
+                    if ($request->has('filter')) {
+                        $items = Item::forCurrentUser()
+                            ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
+                            ->get();
 
-            return $this->itemsRepository->transform($items);
+                        return $this->itemsRepository->transform($items);
+                    }
+                }
+            }
         }
 
         return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
     }
-    
+
     /**
      *
      * @param Request $request
@@ -222,8 +225,7 @@ class ItemsController extends Controller
             $item->delete();
 
             return response([], Response::HTTP_NO_CONTENT);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             //Integrity constraint violation
             if ($e->getCode() === '23000') {
                 $message = 'Item could not be deleted. It is in use.';
@@ -231,6 +233,7 @@ class ItemsController extends Controller
             else {
                 $message = 'There was an error';
             }
+
             return response([
                 'error' => $message,
                 'status' => Response::HTTP_BAD_REQUEST

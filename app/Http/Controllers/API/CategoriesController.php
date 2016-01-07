@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Repositories\CategoriesRepository;
+use Auth;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use JavaScript;
-use Auth;
 
 class CategoriesController extends Controller
 {
@@ -58,7 +58,7 @@ class CategoriesController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
         $category = new Category($request->only(['name']));
         $category->user()->associate(Auth::user());

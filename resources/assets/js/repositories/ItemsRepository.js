@@ -13,7 +13,7 @@ var ItemsRepository = {
         addingNewItems: false,
         editingItems: false,
         //selectedItems: {}
-        categories: categories,
+        categories: [],
         favouriteItems: [],
         paths: {
             base: base_path,

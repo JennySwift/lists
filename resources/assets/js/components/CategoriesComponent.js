@@ -3,7 +3,7 @@ var Categories = Vue.component('categories', {
     data: function () {
         return {
             showLoading: false,
-            categories: categories
+            categories: []
             //addingNewCategories: false,
             //editingCategories: false,
             //selectedCategories: {}
@@ -11,6 +11,20 @@ var Categories = Vue.component('categories', {
     },
     components: {},
     methods: {
+
+        /**
+         *
+         */
+        getCategories: function () {
+            this.showLoading = true;
+            this.$http.get('/api/categories', function (response) {
+                this.categories = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
 
         /**
          *
@@ -70,6 +84,6 @@ var Categories = Vue.component('categories', {
         //data to be received from parent
     ],
     ready: function () {
-
+        this.getCategories();
     }
 });

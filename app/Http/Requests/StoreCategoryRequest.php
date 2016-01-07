@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 /**
- * Class StoreItemRequest
+ * Class StoreCategoryRequest
  * @package App\Http\Requests
  */
-class StoreItemRequest extends Request
+class StoreCategoryRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,7 @@ class StoreItemRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required',
-            'priority' => 'required',
-            'category_id' => 'required'
+            'name' => 'required'
         ];
     }
 }

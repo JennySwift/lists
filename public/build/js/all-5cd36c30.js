@@ -22160,7 +22160,7 @@ var ItemsRepository = {
         addingNewItems: false,
         editingItems: false,
         //selectedItems: {}
-        categories: categories,
+        categories: [],
         favouriteItems: [],
         paths: {
             base: base_path,
@@ -22550,7 +22550,7 @@ var Categories = Vue.component('categories', {
     data: function () {
         return {
             showLoading: false,
-            categories: categories
+            categories: []
             //addingNewCategories: false,
             //editingCategories: false,
             //selectedCategories: {}
@@ -22558,6 +22558,20 @@ var Categories = Vue.component('categories', {
     },
     components: {},
     methods: {
+
+        /**
+         *
+         */
+        getCategories: function () {
+            this.showLoading = true;
+            this.$http.get('/api/categories', function (response) {
+                this.categories = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
 
         /**
          *
@@ -22617,7 +22631,7 @@ var Categories = Vue.component('categories', {
         //data to be received from parent
     ],
     ready: function () {
-
+        this.getCategories();
     }
 });
 
@@ -22981,6 +22995,20 @@ var Items = Vue.component('items', {
 
         /**
          *
+         */
+        getCategories: function () {
+            this.showLoading = true;
+            this.$http.get('/api/categories', function (response) {
+                this.categories = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
+         *
          * @param response
          * @param expandOrZoom
          * @param item
@@ -23208,6 +23236,7 @@ var Items = Vue.component('items', {
     ],
     ready: function () {
         this.getItems('zoom');
+        this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
         //ItemsRepository.formatAlarm('5:45pm jan 8');

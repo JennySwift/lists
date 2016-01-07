@@ -73,6 +73,20 @@ var Items = Vue.component('items', {
 
         /**
          *
+         */
+        getCategories: function () {
+            this.showLoading = true;
+            this.$http.get('/api/categories', function (response) {
+                this.categories = response;
+                this.showLoading = false;
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
+         *
          * @param response
          * @param expandOrZoom
          * @param item
@@ -300,6 +314,7 @@ var Items = Vue.component('items', {
     ],
     ready: function () {
         this.getItems('zoom');
+        this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
         //ItemsRepository.formatAlarm('5:45pm jan 8');

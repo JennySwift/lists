@@ -57,6 +57,31 @@ class CategoriesTest extends TestCase
      * @test
      * @return void
      */
+    public function it_throws_an_exception_for_category_store_method_without_required_fields()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $category = [
+
+        ];
+
+        $response = $this->apiCall('POST', '/api/categories', $category);
+        $content = json_decode($response->getContent(), true);
+//            dd($content);
+
+        $this->assertArrayHasKey('name', $content);
+
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_update_a_category()
     {
         DB::beginTransaction();
