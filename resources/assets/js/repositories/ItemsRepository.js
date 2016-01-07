@@ -137,7 +137,7 @@ var ItemsRepository = {
                 return false;
             }
             if (this.children) {
-                that.findParent(this.children, item);
+                return that.findParent(this.children, item, oldParentId);
             }
         });
 

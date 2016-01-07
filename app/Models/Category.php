@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ForCurrentUser;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,11 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
+    use ForCurrentUser;
+
     /**
      * @var array
      */
     protected $appends = ['path'];
 
+    /**
+     * @var array
+     */
     protected $fillable = ['name'];
 
     /**

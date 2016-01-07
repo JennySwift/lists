@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -30,8 +31,12 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('items', function($id)
         {
-//            dd(Item::findOrFail($id));
             return Item::forCurrentUser()->findOrFail($id);
+        });
+
+        Route::bind('categories', function($id)
+        {
+            return Category::forCurrentUser()->findOrFail($id);
         });
     }
 

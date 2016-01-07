@@ -1,4 +1,4 @@
-<div id="pinned-items">
+<div v-if="pinnedItems.length > 0" id="pinned-items">
     <h5>Pinned Items</h5>
 
     <item

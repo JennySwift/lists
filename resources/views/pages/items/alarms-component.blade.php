@@ -1,6 +1,6 @@
 <script id="alarms-template" type="x-template">
 
-    <div id="alarms">
+    <div v-if=items.length > 0" id="alarms">
         <h5>Alarms</h5>
 
         <div id="alarm"></div>

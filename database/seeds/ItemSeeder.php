@@ -70,13 +70,13 @@ class ItemSeeder extends Seeder
         }
 
         //Create alarms
-        $item = Item::whereNull('parent_id')->first();
-        $item->alarm = Carbon::today()->hour(20)->minute(0)->second(30);
-        $item->save();
+//        $item = Item::whereNull('parent_id')->first();
+//        $item->alarm = Carbon::today()->hour(20)->minute(0)->second(30);
+//        $item->save();
 
-        $item = Item::whereNull('parent_id')->offset(1)->first();
-        $item->alarm = Carbon::today()->hour(20)->minute(1)->second(30);
-        $item->save();
+//        $item = Item::whereNull('parent_id')->offset(1)->first();
+//        $item->alarm = Carbon::today()->hour(20)->minute(1)->second(30);
+//        $item->save();
 
         //Delete some items
         //This broke my tests, because I then had children existing

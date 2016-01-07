@@ -20,7 +20,7 @@ Route::delete('items/emptyTrash', 'API\ItemsController@emptyTrash');
 
 // API
 Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
-    Route::resource('items', 'ItemsController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
-    Route::resource('categories', 'CategoriesController', ['only' => ['show', 'store']]);
+    Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
+    Route::resource('categories', 'CategoriesController', ['except' => ['create', 'edit']]);
 });
 
