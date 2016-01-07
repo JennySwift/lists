@@ -45,7 +45,8 @@ var Items = Vue.component('items', {
         },
 
         /**
-         *
+         * Should be named something else?
+         * It's kind of a show method. (Shows the item with its children.)
          */
         getItems: function (expandOrZoom, item) {
             this.showLoading = true;

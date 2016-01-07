@@ -1,5 +1,3 @@
-<!-- privacy policy -->
-
 <footer>
     <li>
         <a href="http://jennyswiftcreations.com/privacy-policy">Privacy Policy</a>

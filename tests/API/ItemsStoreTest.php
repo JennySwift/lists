@@ -49,8 +49,7 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['category_id']);
         $this->assertEquals($alarm, $content['alarm']);
 
-        //Should be HTTP_CREATED
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
 
         DB::rollBack();
     }
@@ -90,8 +89,7 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
 
-        //Should be HTTP_CREATED
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
 
         DB::rollBack();
     }

@@ -22391,6 +22391,10 @@ var ItemsRepository = {
         //return {};
     //}
 };
+/**
+ * This file currently isn't being used.
+ * @type {{findSiblingsWithItem: SortableRepository.findSiblingsWithItem, findParentById: SortableRepository.findParentById, setNewIndex: SortableRepository.setNewIndex, setNewParent: SortableRepository.setNewParent, setNewTarget: SortableRepository.setNewTarget, setMouseDown: SortableRepository.setMouseDown}}
+ */
 var SortableRepository = {
 
     /**
@@ -22551,9 +22555,6 @@ var Categories = Vue.component('categories', {
         return {
             showLoading: false,
             categories: []
-            //addingNewCategories: false,
-            //editingCategories: false,
-            //selectedCategories: {}
         };
     },
     components: {},
@@ -22967,7 +22968,8 @@ var Items = Vue.component('items', {
         },
 
         /**
-         *
+         * Should be named something else?
+         * It's kind of a show method. (Shows the item with its children.)
          */
         getItems: function (expandOrZoom, item) {
             this.showLoading = true;

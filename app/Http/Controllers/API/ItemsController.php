@@ -88,7 +88,7 @@ class ItemsController extends Controller
             }
         }
 
-        return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
+        return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), RESPONSE::HTTP_OK);
     }
 
     /**
@@ -121,7 +121,7 @@ class ItemsController extends Controller
 
         $item->save();
 
-        return $item->transform();
+        return response($item->transform(), Response::HTTP_CREATED);
     }
 
     /**
@@ -136,7 +136,7 @@ class ItemsController extends Controller
             return $this->show($parent);
         }
         else {
-            return $this->itemsRepository->transform($this->itemsRepository->getHomeItems());
+            return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), Response::HTTP_OK);
         }
     }
 
@@ -158,7 +158,7 @@ class ItemsController extends Controller
         $item['children'] = $children;
         $item['breadcrumb'] = $array;
 
-        return $item;
+        return response($item, Response::HTTP_OK);
     }
 
     /**
@@ -206,12 +206,11 @@ class ItemsController extends Controller
     {
         $items = Item::forCurrentUser()->onlyTrashed()->get();
 
-        var_dump(count($items));
-
         foreach ($items as $item) {
             $item->forceDelete();
         }
-        var_dump(Item::withTrashed()->count());
+
+        return response([], Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -247,13 +246,13 @@ class ItemsController extends Controller
      */
     public function undoDeleteItem()
     {
-        $item = Item::where('user_id', Auth::user()->id)
+        $item = Item::forCurrentUser()
             ->onlyTrashed()
             ->orderBy('deleted_at', 'desc')
             ->first();
 
         $item->restore();
 
-        return $item->transform();
+        return response($item->transform(), Response::HTTP_OK);
     }
 }

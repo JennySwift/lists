@@ -4,9 +4,6 @@ var Categories = Vue.component('categories', {
         return {
             showLoading: false,
             categories: []
-            //addingNewCategories: false,
-            //editingCategories: false,
-            //selectedCategories: {}
         };
     },
     components: {},
