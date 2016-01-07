@@ -10,8 +10,6 @@
 @include('templates.shared.header')
 <feedback></feedback>
 
-<h1>Just testing</h1>
-
 <router-view></router-view>
 
 @include('templates.shared.footer')
