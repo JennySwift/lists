@@ -179,6 +179,9 @@ var Items = Vue.component('items', {
             if (response.alarm) {
                 $.event.trigger('alarm-created', [response]);
             }
+            if (response.urgency == 1) {
+                $.event.trigger('urgent-item-created', [response]);
+            }
             this.showLoading = false;
         },
 

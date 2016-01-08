@@ -23202,6 +23202,9 @@ var Items = Vue.component('items', {
             if (response.alarm) {
                 $.event.trigger('alarm-created', [response]);
             }
+            if (response.urgency == 1) {
+                $.event.trigger('urgent-item-created', [response]);
+            }
             this.showLoading = false;
         },
 
@@ -23442,6 +23445,16 @@ var UrgentItems = Vue.component('urgentItems', {
 
         /**
          *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('urgent-item-created', function (event, item) {
+                that.items.push(item);
+            });
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -23461,6 +23474,7 @@ var UrgentItems = Vue.component('urgentItems', {
     ],
     ready: function () {
         this.getUrgentItems();
+        this.listen();
     }
 });
 

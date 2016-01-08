@@ -44,6 +44,16 @@ var UrgentItems = Vue.component('urgentItems', {
 
         /**
          *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('urgent-item-created', function (event, item) {
+                that.items.push(item);
+            });
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -63,5 +73,6 @@ var UrgentItems = Vue.component('urgentItems', {
     ],
     ready: function () {
         this.getUrgentItems();
+        this.listen();
     }
 });
