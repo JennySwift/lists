@@ -1,8 +1,9 @@
 <div id="new-item">
 
-    <div class="flex">
+    {{--First column--}}
+    <div>
         {{--Title--}}
-        <div>
+        <div class="form-group">
             <label for="new-item-title">Title</label>
             <input
                     v-model="newItem.title"
@@ -17,7 +18,7 @@
         </div>
 
         {{--Body--}}
-        <div v-show="showNewItemFields">
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-body">Body</label>
             <textarea
                     v-model="newItem.body"
@@ -27,30 +28,32 @@
             >
             </textarea>
         </div>
+    </div>
 
+    {{--Second column--}}
+
+    <div>
         {{--Category--}}
         <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-category">Category</label>
 
             <select
-                v-model="newItem.category"
-                v-on:keyup.13="insertItem()"
-                id="new-item-category"
-                class="form-control"
+                    v-model="newItem.category"
+                    v-on:keyup.13="insertItem()"
+                    id="new-item-category"
+                    class="form-control"
             >
                 <option
-                    v-for="category in categories"
-                    v-bind:value="category"
+                        v-for="category in categories"
+                        v-bind:value="category"
                 >
                     @{{ category.name }}
                 </option>
             </select>
         </div>
-    </div>
 
-    <div v-show="showNewItemFields" class="flex">
         {{--Priority--}}
-        <div>
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-priority">Priority</label>
             <input
                     v-model="newItem.priority"
@@ -64,7 +67,7 @@
         </div>
 
         {{--Urgency--}}
-        <div v-show="showNewItemFields">
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-urgency">Urgency</label>
             <input
                     v-model="newItem.urgency"
@@ -92,7 +95,7 @@
         </div>
 
         {{--Pinned--}}
-        <div v-show="showNewItemFields">
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-pinned">Pinned</label>
             <input
                     v-model="newItem.pinned"
@@ -105,15 +108,20 @@
             >
         </div>
 
-        <div v-show="showNewItemFields">
+        <div v-show="showNewItemFields" class="form-group">
             <button
-                v-on:click="insertItem(13)"
-                class="btn btn-success"
+                    v-on:click="insertItem(13)"
+                    class="btn btn-success"
             >
                 Add item
             </button>
+            <button
+                    v-on:click="showNewItemFields = false"
+                    class="btn btn-default"
+            >
+                Cancel
+            </button>
         </div>
-
     </div>
 
 </div>
