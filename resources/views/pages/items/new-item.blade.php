@@ -6,7 +6,8 @@
             <label for="new-item-title">Title</label>
             <input
                     v-model="newItem.title"
-                    v-on:keyup="insertItem($event.keyCode)"
+                    v-on:keyup.13="insertItem()"
+                    v-on:focus="showNewItemFields = true"
                     type="text"
                     id="new-item-title"
                     name="new-item-title"
@@ -16,7 +17,7 @@
         </div>
 
         {{--Body--}}
-        <div>
+        <div v-show="showNewItemFields">
             <label for="new-item-body">Body</label>
             <textarea
                     v-model="newItem.body"
@@ -28,24 +29,32 @@
         </div>
 
         {{--Category--}}
-        <div class="form-group">
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-category">Category</label>
 
-            <select v-model="newItem.category" v-on:keyup="insertItem($event.keyCode)" id="new-item-category" class="form-control">
-                <option v-for="category in categories" v-bind:value="category">
+            <select
+                v-model="newItem.category"
+                v-on:keyup.13="insertItem()"
+                id="new-item-category"
+                class="form-control"
+            >
+                <option
+                    v-for="category in categories"
+                    v-bind:value="category"
+                >
                     @{{ category.name }}
                 </option>
             </select>
         </div>
     </div>
 
-    <div class="flex">
+    <div v-show="showNewItemFields" class="flex">
         {{--Priority--}}
         <div>
             <label for="new-item-priority">Priority</label>
             <input
                     v-model="newItem.priority"
-                    v-on:keyup="insertItem($event.keyCode)"
+                    v-on:keyup.13="insertItem()"
                     type="number"
                     id="new-item-priority"
                     name="new-item-priority"
@@ -55,11 +64,11 @@
         </div>
 
         {{--Urgency--}}
-        <div>
+        <div v-show="showNewItemFields">
             <label for="new-item-urgency">Urgency</label>
             <input
                     v-model="newItem.urgency"
-                    v-on:keyup="insertItem($event.keyCode)"
+                    v-on:keyup.13="insertItem()"
                     type="number"
                     id="new-item-urgency"
                     name="new-item-urgency"
@@ -67,15 +76,13 @@
                     class="form-control urgency"
             >
         </div>
-    </div>
 
-    <div class="flex">
         {{--Alarm--}}
-        <div class="form-group">
+        <div v-show="showNewItemFields" class="form-group">
             <label for="new-item-alarm">Alarm</label>
             <input
                     v-model="newItem.alarm"
-                    v-on:keyup="insertItem($event.keyCode)"
+                    v-on:keyup.13="insertItem()"
                     type="text"
                     id="new-item-alarm"
                     name="new-item-alarm"
@@ -85,11 +92,11 @@
         </div>
 
         {{--Pinned--}}
-        <div>
+        <div v-show="showNewItemFields">
             <label for="new-item-pinned">Pinned</label>
             <input
                     v-model="newItem.pinned"
-                    v-on:keyup="insertItem($event.keyCode)"
+                    v-on:keyup.13="insertItem()"
                     type="checkbox"
                     id="new-item-pinned"
                     name="new-item-pinned"
@@ -98,10 +105,15 @@
             >
         </div>
 
-    </div>
+        <div v-show="showNewItemFields">
+            <button
+                v-on:click="insertItem(13)"
+                class="btn btn-success"
+            >
+                Add item
+            </button>
+        </div>
 
-    <div class="flex">
-        <button v-on:click="insertItem(13)" class="btn btn-success">Add item</button>
     </div>
 
 </div>

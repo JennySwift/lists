@@ -22151,6 +22151,7 @@ var ItemsRepository = {
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
+        showNewItemFields: false,
         selectedItem: {},
         items: [],
         alarms: [],
@@ -23190,11 +23191,7 @@ var Items = Vue.component('items', {
          * @param keycode
          * @returns {boolean}
          */
-        insertItem: function (keycode) {
-            if (keycode !== 13) {
-                return false;
-            }
-
+        insertItem: function () {
             var data = ItemsRepository.setData(this.newItem, this.zoomedItem);
 
             this.showLoading = true;
@@ -23211,8 +23208,9 @@ var Items = Vue.component('items', {
          * @param response
          */
         insertItemSuccess: function (response) {
+            this.showNewItemFields = false;
             this.items.push(response);
-            //this.clearNewItemFields();
+            this.clearNewItemFields();
             $.event.trigger('provide-feedback', ['Item created', 'success']);
             //this.$broadcast('provide-feedback', 'Item created', 'success');
             if (response.alarm) {
@@ -23298,8 +23296,8 @@ var Items = Vue.component('items', {
          *
          */
         clearNewItemFields: function () {
-            newItem.title = '';
-            newItem.body = '';
+            this.newItem.title = '';
+            this.newItem.body = '';
         },
 
         /**

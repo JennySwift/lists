@@ -4,6 +4,7 @@ var ItemsRepository = {
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
+        showNewItemFields: false,
         selectedItem: {},
         items: [],
         alarms: [],

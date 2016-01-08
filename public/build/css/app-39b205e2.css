@@ -330,6 +330,9 @@ li {
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: end;
+  align-items: flex-end;
   margin-bottom: 20px;
   border-radius: 8px;
   width: 900px; }
