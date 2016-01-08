@@ -22258,50 +22258,8 @@ var ItemsRepository = {
         else {
             alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
         }
-        console.log(alarm);
+        //console.log(alarm);
         return alarm;
-    },
-
-    //This should be uncommented but I commented it during switch to Vue
-    //var $parent;
-
-    /**
-     * This works. It seems kind of complicated, but I tried other ways
-     * and they both had problems.
-     *
-     * Finding parent by path broke down when zoomed on an item, because path was not the full path.
-     *
-     * Finding parent with _.flatten broke down when not zoomed on an item
-     * and items were expanded several levels.
-     *
-     * @param array
-     * @param item
-     * @param oldParentId
-     * @returns {*}
-     */
-    findParent: function (array, item, oldParentId) {
-        var parent;
-        var that = this;
-        var parentId = item.parent_id;
-
-        if (oldParentId) {
-            parentId = oldParentId;
-        }
-
-        if (!parentId || oldParentId === null) {
-            return false;
-        }
-        $(array).each(function () {
-            if (this.id === parentId) {
-                parent = this;
-                return false;
-            }
-            if (this.children) {
-                return that.findParent(this.children, item, oldParentId);
-            }
-        });
-
-        return parent;
     },
 
     /**
@@ -22426,28 +22384,46 @@ var ItemsRepository = {
         }
     },
 
-    //findModelThatMatchesRoute: function (that, array) {
-        //Get the id from the url
-        //var path = that.$route.path;
-        //var index = path.indexOf(':');
-        //if (index != -1) {
-        //    return that.$route.path.slice(index+1);
-        //}
-        //For some reason $route.params was undefined.
-        //if (that.$route.params.id) {
-        //    var id = that.$route.params.id.slice(1);
-        //
-        //    //The ids in that[resource] were a string for Chris,
-        //    //and an integer for me, so check the datatype here
-        //    if (typeof array[0].id == 'number') {
-        //        id = parseInt(id, 10);
-        //    }
-        //
-        //    var something = _.findWhere(array, {id: id});
-        //    return something;
-        //}
-        //return {};
-    //}
+    /**
+     * This works. It seems kind of complicated, but I tried other ways
+     * and they both had problems.
+     *
+     * Finding parent by path broke down when zoomed on an item, because path was not the full path.
+     *
+     * Finding parent with _.flatten broke down when not zoomed on an item
+     * and items were expanded several levels.
+     *
+     * @param array
+     * @param item
+     * @param oldParentId
+     * @returns {*}
+     */
+    findParent: function (array, item, oldParentId) {
+        var parent;
+        var that = this;
+        var parentId = item.parent_id;
+
+        if (oldParentId) {
+            parentId = oldParentId;
+        }
+
+        if (!parentId || oldParentId === null) {
+            return false;
+        }
+        $(array).each(function () {
+            if (this.id === parentId) {
+                parent = this;
+                that.parent = this;
+                return false;
+            }
+            if (this.children) {
+                return that.findParent(this.children, item, oldParentId);
+            }
+        });
+
+        console.log(that.parent);
+        return that.parent;
+    }
 };
 /**
  * This file currently isn't being used.
@@ -22694,7 +22670,7 @@ var Alarms = Vue.component('alarms', {
     ready: function () {
         this.getItemsWithAlarm();
         this.listen();
-        console.log(Date.parse('9am next mon'));
+        //console.log(Date.parse('9am next mon'));
     }
 });
 
@@ -23372,7 +23348,7 @@ var Items = Vue.component('items', {
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
-        ItemsRepository.formatAlarm('thu 1pm');
+        //ItemsRepository.formatAlarm('thu 1pm');
     }
 });
 Vue.component('loading', {
