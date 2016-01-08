@@ -34,6 +34,15 @@ class ItemSeeder extends Seeder
             }
         }
 
+        //Delete some items
+        //This broke my tests, because I then had children existing
+        //whose parents were deleted, so when I tried to update the child,
+        //it errored saying that parent didn't exist.
+        $items = Item::orderBy('id', 'desc')->limit(4)->get();
+        foreach ($items as $item) {
+            $item->delete();
+        }
+
         //Pin some items
         $items = Item::limit(4)->get();
         foreach ($items as $item) {
@@ -42,7 +51,7 @@ class ItemSeeder extends Seeder
         }
 
         //Favourite some items
-        $items = Item::orderBy('id', 'desc')->limit(6)->get();
+        $items = Item::limit(6)->offset(4)->get();
         foreach ($items as $item) {
             $item->favourite = 1;
             $item->save();
@@ -77,15 +86,6 @@ class ItemSeeder extends Seeder
 //        $item = Item::whereNull('parent_id')->offset(1)->first();
 //        $item->alarm = Carbon::today()->hour(20)->minute(1)->second(30);
 //        $item->save();
-
-        //Delete some items
-        //This broke my tests, because I then had children existing
-        //whose parents were deleted, so when I tried to update the child,
-        //it errored saying that parent didn't exist.
-//        $items = Item::limit(6)->get();
-//        foreach ($items as $item) {
-//            $item->delete();
-//        }
 
     }
 

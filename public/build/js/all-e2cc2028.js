@@ -22162,10 +22162,6 @@ var ItemsRepository = {
         //selectedItems: {}
         categories: [],
         favouriteItems: [],
-        paths: {
-            base: base_path,
-            test: base_path + '/resources/views/test.php'
-        },
         newItem: {
             title: '',
             body: '',

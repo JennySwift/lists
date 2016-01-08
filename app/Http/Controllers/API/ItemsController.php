@@ -43,19 +43,6 @@ class ItemsController extends Controller
     }
 
     /**
-     *
-     * @return Response
-     */
-    public function pageLoad()
-    {
-        JavaScript::put([
-            'base_path' => base_path()
-        ]);
-
-        return view('pages.items.items-page');
-    }
-
-    /**
      * Get home items
      * @param Request $request
      * @return mixed
