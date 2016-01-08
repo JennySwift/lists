@@ -6,26 +6,31 @@
         class="popup-outer">
 
         <div id="item-popup" class="popup-inner">
-            
-            <button
-                    v-if="!selectedItem.favourite"
-                    v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                    class="favourite fa fa-star-o">
-            </button>
 
-            <button v-on:click="deleteItem(selectedItem)" class="btn btn-danger delete-item">Delete</button>
+            <div class="top-btns">
+                <button v-on:click="deleteItem(selectedItem)" class="btn btn-danger delete-item">Delete</button>
 
-            <button
-                    v-if="selectedItem.favourite"
-                    v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                    class="favourite fa fa-star">
-            </button>
+                <div>
+                    <button
+                            v-if="!selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star-o">
+                    </button>
 
-            <button
-                    v-on:click="selectedItem.pinned = !selectedItem.pinned"
-                    v-bind:class="{'pinned': selectedItem.pinned, 'unpinned': !selectedItem.pinned}"
-                    class="pin-btn fa fa-map-pin">
-            </button>
+                    <button
+                            v-if="selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star">
+                    </button>
+
+                    <button
+                            v-on:click="selectedItem.pinned = !selectedItem.pinned"
+                            v-bind:class="{'pinned': selectedItem.pinned, 'unpinned': !selectedItem.pinned}"
+                            class="pin-btn fa fa-map-pin">
+                    </button>
+                </div>
+
+            </div>
 
             <h3>Title (id: @{{ selectedItem.id }}, parentId: @{{ selectedItem.parent_id }}</h3>
 

@@ -11,29 +11,13 @@
     > input,select,textarea, .save {
         width: 100%;
     }
-    button.save {
-        margin-top: 28px;
-    }
-    button.favourite {
-        position: absolute;
-        right: 5px;
-        top: 5px;
-    }
     .pin-btn {
-        position: absolute;
-        right: 60px;
-        top: 5px;
         &.pinned {
             color: $warning;
         }
         &.unpinned {
             //color: white;
         }
-    }
-    .delete-item {
-        position: absolute;
-        top: 5px;
-        left: 5px;
     }
     .fa-star {
         color: $warning;

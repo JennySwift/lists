@@ -269,6 +269,14 @@ li {
       -ms-flex-pack: justify;
       justify-content: space-between;
       margin-top: 30px; }
+    .popup-outer .popup-inner .top-btns {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 30px; }
 
 @media all and (min-width: 680px) {
   .popup-inner {
@@ -287,22 +295,8 @@ li {
       margin: 10px 10px; }
   #item-popup > input, #item-popup select, #item-popup textarea, #item-popup .save {
     width: 100%; }
-  #item-popup button.save {
-    margin-top: 28px; }
-  #item-popup button.favourite {
-    position: absolute;
-    right: 5px;
-    top: 5px; }
-  #item-popup .pin-btn {
-    position: absolute;
-    right: 60px;
-    top: 5px; }
-    #item-popup .pin-btn.pinned {
-      color: #fca700; }
-  #item-popup .delete-item {
-    position: absolute;
-    top: 5px;
-    left: 5px; }
+  #item-popup .pin-btn.pinned {
+    color: #fca700; }
   #item-popup .fa-star {
     color: #fca700; }
 
