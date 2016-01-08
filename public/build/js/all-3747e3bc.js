@@ -22195,6 +22195,11 @@ var ItemsRepository = {
             alarm: false
         };
 
+        //So the urgency can be removed
+        if (item.urgency === '') {
+            data.urgency = false;
+        }
+
         if (item.alarm && item.alarm !== '') {
             //This check is here because if item.alarm was false,
             //I think PHP was getting value 0, making the item have an alarm

@@ -168,6 +168,10 @@ class ItemsController extends Controller
         if ($request->has('alarm') && !$request->get('alarm')) {
             $data['alarm'] = null;
         }
+        //So the urgency of an item can be removed
+        if ($request->has('urgency') && !$request->get('urgency')) {
+            $data['urgency'] = null;
+        }
 
         $item->update($data);
 
