@@ -90,6 +90,11 @@ class ItemsController extends Controller
             'alarm'
         ]));
 
+        //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified
+        if ($request->has('alarm') && !$request->get('alarm')) {
+            $item->alarm = null;
+        }
+
         if ($request->get('parent_id')) {
             $parent = Item::find($request->get('parent_id'));
             $item->parent()->associate($parent);

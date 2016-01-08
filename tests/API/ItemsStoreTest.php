@@ -73,6 +73,7 @@ class ItemsStoreTest extends TestCase
             'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
+            'alarm' => false
         ];
 
         $response = $this->call('POST', '/api/items', $item);
