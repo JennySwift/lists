@@ -16,55 +16,9 @@ var Item = Vue.component('item', {
     },
     methods: {
 
-        /**
-         * For when item is deleted from the item popup
-         */
-        closeItemPopup: function () {
-            if (this.showItemPopup) {
-                this.showItemPopup = false;
-                this.selectedItem = {};
-            }
-        },
-
         collapseItem: function ($item) {
             $item.children = [];
         },
-
-        /**
-         *
-         * @param item
-         */
-        deleteItem: function (item) {
-            if (confirm("Are you sure?")) {
-                this.showLoading = true;
-                this.$http.delete('/api/items/' + item.id, function (response) {
-                        this.deleteJsItem(item);
-                        this.closeItemPopup();
-                        $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                        //this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                        this.showLoading = false;
-                    })
-                    .error(function (response) {
-                        this.handleResponseError(response);
-                    });
-            }
-        },
-
-
-        /**
-         *
-         * @param item
-         */
-        deleteJsItem: function (item) {
-            var parent = ItemsRepository.findParent(this.items, item);
-            if (parent) {
-                parent.children = _.without(parent.children, item);
-            }
-            else {
-                this.items = _.without(this.items, item);
-            }
-        },
-
 
         /**
          *
@@ -76,6 +30,16 @@ var Item = Vue.component('item', {
             this.selectedItem.oldParentId = $item.parent_id;
             this.selectedItem.oldAlarm = $item.alarm;
         },
+
+        /**
+         *
+         */
+        //listen: function () {
+        //    var that = this;
+        //    $(document).on('delete-item', function (event, item) {
+        //        that.deleteItem(item);
+        //    });
+        //},
 
         /**
          *
@@ -101,9 +65,10 @@ var Item = Vue.component('item', {
         'itemsFilter',
         'titleFilter',
         'priorityFilter',
-        'categoryFilter'
+        'categoryFilter',
+        'deleteItem'
     ],
     ready: function () {
-
+        //this.listen();
     }
 });

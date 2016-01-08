@@ -63,6 +63,14 @@ var Alarms = Vue.component('alarms', {
 
         /**
          *
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -73,7 +81,7 @@ var Alarms = Vue.component('alarms', {
     props: [
         'showLoading',
         'showItemPopup',
-        'selectedItem'
+        'selectedItem',
     ],
     ready: function () {
         this.getItemsWithAlarm();

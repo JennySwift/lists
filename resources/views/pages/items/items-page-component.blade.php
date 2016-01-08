@@ -21,6 +21,7 @@
         :close-popup="closePopup"
         :items.sync="items"
         :get-items="getItems"
+        :delete-item="deleteItem"
     >
     </item-popup>
 

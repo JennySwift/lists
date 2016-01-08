@@ -74,6 +74,14 @@ var ItemPopup = Vue.component('item-popup', {
 
         /**
          *
+         * @param item
+         */
+        //deleteItem: function (item) {
+        //    $.event.trigger('delete-item', [item]);
+        //},
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -89,7 +97,8 @@ var ItemPopup = Vue.component('item-popup', {
         'categories',
         'closePopup',
         'items',
-        'getItems'
+        'getItems',
+        'deleteItem'
     ],
     ready: function () {
 

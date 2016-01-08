@@ -20,6 +20,7 @@
                 {{--:zoomed-item="zoomedItem"--}}
                 {{--:get-items="getItems"--}}
                 :categories="categories"
+                :delete-item="deleteItem"
                 {{--:zoom="zoom"--}}
                 {{--class="item-with-children"--}}
         >

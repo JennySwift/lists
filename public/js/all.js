@@ -22375,6 +22375,51 @@ var ItemsRepository = {
         return number;
     },
 
+    /**
+     * For when item is deleted from the item popup
+     */
+    closeItemPopup: function (that) {
+        if (that.showItemPopup) {
+            that.showItemPopup = false;
+            that.selectedItem = {};
+        }
+    },
+
+    /**
+     *
+     * @param that
+     * @param item
+     */
+    deleteItem: function (that, item) {
+        if (confirm("Are you sure?")) {
+            that.showLoading = true;
+            that.$http.delete('/api/items/' + item.id, function (response) {
+                    ItemsRepository.deleteJsItem(that, item);
+                    ItemsRepository.closeItemPopup(that);
+                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
+                    //this.$broadcast('provide-feedback', 'Item deleted', 'success');
+                    that.showLoading = false;
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        }
+    },
+
+    /**
+     *
+     * @param item
+     */
+    deleteJsItem: function (that, item) {
+        var parent = ItemsRepository.findParent(that.items, item);
+        if (parent) {
+            parent.children = _.without(parent.children, item);
+        }
+        else {
+            that.items = _.without(that.items, item);
+        }
+    },
+
     //findModelThatMatchesRoute: function (that, array) {
         //Get the id from the url
         //var path = that.$route.path;
@@ -22538,6 +22583,14 @@ var Alarms = Vue.component('alarms', {
 
         /**
          *
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -22548,7 +22601,7 @@ var Alarms = Vue.component('alarms', {
     props: [
         'showLoading',
         'showItemPopup',
-        'selectedItem'
+        'selectedItem',
     ],
     ready: function () {
         this.getItemsWithAlarm();
@@ -22739,55 +22792,9 @@ var Item = Vue.component('item', {
     },
     methods: {
 
-        /**
-         * For when item is deleted from the item popup
-         */
-        closeItemPopup: function () {
-            if (this.showItemPopup) {
-                this.showItemPopup = false;
-                this.selectedItem = {};
-            }
-        },
-
         collapseItem: function ($item) {
             $item.children = [];
         },
-
-        /**
-         *
-         * @param item
-         */
-        deleteItem: function (item) {
-            if (confirm("Are you sure?")) {
-                this.showLoading = true;
-                this.$http.delete('/api/items/' + item.id, function (response) {
-                        this.deleteJsItem(item);
-                        this.closeItemPopup();
-                        $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                        //this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                        this.showLoading = false;
-                    })
-                    .error(function (response) {
-                        this.handleResponseError(response);
-                    });
-            }
-        },
-
-
-        /**
-         *
-         * @param item
-         */
-        deleteJsItem: function (item) {
-            var parent = ItemsRepository.findParent(this.items, item);
-            if (parent) {
-                parent.children = _.without(parent.children, item);
-            }
-            else {
-                this.items = _.without(this.items, item);
-            }
-        },
-
 
         /**
          *
@@ -22799,6 +22806,16 @@ var Item = Vue.component('item', {
             this.selectedItem.oldParentId = $item.parent_id;
             this.selectedItem.oldAlarm = $item.alarm;
         },
+
+        /**
+         *
+         */
+        //listen: function () {
+        //    var that = this;
+        //    $(document).on('delete-item', function (event, item) {
+        //        that.deleteItem(item);
+        //    });
+        //},
 
         /**
          *
@@ -22824,10 +22841,11 @@ var Item = Vue.component('item', {
         'itemsFilter',
         'titleFilter',
         'priorityFilter',
-        'categoryFilter'
+        'categoryFilter',
+        'deleteItem'
     ],
     ready: function () {
-
+        //this.listen();
     }
 });
 
@@ -22907,6 +22925,14 @@ var ItemPopup = Vue.component('item-popup', {
 
         /**
          *
+         * @param item
+         */
+        //deleteItem: function (item) {
+        //    $.event.trigger('delete-item', [item]);
+        //},
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -22922,7 +22948,8 @@ var ItemPopup = Vue.component('item-popup', {
         'categories',
         'closePopup',
         'items',
-        'getItems'
+        'getItems',
+        'deleteItem'
     ],
     ready: function () {
 
@@ -23230,6 +23257,14 @@ var Items = Vue.component('items', {
                     $parent.children.push($item);
                 }
             }
+        },
+
+        /**
+         *
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
         },
 
         /**

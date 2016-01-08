@@ -18,6 +18,7 @@
         :get-items="getItems"
         :categories="categories"
         :zoom="zoom"
+        :delete-item="deleteItem"
         class="item-with-children"
     >
     </item>

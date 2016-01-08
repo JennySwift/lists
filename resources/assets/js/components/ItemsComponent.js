@@ -303,6 +303,14 @@ var Items = Vue.component('items', {
 
         /**
          *
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {

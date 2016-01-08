@@ -228,6 +228,51 @@ var ItemsRepository = {
         return number;
     },
 
+    /**
+     * For when item is deleted from the item popup
+     */
+    closeItemPopup: function (that) {
+        if (that.showItemPopup) {
+            that.showItemPopup = false;
+            that.selectedItem = {};
+        }
+    },
+
+    /**
+     *
+     * @param that
+     * @param item
+     */
+    deleteItem: function (that, item) {
+        if (confirm("Are you sure?")) {
+            that.showLoading = true;
+            that.$http.delete('/api/items/' + item.id, function (response) {
+                    ItemsRepository.deleteJsItem(that, item);
+                    ItemsRepository.closeItemPopup(that);
+                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
+                    //this.$broadcast('provide-feedback', 'Item deleted', 'success');
+                    that.showLoading = false;
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        }
+    },
+
+    /**
+     *
+     * @param item
+     */
+    deleteJsItem: function (that, item) {
+        var parent = ItemsRepository.findParent(that.items, item);
+        if (parent) {
+            parent.children = _.without(parent.children, item);
+        }
+        else {
+            that.items = _.without(that.items, item);
+        }
+    },
+
     //findModelThatMatchesRoute: function (that, array) {
         //Get the id from the url
         //var path = that.$route.path;
