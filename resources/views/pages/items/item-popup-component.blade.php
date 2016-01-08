@@ -6,6 +6,8 @@
         class="popup-outer">
 
         <div id="item-popup" class="popup-inner">
+            
+            <pre>@{{$data.selectedItem | json}}</pre>
 
             <button
                     v-if="!selectedItem.favourite"
