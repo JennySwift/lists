@@ -11,6 +11,7 @@
                 :item="item"
                 :categories="categories"
                 :delete-item="deleteItem"
+                :selected-item.sync="selectedItem"
                 class="item-with-children"
         >
         </item>

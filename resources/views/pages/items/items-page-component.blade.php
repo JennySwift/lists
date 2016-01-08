@@ -15,6 +15,7 @@
             :show-item-popup.sync="showItemPopup"
             {{--:item="item"--}}
             :categories="categories"
+            :selected-item.sync="selectedItem"
             class="item-with-children"
     >
     </urgent-items>

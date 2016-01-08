@@ -58,7 +58,8 @@ var UrgentItems = Vue.component('urgentItems', {
         //'categoryFilter',
         'showLoading',
         'showItemPopup',
-        'categories'
+        'categories',
+        'selectedItem'
     ],
     ready: function () {
         this.getUrgentItems();
