@@ -22244,7 +22244,7 @@ var ItemsRepository = {
         }
 
         //Format contains hours, mins, or secs
-        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1) {
+        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1 || alarm.indexOf('weeks') != -1 || alarm.indexOf('months') != -1) {
             alarm = TimeRepository.getTimeFromNow(alarm);
         }
 
@@ -22550,6 +22550,16 @@ var TimeRepository = {
             var index = alarm.indexOf('secs');
             var secondsFromNow = alarm.substring(0, index).trim();
             alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('weeks') != -1) {
+            var index = alarm.indexOf('weeks');
+            var weeksFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(weeksFromNow, 'weeks').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('months') != -1) {
+            var index = alarm.indexOf('months');
+            var monthsFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(monthsFromNow, 'months').format('YYYY-MM-DD HH:mm:ss');
         }
 
         return alarm;

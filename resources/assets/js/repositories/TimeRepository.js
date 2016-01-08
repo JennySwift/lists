@@ -21,6 +21,16 @@ var TimeRepository = {
             var secondsFromNow = alarm.substring(0, index).trim();
             alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
         }
+        else if (alarm.indexOf('weeks') != -1) {
+            var index = alarm.indexOf('weeks');
+            var weeksFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(weeksFromNow, 'weeks').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('months') != -1) {
+            var index = alarm.indexOf('months');
+            var monthsFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(monthsFromNow, 'months').format('YYYY-MM-DD HH:mm:ss');
+        }
 
         return alarm;
     },

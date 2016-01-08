@@ -97,7 +97,7 @@ var ItemsRepository = {
         }
 
         //Format contains hours, mins, or secs
-        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1) {
+        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1 || alarm.indexOf('weeks') != -1 || alarm.indexOf('months') != -1) {
             alarm = TimeRepository.getTimeFromNow(alarm);
         }
 
