@@ -169,7 +169,6 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-//         Create an array with the new fields merged
         $data = array_compare($item->toArray(), $request->only([
             'priority',
             'urgency',
@@ -179,6 +178,11 @@ class ItemsController extends Controller
             'pinned',
             'alarm'
         ]));
+
+        //So the alarm of an item can be removed
+        if ($request->has('alarm') && !$request->get('alarm')) {
+            $data['alarm'] = null;
+        }
 
         $item->update($data);
 

@@ -22194,7 +22194,7 @@ var ItemsRepository = {
             favourite: item.favourite,
             pinned: item.pinned,
             category_id: item.category.id,
-            alarm: null
+            alarm: false
         };
 
         if (item.alarm && item.alarm !== '') {
@@ -22553,6 +22553,7 @@ var Alarms = Vue.component('alarms', {
     ready: function () {
         this.getItemsWithAlarm();
         this.listen();
+        console.log(Date.parse('9am next mon'));
     }
 });
 

@@ -78,5 +78,6 @@ var Alarms = Vue.component('alarms', {
     ready: function () {
         this.getItemsWithAlarm();
         this.listen();
+        console.log(Date.parse('9am next mon'));
     }
 });
