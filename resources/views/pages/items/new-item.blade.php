@@ -4,7 +4,7 @@
     <div>
         {{--Title--}}
         <div class="form-group">
-            <label for="new-item-title">Title</label>
+            <label for="new-item-title">Title <span class="fa fa-asterisk"></span></label>
             <input
                     v-model="newItem.title"
                     v-on:keyup.13="insertItem()"
@@ -35,7 +35,7 @@
     <div>
         {{--Category--}}
         <div v-show="showNewItemFields" class="form-group">
-            <label for="new-item-category">Category</label>
+            <label for="new-item-category">Category <span class="fa fa-asterisk"></span></label>
 
             <select
                     v-model="newItem.category"
@@ -54,7 +54,7 @@
 
         {{--Priority--}}
         <div v-show="showNewItemFields" class="form-group">
-            <label for="new-item-priority">Priority</label>
+            <label for="new-item-priority">Priority <span class="fa fa-asterisk"></span></label>
             <input
                     v-model="newItem.priority"
                     v-on:keyup.13="insertItem()"
@@ -111,6 +111,7 @@
         <div v-show="showNewItemFields" class="form-group">
             <button
                     v-on:click="insertItem(13)"
+                    :disabled="!newItem.title || !newItem.category || !newItem.priority"
                     class="btn btn-success"
             >
                 Add item

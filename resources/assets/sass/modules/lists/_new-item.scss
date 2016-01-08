@@ -13,6 +13,10 @@
     > * {
         margin: 0 10px 0 10px;
     }
+    .fa-asterisk {
+        color: $danger;
+        font-size: 16px;
+    }
     .priority, .urgency {
         //width: 50px;
     }
