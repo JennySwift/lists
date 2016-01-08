@@ -109,6 +109,26 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
+    public function it_gets_the_urgent_items()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items?urgent=true');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertEquals(1, $item['urgency']);
+        }
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_gets_the_deleted_items()
     {
         $this->logInUser();

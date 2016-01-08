@@ -60,6 +60,29 @@ class ItemsRepository {
 
     /**
      *
+     * @return mixed
+     */
+    public function getUrgentItems()
+    {
+        return Item::forCurrentUser()
+            ->where('urgency', 1)
+            ->get();
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getFilteredItems(Request $request)
+    {
+        return Item::forCurrentUser()
+            ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
+            ->get();
+    }
+
+    /**
+     *
      * @param Request $request
      */
     public function moveItem(Request $request, $item)

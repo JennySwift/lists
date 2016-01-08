@@ -15,6 +15,7 @@ var ItemsRepository = {
         //selectedItems: {}
         categories: [],
         favouriteItems: [],
+        urgentItems: [],
         newItem: {
             title: '',
             body: '',

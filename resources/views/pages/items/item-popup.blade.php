@@ -1,0 +1,11 @@
+<item-popup
+        :show-loading="showLoading"
+        :show-item-popup.sync="showItemPopup"
+        :selected-item="selectedItem"
+        :categories="categories"
+        :close-popup="closePopup"
+        :items.sync="items"
+        :get-items="getItems"
+        :delete-item="deleteItem"
+>
+</item-popup>

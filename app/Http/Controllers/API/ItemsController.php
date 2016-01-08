@@ -50,29 +50,22 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pinned')) {
-            return $this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get());
+            return response($this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get()), Response::HTTP_OK);
         }
-        if ($request->has('alarm')) {
-            return $this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get());
+        else if ($request->has('alarm')) {
+            return response($this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get()), Response::HTTP_OK);
         }
-        else {
-            if ($request->has('favourites')) {
-                return $this->itemsRepository->transform($this->itemsRepository->getFavourites());
-            }
-            else {
-                if ($request->has('trashed')) {
-                    return $this->itemsRepository->transform($this->itemsRepository->getTrashed());
-                }
-                else {
-                    if ($request->has('filter')) {
-                        $items = Item::forCurrentUser()
-                            ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
-                            ->get();
-
-                        return $this->itemsRepository->transform($items);
-                    }
-                }
-            }
+        else if ($request->has('favourites')) {
+            return response($this->itemsRepository->transform($this->itemsRepository->getFavourites()), Response::HTTP_OK);
+        }
+        else if ($request->has('trashed')) {
+            return response($this->itemsRepository->transform($this->itemsRepository->getTrashed()), Response::HTTP_OK);
+        }
+        else if ($request->has('urgent')) {
+            return response($this->itemsRepository->transform($this->itemsRepository->getUrgentItems()), Response::HTTP_OK);
+        }
+        else if ($request->has('filter')) {
+            return response($this->itemsRepository->transform($this->itemsRepository->getFilteredItems($request)), Response::HTTP_OK);
         }
 
         return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), RESPONSE::HTTP_OK);

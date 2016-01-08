@@ -538,9 +538,9 @@ li {
   background: #777;
   display: none; }
 
-#pinned-items, #alarms {
+#pinned-items, #alarms, #urgent-items {
   padding: 5px 55px 30px; }
-  #pinned-items h5, #alarms h5 {
+  #pinned-items h5, #alarms h5, #urgent-items h5 {
     margin-bottom: 23px; }
 
 #pinned-items .pinned {
