@@ -302,7 +302,8 @@ var Items = Vue.component('items', {
         },
 
         /**
-         *
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
          * @param item
          */
         deleteItem: function (item) {
@@ -326,6 +327,6 @@ var Items = Vue.component('items', {
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
-        //ItemsRepository.formatAlarm('5:45pm jan 8');
+        ItemsRepository.formatAlarm('thu 1pm');
     }
 });

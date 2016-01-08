@@ -87,21 +87,31 @@ var ItemsRepository = {
         if (!alarm) {
             return false;
         }
-        if (alarm.indexOf('mins') != -1) {
-            var index = alarm.indexOf('mins');
-            var minutesFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(minutesFromNow, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+
+        var days = TimeRepository.days;
+
+        for (var i = 0; i < days.length; i++) {
+            if (alarm.indexOf(days[i].day) != -1) {
+                var match = days[i];
+            }
         }
-        else if (alarm.indexOf('hours') != -1) {
-            var index = alarm.indexOf('hours');
-            var hoursFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(hoursFromNow, 'hours').format('YYYY-MM-DD HH:mm:ss');
+
+        //Format contains hours, mins, or secs
+        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1) {
+            alarm = TimeRepository.getTimeFromNow(alarm);
         }
-        else if (alarm.indexOf('secs') != -1) {
-            var index = alarm.indexOf('secs');
-            var secondsFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+
+        else if (match) {
+            //Format contains a day of the week from the days array
+            alarm = TimeRepository.getTimeFromDayAndTime(alarm, match);
         }
+
+
+        //else if (alarm.indexOf('mon') != -1 || alarm.indexOf('mon') != -1) {
+        //    alarm = TimeRepository.getTimeFromDayAndTime(alarm);
+        //
+        //}
+        //
         else {
             alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
         }

@@ -22234,21 +22234,31 @@ var ItemsRepository = {
         if (!alarm) {
             return false;
         }
-        if (alarm.indexOf('mins') != -1) {
-            var index = alarm.indexOf('mins');
-            var minutesFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(minutesFromNow, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+
+        var days = TimeRepository.days;
+
+        for (var i = 0; i < days.length; i++) {
+            if (alarm.indexOf(days[i].day) != -1) {
+                var match = days[i];
+            }
         }
-        else if (alarm.indexOf('hours') != -1) {
-            var index = alarm.indexOf('hours');
-            var hoursFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(hoursFromNow, 'hours').format('YYYY-MM-DD HH:mm:ss');
+
+        //Format contains hours, mins, or secs
+        if (alarm.indexOf('mins') != -1 || alarm.indexOf('hours') != -1 || alarm.indexOf('secs') != -1) {
+            alarm = TimeRepository.getTimeFromNow(alarm);
         }
-        else if (alarm.indexOf('secs') != -1) {
-            var index = alarm.indexOf('secs');
-            var secondsFromNow = alarm.substring(0, index).trim();
-            alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+
+        else if (match) {
+            //Format contains a day of the week from the days array
+            alarm = TimeRepository.getTimeFromDayAndTime(alarm, match);
         }
+
+
+        //else if (alarm.indexOf('mon') != -1 || alarm.indexOf('mon') != -1) {
+        //    alarm = TimeRepository.getTimeFromDayAndTime(alarm);
+        //
+        //}
+        //
         else {
             alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
         }
@@ -22518,6 +22528,77 @@ var SortableRepository = {
 
 };
 
+var TimeRepository = {
+
+    /**
+     *
+     * @param alarm
+     * @returns {*}
+     */
+    getTimeFromNow: function (alarm) {
+        if (alarm.indexOf('mins') != -1) {
+            var index = alarm.indexOf('mins');
+            var minutesFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(minutesFromNow, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('hours') != -1) {
+            var index = alarm.indexOf('hours');
+            var hoursFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(hoursFromNow, 'hours').format('YYYY-MM-DD HH:mm:ss');
+        }
+        else if (alarm.indexOf('secs') != -1) {
+            var index = alarm.indexOf('secs');
+            var secondsFromNow = alarm.substring(0, index).trim();
+            alarm = moment().add(secondsFromNow, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+        }
+
+        return alarm;
+    },
+
+    /**
+     *
+     * @param alarm
+     * @param match = a day of the week
+     * @returns {string}
+     */
+    getTimeFromDayAndTime: function (alarm, match) {
+        var date = moment().day(match.num).format('YYYY-MM-DD');
+        var time = alarm.replace(match.day, '').trim();
+        time = Date.parse(time).toString('HH:mm:ss');
+        return date + ' ' + time;
+    },
+
+    days: [
+        {
+            day: 'sun',
+            num: 7
+        },
+        {
+            day: 'mon',
+            num: 8
+        },
+        {
+            day: 'tue',
+            num: 9
+        },
+        {
+            day: 'wed',
+            num: 10
+        },
+        {
+            day: 'thu',
+            num: 11
+        },
+        {
+            day: 'fri',
+            num: 12
+        },
+        {
+            day: 'sat',
+            num: 13
+        }
+    ]
+};
 var Alarms = Vue.component('alarms', {
     template: '#alarms-template',
     data: function () {
@@ -22582,7 +22663,8 @@ var Alarms = Vue.component('alarms', {
         },
 
         /**
-         *
+         * Todo: If the alarm item is visible in the items
+         * delete it from the items with the JS, too
          * @param item
          */
         deleteItem: function (item) {
@@ -23260,7 +23342,8 @@ var Items = Vue.component('items', {
         },
 
         /**
-         *
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
          * @param item
          */
         deleteItem: function (item) {
@@ -23284,7 +23367,7 @@ var Items = Vue.component('items', {
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
-        //ItemsRepository.formatAlarm('5:45pm jan 8');
+        ItemsRepository.formatAlarm('thu 1pm');
     }
 });
 Vue.component('loading', {
