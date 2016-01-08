@@ -23426,7 +23426,9 @@ var App = Vue.component('app', {
 
 });
 
-var router = new VueRouter();
+var router = new VueRouter({
+    hashbang: false
+});
 
 router.map({
     '/': {
