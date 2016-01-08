@@ -22984,7 +22984,6 @@ var ItemPopup = Vue.component('item-popup', {
                 $.event.trigger('alarm-updated', [response]);
             }
             this.showItemPopup = false;
-            this.selectedItem = {};
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             //this.$broadcast('provide-feedback', 'Item updated', 'success');
             this.showLoading = false;
