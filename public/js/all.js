@@ -22282,12 +22282,21 @@ var ItemsRepository = {
         return false;
     },
 
+    /**
+     *
+     * @param items
+     * @returns {*}
+     */
+    order: function (items) {
+        return _.chain(items).sortBy('id').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
+    },
+
     filter: function (items, that) {
         //var that = this;
 
         //Sort
         //items = _.chain(items).sortBy('id').sortBy('priority').sortBy('urgency').partition('urgency').flatten().value();
-        items = _.chain(items).sortBy('id').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
+        items = ItemsRepository.order(items);
 
         //Filter
         return items.filter(function (item) {
@@ -22591,6 +22600,11 @@ var Alarms = Vue.component('alarms', {
         };
     },
     components: {},
+    filters: {
+        order: function (items) {
+            return ItemsRepository.order(items);
+        }
+    },
     methods: {
 
         /**
@@ -23407,6 +23421,11 @@ var UrgentItems = Vue.component('urgentItems', {
         };
     },
     components: {},
+    filters: {
+        order: function (items) {
+            return ItemsRepository.order(items);
+        }
+    },
     methods: {
 
         /**

@@ -25,7 +25,7 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
-        foreach(range(1, 3) as $index)
+        foreach(range(1, 8) as $index)
         {
             $parent = $this->createItem();
 

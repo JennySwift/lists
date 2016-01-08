@@ -7,7 +7,7 @@
             <div id="alarm"></div>
 
             <item
-                    v-for="item in items | orderBy 'priority'"
+                    v-for="item in items | order"
                     {{--:items-filter="itemsFilter"--}}
                     {{--:title-filter="titleFilter"--}}
                     {{--:priority-filter="priorityFilter"--}}

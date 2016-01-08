@@ -6,6 +6,11 @@ var UrgentItems = Vue.component('urgentItems', {
         };
     },
     components: {},
+    filters: {
+        order: function (items) {
+            return ItemsRepository.order(items);
+        }
+    },
     methods: {
 
         /**

@@ -6,6 +6,11 @@ var Alarms = Vue.component('alarms', {
         };
     },
     components: {},
+    filters: {
+        order: function (items) {
+            return ItemsRepository.order(items);
+        }
+    },
     methods: {
 
         /**

@@ -5,7 +5,7 @@
         <h5>Urgent</h5>
 
         <item
-                v-for="item in items"
+                v-for="item in items | order"
                 :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
