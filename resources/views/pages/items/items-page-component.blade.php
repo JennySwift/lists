@@ -5,7 +5,20 @@
 
 {{--    @include('pages.items.pinned-items')--}}
     @include('pages.items.alarms')
-    @include('pages.items.urgent-items')
+
+    <urgent-items
+            {{--:items-filter="itemsFilter"--}}
+            {{--:title-filter="titleFilter"--}}
+            {{--:priority-filter="priorityFilter"--}}
+            {{--:category-filter="categoryFilter"--}}
+            :show-loading.sync="showLoading"
+            :show-item-popup.sync="showItemPopup"
+            {{--:item="item"--}}
+            :categories="categories"
+            class="item-with-children"
+    >
+    </urgent-items>
+
     @include('pages.items.item-popup')
 
     <div id="lists" class="container">

@@ -62,8 +62,8 @@ var Alarms = Vue.component('alarms', {
         },
 
         /**
-         * Todo: If the alarm item is visible in the items
-         * delete it from the items with the JS, too
+         * Todo: If the alarm item is visible in the items or the urgent items
+         * delete it from those places with the JS, too
          * @param item
          */
         deleteItem: function (item) {

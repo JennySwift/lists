@@ -131,20 +131,6 @@ var Items = Vue.component('items', {
         /**
          *
          */
-        getUrgentItems: function () {
-            this.showLoading = true;
-            this.$http.get('/api/items?urgent=true', function (response) {
-                this.urgentItems = response;
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
-         */
         getFavouriteItems: function () {
             this.showLoading = true;
             this.$http.get('/api/items?favourites=true', function (response) {
@@ -338,7 +324,6 @@ var Items = Vue.component('items', {
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
-        this.getUrgentItems();
         //ItemsRepository.formatAlarm('thu 1pm');
     }
 });
