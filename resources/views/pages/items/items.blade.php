@@ -1,6 +1,4 @@
 <ul id="items">
-    
-{{--    <pre>@{{$data.itemsFilter | json}}</pre>--}}
 
     <item
         v-for="item in items | itemsFilter"
