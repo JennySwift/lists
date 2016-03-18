@@ -7,7 +7,8 @@
 </head>
 <body>
 
-@include('templates.shared.header')
+<navbar></navbar>
+
 <feedback></feedback>
 
 <router-view></router-view>

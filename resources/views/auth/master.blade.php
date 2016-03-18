@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    @include('templates.shared.header')
+    @include('templates.shared.navbar-component')
     <div class="main">
         @section('content')
         @show

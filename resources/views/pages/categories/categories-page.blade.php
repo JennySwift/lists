@@ -8,7 +8,7 @@
 </head>
 <body>
 
-@include('templates.shared.header')
+<navbar></navbar>
 
 <categories></categories>
 

@@ -1,5 +1,5 @@
 
-<script id="items-template" type="x-template">
+<script id="items-page-template" type="x-template">
 
     <loading :show-loading="showLoading"></loading>
 

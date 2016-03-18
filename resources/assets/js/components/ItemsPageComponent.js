@@ -1,5 +1,5 @@
-var Items = Vue.component('items', {
-    template: '#items-template',
+var ItemsPage = Vue.component('items-page', {
+    template: '#items-page-template',
     data: function () {
         return ItemsRepository.initialData;
     },
@@ -312,6 +312,16 @@ var Items = Vue.component('items', {
 
         /**
          *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('toggle-filter', function (event) {
+                that.showFilter = !that.showFilter;
+            });
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -323,10 +333,12 @@ var Items = Vue.component('items', {
         //data to be received from parent
     ],
     ready: function () {
+        this.listen();
         this.getItems('zoom');
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
+        this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
         //ItemsRepository.formatAlarm('thu 1pm');
     }
 });

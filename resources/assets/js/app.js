@@ -9,7 +9,7 @@ var router = new VueRouter({
 
 router.map({
     '/': {
-        component: Items,
+        component: ItemsPage,
         subRoutes: {
             //default for if no id is specified
             '/': {
@@ -21,7 +21,7 @@ router.map({
         }
     },
     '/items': {
-        component: Items,
+        component: ItemsPage,
         subRoutes: {
             //default for if no id is specified
             '/': {

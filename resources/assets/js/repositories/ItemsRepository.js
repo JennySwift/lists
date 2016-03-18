@@ -28,7 +28,20 @@ var ItemsRepository = {
         categoryFilter: '',
         titleFilter: '',
         urgencyFilter: '',
-        urgencyOutFilter: ''
+        urgencyOutFilter: '',
+        showFilter: undefined
+    },
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    shouldFilterBeShownOnPageLoad: function () {
+        var width = $(window).width();
+        if (width > 1040) {
+            return true;
+        }
+        return false;
     },
 
     /**

@@ -1,4 +1,4 @@
-<div id="search-container">
+<div v-show="showFilter" id="search-container">
 
     @include('pages.items.favourite-items')
 

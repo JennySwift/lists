@@ -22175,7 +22175,20 @@ var ItemsRepository = {
         categoryFilter: '',
         titleFilter: '',
         urgencyFilter: '',
-        urgencyOutFilter: ''
+        urgencyOutFilter: '',
+        showFilter: undefined
+    },
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    shouldFilterBeShownOnPageLoad: function () {
+        var width = $(window).width();
+        if (width > 1040) {
+            return true;
+        }
+        return false;
     },
 
     /**
@@ -23035,8 +23048,8 @@ var ItemPopup = Vue.component('item-popup', {
     }
 });
 
-var Items = Vue.component('items', {
-    template: '#items-template',
+var ItemsPage = Vue.component('items-page', {
+    template: '#items-page-template',
     data: function () {
         return ItemsRepository.initialData;
     },
@@ -23349,6 +23362,16 @@ var Items = Vue.component('items', {
 
         /**
          *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('toggle-filter', function (event) {
+                that.showFilter = !that.showFilter;
+            });
+        },
+
+        /**
+         *
          * @param response
          */
         handleResponseError: function (response) {
@@ -23360,10 +23383,12 @@ var Items = Vue.component('items', {
         //data to be received from parent
     ],
     ready: function () {
+        this.listen();
         this.getItems('zoom');
         this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
+        this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
         //ItemsRepository.formatAlarm('thu 1pm');
     }
 });
@@ -23371,6 +23396,31 @@ Vue.component('loading', {
     template: "#loading-template",
     props: ['showLoading']
 });
+var Navbar = Vue.component('navbar', {
+    template: '#navbar-template',
+    data: function () {
+        return {
+
+        };
+    },
+    components: {},
+    methods: {
+
+        /**
+         *
+         */
+        toggleFilter: function () {
+            $.event.trigger('toggle-filter');
+        }
+    },
+    props: [
+        'showFilter'
+    ],
+    ready: function () {
+
+    }
+});
+
 var Trash = Vue.component('trash', {
     template: '#trash-template',
     data: function () {
@@ -23508,7 +23558,7 @@ var router = new VueRouter({
 
 router.map({
     '/': {
-        component: Items,
+        component: ItemsPage,
         subRoutes: {
             //default for if no id is specified
             '/': {
@@ -23520,7 +23570,7 @@ router.map({
         }
     },
     '/items': {
-        component: Items,
+        component: ItemsPage,
         subRoutes: {
             //default for if no id is specified
             '/': {

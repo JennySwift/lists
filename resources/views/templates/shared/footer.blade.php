@@ -10,6 +10,7 @@
 
 @include('templates.shared.feedback-component')
 @include('templates.shared.loading-component')
+@include('templates.shared.navbar-component')
 @include('pages.items.items-page-component')
 @include('pages.items.item-popup-component')
 @include('pages.items.alarms-component')
