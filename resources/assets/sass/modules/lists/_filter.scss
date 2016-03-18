@@ -9,8 +9,6 @@
     padding: 10px;
     box-shadow: 3px 3px 5px #777;
     background: white;
-    max-height: calc(100% - 83px);
-    overflow: scroll;
     input {
         font-size: 19px;
         padding: 6px 18px;
@@ -18,5 +16,18 @@
     input, select {
         width: 100%;
         margin: 0 0 5px 0;
+    }
+    @media (max-width: 320px) {
+        max-height: calc(100% - 83px);
+        overflow: scroll;
+        right: 0;
+        left: 0;
+        width: calc(100% - 27px);
+        margin: auto;
+        #favourites {
+            ul {
+                width: 100%;
+            }
+        }
     }
 }
