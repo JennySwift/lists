@@ -62,12 +62,6 @@
         .my-hidden {
             visibility: hidden;
         }
-//        .fa-plus, .fa-minus {
-//            visibility: hidden;
-//            &.visible {
-//                visibility: visible;
-//            }
-//        }
         .fa-search-plus, .fa-plus {
             font-size: 19px;
         }
@@ -77,7 +71,6 @@
     }
     .item-content {
         margin-left: 5px;
-//        margin-right: 23px;
         cursor: pointer;
         border-top: 1px solid transparent;
         border-bottom: 1px solid transparent;
@@ -88,14 +81,9 @@
         &.bottom-guide {
             border-bottom: 1px solid #777;
         }
-//        &:hover {
-//            background: lightblue;
-//        }
         .title {
             text-align: left;
             display: inline;
-//            display: inline-flex;
-//            align-items: center;
         }
         .note, .pinned, .alarm {
             //Increasing font size too much wrecks up the vertical alignment of the text
@@ -112,25 +100,6 @@
             margin: 0 5px;
         }
     }
-//    .item-id {
-//        width: 200px;
-//        display: flex;
-//        align-items: center;
-//    }
-//    .category {
-//        width: 200px;
-//        display: flex;
-//        justify-content: center;
-//        > span {
-//            width: 100px;
-//        }
-//    }
-//    .note {
-//        width: 100px;
-//    }
-//    .priority {
-//        width: 100px;
-//    }
     &:hover {
         .delete-item {
             visibility: visible;
