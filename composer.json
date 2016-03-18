@@ -12,7 +12,8 @@
         "spatie/laravel-backup": "^2.5",
         "league/flysystem": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "league/fractal": "^0.13.0"
+        "league/fractal": "^0.13.0",
+        "pusher/pusher-php-server": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

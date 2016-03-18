@@ -14,6 +14,7 @@ use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use JavaScript;
+use Pusher;
 
 /**
  * Class ItemsController
@@ -50,22 +51,38 @@ class ItemsController extends Controller
     public function index(Request $request)
     {
         if ($request->has('pinned')) {
-            return response($this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get()), Response::HTTP_OK);
+            return response($this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get()),
+                Response::HTTP_OK);
         }
-        else if ($request->has('alarm')) {
-            return response($this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get()), Response::HTTP_OK);
-        }
-        else if ($request->has('favourites')) {
-            return response($this->itemsRepository->transform($this->itemsRepository->getFavourites()), Response::HTTP_OK);
-        }
-        else if ($request->has('trashed')) {
-            return response($this->itemsRepository->transform($this->itemsRepository->getTrashed()), Response::HTTP_OK);
-        }
-        else if ($request->has('urgent')) {
-            return response($this->itemsRepository->transform($this->itemsRepository->getUrgentItems()), Response::HTTP_OK);
-        }
-        else if ($request->has('filter')) {
-            return response($this->itemsRepository->transform($this->itemsRepository->getFilteredItems($request)), Response::HTTP_OK);
+        else {
+            if ($request->has('alarm')) {
+                return response($this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get()),
+                    Response::HTTP_OK);
+            }
+            else {
+                if ($request->has('favourites')) {
+                    return response($this->itemsRepository->transform($this->itemsRepository->getFavourites()),
+                        Response::HTTP_OK);
+                }
+                else {
+                    if ($request->has('trashed')) {
+                        return response($this->itemsRepository->transform($this->itemsRepository->getTrashed()),
+                            Response::HTTP_OK);
+                    }
+                    else {
+                        if ($request->has('urgent')) {
+                            return response($this->itemsRepository->transform($this->itemsRepository->getUrgentItems()),
+                                Response::HTTP_OK);
+                        }
+                        else {
+                            if ($request->has('filter')) {
+                                return response($this->itemsRepository->transform($this->itemsRepository->getFilteredItems($request)),
+                                    Response::HTTP_OK);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), RESPONSE::HTTP_OK);
@@ -73,7 +90,7 @@ class ItemsController extends Controller
 
     /**
      *
-     * @param Request $request
+     * @param StoreItemRequest $request
      * @return Response
      */
     public function store(StoreItemRequest $request)
@@ -105,6 +122,12 @@ class ItemsController extends Controller
         $item->index = $item->calculateIndex($request->get('index'), $parent);
 
         $item->save();
+
+        $pusher = new Pusher(env('PUSHER_PUBLIC_KEY'), env('PUSHER_SECRET_KEY'), env('PUSHER_APP_ID'));
+
+        $data = 'weeeee';
+
+        $pusher->trigger('myChannel', 'itemCreated', $data);
 
         return response($item->transform(), Response::HTTP_CREATED);
     }

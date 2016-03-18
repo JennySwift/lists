@@ -23368,6 +23368,14 @@ var ItemsPage = Vue.component('items-page', {
             $(document).on('toggle-filter', function (event) {
                 that.showFilter = !that.showFilter;
             });
+
+            var pusher = new Pusher('0559aebf9ae96524872b');
+
+            var myChannel = pusher.subscribe('myChannel');
+
+            myChannel.bind('itemCreated', function(data) {
+                $.event.trigger('provide-feedback', [data]);
+            });
         },
 
         /**
