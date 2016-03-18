@@ -22722,14 +22722,9 @@ var Categories = Vue.component('categories', {
 
         /**
          *
-         * @param keycode
          * @returns {boolean}
          */
-        insertCategory: function (keycode) {
-            if (keycode !== 13) {
-                return false;
-            }
-
+        insertCategory: function () {
             this.showLoading = true;
 
             var data = {

@@ -9,12 +9,12 @@
 
         <label>Create a new category</label>
         <input
-                v-on:keyup="insertCategory($event.keyCode)"
+                v-on:keyup.13="insertCategory()"
                 type="text"
                 placeholder="new category"
                 id="new-category"/>
 
-        <button v-on:click="createCategory(13)" class="btn btn-success">Create</button>
+        <button v-on:click="insertCategory()" class="btn btn-success">Create</button>
 
         <ul>
             <li v-for="category in categories">@{{ category.name }}</li>
