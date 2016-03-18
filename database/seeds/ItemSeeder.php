@@ -127,7 +127,7 @@ class ItemSeeder extends Seeder
         ]);
 
         if ($item->priority === 1) {
-            $urgent = $this->faker->boolean(50);
+            $urgent = $this->faker->boolean(5);
             if ($urgent) {
                 $item->urgency = 1;
             }
