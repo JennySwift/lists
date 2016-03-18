@@ -328,15 +328,6 @@ var ItemsPage = Vue.component('items-page', {
 
             var myChannel = pusher.subscribe('myChannel');
 
-            myChannel.bind('itemCreated', function(data) {
-                alert(data);
-                $.event.trigger('provide-feedback', [data]);
-            });
-
-            myChannel.bind('accountCreated', function(data) {
-                alert(data);
-            });
-
             myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
                 that.insertItemFromFeedback(data);
             });
