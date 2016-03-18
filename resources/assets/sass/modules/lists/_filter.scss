@@ -3,9 +3,6 @@
     top: 63px;
     right: 10px;
     width: 200px;
-//    display: flex;
-//    flex-wrap: wrap;
-//    justify-content: center;
     margin-bottom: 20px;
     border: 1px solid #777;
     border-radius: 8px;
@@ -14,12 +11,12 @@
     input {
         font-size: 19px;
         padding: 6px 18px;
-//        &:nth-child(2) {
-//            width: 166px;
-//        }
     }
     input, select {
         width: 100%;
         margin: 0 0 5px 0;
+    }
+    @media (max-width: 320px) {
+        display: none;
     }
 }

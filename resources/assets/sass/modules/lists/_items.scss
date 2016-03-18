@@ -18,6 +18,9 @@
     h5 {
         margin-bottom: 23px;
     }
+    @media (max-width: 320px) {
+        padding: 0 3px;
+    }
 }
 
 #pinned-items {

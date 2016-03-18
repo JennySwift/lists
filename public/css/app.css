@@ -319,6 +319,9 @@ li {
   #search-container input, #search-container select {
     width: 100%;
     margin: 0 0 5px 0; }
+  @media (max-width: 320px) {
+    #search-container {
+      display: none; } }
 
 #new-item {
   display: -webkit-flex;
@@ -377,6 +380,14 @@ li {
       cursor: pointer; }
       #favourites ul li:hover {
         background: lightblue; }
+
+@media (max-width: 320px) {
+  #urgent-items .item {
+    font-size: 8px; }
+    #urgent-items .item .before-item .big-screen {
+      display: none; }
+    #urgent-items .item .item-content {
+      max-width: 100px; } }
 
 /*==============================font awesome==============================*/
 .fa-home {
@@ -545,6 +556,9 @@ li {
   padding: 5px 55px 30px; }
   #pinned-items h5, #alarms h5, #urgent-items h5 {
     margin-bottom: 23px; }
+  @media (max-width: 320px) {
+    #pinned-items, #alarms, #urgent-items {
+      padding: 0 3px; } }
 
 #pinned-items .pinned {
   display: none; }

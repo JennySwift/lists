@@ -1,0 +1,15 @@
+#urgent-items {
+    @media (max-width: 320px) {
+        .item {
+            font-size: 8px;
+            .before-item {
+                .big-screen {
+                    display: none;
+                }
+            }
+            .item-content {
+                max-width: 100px;
+            }
+        }
+    }
+}
