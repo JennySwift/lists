@@ -320,7 +320,7 @@ li {
   #search-container input, #search-container select {
     width: 100%;
     margin: 0 0 5px 0; }
-  @media (max-width: 320px) {
+  @media (max-width: 768px) {
     #search-container {
       max-height: calc(100% - 83px);
       overflow: scroll;
@@ -582,7 +582,7 @@ li {
   padding: 5px 55px 30px; }
   #pinned-items h5, #alarms h5, #urgent-items h5, #items h5 {
     margin-bottom: 23px; }
-  @media (max-width: 320px) {
+  @media (max-width: 768px) {
     #pinned-items, #alarms, #urgent-items, #items {
       padding: 0 3px; } }
 
@@ -662,14 +662,18 @@ li {
     visibility: hidden; }
   .item .highlight {
     background: lightblue; }
+  .item .small-screen {
+    display: none; }
 
-@media (max-width: 320px) {
+@media (max-width: 768px) {
   .item {
     font-size: 12px;
     width: auto;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
     justify-content: space-between; }
+    .item .small-screen {
+      display: block; }
     .item .big-screen {
       display: none; }
     .item .item-content {

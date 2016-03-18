@@ -17,7 +17,7 @@
         width: 100%;
         margin: 0 0 5px 0;
     }
-    @media (max-width: 320px) {
+    @media (max-width: $breakpoint2) {
         max-height: calc(100% - 83px);
         overflow: scroll;
         right: 0;

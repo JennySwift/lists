@@ -51,7 +51,7 @@
 
 
     {{--Actions dropdown for small screens--}}
-    <div class="btn-group">
+    <div class="btn-group small-screen">
 
         <button
             type="button"

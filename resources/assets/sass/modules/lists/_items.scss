@@ -18,7 +18,7 @@
     h5 {
         margin-bottom: 23px;
     }
-    @media (max-width: 320px) {
+    @media (max-width: $breakpoint2) {
         padding: 0 3px;
     }
 }
@@ -114,13 +114,19 @@
     .highlight {
         background: lightblue;
     }
+    .small-screen {
+        display: none;
+    }
 }
 
-@media (max-width: 320px) {
+@media (max-width: $breakpoint2) {
     .item {
         font-size: 12px;
         width: auto;
         justify-content: space-between;
+        .small-screen {
+            display: block;
+        }
         .big-screen {
             display: none;
         }
