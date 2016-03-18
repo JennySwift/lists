@@ -42,10 +42,10 @@ router.map({
 
 router.start(App, 'body');
 
-new Vue({
-    el: 'body',
-    events: {
-
-    }
-});
+//new Vue({
+//    el: 'body',
+//    events: {
+//
+//    }
+//});
 
