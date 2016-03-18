@@ -23377,6 +23377,10 @@ var ItemsPage = Vue.component('items-page', {
                 alert(data);
                 $.event.trigger('provide-feedback', [data]);
             });
+            
+            myChannel.bind('accountCreated', function(data) {
+                alert(data);
+            });
         },
 
         /**
