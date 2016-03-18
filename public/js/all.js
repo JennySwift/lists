@@ -23361,6 +23361,35 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
+         * For inserting an item into my lists app.
+         * The item has been received from one of my apps, using Pusher.
+         * To allow users of my apps to provide feedback
+         */
+        insertItemFromFeedback: function (feedback) {
+            data = {
+                title: feedback.title,
+                body: feedback.body,
+                priority: 1,
+                //The id of my budget app item in my lists app
+                parent_id: 468,
+                //The id of my coding category in my lists app
+                category_id: 1,
+                favourite: 0,
+                pinned: 0
+                //'urgency' => 1,
+                //'alarm' => $alarm
+            };
+
+            this.showLoading = true;
+            this.$http.post('/api/items', data, function (response) {
+                    this.insertItemSuccess(response);
+                })
+                .error(function (response) {
+                    this.handleResponseError(response);
+                });
+        },
+
+        /**
          *
          */
         listen: function () {
@@ -23377,9 +23406,13 @@ var ItemsPage = Vue.component('items-page', {
                 alert(data);
                 $.event.trigger('provide-feedback', [data]);
             });
-            
+
             myChannel.bind('accountCreated', function(data) {
                 alert(data);
+            });
+
+            myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
+                that.insertItemFromFeedback(data);
             });
         },
 
