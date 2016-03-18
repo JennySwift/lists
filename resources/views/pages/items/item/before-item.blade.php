@@ -81,34 +81,44 @@
                 >
                 </a>
             </li>
-
-            <li v-if="item.has_children && (!item.children || item.children.length === 0)">
-                <a
-                    href="#"
-                    v-on:click="getItems('expand', item)"
-                    class="fa fa-plus"
-                >
-                </a>
-            </li>
-
-            <li  v-if="item.has_children && item.children && item.children.length > 0">
-                <a
-                        href="#"
-                        v-on:click="collapseItem(item)"
-                        class="fa fa-minus"
-                >
-                </a>
-            </li>
-
-            <li v-if="!item.has_children">
-                <a
-                        href="#"
-                        class="fa fa-plus my-hidden"
-                >
-                </a>
-            </li>
         </ul>
 
     </div>
+
+    <div class="small-screen">
+        <i
+                v-if="item.has_children && (!item.children || item.children.length === 0)"
+                v-on:click="getItems('expand', item)"
+                class="fa fa-plus"
+        >
+        </i>
+
+        <i
+                v-if="item.has_children && item.children && item.children.length > 0"
+                v-on:click="collapseItem(item)"
+                class="fa fa-minus"
+        >
+        </i>
+
+        <i
+                v-if="!item.has_children"
+                class="fa fa-plus my-hidden"
+        >
+        </i>
+    </div>
+
+
+
+    <i v-if="item.body" class="fa fa-sticky-note note small-screen"></i>
+    <i v-if="item.pinned" class="fa fa-map-pin pinned small-screen"></i>
+    <i v-if="item.alarm" class="fa fa-bell alarm small-screen"></i>
+    <i v-if="item.timeLeft" class="small-screen">@{{ item.timeLeft | timeLeftFilter }}</i>
+
+    <span
+            v-if="item.category"
+            class="label label-primary small-screen"
+    >
+        @{{ item.category.name }}
+    </span>
 
 </div>

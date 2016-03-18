@@ -38,6 +38,12 @@
     font-size: 16px;
     padding: 5px 0;
     width: 850px;
+    .note, .pinned, .alarm {
+        //Increasing font size too much wrecks up the vertical alignment of the text
+        font-size: 20px;
+        display: inline;
+        color: $warning;
+    }
     &:hover {
         background: lighten($info, 30%);
     }
@@ -88,12 +94,6 @@
             text-align: left;
             display: inline;
         }
-        .note, .pinned, .alarm {
-            //Increasing font size too much wrecks up the vertical alignment of the text
-            font-size: 20px;
-            display: inline;
-            color: $warning;
-        }
     }
     .after-item {
         display: flex;
@@ -120,10 +120,14 @@
 }
 
 @media (max-width: $breakpoint2) {
+    .item-with-children {
+        border-bottom: 1px solid;
+    }
     .item {
         font-size: 12px;
         width: auto;
         justify-content: space-between;
+        flex-wrap: wrap;
         .small-screen {
             display: block;
         }
@@ -131,10 +135,14 @@
             display: none;
         }
         .before-item {
-
+            flex-wrap: wrap;
+            > * {
+                margin: 0 2px;
+            }
         }
         .item-content {
             font-size: 14px;
         }
     }
+
 }
