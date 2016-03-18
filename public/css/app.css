@@ -381,14 +381,6 @@ li {
       #favourites ul li:hover {
         background: lightblue; }
 
-@media (max-width: 320px) {
-  #urgent-items .item {
-    font-size: 8px; }
-    #urgent-items .item .before-item .big-screen {
-      display: none; }
-    #urgent-items .item .item-content {
-      max-width: 100px; } }
-
 /*==============================font awesome==============================*/
 .fa-home {
   font-size: 35px; }
@@ -552,12 +544,12 @@ li {
   background: #777;
   display: none; }
 
-#pinned-items, #alarms, #urgent-items {
+#pinned-items, #alarms, #urgent-items, #items {
   padding: 5px 55px 30px; }
-  #pinned-items h5, #alarms h5, #urgent-items h5 {
+  #pinned-items h5, #alarms h5, #urgent-items h5, #items h5 {
     margin-bottom: 23px; }
   @media (max-width: 320px) {
-    #pinned-items, #alarms, #urgent-items {
+    #pinned-items, #alarms, #urgent-items, #items {
       padding: 0 3px; } }
 
 #pinned-items .pinned {
@@ -636,6 +628,14 @@ li {
     visibility: hidden; }
   .item .highlight {
     background: lightblue; }
+
+@media (max-width: 320px) {
+  .item {
+    font-size: 8px; }
+    .item .before-item .big-screen {
+      display: none; }
+    .item .item-content {
+      max-width: 100px; } }
 
 #feedback {
   position: fixed;
