@@ -22148,6 +22148,7 @@ Vue.config.debug = true;
 var ItemsRepository = {
 
     initialData: {
+        me: {},
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
@@ -23352,6 +23353,47 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
+        *
+        */
+        getUser: function () {
+            //$.event.trigger('show-loading');
+            this.$http.get('/api/users/', function (response) {
+                this.me = response;
+                console.log(this.me);
+                if (this.me.id === 1 && this.me.email === 'cheezyspaghetti@gmail.com') {
+                    this.listenForFeedback();
+                }
+                //$.event.trigger('hide-loading');
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
+         * Listen for feedback from my apps, for items to insert into my lists app
+         */
+        listenForFeedback: function () {
+            var that = this;
+            var pusher = new Pusher('0559aebf9ae96524872b');
+
+            var myChannel = pusher.subscribe('myChannel');
+
+            myChannel.bind('itemCreated', function(data) {
+                alert(data);
+                $.event.trigger('provide-feedback', [data]);
+            });
+
+            myChannel.bind('accountCreated', function(data) {
+                alert(data);
+            });
+
+            myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
+                that.insertItemFromFeedback(data);
+            });
+        },
+
+        /**
          * Todo: If the item is an alarm,
          * delete it from the alarm with the JS, too
          * @param item
@@ -23397,23 +23439,6 @@ var ItemsPage = Vue.component('items-page', {
             $(document).on('toggle-filter', function (event) {
                 that.showFilter = !that.showFilter;
             });
-
-            var pusher = new Pusher('0559aebf9ae96524872b');
-
-            var myChannel = pusher.subscribe('myChannel');
-
-            myChannel.bind('itemCreated', function(data) {
-                alert(data);
-                $.event.trigger('provide-feedback', [data]);
-            });
-
-            myChannel.bind('accountCreated', function(data) {
-                alert(data);
-            });
-
-            myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
-                that.insertItemFromFeedback(data);
-            });
         },
 
         /**
@@ -23429,6 +23454,7 @@ var ItemsPage = Vue.component('items-page', {
         //data to be received from parent
     ],
     ready: function () {
+        this.getUser();
         this.listen();
         this.getItems('zoom');
         this.getCategories();

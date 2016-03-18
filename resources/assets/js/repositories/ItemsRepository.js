@@ -1,6 +1,7 @@
 var ItemsRepository = {
 
     initialData: {
+        me: {},
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
