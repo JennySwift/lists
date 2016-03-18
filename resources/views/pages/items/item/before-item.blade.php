@@ -85,27 +85,25 @@
 
     </div>
 
-    <div class="small-screen">
-        <i
-                v-if="item.has_children && (!item.children || item.children.length === 0)"
-                v-on:click="getItems('expand', item)"
-                class="fa fa-plus"
-        >
-        </i>
+    <i
+            v-if="item.has_children && (!item.children || item.children.length === 0)"
+            v-on:click="getItems('expand', item)"
+            class="fa fa-plus small-screen"
+    >
+    </i>
 
-        <i
-                v-if="item.has_children && item.children && item.children.length > 0"
-                v-on:click="collapseItem(item)"
-                class="fa fa-minus"
-        >
-        </i>
+    <i
+            v-if="item.has_children && item.children && item.children.length > 0"
+            v-on:click="collapseItem(item)"
+            class="fa fa-minus small-screen"
+    >
+    </i>
 
-        <i
-                v-if="!item.has_children"
-                class="fa fa-plus my-hidden"
-        >
-        </i>
-    </div>
+    <i
+            v-if="!item.has_children"
+            class="fa fa-plus my-hidden small-screen"
+    >
+    </i>
 
 
 

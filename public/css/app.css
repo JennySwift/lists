@@ -687,6 +687,8 @@ li {
       flex-wrap: wrap; }
       .item .before-item > * {
         margin: 0 2px; }
+      .item .before-item .fa-plus, .item .before-item .fa-minus {
+        margin-top: 2px; }
     .item .item-content {
       font-size: 14px; } }
 
