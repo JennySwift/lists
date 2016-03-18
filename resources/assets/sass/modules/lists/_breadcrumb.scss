@@ -4,6 +4,7 @@
     border-radius: 8px;
     padding: 10px;
     width: 900px;
+    max-width: 100%;
 //    margin-left: 67px;
     background: $lightgrey;
     span {
@@ -13,5 +14,9 @@
     .fa-angle-right {
         font-size: 19px;
         margin: 0 21px;
+    }
+    @media (max-width: 320px) {
+        display: flex;
+        flex-wrap: wrap;
     }
 }
