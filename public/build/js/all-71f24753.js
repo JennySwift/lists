@@ -23394,6 +23394,23 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
+        *
+        */
+        sendPushNotification: function (response) {
+            var data = {
+                title: response.title,
+                message: response.body
+            };
+
+            this.$http.post('/api/pushNotifications', data, function (response) {
+
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
+        },
+
+        /**
          * For inserting an item into my lists app.
          * The item has been received from one of my apps, using Pusher.
          * To allow users of my apps to provide feedback
@@ -23415,11 +23432,12 @@ var ItemsPage = Vue.component('items-page', {
 
             this.showLoading = true;
             this.$http.post('/api/items', data, function (response) {
-                    this.insertItemSuccess(response);
-                })
-                .error(function (response) {
-                    this.handleResponseError(response);
-                });
+                this.sendPushNotification(response);
+                this.insertItemSuccess(response);
+            })
+            .error(function (response) {
+                this.handleResponseError(response);
+            });
         },
 
         /**

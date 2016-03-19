@@ -17,5 +17,6 @@ Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => 'auth'], 
     Route::delete('items/emptyTrash', 'ItemsController@emptyTrash');
     Route::put('items/undoDelete', 'ItemsController@undoDeleteItem');
     Route::get('users', 'UsersController@show');
+    Route::post('pushNotifications', 'PushNotificationsController@sendPushNotification');
 });
 
