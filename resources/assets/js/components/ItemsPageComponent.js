@@ -245,5 +245,7 @@ var ItemsPage = Vue.component('items-page', {
         this.getItems('zoom');
         this.getPinnedItems();
         this.getFavouriteItems();
+
+        console.log(Date.parse('2pm 21 march').toString('yyyy-MM-dd HH:mm:ss'));
     }
 });

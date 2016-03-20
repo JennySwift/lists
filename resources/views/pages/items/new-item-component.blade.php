@@ -108,6 +108,7 @@
                         placeholder=""
                         class="form-control"
                 >
+                <div>@{{ newItem.notBefore | userFriendlyDateTimeFilter }}</div>
             </div>
 
 

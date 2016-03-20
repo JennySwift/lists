@@ -27,7 +27,7 @@ var ItemsRepository = {
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,
-            not_before: item.notBefore
+            not_before: this.formatNaturalLanguageDateTime(item.notBefore)
         };
 
         //So the urgency can be removed
@@ -111,6 +111,33 @@ var ItemsRepository = {
      */
     dateTimeFilter: function (dateTime) {
         return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YY hh:mma');
+    },
+
+    /**
+     * Format to datetime string
+     * @param dateAndTime
+     * @returns {string}
+     */
+    formatNaturalLanguageDateTime: function (dateAndTime) {
+        if (Date.parse(dateAndTime)) {
+            return Date.parse(dateAndTime).toString('yyyy-MM-dd HH:mm:ss');
+        }
+        return null;
+    },
+
+    /**
+     *
+     * @param dateAndTime
+     * @returns {string}
+     */
+    userFriendlyDateTimeFilter: function (dateAndTime) {
+        var dateTime = this.formatNaturalLanguageDateTime(dateAndTime);
+        if (dateTime) {
+            return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YY hh:mma');
+        }
+        else {
+            return 'Invalid date/time';
+        }
     },
 
     /**
