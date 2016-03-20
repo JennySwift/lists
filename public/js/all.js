@@ -22808,6 +22808,16 @@ var ItemPopup = Vue.component('item-popup', {
 
         };
     },
+    filters: {
+        /**
+         *
+         * @param dateAndTime
+         * @returns {*|string}
+         */
+        userFriendlyDateTimeFilter: function (dateAndTime) {
+            return ItemsRepository.userFriendlyDateTimeFilter(dateAndTime);
+        }
+    },
     components: {},
     methods: {
 
@@ -22832,6 +22842,7 @@ var ItemPopup = Vue.component('item-popup', {
          * @param response
          */
         updateItemSuccess: function (response) {
+            this.selectedItem.notBefore = response.notBefore;
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
             }
@@ -22845,7 +22856,6 @@ var ItemPopup = Vue.component('item-popup', {
             }
             this.showItemPopup = false;
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
-            //this.$broadcast('provide-feedback', 'Item updated', 'success');
             $.event.trigger('hide-loading');
         },
 
