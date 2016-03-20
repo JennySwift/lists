@@ -23,9 +23,13 @@
         <div id="lists" class="container">
             @include('pages.items.breadcrumb')
 
+            <favourite-items
+                :favourite-items="favouriteItems"
+            >
+            </favourite-items>
+
             <filter
                 :categories="categories"
-                :favourite-items="favouriteItems"
                 :filters.sync="filters"
             >
             </filter>
@@ -38,6 +42,7 @@
             </new-item>
 
             @include('pages.items.items')
+
         </div>
 
     </div>

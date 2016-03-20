@@ -22555,6 +22555,51 @@ var Categories = Vue.component('categories', {
         this.getCategories();
     }
 });
+var FavouriteItems = Vue.component('favourite-items', {
+    template: '#favourite-items-template',
+    data: function () {
+        return {
+            showFavourites: false,
+            favouriteItems: []
+        };
+    },
+    components: {},
+    methods: {
+
+        /**
+         *
+         */
+        getFavouriteItems: function () {
+            $.event.trigger('show-loading');
+            this.$http.get('/api/items?favourites=true', function (response) {
+                    this.favouriteItems = response;
+                    $.event.trigger('hide-loading');
+                })
+                .error(function (response) {
+                    HelpersRepository.handleResponseError(response);
+                });
+        },
+
+
+        /**
+         *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('toggle-favourite-items', function (event) {
+                that.showFavourites = !that.showFavourites;
+            });
+        }
+    },
+    props: [
+        //data to be received from parent
+    ],
+    ready: function () {
+        this.listen();
+        this.getFavouriteItems();
+    }
+});
+
 
 Vue.component('feedback', {
     template: "#feedback-template",
@@ -22714,21 +22759,18 @@ var FilterComponent = Vue.component('filter', {
     template: '#filter-template',
     data: function () {
         return {
-            showFavourites: false,
             showFilter: undefined
         };
     },
     components: {},
     methods: {
 
-
         /**
          *
          */
-        toggleFavourites: function () {
-            this.showFavourites = !this.showFavourites;
+        toggleFavouriteItems: function () {
+            $.event.trigger('toggle-favourite-items');
         },
-
 
         /**
          * For when the 'favourite' button in the item popup is toggled,
@@ -22951,7 +22993,6 @@ var ItemsPage = Vue.component('items-page', {
             selectedItem: {},
             items: [],
             categories: [],
-            favouriteItems: [],
             alarms: [],
             zoomedItem: {},
             pinnedItems: [],
@@ -23119,20 +23160,6 @@ var ItemsPage = Vue.component('items-page', {
 
         /**
          *
-         */
-        getFavouriteItems: function () {
-            $.event.trigger('show-loading');
-            this.$http.get('/api/items?favourites=true', function (response) {
-                this.favouriteItems = response;
-                $.event.trigger('hide-loading');
-            })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
          * @param $response
          * @param $typing
          * @returns {*}
@@ -23212,7 +23239,6 @@ var ItemsPage = Vue.component('items-page', {
         this.getCategories();
         this.getItems('zoom');
         this.getPinnedItems();
-        this.getFavouriteItems();
         this.keepCurrentTimeUpToDate();
         //this.runFilterRegularly();
 

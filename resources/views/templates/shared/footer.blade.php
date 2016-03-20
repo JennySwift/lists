@@ -19,6 +19,7 @@
 @include('pages.items.item.item-component')
 @include('pages.items.new-item-component')
 @include('pages.items.filter-component')
+@include('pages.items.favourite-items-component')
 @include('pages.feedback-page-component')
 @include('pages.categories-component')
 

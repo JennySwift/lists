@@ -1,7 +1,6 @@
-<div id="favourites">
-    <button v-on:click="toggleFavourites()" class="btn btn-info fa fa-star-o"></button>
+<script id="favourite-items-template" type="x-template">
 
-    <ul v-show="showFavourites" class="list-group">
+    <ul v-show="showFavourites" id="favourite-items" class="list-group">
         <li
                 v-for="item in favouriteItems"
                 v-link="{ path: '/items/:' + item.id }"
@@ -11,8 +10,5 @@
             <span class="badge">@{{ item.id }}</span>
         </li>
     </ul>
-</div>
 
-
-
-
+</script>

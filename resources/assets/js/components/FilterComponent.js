@@ -2,21 +2,18 @@ var FilterComponent = Vue.component('filter', {
     template: '#filter-template',
     data: function () {
         return {
-            showFavourites: false,
             showFilter: undefined
         };
     },
     components: {},
     methods: {
 
-
         /**
          *
          */
-        toggleFavourites: function () {
-            this.showFavourites = !this.showFavourites;
+        toggleFavouriteItems: function () {
+            $.event.trigger('toggle-favourite-items');
         },
-
 
         /**
          * For when the 'favourite' button in the item popup is toggled,

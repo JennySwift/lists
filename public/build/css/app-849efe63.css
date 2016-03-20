@@ -281,15 +281,17 @@ li {
 
 #search-container {
   position: fixed;
-  top: 63px;
+  top: 47px;
   right: 10px;
-  width: 200px;
+  width: 230px;
   margin-bottom: 20px;
   border: 1px solid #777;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 3px 3px 5px #777;
-  background: white; }
+  background: white;
+  max-height: calc(100% - 54px);
+  overflow: scroll; }
   #search-container input {
     font-size: 19px;
     padding: 6px 18px; }
@@ -298,8 +300,6 @@ li {
     margin: 0 0 5px 0; }
   @media (max-width: 768px) {
     #search-container {
-      max-height: calc(100% - 83px);
-      overflow: scroll;
       right: 0;
       left: 0;
       width: calc(100% - 27px);
@@ -377,19 +377,19 @@ li {
       -ms-flex-wrap: wrap;
       flex-wrap: wrap; } }
 
-#favourites {
-  position: relative; }
-  #favourites ul {
-    position: absolute;
-    max-height: 500px;
-    overflow: scroll;
-    right: 5px;
-    top: 30px;
-    width: 250px; }
-    #favourites ul li {
-      cursor: pointer; }
-      #favourites ul li:hover {
-        background: lightblue; }
+#favourite-items {
+  position: fixed;
+  max-height: 500px;
+  overflow: scroll;
+  top: 110px;
+  margin: auto;
+  right: 12px;
+  z-index: 9;
+  max-width: 400px; }
+  #favourite-items li {
+    cursor: pointer; }
+    #favourite-items li:hover {
+      background: lightblue; }
 
 /*==============================font awesome==============================*/
 .fa-home {

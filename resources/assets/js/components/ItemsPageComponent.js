@@ -6,7 +6,6 @@ var ItemsPage = Vue.component('items-page', {
             selectedItem: {},
             items: [],
             categories: [],
-            favouriteItems: [],
             alarms: [],
             zoomedItem: {},
             pinnedItems: [],
@@ -174,20 +173,6 @@ var ItemsPage = Vue.component('items-page', {
 
         /**
          *
-         */
-        getFavouriteItems: function () {
-            $.event.trigger('show-loading');
-            this.$http.get('/api/items?favourites=true', function (response) {
-                this.favouriteItems = response;
-                $.event.trigger('hide-loading');
-            })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
          * @param $response
          * @param $typing
          * @returns {*}
@@ -267,7 +252,6 @@ var ItemsPage = Vue.component('items-page', {
         this.getCategories();
         this.getItems('zoom');
         this.getPinnedItems();
-        this.getFavouriteItems();
         this.keepCurrentTimeUpToDate();
         //this.runFilterRegularly();
 

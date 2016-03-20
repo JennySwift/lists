@@ -2,38 +2,50 @@
 
     <div v-show="showFilter" id="search-container">
 
-        @include('pages.items.favourite-items')
+        <div>
+            <button v-on:click="toggleFavouriteItems()" class="btn btn-info fa fa-star-o"></button>
+        </div>
 
         <label>Search all items by title</label>
         <input
                 v-on:keyup.13="filter"
                 type="text"
                 placeholder="title"
-                id="filter"/>
+                id="filter"
+                class="input-sm"
+        />
 
         <label>Filter by title</label>
         <input
                 v-model="filters.title"
                 type="text"
-                placeholder="title"/>
+                placeholder="title"
+                class="input-sm"
+        />
 
         <label>Filter by priority</label>
         <input
                 v-model="filters.priority"
                 type="text"
-                placeholder="priority"/>
+                placeholder="priority"
+                class="input-sm"
+        />
 
         <label>Filter in by urgency</label>
         <input
                 v-model="filters.urgency"
                 type="text"
-                placeholder="urgency"/>
+                placeholder="urgency"
+                class="input-sm"
+        />
 
         <label>Filter out by urgency >=</label>
         <input
                 v-model="filters.urgencyOut"
                 type="text"
-                placeholder="urgency"/>
+                placeholder="urgency"
+                class="input-sm"
+        />
 
         <div class="checkbox-container">
             <label for="filter-not-before">Do not show items with a not-before time after the current time</label>
