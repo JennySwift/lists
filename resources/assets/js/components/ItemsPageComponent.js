@@ -19,6 +19,7 @@ var ItemsPage = Vue.component('items-page', {
                 title: '',
                 urgency: '',
                 urgencyOut: '',
+                notBefore: true
             }
 
         }

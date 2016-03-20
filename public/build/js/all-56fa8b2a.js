@@ -22075,9 +22075,22 @@ var ItemsRepository = {
             else if (that.filters.category && item.category_id !== that.filters.category) {
                 filteredIn = false;
             }
+            //Not before filter
+            else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore)) {
+                filteredIn = false;
+            }
 
             return filteredIn;
         });
+    },
+
+    /**
+     *
+     * @param notBeforeTime
+     * @returns {*}
+     */
+    notBeforeTimeIsAfterCurrentTime: function (notBeforeTime) {
+        return moment(notBeforeTime).isAfter(moment());
     },
 
     /**
@@ -22871,6 +22884,7 @@ var ItemsPage = Vue.component('items-page', {
                 title: '',
                 urgency: '',
                 urgencyOut: '',
+                notBefore: true
             }
 
         }

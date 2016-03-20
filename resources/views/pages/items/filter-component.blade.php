@@ -35,6 +35,15 @@
                 type="text"
                 placeholder="urgency"/>
 
+        <div class="checkbox-container">
+            <label for="filter-not-before">Do not show items with a not-before time after the current time</label>
+            <input
+                v-model="filters.notBefore"
+                id="filter-not-before"
+                type="checkbox"
+            >
+        </div>
+
         <div class="form-group">
             <label for="category-filter">Filter by category</label>
 
