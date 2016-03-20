@@ -13,23 +13,14 @@ var Trash = Vue.component('trash', {
          *
          */
         getTrashedItems: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/items?trashed=true', function (response) {
                 this.items = response;
-                this.showLoading = false;
+                $.event.trigger('hide-loading');
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
         }
     },
     props: [

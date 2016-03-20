@@ -17,13 +17,13 @@ var UrgentItems = Vue.component('urgentItems', {
          *
          */
         getUrgentItems: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/items?urgent=true', function (response) {
                     this.items = response;
-                    this.showLoading = false;
+                    $.event.trigger('hide-loading');
                 })
                 .error(function (response) {
-                    this.handleResponseError(response);
+                    HelpersRepository.handleResponseError(response);
                 });
         },
 
@@ -34,15 +34,14 @@ var UrgentItems = Vue.component('urgentItems', {
          */
         deleteItem: function (item) {
             if (confirm("Are you sure?")) {
-                this.showLoading = true;
+                $.event.trigger('show-loading');
                 this.$http.delete('/api/items/' + item.id, function (response) {
                     this.items = _.without(this.items, item);
                     $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                    //this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                    this.showLoading = false;
+                    $.event.trigger('hide-loading');
                 })
                 .error(function (response) {
-                    this.handleResponseError(response);
+                    HelpersRepository.handleResponseError(response);
                 });
             }
         },
@@ -55,15 +54,6 @@ var UrgentItems = Vue.component('urgentItems', {
             $(document).on('urgent-item-created', function (event, item) {
                 that.items.push(item);
             });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
         }
     },
     props: [

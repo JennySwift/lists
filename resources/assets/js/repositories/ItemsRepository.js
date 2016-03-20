@@ -5,25 +5,16 @@ var ItemsRepository = {
         showLoading: false,
         showItemPopup: false,
         showFavourites: false,
-        showNewItemFields: false,
         selectedItem: {},
         items: [],
         alarms: [],
         zoomedItem: {},
         pinnedItems: [],
         breadcrumb: [],
-        addingNewItems: false,
         editingItems: false,
         //selectedItems: {}
-        categories: [],
         favouriteItems: [],
         //urgentItems: [],
-        newItem: {
-            title: '',
-            body: '',
-            favourite: false,
-            pinned: false
-        },
         newIndex: -1,
         priorityFilter: '',
         categoryFilter: '',
@@ -257,7 +248,7 @@ var ItemsRepository = {
                     that.showLoading = false;
                 })
                 .error(function (response) {
-                    this.handleResponseError(response);
+                    HelpersRepository.handleResponseError(response);
                 });
         }
     },

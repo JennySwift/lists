@@ -33,25 +33,6 @@ var Item = Vue.component('item', {
             this.selectedItem.oldParentId = $item.parent_id;
             this.selectedItem.oldAlarm = $item.alarm;
         },
-
-        /**
-         *
-         */
-        //listen: function () {
-        //    var that = this;
-        //    $(document).on('delete-item', function (event, item) {
-        //        that.deleteItem(item);
-        //    });
-        //},
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
-        }
     },
     props: [
         //data to be received from parent

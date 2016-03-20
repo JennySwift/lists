@@ -17,6 +17,7 @@
 @include('pages.items.urgent-items-component')
 @include('pages.items.trash-page-component')
 @include('pages.items.item.item-component')
+@include('pages.items.new-item-component')
 @include('pages.categories.components.categories-component')
 
 <script src="//js.pusher.com/3.0/pusher.min.js"></script>

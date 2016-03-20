@@ -49,7 +49,7 @@ var ItemsPage = Vue.component('items-page', {
          * It's kind of a show method. (Shows the item with its children.)
          */
         getItems: function (expandOrZoom, item) {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             var url;
             if (item) {
                 url = '/api/items/' + item.id;
@@ -68,21 +68,7 @@ var ItemsPage = Vue.component('items-page', {
                 this.getItemsSuccess(response, expandOrZoom, item);
             })
             .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
-         */
-        getCategories: function () {
-            this.showLoading = true;
-            this.$http.get('/api/categories', function (response) {
-                this.categories = response;
-                this.showLoading = false;
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -111,20 +97,20 @@ var ItemsPage = Vue.component('items-page', {
                 item.children = response.children;
             }
 
-            this.showLoading = false;
+            $.event.trigger('hide-loading');
         },
 
         /**
          *
          */
         getPinnedItems: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/items?pinned=true', function (response) {
                 this.pinnedItems = response;
-                this.showLoading = false;
+                $.event.trigger('hide-loading');
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -132,13 +118,13 @@ var ItemsPage = Vue.component('items-page', {
          *
          */
         getFavouriteItems: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/items?favourites=true', function (response) {
                 this.favouriteItems = response;
-                this.showLoading = false;
+                $.event.trigger('hide-loading');
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -149,66 +135,23 @@ var ItemsPage = Vue.component('items-page', {
             this.showFavourites = !this.showFavourites;
         },
 
-        /**
-         *
-         * @param keycode
-         * @returns {boolean}
-         */
-        insertItem: function () {
-            var data = ItemsRepository.setData(this.newItem, this.zoomedItem);
-
-            this.showLoading = true;
-            this.$http.post('/api/items', data, function (response) {
-                this.insertItemSuccess(response);
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        insertItemSuccess: function (response) {
-            this.showNewItemFields = false;
-            this.items.push(response);
-            this.clearNewItemFields();
-            $.event.trigger('provide-feedback', ['Item created', 'success']);
-            //this.$broadcast('provide-feedback', 'Item created', 'success');
-            if (response.alarm) {
-                $.event.trigger('alarm-created', [response]);
-            }
-            if (response.urgency == 1) {
-                $.event.trigger('urgent-item-created', [response]);
-            }
-            this.showLoading = false;
-        },
-
-        /**
-         *
-         */
-        showNewItemFields: function () {
-            this.addingNewItem = true;
-            this.editingItem = false;
-        },
 
         /**
          *
          * @returns {boolean}
          */
         filter: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
 
             var filter = $("#filter").val();
 
             this.$http.get('/api/items?filter=' + filter, function (response) {
                 //this.items = this.highlightLetters(response, filter);
                 this.items = response;
-                this.showLoading = false;
+                $.event.trigger('hide-loading');
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -260,14 +203,6 @@ var ItemsPage = Vue.component('items-page', {
 
         /**
          *
-         */
-        clearNewItemFields: function () {
-            this.newItem.title = '';
-            this.newItem.body = '';
-        },
-
-        /**
-         *
          * @param $event
          * @param $popup
          */
@@ -302,91 +237,12 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
-        *
-        */
-        getUser: function () {
-            //$.event.trigger('show-loading');
-            this.$http.get('/api/users/', function (response) {
-                this.me = response;
-                console.log(this.me);
-                if (this.me.id === 1 && this.me.email === 'cheezyspaghetti@gmail.com') {
-                    this.listenForFeedback();
-                }
-                //$.event.trigger('hide-loading');
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         * Listen for feedback from my apps, for items to insert into my lists app
-         */
-        listenForFeedback: function () {
-            var that = this;
-            var pusher = new Pusher('0559aebf9ae96524872b');
-
-            var myChannel = pusher.subscribe('myChannel');
-
-            myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
-                that.insertItemFromFeedback(data);
-            });
-        },
-
-        /**
          * Todo: If the item is an alarm,
          * delete it from the alarm with the JS, too
          * @param item
          */
         deleteItem: function (item) {
             ItemsRepository.deleteItem(this, item);
-        },
-
-        /**
-        *
-        */
-        sendPushNotification: function (response) {
-            var data = {
-                title: response.title,
-                message: response.body
-            };
-
-            this.$http.post('/api/pushNotifications', data, function (response) {
-
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
-        },
-
-        /**
-         * For inserting an item into my lists app.
-         * The item has been received from one of my apps, using Pusher.
-         * To allow users of my apps to provide feedback
-         */
-        insertItemFromFeedback: function (feedback) {
-            data = {
-                title: feedback.title,
-                body: feedback.body,
-                priority: 1,
-                //The id of my budget app item in my lists app
-                parent_id: 468,
-                //The id of my coding category in my lists app
-                category_id: 1,
-                favourite: 0,
-                pinned: 0
-                //'urgency' => 1,
-                //'alarm' => $alarm
-            };
-
-            this.showLoading = true;
-            this.$http.post('/api/items', data, function (response) {
-                this.sendPushNotification(response);
-                this.insertItemSuccess(response);
-            })
-            .error(function (response) {
-                this.handleResponseError(response);
-            });
         },
 
         /**
@@ -397,25 +253,14 @@ var ItemsPage = Vue.component('items-page', {
             $(document).on('toggle-filter', function (event) {
                 that.showFilter = !that.showFilter;
             });
-        },
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
         }
     },
     props: [
         //data to be received from parent
     ],
     ready: function () {
-        this.getUser();
         this.listen();
         this.getItems('zoom');
-        this.getCategories();
         this.getPinnedItems();
         this.getFavouriteItems();
         this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();

@@ -12,7 +12,7 @@ var ItemPopup = Vue.component('item-popup', {
          *
          */
         updateItem: function (item) {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
 
             var data = ItemsRepository.setData(item);
 
@@ -20,7 +20,7 @@ var ItemPopup = Vue.component('item-popup', {
                     this.updateItemSuccess(response);
                 })
                 .error(function (response) {
-                    this.handleResponseError(response);
+                    HelpersRepository.handleResponseError(response);
                 });
         },
 
@@ -43,7 +43,7 @@ var ItemPopup = Vue.component('item-popup', {
             this.showItemPopup = false;
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             //this.$broadcast('provide-feedback', 'Item updated', 'success');
-            this.showLoading = false;
+            $.event.trigger('hide-loading');
         },
 
         /**
@@ -69,23 +69,6 @@ var ItemPopup = Vue.component('item-popup', {
                 this.items = _.without(this.items, this.selectedItem);
             }
 
-        },
-
-        /**
-         *
-         * @param item
-         */
-        //deleteItem: function (item) {
-        //    $.event.trigger('delete-item', [item]);
-        //},
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
         }
     },
     props: [

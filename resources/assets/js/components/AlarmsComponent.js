@@ -17,10 +17,10 @@ var Alarms = Vue.component('alarms', {
          *
          */
         getItemsWithAlarm: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/items?alarm=true', function (response) {
                     this.items = response;
-                    this.showLoading = false;
+                    $.event.trigger('hide-loading');
 
                     for (var i = 0; i < this.items.length; i++) {
                         this.startAlarmCountDown(this.items[i]);
@@ -28,7 +28,7 @@ var Alarms = Vue.component('alarms', {
 
                 })
                 .error(function (response) {
-                    this.handleResponseError(response);
+                    HelpersRepository.handleResponseError(response);
                 });
         },
 
@@ -74,15 +74,6 @@ var Alarms = Vue.component('alarms', {
         deleteItem: function (item) {
             ItemsRepository.deleteItem(this, item);
         },
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
-        }
     },
     props: [
         'showLoading',

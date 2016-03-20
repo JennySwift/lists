@@ -13,13 +13,13 @@ var Categories = Vue.component('categories', {
          *
          */
         getCategories: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
             this.$http.get('/api/categories', function (response) {
                 this.categories = response;
-                this.showLoading = false;
+                $.event.trigger('hide-loading');
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -28,7 +28,7 @@ var Categories = Vue.component('categories', {
          * @returns {boolean}
          */
         insertCategory: function () {
-            this.showLoading = true;
+            $.event.trigger('show-loading');
 
             var data = {
                 name: $("#new-category").val()
@@ -40,7 +40,7 @@ var Categories = Vue.component('categories', {
                 this.insertCategorySuccess(response);
             })
             .error(function (response) {
-                this.handleResponseError(response);
+                HelpersRepository.handleResponseError(response);
             });
         },
 
@@ -52,7 +52,7 @@ var Categories = Vue.component('categories', {
             this.categories.push(response);
             $.event.trigger('provide-feedback', ['Category created', 'success']);
             //this.$broadcast('provide-feedback', 'Category created', 'success');
-            this.showLoading = false;
+            $.event.trigger('hide-loading');
         },
 
         /**
@@ -62,15 +62,6 @@ var Categories = Vue.component('categories', {
             this.addingNewCategory = true;
             this.editingCategory = false;
         },
-
-        /**
-         *
-         * @param response
-         */
-        handleResponseError: function (response) {
-            this.$broadcast('response-error', response);
-            this.showLoading = false;
-        }
     },
     props: [
         //data to be received from parent
