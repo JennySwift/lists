@@ -9,7 +9,7 @@
     padding: 10px;
     box-shadow: 3px 3px 5px #777;
     background: white;
-    max-height: calc(100% - 54px);
+    max-height: calc(100% - 114px);
     overflow: scroll;
     input {
         font-size: 19px;
@@ -22,7 +22,7 @@
     @media (max-width: $breakpoint2) {
         right: 0;
         left: 0;
-        width: calc(100% - 114px);
+        width: calc(100% - 27px);
         margin: auto;
         #favourites {
             ul {
