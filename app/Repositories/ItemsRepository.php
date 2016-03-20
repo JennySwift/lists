@@ -10,21 +10,6 @@ use Illuminate\Http\Request;
 class ItemsRepository {
 
     /**
-     * Transform a collection
-     * @param $items
-     * @return mixed
-     */
-    public function transform($items)
-    {
-        $array = [];
-        foreach ($items as $item) {
-            $array[] = $item->transform();
-        }
-
-        return $array;
-    }
-
-    /**
      *
      * @return mixed
      */

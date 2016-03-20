@@ -280,38 +280,4 @@ class Item extends Model
             }
         }
     }
-
-    /**
-     *
-     * @return array
-     */
-    public function transform()
-    {
-        $array = [
-            'id' => $this->id,
-            'parent_id' => $this->parent_id,
-            'title' => $this->title,
-            'body' => $this->body,
-            'index' => $this->index,
-            'category_id' => $this->category_id,
-            'priority' => $this->priority,
-            'urgency' => $this->urgency,
-            'favourite' => $this->favourite,
-            'pinned' => $this->pinned,
-            'path' => $this->path,
-            'has_children' => $this->has_children,
-            'category' => $this->category->transform(),
-            'alarm' => $this->alarm,
-            'timeLeft' => null,
-            'notBefore' => $this->not_before,
-            //For Vue
-            'children' => false
-        ];
-
-        if ($this->trashed()) {
-            $array['deleted_at'] = $this->deleted_at->format('Y-m-d H:i:s');
-        }
-
-        return $array;
-    }
 }

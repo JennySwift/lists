@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\StoreItemRequest;
+use App\Http\Transformers\ItemTransformer;
 use App\Models\Category;
 use App\Models\Item;
 use App\Repositories\CategoriesRepository;
@@ -26,71 +27,60 @@ class ItemsController extends Controller
      * @var ItemsRepository
      */
     protected $itemsRepository;
-    /**
-     * @var CategoriesRepository
-     */
-    protected $categoriesRepository;
 
     /**
      * Create a new controller instance.
      *
      * @param ItemsRepository $itemsRepository
      */
-    public function __construct(ItemsRepository $itemsRepository, CategoriesRepository $categoriesRepository)
+    public function __construct(ItemsRepository $itemsRepository)
     {
         $this->middleware('auth');
         $this->itemsRepository = $itemsRepository;
-        $this->categoriesRepository = $categoriesRepository;
-    }
-
-    /**
-     * Get home items
-     * @param Request $request
-     * @return mixed
-     */
-    public function index(Request $request)
-    {
-        if ($request->has('pinned')) {
-            return response($this->itemsRepository->transform(Item::forCurrentUser()->where('pinned', 1)->get()),
-                Response::HTTP_OK);
-        }
-        else {
-            if ($request->has('alarm')) {
-                return response($this->itemsRepository->transform(Item::forCurrentUser()->whereNotNull('alarm')->get()),
-                    Response::HTTP_OK);
-            }
-            else {
-                if ($request->has('favourites')) {
-                    return response($this->itemsRepository->transform($this->itemsRepository->getFavourites()),
-                        Response::HTTP_OK);
-                }
-                else {
-                    if ($request->has('trashed')) {
-                        return response($this->itemsRepository->transform($this->itemsRepository->getTrashed()),
-                            Response::HTTP_OK);
-                    }
-                    else {
-                        if ($request->has('urgent')) {
-                            return response($this->itemsRepository->transform($this->itemsRepository->getUrgentItems()),
-                                Response::HTTP_OK);
-                        }
-                        else {
-                            if ($request->has('filter')) {
-                                return response($this->itemsRepository->transform($this->itemsRepository->getFilteredItems($request)),
-                                    Response::HTTP_OK);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), RESPONSE::HTTP_OK);
     }
 
     /**
      *
-     * @param StoreItemRequest $request
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        if ($request->has('pinned')) {
+            $items = Item::forCurrentUser()->where('pinned', 1)->get();
+        }
+
+        elseif ($request->has('alarm')) {
+            $items = Item::forCurrentUser()->whereNotNull('alarm')->get();
+        }
+
+        elseif ($request->has('favourites')) {
+            $items = $this->itemsRepository->getFavourites();
+        }
+
+        elseif ($request->has('trashed')) {
+            $items = $this->itemsRepository->getTrashed();
+        }
+
+        elseif ($request->has('urgent')) {
+            $items = $this->itemsRepository->getUrgentItems();
+        }
+
+        elseif ($request->has('filter')) {
+            $items = $this->itemsRepository->getFilteredItems($request);
+        }
+
+        else {
+            $items = $this->itemsRepository->getHomeItems();
+        }
+
+        $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
+        return response($items, Response::HTTP_OK);
+    }
+
+    /**
+     * POST /api/itemRequests
+     * @param Request $request
      * @return Response
      */
     public function store(StoreItemRequest $request)
@@ -123,13 +113,8 @@ class ItemsController extends Controller
 
         $item->save();
 
-        $pusher = new Pusher(env('PUSHER_PUBLIC_KEY'), env('PUSHER_SECRET_KEY'), env('PUSHER_APP_ID'));
-
-        $data = 'weeeee';
-
-        $pusher->trigger('myChannel', 'itemCreated', $data);
-
-        return response($item->transform(), Response::HTTP_CREATED);
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+        return response($item, Response::HTTP_CREATED);
     }
 
     /**
@@ -144,25 +129,30 @@ class ItemsController extends Controller
             return $this->show($parent);
         }
         else {
-            return response($this->itemsRepository->transform($this->itemsRepository->getHomeItems()), Response::HTTP_OK);
+            $item = $this->itemsRepository->getHomeItems();
+            $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+            return response($item, Response::HTTP_OK);
         }
     }
 
     /**
-     *
+     * GET /api/items/{items}
      * @param Item $item
-     * @return array
+     * @return Response
      */
     public function show(Item $item)
     {
         $breadcrumb = $item->breadcrumb();
         $array = [];
         foreach (collect($breadcrumb) as $item) {
-            $array[] = $item->transform();
+            $array[] = $item;
         }
 
-        $children = $this->itemsRepository->transform($item->children()->order('priority')->get());
-        $item = $item->transform();
+        $children = $item->children()->order('priority')->get();
+        $children = $this->transform($this->createCollection($children, new ItemTransformer))['data'];
+        $array = $this->transform($this->createCollection($array, new ItemTransformer))['data'];
+
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
         $item['children'] = $children;
         $item['breadcrumb'] = $array;
 
@@ -212,7 +202,8 @@ class ItemsController extends Controller
             $this->itemsRepository->moveItem($request, $item);
         }
 
-        return response($item->transform(), Response::HTTP_OK);
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+        return response($item, Response::HTTP_OK);
     }
 
     /**
@@ -269,6 +260,7 @@ class ItemsController extends Controller
 
         $item->restore();
 
-        return response($item->transform(), Response::HTTP_OK);
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+        return response($item, Response::HTTP_OK);
     }
 }
