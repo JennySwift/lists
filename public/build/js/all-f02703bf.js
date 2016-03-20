@@ -22836,7 +22836,9 @@ var Item = Vue.component('item', {
         'showChildren',
         'getItems',
         'itemsFilter',
-        'filters',
+        'titleFilter',
+        'priorityFilter',
+        'categoryFilter',
         'deleteItem'
     ],
     ready: function () {
@@ -23404,12 +23406,12 @@ var NewItem = Vue.component('new-item', {
 
             myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
                 //468 is the id of my budget app item in my lists app
-                that.insertItemFromFeedback(data, 468);
+                //that.insertItemFromFeedback(data, 468);
             });
 
             myChannel.bind('listsAppFeedbackSubmitted', function(data) {
                 //356 is the id of my lists app item in my lists app
-                that.insertItemFromFeedback(data, 356);
+                //that.insertItemFromFeedback(data, 356);
             });
         },
 
@@ -23434,8 +23436,7 @@ var NewItem = Vue.component('new-item', {
     },
     props: [
         'items',
-        'categories',
-        'zoomedItem'
+        'categories'
     ],
     ready: function () {
         this.getUser();

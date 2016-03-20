@@ -22836,9 +22836,7 @@ var Item = Vue.component('item', {
         'showChildren',
         'getItems',
         'itemsFilter',
-        'titleFilter',
-        'priorityFilter',
-        'categoryFilter',
+        'filters',
         'deleteItem'
     ],
     ready: function () {
@@ -23436,7 +23434,8 @@ var NewItem = Vue.component('new-item', {
     },
     props: [
         'items',
-        'categories'
+        'categories',
+        'zoomedItem'
     ],
     ready: function () {
         this.getUser();

@@ -47,9 +47,7 @@ var Item = Vue.component('item', {
         'showChildren',
         'getItems',
         'itemsFilter',
-        'titleFilter',
-        'priorityFilter',
-        'categoryFilter',
+        'filters',
         'deleteItem'
     ],
     ready: function () {

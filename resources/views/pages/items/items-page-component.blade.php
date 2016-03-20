@@ -33,6 +33,7 @@
             <new-item
                 :items.sync="items"
                 :categories="categories"
+                :zoomed-item="zoomedItem"
             >
             </new-item>
 

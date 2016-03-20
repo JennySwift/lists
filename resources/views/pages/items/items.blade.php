@@ -3,9 +3,7 @@
     <item
         v-for="item in items | itemsFilter"
         :items-filter="itemsFilter"
-        :title-filter="titleFilter"
-        :priority-filter="priorityFilter"
-        :category-filter="categoryFilter"
+        :filters="filters"
         :show-loading.sync="showLoading"
         :show-item-popup.sync="showItemPopup"
         :show-children="showChildren"
