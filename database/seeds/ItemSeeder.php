@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 
 class ItemSeeder extends Seeder
 {
+
     /**
      *
      */
@@ -16,6 +17,7 @@ class ItemSeeder extends Seeder
     {
         $this->faker = Faker::create();
     }
+
     /**
      * Run the database seeds.
      *
@@ -25,6 +27,22 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
+        $this->createItems();
+
+        $this->deleteSomeItems();
+        $this->pinSomeItems();
+        $this->favouriteSomeItems();
+        $this->makeSomeItemsUrgent();
+        $this->giveAlarmsToSomeItems();
+        $this->giveANotBeforeValueToSomeItems();
+
+    }
+
+    /**
+     *
+     */
+    private function createItems()
+    {
         foreach(range(1, 8) as $index)
         {
             $parent = $this->createItem();
@@ -33,30 +51,35 @@ class ItemSeeder extends Seeder
                 $this->createDescendants($parent);
             }
         }
+    }
 
-        //Delete some items
-        //This broke my tests, because I then had children existing
-        //whose parents were deleted, so when I tried to update the child,
-        //it errored saying that parent didn't exist.
-        $items = Item::orderBy('id', 'desc')->limit(4)->get();
+    /**
+     *
+     */
+    private function giveANotBeforeValueToSomeItems()
+    {
+        $items = Item::orderBy('id', 'desc')->limit(4)->offset(4)->get();
         foreach ($items as $item) {
-            $item->delete();
-        }
-
-        //Pin some items
-        $items = Item::limit(4)->get();
-        foreach ($items as $item) {
-            $item->pinned = 1;
+            $item->not_before = Carbon::tomorrow()->format('Y-m-d H:i:s');
             $item->save();
         }
+    }
 
-        //Favourite some items
-        $items = Item::limit(6)->offset(4)->get();
-        foreach ($items as $item) {
-            $item->favourite = 1;
-            $item->save();
-        }
+    /**
+     *
+     */
+    private function giveAlarmsToSomeItems()
+    {
+        $item = Item::whereNull('parent_id')->first();
+        $item->alarm = Carbon::today()->hour(20)->minute(0)->second(30);
+        $item->save();
+    }
 
+    /**
+     *
+     */
+    private function makeSomeItemsUrgent()
+    {
         //Give some items on the home page an urgency of 1
         $items = Item::whereNull('parent_id')->limit(2)->get();
         foreach ($items as $item) {
@@ -77,18 +100,50 @@ class ItemSeeder extends Seeder
             $item->urgency = 3;
             $item->save();
         }
-
-        //Create alarms
-        $item = Item::whereNull('parent_id')->first();
-        $item->alarm = Carbon::today()->hour(20)->minute(0)->second(30);
-        $item->save();
-
-//        $item = Item::whereNull('parent_id')->offset(1)->first();
-//        $item->alarm = Carbon::today()->hour(20)->minute(1)->second(30);
-//        $item->save();
-
     }
 
+    /**
+     * Delete some items
+     * This broke my tests, because I then had children existing
+     * whose parents were deleted, so when I tried to update the child,
+     * it errored saying that parent didn't exist.
+     */
+    private function deleteSomeItems()
+    {
+        $items = Item::orderBy('id', 'desc')->limit(4)->get();
+        foreach ($items as $item) {
+            $item->delete();
+        }
+    }
+
+    /**
+     *
+     */
+    private function pinSomeItems()
+    {
+        $items = Item::limit(4)->get();
+        foreach ($items as $item) {
+            $item->pinned = 1;
+            $item->save();
+        }
+    }
+
+    /**
+     *
+     */
+    private function favouriteSomeItems()
+    {
+        $items = Item::limit(6)->offset(4)->get();
+        foreach ($items as $item) {
+            $item->favourite = 1;
+            $item->save();
+        }
+    }
+
+    /**
+     *
+     * @param $parent
+     */
     public function createDescendants($parent)
     {
         foreach(range(1, 3) as $index)
@@ -146,13 +201,14 @@ class ItemSeeder extends Seeder
 
         $item->save();
 
-//        $item->index = $this->getIndex($item);
-//
-//        $item->save();
-
         return $item;
     }
 
+    /**
+     *
+     * @param $item
+     * @return int
+     */
     private function getIndex($item)
     {
         //This is erroring because siblings method uses Auth. Not sure why it was working before.

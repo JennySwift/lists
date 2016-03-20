@@ -26,7 +26,8 @@ class Item extends Model
         'urgency',
         'favourite',
         'pinned',
-        'alarm'
+        'alarm',
+        'not_before'
     ];
 
     /**
@@ -298,11 +299,11 @@ class Item extends Model
             'favourite' => $this->favourite,
             'pinned' => $this->pinned,
             'path' => $this->path,
-//            'path_to_item' => $this->path_to_item,
             'has_children' => $this->has_children,
             'category' => $this->category->transform(),
             'alarm' => $this->alarm,
             'timeLeft' => null,
+            'notBefore' => $this->not_before,
             //For Vue
             'children' => false
         ];
