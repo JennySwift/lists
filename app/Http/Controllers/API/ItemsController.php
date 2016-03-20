@@ -94,7 +94,8 @@ class ItemsController extends Controller
             'urgency',
             'favourite',
             'pinned',
-            'alarm'
+            'alarm',
+            'not_before'
         ]));
 
         //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified
@@ -174,7 +175,8 @@ class ItemsController extends Controller
             'body',
             'favourite',
             'pinned',
-            'alarm'
+            'alarm',
+            'not_before'
         ]));
 
         //So the alarm of an item can be removed

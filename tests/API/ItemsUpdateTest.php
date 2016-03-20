@@ -39,7 +39,8 @@ class ItemsUpdateTest extends TestCase
             'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
-            'alarm' => $alarm
+            'alarm' => $alarm,
+            'not_before' => '2050-02-03 13:30:05'
         ]);
 
 //        dd($response);
@@ -55,6 +56,7 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals($alarm, $content['alarm']);
+        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
 
         $this->assertEquals(200, $response->getStatusCode());
 
