@@ -28,6 +28,7 @@
             <filter
                 :categories="categories"
                 :favourite-items="favouriteItems"
+                :filters.sync="filters"
             >
             </filter>
 

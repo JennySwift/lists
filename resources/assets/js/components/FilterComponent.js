@@ -66,7 +66,8 @@ var FilterComponent = Vue.component('filter', {
     },
     props: [
         'categories',
-        'favouriteItems'
+        'favouriteItems',
+        'filters'
     ],
     ready: function () {
         this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();

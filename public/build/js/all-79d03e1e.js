@@ -21907,26 +21907,6 @@ var HelpersRepository = {
 };
 var ItemsRepository = {
 
-    initialData: {
-        showItemPopup: false,
-        selectedItem: {},
-        items: [],
-        categories: [],
-        alarms: [],
-        zoomedItem: {},
-        pinnedItems: [],
-        breadcrumb: [],
-        editingItems: false,
-        newIndex: -1,
-
-        //filters
-        priorityFilter: '',
-        categoryFilter: '',
-        titleFilter: '',
-        urgencyFilter: '',
-        urgencyOutFilter: '',
-    },
-
     /**
      *
      * @returns {boolean}
@@ -22076,22 +22056,22 @@ var ItemsRepository = {
         //Filter
         return items.filter(function (item) {
             //Title filter
-            var filteredIn = item.title.toLowerCase().indexOf(that.titleFilter.toLowerCase()) !== -1;
+            var filteredIn = item.title.toLowerCase().indexOf(that.filters.title.toLowerCase()) !== -1;
 
             //Priority filter
-            if (that.priorityFilter && item.priority != that.priorityFilter) {
+            if (that.filters.priority && item.priority != that.filters.priority) {
                 filteredIn = false;
             }
             //Urgency filter
-            else if (that.urgencyFilter && item.urgency != that.urgencyFilter) {
+            else if (that.filters.urgency && item.urgency != that.filters.urgency) {
                 filteredIn = false;
             }
             //Urgency out filter
-            else if (that.urgencyOutFilter && item.urgency >= that.urgencyOutFilter) {
+            else if (that.filters.urgencyOut && item.urgency >= that.filters.urgencyOut) {
                 filteredIn = false;
             }
             //Category filter
-            else if (that.categoryFilter && item.category_id !== that.categoryFilter) {
+            else if (that.filters.category && item.category_id !== that.filters.category) {
                 filteredIn = false;
             }
 
@@ -22712,7 +22692,8 @@ var FilterComponent = Vue.component('filter', {
     },
     props: [
         'categories',
-        'favouriteItems'
+        'favouriteItems',
+        'filters'
     ],
     ready: function () {
         this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
@@ -22871,7 +22852,27 @@ var ItemPopup = Vue.component('item-popup', {
 var ItemsPage = Vue.component('items-page', {
     template: '#items-page-template',
     data: function () {
-        return ItemsRepository.initialData;
+        return {
+            showItemPopup: false,
+            selectedItem: {},
+            items: [],
+            categories: [],
+            alarms: [],
+            zoomedItem: {},
+            pinnedItems: [],
+            breadcrumb: [],
+            editingItems: false,
+            newIndex: -1,
+
+            filters: {
+                priority: '',
+                category: '',
+                title: '',
+                urgency: '',
+                urgencyOut: '',
+            }
+
+        }
     },
     watch: {
         /**

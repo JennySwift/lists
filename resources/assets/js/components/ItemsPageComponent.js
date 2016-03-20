@@ -1,7 +1,27 @@
 var ItemsPage = Vue.component('items-page', {
     template: '#items-page-template',
     data: function () {
-        return ItemsRepository.initialData;
+        return {
+            showItemPopup: false,
+            selectedItem: {},
+            items: [],
+            categories: [],
+            alarms: [],
+            zoomedItem: {},
+            pinnedItems: [],
+            breadcrumb: [],
+            editingItems: false,
+            newIndex: -1,
+
+            filters: {
+                priority: '',
+                category: '',
+                title: '',
+                urgency: '',
+                urgencyOut: '',
+            }
+
+        }
     },
     watch: {
         /**

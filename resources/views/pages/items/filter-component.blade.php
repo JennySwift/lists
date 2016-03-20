@@ -13,32 +13,32 @@
 
         <label>Filter by title</label>
         <input
-                v-model="titleFilter"
+                v-model="filters.title"
                 type="text"
                 placeholder="title"/>
 
         <label>Filter by priority</label>
         <input
-                v-model="priorityFilter"
+                v-model="filters.priority"
                 type="text"
                 placeholder="priority"/>
 
         <label>Filter in by urgency</label>
         <input
-                v-model="urgencyFilter"
+                v-model="filters.urgency"
                 type="text"
                 placeholder="urgency"/>
 
         <label>Filter out by urgency >=</label>
         <input
-                v-model="urgencyOutFilter"
+                v-model="filters.urgencyOut"
                 type="text"
                 placeholder="urgency"/>
 
         <div class="form-group">
             <label for="category-filter">Filter by category</label>
 
-            <select v-model="categoryFilter" id="category-filter" class="form-control">
+            <select v-model="filters.category" id="category-filter" class="form-control">
                 <option v-for="category in categories" v-bind:value="category.id">
                     @{{ category.name }}
                 </option>
@@ -47,7 +47,7 @@
 
         <div>
             <button
-                    v-on:click="categoryFilter=''"
+                    v-on:click="filters.category=''"
                     class="btn btn-xs btn-info">
                 clear
             </button>
