@@ -21933,7 +21933,8 @@ var ItemsRepository = {
             favourite: item.favourite,
             pinned: item.pinned,
             category_id: item.category.id,
-            alarm: false
+            alarm: false,
+            not_before: item.notBefore
         };
 
         //So the urgency can be removed

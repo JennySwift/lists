@@ -96,6 +96,21 @@
                 >
             </div>
 
+            {{--Not before--}}
+            <div v-show="showNewItemFields" class="form-group">
+                <label for="new-item-not-before">Not before</label>
+                <input
+                        v-model="newItem.notBefore"
+                        v-on:keyup.13="insertItem()"
+                        type="text"
+                        id="new-item-not-before"
+                        name="new-item-not-before"
+                        placeholder=""
+                        class="form-control"
+                >
+            </div>
+
+
             {{--Pinned--}}
             <div v-show="showNewItemFields" class="form-group">
                 <label for="new-item-pinned">Pinned</label>
