@@ -1,27 +1,23 @@
 var ItemsRepository = {
 
     initialData: {
-        me: {},
-        showLoading: false,
         showItemPopup: false,
-        showFavourites: false,
         selectedItem: {},
         items: [],
+        categories: [],
         alarms: [],
         zoomedItem: {},
         pinnedItems: [],
         breadcrumb: [],
         editingItems: false,
-        //selectedItems: {}
-        favouriteItems: [],
-        //urgentItems: [],
         newIndex: -1,
+
+        //filters
         priorityFilter: '',
         categoryFilter: '',
         titleFilter: '',
         urgencyFilter: '',
         urgencyOutFilter: '',
-        showFilter: undefined
     },
 
     /**

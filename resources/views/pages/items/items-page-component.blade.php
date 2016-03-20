@@ -24,11 +24,19 @@
 
         <div id="lists" class="container">
             @include('pages.items.breadcrumb')
-            @include('pages.items.search')
+
+            <filter
+                :categories="categories"
+                :favourite-items="favouriteItems"
+            >
+            </filter>
+
             <new-item
                 :items.sync="items"
+                :categories="categories"
             >
             </new-item>
+
             @include('pages.items.items')
         </div>
 

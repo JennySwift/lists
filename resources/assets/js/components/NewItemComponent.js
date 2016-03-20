@@ -2,6 +2,7 @@ var NewItem = Vue.component('new-item', {
     template: '#new-item-template',
     data: function () {
         return {
+            me: {},
             showNewItemFields: false,
             addingNewItems: false,
             newItem: {
@@ -9,26 +10,11 @@ var NewItem = Vue.component('new-item', {
                 body: '',
                 favourite: false,
                 pinned: false
-            },
-            categories: [],
+            }
         };
     },
     components: {},
     methods: {
-
-        /**
-         *
-         */
-        getCategories: function () {
-            $.event.trigger('show-loading');
-            this.$http.get('/api/categories', function (response) {
-                    this.categories = response;
-                    $.event.trigger('hide-loading');
-                })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
-                });
-        },
 
         /**
          *
@@ -115,7 +101,6 @@ var NewItem = Vue.component('new-item', {
         getUser: function () {
             this.$http.get('/api/users/', function (response) {
                     this.me = response;
-                    console.log(this.me);
                     if (this.me.id === 1 && this.me.email === 'cheezyspaghetti@gmail.com') {
                         this.listenForFeedback();
                     }
@@ -159,10 +144,10 @@ var NewItem = Vue.component('new-item', {
 
     },
     props: [
-        'items'
+        'items',
+        'categories'
     ],
     ready: function () {
         this.getUser();
-        this.getCategories();
     }
 });

@@ -26,6 +26,20 @@ var ItemsPage = Vue.component('items-page', {
     methods: {
 
         /**
+         *
+         */
+        getCategories: function () {
+            $.event.trigger('show-loading');
+            this.$http.get('/api/categories', function (response) {
+                this.categories = response;
+                $.event.trigger('hide-loading');
+            })
+            .error(function (response) {
+                HelpersRepository.handleResponseError(response);
+            });
+        },
+
+        /**
          * If the url specifies an item, zoom on that item
          */
         zoomItemThatMatchesRoute: function () {
@@ -130,33 +144,6 @@ var ItemsPage = Vue.component('items-page', {
 
         /**
          *
-         */
-        toggleFavourites: function () {
-            this.showFavourites = !this.showFavourites;
-        },
-
-
-        /**
-         *
-         * @returns {boolean}
-         */
-        filter: function () {
-            $.event.trigger('show-loading');
-
-            var filter = $("#filter").val();
-
-            this.$http.get('/api/items?filter=' + filter, function (response) {
-                //this.items = this.highlightLetters(response, filter);
-                this.items = response;
-                $.event.trigger('hide-loading');
-            })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
-            });
-        },
-
-        /**
-         *
          * @param $response
          * @param $typing
          * @returns {*}
@@ -183,23 +170,6 @@ var ItemsPage = Vue.component('items-page', {
             items.splice($index, 1);
             items.splice($index - 1, 0, $item);
         },
-
-        /**
-         * For when the 'favourite' button in the item popup is toggled,
-         * after the item is saved
-         */
-        //toggleFavourite: function () {
-        //    var $itemInFavourites = _.findWhere(favourites, {id: itemPopup.id});
-        //    //Remove the item from the favourites if it is no longer a favourite
-        //    if ($itemInFavourites && !itemPopup.favourite) {
-        //        favourites = _.without(favourites, $itemInFavourites);
-        //    }
-        //    //Add the item to favourites if it is now a favourite
-        //    else if (!$itemInFavourites && itemPopup.favourite) {
-        //        //Todo: put the item in the correct place rather than at the end
-        //        favourites.push(itemPopup);
-        //    }
-        //},
 
         /**
          *
@@ -243,27 +213,16 @@ var ItemsPage = Vue.component('items-page', {
          */
         deleteItem: function (item) {
             ItemsRepository.deleteItem(this, item);
-        },
-
-        /**
-         *
-         */
-        listen: function () {
-            var that = this;
-            $(document).on('toggle-filter', function (event) {
-                that.showFilter = !that.showFilter;
-            });
         }
+
     },
     props: [
         //data to be received from parent
     ],
     ready: function () {
-        this.listen();
+        this.getCategories();
         this.getItems('zoom');
         this.getPinnedItems();
         this.getFavouriteItems();
-        this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
-        //ItemsRepository.formatAlarm('thu 1pm');
     }
 });
