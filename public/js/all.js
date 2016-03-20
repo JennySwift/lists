@@ -22103,7 +22103,7 @@ var ItemsRepository = {
                 filteredIn = false;
             }
             //Not before filter
-            else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore)) {
+            else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
                 filteredIn = false;
             }
 
@@ -22114,10 +22114,16 @@ var ItemsRepository = {
     /**
      *
      * @param notBeforeTime
+     * @param currentTime
      * @returns {*}
      */
-    notBeforeTimeIsAfterCurrentTime: function (notBeforeTime) {
-        return moment(notBeforeTime).isAfter(moment());
+    notBeforeTimeIsAfterCurrentTime: function (notBeforeTime, currentTime) {
+        if (!currentTime) {
+            //Doing it like this so that the currentTime is a property on the component,
+            //so the filter will run regularly when currentTime is updated in the component
+            currentTime = moment();
+        }
+        return moment(notBeforeTime).isAfter(currentTime);
     },
 
     /**
@@ -22914,6 +22920,7 @@ var ItemsPage = Vue.component('items-page', {
             breadcrumb: [],
             editingItems: false,
             newIndex: -1,
+            currentTime: moment(),
 
             filters: {
                 priority: '',
@@ -22947,6 +22954,27 @@ var ItemsPage = Vue.component('items-page', {
         }
     },
     methods: {
+
+        /**
+         * Run the items filter every minute so that the not before filter
+         * keeps up with the current time
+         */
+        //runFilterRegularly: function () {
+        //    var that = this;
+        //    var interval = setInterval(function () {
+        //        that.items = ItemsRepository.filter(items, this);
+        //    }, 6000);
+        //},
+
+        /**
+         * Update the currentTime every minute so the not-before filter stays up to date
+         */
+        keepCurrentTimeUpToDate: function () {
+            var that = this;
+            var interval = setInterval(function () {
+                that.currentTime = moment();
+            }, 60000);
+        },
 
         /**
          *
@@ -23147,6 +23175,8 @@ var ItemsPage = Vue.component('items-page', {
         this.getItems('zoom');
         this.getPinnedItems();
         this.getFavouriteItems();
+        this.keepCurrentTimeUpToDate();
+        //this.runFilterRegularly();
 
         console.log(Date.parse('2pm 21 march').toString('yyyy-MM-dd HH:mm:ss'));
     }

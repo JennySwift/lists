@@ -196,7 +196,7 @@ var ItemsRepository = {
                 filteredIn = false;
             }
             //Not before filter
-            else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore)) {
+            else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
                 filteredIn = false;
             }
 
@@ -207,10 +207,16 @@ var ItemsRepository = {
     /**
      *
      * @param notBeforeTime
+     * @param currentTime
      * @returns {*}
      */
-    notBeforeTimeIsAfterCurrentTime: function (notBeforeTime) {
-        return moment(notBeforeTime).isAfter(moment());
+    notBeforeTimeIsAfterCurrentTime: function (notBeforeTime, currentTime) {
+        if (!currentTime) {
+            //Doing it like this so that the currentTime is a property on the component,
+            //so the filter will run regularly when currentTime is updated in the component
+            currentTime = moment();
+        }
+        return moment(notBeforeTime).isAfter(currentTime);
     },
 
     /**
