@@ -15,7 +15,7 @@ var NewItem = Vue.component('new-item', {
     },
     filters: {
         /**
-         * 
+         *
          * @param dateAndTime
          * @returns {*|string}
          */
@@ -71,14 +71,16 @@ var NewItem = Vue.component('new-item', {
          * For inserting an item into my lists app.
          * The item has been received from one of my apps, using Pusher.
          * To allow users of my apps to provide feedback
+         * @param feedback
+         * @param itemId The id of the item for the app in my lists app
          */
-        insertItemFromFeedback: function (feedback) {
+        insertItemFromFeedback: function (feedback, itemId) {
             data = {
                 title: feedback.title,
                 body: feedback.body,
                 priority: 1,
                 //The id of my budget app item in my lists app
-                parent_id: 468,
+                parent_id: itemId,
                 //The id of my coding category in my lists app
                 category_id: 1,
                 favourite: 0,
@@ -130,7 +132,13 @@ var NewItem = Vue.component('new-item', {
             var myChannel = pusher.subscribe('myChannel');
 
             myChannel.bind('budgetAppFeedbackSubmitted', function(data) {
-                that.insertItemFromFeedback(data);
+                //468 is the id of my budget app item in my lists app
+                that.insertItemFromFeedback(data, 468);
+            });
+
+            myChannel.bind('listsAppFeedbackSubmitted', function(data) {
+                //356 is the id of my lists app item in my lists app
+                that.insertItemFromFeedback(data, 356);
             });
         },
 

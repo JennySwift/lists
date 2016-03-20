@@ -17,7 +17,7 @@ body {
 html, body {
   height: 100%; }
 
-body .container {
+body .main {
   padding-bottom: 60px;
   min-height: 100%; }
 
@@ -211,30 +211,6 @@ li {
   align-items: center; }
   #register #remember-me-container label {
     margin-bottom: 0; }
-
-@media (max-width: 480px) {
-  .my-input-group input {
-    padding-left: 0;
-    padding-right: 0; }
-  .my-input-group button {
-    padding-left: 0;
-    padding-right: 0; }
-  .my-btn-group button {
-    padding-left: 0;
-    padding-right: 0; }
-  #today {
-    padding-left: 0;
-    padding-right: 0;
-    max-width: 40px; } }
-
-#home-container, #home-row {
-  height: 100%; }
-
-.main {
-  height: 100%; }
-
-.container {
-  width: 100%; }
 
 .popup-outer {
   position: fixed;

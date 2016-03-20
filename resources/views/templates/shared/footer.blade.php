@@ -19,7 +19,8 @@
 @include('pages.items.item.item-component')
 @include('pages.items.new-item-component')
 @include('pages.items.filter-component')
-@include('pages.categories.components.categories-component')
+@include('pages.feedback-page-component')
+@include('pages.categories-component')
 
 <script src="//js.pusher.com/3.0/pusher.min.js"></script>
 <script type="text/javascript" src="{{ elixir("js/all.js") }}"></script>

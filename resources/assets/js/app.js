@@ -37,6 +37,9 @@ router.map({
     },
     '/trash': {
         component: Trash
+    },
+    '/feedback': {
+        component: FeedbackPage
     }
 });
 

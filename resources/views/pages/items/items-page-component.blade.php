@@ -2,8 +2,6 @@
 <script id="items-page-template" type="x-template">
 
     <div>
-        <loading :show-loading="showLoading"></loading>
-
         @include('pages.items.alarms')
 
         <urgent-items

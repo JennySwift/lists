@@ -51,6 +51,18 @@
                 <a v-on:click="toggleFilter()"><i class="fa fa-search"></i></a>
             </li>
 
+            <li id="menu-dropdown" class="dropdown">
+                <a href="#" data-toggle="dropdown">
+                    Help
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a v-link="{path: '/feedback'}">Submit feedback</a>
+                    </li>
+                </ul>
+            </li>
+
         @endif
 
     </ul>
