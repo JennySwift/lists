@@ -22953,6 +22953,7 @@ var ItemsPage = Vue.component('items-page', {
             selectedItem: {},
             items: [],
             categories: [],
+            favouriteItems: [],
             alarms: [],
             zoomedItem: {},
             pinnedItems: [],
