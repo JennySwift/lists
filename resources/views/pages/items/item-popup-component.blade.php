@@ -72,6 +72,20 @@
                             class="form-control"
                     >
                 </div>
+
+                {{--Not before--}}
+                <div class="form-group">
+                    <label for="selected-item-not-before">Not before</label>
+                    <input
+                            v-model="selectedItem.notBefore"
+                            type="text"
+                            id="selected-item-not-before"
+                            name="selected-item-not-before"
+                            placeholder=""
+                            class="form-control"
+                    >
+                </div>
+
             </div>
 
             <div class="flex">
