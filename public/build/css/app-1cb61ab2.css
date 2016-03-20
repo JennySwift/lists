@@ -18,7 +18,7 @@ html, body {
   height: 100%; }
 
 body .main {
-  padding-bottom: 60px;
+  padding-bottom: 35px;
   min-height: 100%; }
 
 body footer {
@@ -30,9 +30,9 @@ body footer {
   justify-content: space-around;
   padding: 11px;
   background: #000000;
-  height: 60px;
+  height: 35px;
   position: relative;
-  margin-top: -60px; }
+  margin-top: -35px; }
   body footer li {
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -302,7 +302,7 @@ li {
     #search-container {
       right: 0;
       left: 0;
-      width: calc(100% - 27px);
+      width: calc(100% - 114px);
       margin: auto; }
       #search-container #favourites ul {
         width: 100%; } }
