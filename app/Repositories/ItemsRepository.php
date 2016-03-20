@@ -10,6 +10,22 @@ use Illuminate\Http\Request;
 class ItemsRepository {
 
     /**
+     * For preventing duplicate entries if I have the app open in two tabs when a user submits feedback
+     * @param Request $request
+     * @return mixed
+     */
+    public function itemAlreadyExists(Request $request)
+    {
+        $item = Item::forCurrentUser()
+            ->where('title', $request->get('title'))
+            ->where('body', $request->get('body'))
+            ->where('category_id', $request->get('category_id'))
+            ->first();
+
+        return $item;
+    }
+
+    /**
      *
      * @return mixed
      */

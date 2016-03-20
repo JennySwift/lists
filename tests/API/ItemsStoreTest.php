@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
@@ -52,6 +53,48 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * For my feedback feature. Since my app listens for my Pusher event when a user provides feedback,
+     * if I had the app open twice, the item would get inserted twice.
+     * @test
+     * @return void
+     */
+    public function it_cannot_create_an_item_that_already_exists()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = [
+            'title' => 'koala',
+            'body' => 'kangaroo',
+            'priority' => 1,
+            'urgency' => 1,
+            'favourite' => 1,
+            'pinned' => 1,
+            'parent_id' => 2,
+            'category_id' => 3,
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+
+        $duplicateItem = [
+            'title' => 'koala',
+            'body' => 'kangaroo',
+            'parent_id' => 2,
+            'category_id' => 3,
+            'priority' => 1
+        ];
+
+        $response = $this->call('POST', '/api/items', $duplicateItem);
+//        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
 
         DB::rollBack();
     }

@@ -84,7 +84,7 @@ var NewItem = Vue.component('new-item', {
                 //The id of my coding category in my lists app
                 category_id: 1,
                 favourite: 0,
-                pinned: 0
+                pinned: 0,
                 //'urgency' => 1,
                 //'alarm' => $alarm
             };

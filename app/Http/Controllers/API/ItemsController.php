@@ -80,42 +80,47 @@ class ItemsController extends Controller
 
     /**
      * POST /api/itemRequests
-     * @param Request $request
+     * @param StoreItemRequest $request
      * @return Response
      */
     public function store(StoreItemRequest $request)
     {
-        $parent = false;
-
-        $item = new Item($request->only([
-            'title',
-            'body',
-            'priority',
-            'urgency',
-            'favourite',
-            'pinned',
-            'alarm',
-            'not_before'
-        ]));
-
-        //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified
-        if ($request->has('alarm') && !$request->get('alarm')) {
-            $item->alarm = null;
+        if ($this->itemsRepository->itemAlreadyExists($request)) {
+            return response([], Response::HTTP_BAD_REQUEST);
         }
+        else {
+            $parent = false;
 
-        if ($request->get('parent_id')) {
-            $parent = Item::find($request->get('parent_id'));
-            $item->parent()->associate($parent);
+            $item = new Item($request->only([
+                'title',
+                'body',
+                'priority',
+                'urgency',
+                'favourite',
+                'pinned',
+                'alarm',
+                'not_before'
+            ]));
+
+            //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified
+            if ($request->has('alarm') && !$request->get('alarm')) {
+                $item->alarm = null;
+            }
+
+            if ($request->get('parent_id')) {
+                $parent = Item::find($request->get('parent_id'));
+                $item->parent()->associate($parent);
+            }
+
+            $item->user()->associate(Auth::user());
+            $item->category()->associate(Category::find($request->get('category_id')));
+            $item->index = $item->calculateIndex($request->get('index'), $parent);
+
+            $item->save();
+
+            $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+            return response($item, Response::HTTP_CREATED);
         }
-
-        $item->user()->associate(Auth::user());
-        $item->category()->associate(Category::find($request->get('category_id')));
-        $item->index = $item->calculateIndex($request->get('index'), $parent);
-
-        $item->save();
-
-        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-        return response($item, Response::HTTP_CREATED);
     }
 
     /**
