@@ -22284,6 +22284,15 @@ var ItemsRepository = {
     },
 
     /**
+     *
+     * @param dateTime
+     * @returns {*}
+     */
+    dateTimeFilter: function (dateTime) {
+        return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YY hh:mma');
+    },
+
+    /**
      * If url is /items/:2, return 2
      * @param that
      * @returns {*}
@@ -22882,6 +22891,9 @@ var Item = Vue.component('item', {
         },
         timeLeftFilter: function (seconds) {
             return ItemsRepository.timeLeftFilter(seconds);
+        },
+        dateTimeFilter: function (dateTime) {
+            return ItemsRepository.dateTimeFilter(dateTime);
         }
     },
     methods: {

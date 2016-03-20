@@ -12,6 +12,9 @@ var Item = Vue.component('item', {
         },
         timeLeftFilter: function (seconds) {
             return ItemsRepository.timeLeftFilter(seconds);
+        },
+        dateTimeFilter: function (dateTime) {
+            return ItemsRepository.dateTimeFilter(dateTime);
         }
     },
     methods: {

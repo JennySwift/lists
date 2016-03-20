@@ -58,7 +58,7 @@ class ItemSeeder extends Seeder
      */
     private function giveANotBeforeValueToSomeItems()
     {
-        $items = Item::orderBy('id', 'desc')->limit(4)->offset(4)->get();
+        $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(2)->get();
         foreach ($items as $item) {
             $item->not_before = Carbon::tomorrow()->format('Y-m-d H:i:s');
             $item->save();

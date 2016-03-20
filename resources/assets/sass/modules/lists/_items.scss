@@ -38,6 +38,10 @@
     font-size: 16px;
     padding: 5px 0;
     width: 850px;
+    .not-before {
+        font-weight: bold;
+        font-size: 12px;
+    }
     .note, .pinned, .alarm {
         //Increasing font size too much wrecks up the vertical alignment of the text
         font-size: 20px;

@@ -18,6 +18,7 @@
                 <i v-if="item.pinned" class="fa fa-map-pin pinned"></i>
                 <i v-if="item.alarm" class="fa fa-bell alarm"></i>
                 <i v-if="item.timeLeft" class="">@{{ item.timeLeft | timeLeftFilter }}</i>
+                <span v-if="item.notBefore" class="not-before">Not before @{{ item.notBefore | dateTimeFilter}}</span>
             </div>
 
         </div>

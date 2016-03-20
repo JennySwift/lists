@@ -137,6 +137,15 @@ var ItemsRepository = {
     },
 
     /**
+     *
+     * @param dateTime
+     * @returns {*}
+     */
+    dateTimeFilter: function (dateTime) {
+        return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YY hh:mma');
+    },
+
+    /**
      * If url is /items/:2, return 2
      * @param that
      * @returns {*}
