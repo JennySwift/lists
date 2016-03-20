@@ -164,7 +164,7 @@ var ItemsRepository = {
      * @returns {*}
      */
     order: function (items) {
-        return _.chain(items).sortBy('id').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
+        return _.chain(items).sortBy('id').sortBy('notBefore').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
     },
 
     filter: function (items, that) {
