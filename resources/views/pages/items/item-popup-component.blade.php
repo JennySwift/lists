@@ -88,7 +88,7 @@
                 </div>
 
             </div>
-            
+
             <div class="flex">
                 <div class="form-group">
                     <label for="selected-item-recurring-unit">Recurring unit</label>

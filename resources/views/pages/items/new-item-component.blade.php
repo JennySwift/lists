@@ -111,6 +111,38 @@
                 <div>@{{ newItem.notBefore | userFriendlyDateTimeFilter }}</div>
             </div>
 
+            {{--Recurring unit--}}
+            <div v-show="showNewItemFields" class="form-group">
+                <label for="new-item-recurring-unit">Recurring unit</label>
+
+                <select
+                        v-model="newItem.recurringUnit"
+                        v-on:keyup.13="insertItem()"
+                        id="new-item-recurring-unit"
+                        class="form-control"
+                >
+                    <option
+                            v-for="recurringUnit in recurringUnits"
+                            v-bind:value="recurringUnit"
+                    >
+                        @{{ recurringUnit }}
+                    </option>
+                </select>
+            </div>
+
+            {{--Recurring frequency--}}
+            <div v-show="showNewItemFields" class="form-group">
+                <label for="new-item-recurring-frequency">Recurring frequency</label>
+                <input
+                        v-model="newItem.recurringFrequency"
+                        v-on:keyup.13="insertItem()"
+                        type="number"
+                        id="new-item-recurring-frequency"
+                        name="new-item-recurring-frequency"
+                        placeholder=""
+                        class="form-control"
+                >
+            </div>
 
             {{--Pinned--}}
             <div v-show="showNewItemFields" class="form-group">
