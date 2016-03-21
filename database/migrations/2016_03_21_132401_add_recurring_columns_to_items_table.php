@@ -13,7 +13,7 @@ class AddRecurringColumnsToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->enum('recurring_unit', ['minute', 'hour', 'day', 'month', 'year'])->nullable()->index();
+            $table->enum('recurring_unit', ['minute', 'hour', 'day', 'week', 'month', 'year'])->nullable()->index();
             $table->integer('recurring_frequency')->nullable()->index();
         });
     }

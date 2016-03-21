@@ -53,6 +53,10 @@ class ItemsRepository {
                 $notBeforeTime->addDays($item->recurring_frequency);
                 break;
 
+            case "week":
+                $notBeforeTime->addWeeks($item->recurring_frequency);
+                break;
+
             case "month":
                 $notBeforeTime->addMonths($item->recurring_frequency);
                 break;
