@@ -263,16 +263,34 @@ var ItemsRepository = {
     deleteItem: function (that, item) {
         if (confirm("Are you sure?")) {
             that.showLoading = true;
-            that.$http.delete('/api/items/' + item.id, function (response) {
-                    ItemsRepository.deleteJsItem(that, item);
-                    ItemsRepository.closeItemPopup(that);
-                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                    //this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                    that.showLoading = false;
+
+            if (item.recurringUnit) {
+                //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
+                var data = {
+                    updatingNextTimeForRecurringItem: true
+                };
+
+                that.$http.put('/api/items/' + item.id, data, function (response) {
+                    item.notBefore = response.notBefore;
                 })
                 .error(function (response) {
                     HelpersRepository.handleResponseError(response);
                 });
+            }
+
+            else {
+                //We are actually deleting the item
+                that.$http.delete('/api/items/' + item.id, function (response) {
+                        ItemsRepository.deleteJsItem(that, item);
+                        ItemsRepository.closeItemPopup(that);
+                        $.event.trigger('provide-feedback', ['Item deleted', 'success']);
+                        //this.$broadcast('provide-feedback', 'Item deleted', 'success');
+                        that.showLoading = false;
+                    })
+                    .error(function (response) {
+                        HelpersRepository.handleResponseError(response);
+                    });
+            }
         }
     },
 
