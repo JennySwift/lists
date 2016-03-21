@@ -90,7 +90,8 @@ var ItemPopup = Vue.component('item-popup', {
         'closePopup',
         'items',
         'getItems',
-        'deleteItem'
+        'deleteItem',
+        'recurringUnits'
     ],
     ready: function () {
 

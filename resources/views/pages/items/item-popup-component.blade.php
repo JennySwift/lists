@@ -88,6 +88,38 @@
                 </div>
 
             </div>
+            
+            <div class="flex">
+                <div class="form-group">
+                    <label for="selected-item-recurring-unit">Recurring unit</label>
+
+                    <select
+                        v-model="selectedItem.recurringUnit"
+                        id="selected-item-recurring-unit"
+                        class="form-control"
+                    >
+                        <option
+                            v-for="recurringUnit in recurringUnits"
+                            v-bind:value="recurringUnit"
+                        >
+                            @{{ recurringUnit }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selected-item-recurring-frequency">Recurring frequency</label>
+                    <input
+                        v-model="selectedItem.recurringFrequency"
+                        type="number"
+                        id="selected-item-recurring-frequency"
+                        name="selected-item-recurring-frequency"
+                        placeholder=""
+                        class="form-control"
+                    >
+                </div>
+
+            </div>
 
             <div class="flex">
                 <div class="form-group">

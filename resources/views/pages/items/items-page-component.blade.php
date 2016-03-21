@@ -38,6 +38,7 @@
                 :items.sync="items"
                 :categories="categories"
                 :zoomed-item="zoomedItem"
+                :recurring-units="recurringUnits"
             >
             </new-item>
 

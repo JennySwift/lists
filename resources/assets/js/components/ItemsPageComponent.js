@@ -13,6 +13,7 @@ var ItemsPage = Vue.component('items-page', {
             editingItems: false,
             newIndex: -1,
             currentTime: moment(),
+            recurringUnits: ['minute', 'hour', 'day', 'month', 'year'],
 
             filters: {
                 priority: '',

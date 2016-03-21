@@ -164,7 +164,8 @@ var NewItem = Vue.component('new-item', {
     props: [
         'items',
         'categories',
-        'zoomedItem'
+        'zoomedItem',
+        'recurringUnits'
     ],
     ready: function () {
         this.getUser();

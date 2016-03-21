@@ -7,5 +7,6 @@
         :items.sync="items"
         :get-items="getItems"
         :delete-item="deleteItem"
+        :recurring-units="recurringUnits"
 >
 </item-popup>

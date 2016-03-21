@@ -27,7 +27,9 @@ var ItemsRepository = {
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,
-            not_before: this.formatNaturalLanguageDateTime(item.notBefore)
+            not_before: this.formatNaturalLanguageDateTime(item.notBefore),
+            recurring_unit: item.recurringUnit,
+            recurring_frequency: item.recurringFrequency
         };
 
         //So the urgency can be removed

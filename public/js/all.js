@@ -21934,7 +21934,9 @@ var ItemsRepository = {
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,
-            not_before: this.formatNaturalLanguageDateTime(item.notBefore)
+            not_before: this.formatNaturalLanguageDateTime(item.notBefore),
+            recurring_unit: item.recurringUnit,
+            recurring_frequency: item.recurringFrequency
         };
 
         //So the urgency can be removed
@@ -22996,7 +22998,8 @@ var ItemPopup = Vue.component('item-popup', {
         'closePopup',
         'items',
         'getItems',
-        'deleteItem'
+        'deleteItem',
+        'recurringUnits'
     ],
     ready: function () {
 
@@ -23018,6 +23021,7 @@ var ItemsPage = Vue.component('items-page', {
             editingItems: false,
             newIndex: -1,
             currentTime: moment(),
+            recurringUnits: ['minute', 'hour', 'day', 'month', 'year'],
 
             filters: {
                 priority: '',
@@ -23479,7 +23483,8 @@ var NewItem = Vue.component('new-item', {
     props: [
         'items',
         'categories',
-        'zoomedItem'
+        'zoomedItem',
+        'recurringUnits'
     ],
     ready: function () {
         this.getUser();
