@@ -186,7 +186,9 @@ class ItemsController extends Controller
                 'favourite',
                 'pinned',
                 'alarm',
-                'not_before'
+                'not_before',
+                'recurring_unit',
+                'recurring_frequency'
             ]));
 
             //So the alarm of an item can be removed

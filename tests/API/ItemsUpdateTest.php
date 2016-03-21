@@ -40,7 +40,9 @@ class ItemsUpdateTest extends TestCase
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
-            'not_before' => '2050-02-03 13:30:05'
+            'not_before' => '2050-02-03 13:30:05',
+            'recurring_unit' => 'hours',
+            'recurring_frequency' => 6
         ]);
 
 //        dd($response);
@@ -57,6 +59,8 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals($alarm, $content['alarm']);
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+        $this->assertEquals('hours', $content['recurringUnit']);
+        $this->assertEquals(6, $content['recurringFrequency']);
 
         $this->assertEquals(200, $response->getStatusCode());
 
