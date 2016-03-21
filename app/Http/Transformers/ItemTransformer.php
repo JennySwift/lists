@@ -33,6 +33,8 @@ class ItemTransformer extends TransformerAbstract
             'alarm' => $item->alarm,
             'timeLeft' => null,
             'notBefore' => $item->not_before,
+            'recurringUnit' => $item->recurring_unit,
+            'recurringFrequency' => $item->recurring_frequency,
             //For Vue
             'children' => false
         ];

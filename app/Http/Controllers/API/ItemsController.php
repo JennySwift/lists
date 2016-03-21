@@ -173,40 +173,46 @@ class ItemsController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        $data = array_compare($item->toArray(), $request->only([
-            'priority',
-            'urgency',
-            'title',
-            'body',
-            'favourite',
-            'pinned',
-            'alarm',
-            'not_before'
-        ]));
-
-        //So the alarm of an item can be removed
-        if ($request->has('alarm') && !$request->get('alarm')) {
-            $data['alarm'] = null;
-        }
-        //So the urgency of an item can be removed
-        if ($request->has('urgency') && !$request->get('urgency')) {
-            $data['urgency'] = null;
+        if ($request->has('updatingNextTimeForRecurringItem')) {
+            $item = $this->itemsRepository->updateNextTimeForRecurringItem($item);
         }
 
-        $item->update($data);
+        else {
+            $data = array_compare($item->toArray(), $request->only([
+                'priority',
+                'urgency',
+                'title',
+                'body',
+                'favourite',
+                'pinned',
+                'alarm',
+                'not_before'
+            ]));
 
-        if ($request->has('parent_id')) {
-            $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
-            $item->save();
-        }
+            //So the alarm of an item can be removed
+            if ($request->has('alarm') && !$request->get('alarm')) {
+                $data['alarm'] = null;
+            }
+            //So the urgency of an item can be removed
+            if ($request->has('urgency') && !$request->get('urgency')) {
+                $data['urgency'] = null;
+            }
 
-        if ($request->has('category_id')) {
-            $item->category()->associate(Category::findOrFail($request->get('category_id')));
-            $item->save();
-        }
+            $item->update($data);
 
-        if ($request->has('moveItem')) {
-            $this->itemsRepository->moveItem($request, $item);
+            if ($request->has('parent_id')) {
+                $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
+                $item->save();
+            }
+
+            if ($request->has('category_id')) {
+                $item->category()->associate(Category::findOrFail($request->get('category_id')));
+                $item->save();
+            }
+
+            if ($request->has('moveItem')) {
+                $this->itemsRepository->moveItem($request, $item);
+            }
         }
 
         $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];

@@ -19,6 +19,12 @@
                 <i v-if="item.alarm" class="fa fa-bell alarm"></i>
                 <i v-if="item.timeLeft" class="">@{{ item.timeLeft | timeLeftFilter }}</i>
                 <span v-if="item.notBefore" class="not-before">Not before @{{ item.notBefore | dateTimeFilter}}</span>
+
+                <div v-if="item.recurringUnit" class="recurring">
+                    <i class="fa fa-refresh"></i>
+                    <span>Repeats every @{{ item.recurringFrequency }} @{{ item.recurringUnit }}</span>
+                    <span v-if="item.recurringFrequency > 1">s</span>
+                </div>
             </div>
 
         </div>

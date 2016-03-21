@@ -2,12 +2,68 @@
 
 use App\Models\Item;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
  * Class ItemsRepository
  */
 class ItemsRepository {
+
+    /**
+     *
+     * @param Item $item
+     * @return Item
+     */
+    public function updateNextTimeForRecurringItem(Item $item)
+    {
+        $notBeforeTime = Carbon::createFromFormat('Y-m-d H:i:s', $item->not_before);
+
+        $notBeforeTime = $this->calculateNotBeforeTime($item, $notBeforeTime);
+
+        //Make the not before time for the item later (according to the item's recurring unit and frequency) until it is on or after the current time.
+        while ($notBeforeTime < Carbon::now()) {
+            $notBeforeTime = $this->calculateNotBeforeTime($item, $notBeforeTime);
+        }
+
+        $item->not_before = $notBeforeTime->format('Y-m-d H:i:s');
+        $item->save();
+
+        return $item;
+    }
+
+    /**
+     *
+     * @param Item $item
+     * @param Carbon $notBeforeTime
+     * @return Carbon
+     */
+    private function calculateNotBeforeTime(Item $item, Carbon $notBeforeTime)
+    {
+        switch($item->recurring_unit) {
+            case "minute":
+                $notBeforeTime->addMinutes($item->recurring_frequency);
+                break;
+
+            case "hour":
+                $notBeforeTime->addHours($item->recurring_frequency);
+                break;
+
+            case "day":
+                $notBeforeTime->addDays($item->recurring_frequency);
+                break;
+
+            case "month":
+                $notBeforeTime->addMonths($item->recurring_frequency);
+                break;
+
+            case "year":
+                $notBeforeTime->addYears($item->recurring_frequency);
+                break;
+        }
+
+        return $notBeforeTime;
+    }
 
     /**
      * For preventing duplicate entries if I have the app open in two tabs when a user submits feedback

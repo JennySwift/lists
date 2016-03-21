@@ -575,9 +575,18 @@ li {
   font-size: 16px;
   padding: 5px 0;
   width: 850px; }
-  .item .not-before {
+  .item .not-before, .item .recurring {
     font-weight: bold;
     font-size: 12px; }
+  .item .recurring {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    .item .recurring .fa-refresh {
+      margin-right: 5px; }
   .item .note, .item .pinned, .item .alarm {
     font-size: 20px;
     display: inline;

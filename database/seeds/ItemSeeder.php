@@ -35,7 +35,6 @@ class ItemSeeder extends Seeder
         $this->makeSomeItemsUrgent();
         $this->giveAlarmsToSomeItems();
         $this->giveANotBeforeValueToSomeItems();
-
     }
 
     /**
@@ -59,8 +58,15 @@ class ItemSeeder extends Seeder
     private function giveANotBeforeValueToSomeItems()
     {
         $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(2)->get();
-        foreach ($items as $item) {
+        foreach ($items as $index => $item) {
             $item->not_before = Carbon::tomorrow()->format('Y-m-d H:i:s');
+
+            if ($index === 1) {
+                //Make it a recurring item
+                $item->recurring_unit = 'minute';
+                $item->recurring_frequency = 1;
+            }
+
             $item->save();
         }
     }

@@ -79,6 +79,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('alarm', $item);
         $this->assertArrayHasKey('timeLeft', $item);
         $this->assertArrayHasKey('notBefore', $item);
+        $this->assertArrayHasKey('recurringUnit', $item);
+        $this->assertArrayHasKey('recurringFrequency', $item);
     }
 
     /**

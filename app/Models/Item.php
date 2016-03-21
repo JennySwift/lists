@@ -27,7 +27,9 @@ class Item extends Model
         'favourite',
         'pinned',
         'alarm',
-        'not_before'
+        'not_before',
+        'recurring_unit',
+        'recurring_frequency'
     ];
 
     /**
