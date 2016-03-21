@@ -99,7 +99,9 @@ class ItemsController extends Controller
                 'favourite',
                 'pinned',
                 'alarm',
-                'not_before'
+                'not_before',
+                'recurring_unit',
+                'recurring_frequency'
             ]));
 
             //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified

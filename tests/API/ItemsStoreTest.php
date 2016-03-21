@@ -32,7 +32,9 @@ class ItemsStoreTest extends TestCase
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
-            'not_before' => '2050-02-03 13:30:05'
+            'not_before' => '2050-02-03 13:30:05',
+            'recurring_unit' => 'hour',
+            'recurring_frequency' => 6
         ];
 
         $response = $this->call('POST', '/api/items', $item);
@@ -51,6 +53,8 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['category_id']);
         $this->assertEquals($alarm, $content['alarm']);
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+        $this->assertEquals('hour', $content['recurringUnit']);
+        $this->assertEquals(6, $content['recurringFrequency']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
 

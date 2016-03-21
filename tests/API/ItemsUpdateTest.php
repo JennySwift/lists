@@ -12,7 +12,7 @@ class ItemsUpdateTest extends TestCase
     use DatabaseTransactions;
 
     /**
-     *
+     * Todo: When I made the recurring unit 'hours' instead of 'hour', it was 'hours' in the response. That shouldn't work because the column is type 'enum.'
      * @test
      * @return void
      */
@@ -41,13 +41,13 @@ class ItemsUpdateTest extends TestCase
             'category_id' => 2,
             'alarm' => $alarm,
             'not_before' => '2050-02-03 13:30:05',
-            'recurring_unit' => 'hours',
+            'recurring_unit' => 'hour',
             'recurring_frequency' => 6
         ]);
 
 //        dd($response);
         $content = json_decode($response->getContent(), true);
-        //dd($content);
+//        dd($content);
 
         $this->checkItemKeysExist($content);
 
@@ -59,7 +59,7 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals($alarm, $content['alarm']);
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
-        $this->assertEquals('hours', $content['recurringUnit']);
+        $this->assertEquals('hour', $content['recurringUnit']);
         $this->assertEquals(6, $content['recurringFrequency']);
 
         $this->assertEquals(200, $response->getStatusCode());
