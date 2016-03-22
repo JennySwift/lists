@@ -17,7 +17,12 @@
         <button v-on:click="insertCategory()" class="btn btn-success">Create</button>
 
         <ul>
-            <li v-for="category in categories">@{{ category.name }}</li>
+            <li v-for="category in categories | orderBy 'name'">
+                <category
+                    :category.sync="category"
+                >
+                </category>
+            </li>
         </ul>
 
     </div>

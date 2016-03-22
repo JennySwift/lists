@@ -22580,6 +22580,25 @@ var Categories = Vue.component('categories', {
         this.getCategories();
     }
 });
+var Category = Vue.component('category', {
+    template: '#category-template',
+    data: function () {
+        return {
+
+        };
+    },
+    components: {},
+    methods: {
+
+    },
+    props: [
+        'category'
+    ],
+    ready: function () {
+
+    }
+});
+
 var FavouriteItems = Vue.component('favourite-items', {
     template: '#favourite-items-template',
     data: function () {
