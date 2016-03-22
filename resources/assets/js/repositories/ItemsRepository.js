@@ -166,7 +166,12 @@ var ItemsRepository = {
      * @returns {*}
      */
     order: function (items) {
-        return _.chain(items).sortBy('id').sortBy('notBefore').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
+        //Sort first by priority, then by urgency, then by notBefore, then by category name, then by id
+        return _.chain(items).sortBy('id')
+            .sortBy(function (item) {
+                return item.category.name;
+            })
+            .sortBy('notBefore').sortBy('urgency').partition('urgency').flatten().sortBy('priority').value();
     },
 
     filter: function (items, that) {
