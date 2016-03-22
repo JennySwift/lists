@@ -16,6 +16,7 @@ var ItemsPage = Vue.component('items-page', {
             recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year'],
 
             filters: {
+                minimumPriority: '',
                 priority: '',
                 category: '',
                 title: '',

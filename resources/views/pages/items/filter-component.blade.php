@@ -23,6 +23,14 @@
                 class="input-sm"
         />
 
+        <label>Filter by minimum priority</label>
+        <input
+                v-model="filters.minimumPriority"
+                type="text"
+                placeholder="minimum priority"
+                class="input-sm"
+        />
+
         <label>Filter by priority</label>
         <input
                 v-model="filters.priority"

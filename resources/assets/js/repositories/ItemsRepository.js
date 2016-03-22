@@ -186,6 +186,11 @@ var ItemsRepository = {
             //Title filter
             var filteredIn = item.title.toLowerCase().indexOf(that.filters.title.toLowerCase()) !== -1;
 
+            //Priority filter-at or higher than priority specified
+            if (that.filters.minimumPriority && item.priority > that.filters.minimumPriority) {
+                filteredIn = false;
+            }
+
             //Priority filter
             if (that.filters.priority && item.priority != that.filters.priority) {
                 filteredIn = false;
