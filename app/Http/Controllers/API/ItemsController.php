@@ -202,6 +202,11 @@ class ItemsController extends Controller
                 $data['recurring_unit'] = null;
             }
 
+            //So the recurring frequency can be removed
+            if ($request->get('recurring_frequency') === '') {
+                $data['recurring_frequency'] = null;
+            }
+
             //So the alarm of an item can be removed
             if ($request->has('alarm') && !$request->get('alarm')) {
                 $data['alarm'] = null;
