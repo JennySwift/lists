@@ -8,6 +8,12 @@ var Category = Vue.component('category', {
     components: {},
     methods: {
 
+        /**
+         *
+         */
+        showCategoryPopup: function () {
+            $.event.trigger('show-category-popup', [this.category]);
+        }
     },
     props: [
         'category'

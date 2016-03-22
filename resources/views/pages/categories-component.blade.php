@@ -5,6 +5,11 @@
         <feedback></feedback>
         <loading :show-loading="showLoading"></loading>
 
+        <category-popup
+            :categories.sync="categories"
+        >
+        </category-popup>
+
         <h1>categories</h1>
 
         <label>Create a new category</label>
@@ -19,7 +24,7 @@
         <ul>
             <li v-for="category in categories | orderBy 'name'">
                 <category
-                    :category.sync="category"
+                    :category="category"
                 >
                 </category>
             </li>

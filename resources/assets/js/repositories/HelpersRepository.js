@@ -9,4 +9,13 @@ var HelpersRepository = {
         $.event.trigger('response-error', [data, status, response]);
         $.event.trigger('hide-loading');
     },
+
+    /**
+     *
+     */
+    closePopup: function ($event, that) {
+        if ($event.target.className === 'popup-outer') {
+            that.showPopup = false;
+        }
+    }
 };
