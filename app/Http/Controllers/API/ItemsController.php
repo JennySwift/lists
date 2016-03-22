@@ -104,6 +104,10 @@ class ItemsController extends Controller
                 'recurring_frequency'
             ]));
 
+            if ($request->get('recurring_unit') === 'none') {
+                $item->recurring_unit = null;
+            }
+
             //This is because the alarm was getting set to 0000-00-00 00:00:00 when no alarm was specified
             if ($request->has('alarm') && !$request->get('alarm')) {
                 $item->alarm = null;
@@ -192,6 +196,11 @@ class ItemsController extends Controller
                 'recurring_unit',
                 'recurring_frequency'
             ]));
+
+            //So the recurring unit can be removed
+            if ($request->get('recurring_unit') === 'none') {
+                $data['recurring_unit'] = null;
+            }
 
             //So the alarm of an item can be removed
             if ($request->has('alarm') && !$request->get('alarm')) {

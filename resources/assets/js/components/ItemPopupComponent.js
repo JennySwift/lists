@@ -40,6 +40,7 @@ var ItemPopup = Vue.component('item-popup', {
          */
         updateItemSuccess: function (response) {
             this.selectedItem.notBefore = response.notBefore;
+            this.selectedItem.recurringUnit = response.recurringUnit;
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
             }

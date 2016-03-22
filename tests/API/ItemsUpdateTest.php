@@ -102,6 +102,36 @@ class ItemsUpdateTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_set_the_recurring_unit_of_an_item_to_null()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->whereNotNull('recurring_unit')
+            ->first();
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'recurring_unit' => 'none'
+        ]);
+
+        $content = json_decode($response->getContent(), true);
+        //dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertNull($content['recurringUnit']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     *
+     * @test
+     * @return void
+     */
     public function it_can_remove_an_urgency_from_an_item()
     {
         DB::beginTransaction();
