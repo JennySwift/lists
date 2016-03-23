@@ -18,8 +18,8 @@ var Categories = Vue.component('categories', {
                 this.categories = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -39,8 +39,8 @@ var Categories = Vue.component('categories', {
             this.$http.post('/api/categories', data, function (response) {
                 this.insertCategorySuccess(response);
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 

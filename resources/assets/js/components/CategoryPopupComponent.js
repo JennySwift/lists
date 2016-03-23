@@ -26,8 +26,8 @@ var CategoryPopup = Vue.component('category-popup', {
                 $.event.trigger('provide-feedback', ['Category updated', 'success']);
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -45,8 +45,8 @@ var CategoryPopup = Vue.component('category-popup', {
                     $.event.trigger('provide-feedback', ['Category deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
         },

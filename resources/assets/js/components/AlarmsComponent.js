@@ -27,8 +27,8 @@ var Alarms = Vue.component('alarms', {
                     }
 
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 

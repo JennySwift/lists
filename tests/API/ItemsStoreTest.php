@@ -261,4 +261,52 @@ class ItemsStoreTest extends TestCase
         DB::rollBack();
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function it_throws_an_exception_for_item_store_method_if_title_is_too_long()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = [
+            'title' => '
+                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
+            ',
+            'priority' => 1,
+            'category_id' => 2,
+            'favourite' => 0,
+            'pinned' => 0
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertArrayHasKey('title', $content);
+        $this->assertEquals('The title may not be greater than 100 characters.', $content['title'][0]);
+
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
 }

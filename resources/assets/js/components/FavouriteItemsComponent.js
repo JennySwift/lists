@@ -18,8 +18,8 @@ var FavouriteItems = Vue.component('favourite-items', {
                     this.favouriteItems = response;
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 

@@ -22,8 +22,8 @@ var UrgentItems = Vue.component('urgentItems', {
                     this.items = response;
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -40,8 +40,8 @@ var UrgentItems = Vue.component('urgentItems', {
                     $.event.trigger('provide-feedback', ['Item deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
         },

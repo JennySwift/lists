@@ -79,8 +79,8 @@ var ItemsPage = Vue.component('items-page', {
                 this.categories = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -126,8 +126,8 @@ var ItemsPage = Vue.component('items-page', {
             this.$http.get(url, function (response) {
                 this.getItemsSuccess(response, expandOrZoom, item);
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -168,8 +168,8 @@ var ItemsPage = Vue.component('items-page', {
                 this.pinnedItems = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 

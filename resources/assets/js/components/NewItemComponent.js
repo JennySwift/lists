@@ -36,8 +36,8 @@ var NewItem = Vue.component('new-item', {
             this.$http.post('/api/items', data, function (response) {
                     this.insertItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -94,8 +94,8 @@ var NewItem = Vue.component('new-item', {
                     this.sendPushNotification(response);
                     this.insertItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -117,8 +117,8 @@ var NewItem = Vue.component('new-item', {
                         this.listenForFeedback();
                     }
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -154,8 +154,8 @@ var NewItem = Vue.component('new-item', {
             this.$http.post('/api/pushNotifications', data, function (response) {
 
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 

@@ -22201,8 +22201,8 @@ var ItemsRepository = {
                 that.$http.put('/api/items/' + item.id, data, function (response) {
                     item.notBefore = response.notBefore;
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
 
@@ -22215,8 +22215,8 @@ var ItemsRepository = {
                         //this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         that.showLoading = false;
                     })
-                    .error(function (response) {
-                        HelpersRepository.handleResponseError(response);
+                    .error(function (data, status, response) {
+                        HelpersRepository.handleResponseError(data, status, response);
                     });
             }
         }
@@ -22462,8 +22462,8 @@ var Alarms = Vue.component('alarms', {
                     }
 
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -22542,8 +22542,8 @@ var Categories = Vue.component('categories', {
                 this.categories = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -22563,8 +22563,8 @@ var Categories = Vue.component('categories', {
             this.$http.post('/api/categories', data, function (response) {
                 this.insertCategorySuccess(response);
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -22647,8 +22647,8 @@ var CategoryPopup = Vue.component('category-popup', {
                 $.event.trigger('provide-feedback', ['Category updated', 'success']);
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -22666,8 +22666,8 @@ var CategoryPopup = Vue.component('category-popup', {
                     $.event.trigger('provide-feedback', ['Category deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
         },
@@ -22718,8 +22718,8 @@ var FavouriteItems = Vue.component('favourite-items', {
                     this.favouriteItems = response;
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -22884,8 +22884,8 @@ var FeedbackPage = Vue.component('feedback-page', {
                     $.event.trigger('provide-feedback', ['Feedback submitted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -22946,8 +22946,8 @@ var FilterComponent = Vue.component('filter', {
                     this.items = response;
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23060,8 +23060,8 @@ var ItemPopup = Vue.component('item-popup', {
             this.$http.put('/api/items/' + item.id, data, function (response) {
                     this.updateItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23211,8 +23211,8 @@ var ItemsPage = Vue.component('items-page', {
                 this.categories = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -23258,8 +23258,8 @@ var ItemsPage = Vue.component('items-page', {
             this.$http.get(url, function (response) {
                 this.getItemsSuccess(response, expandOrZoom, item);
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -23300,8 +23300,8 @@ var ItemsPage = Vue.component('items-page', {
                 this.pinnedItems = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         },
 
@@ -23480,8 +23480,8 @@ var NewItem = Vue.component('new-item', {
             this.$http.post('/api/items', data, function (response) {
                     this.insertItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23538,8 +23538,8 @@ var NewItem = Vue.component('new-item', {
                     this.sendPushNotification(response);
                     this.insertItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23561,8 +23561,8 @@ var NewItem = Vue.component('new-item', {
                         this.listenForFeedback();
                     }
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23598,8 +23598,8 @@ var NewItem = Vue.component('new-item', {
             this.$http.post('/api/pushNotifications', data, function (response) {
 
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23636,8 +23636,8 @@ var Trash = Vue.component('trash', {
                 this.items = response;
                 $.event.trigger('hide-loading');
             })
-            .error(function (response) {
-                HelpersRepository.handleResponseError(response);
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
             });
         }
     },
@@ -23673,8 +23673,8 @@ var UrgentItems = Vue.component('urgentItems', {
                     this.items = response;
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 
@@ -23691,8 +23691,8 @@ var UrgentItems = Vue.component('urgentItems', {
                     $.event.trigger('provide-feedback', ['Item deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
         },

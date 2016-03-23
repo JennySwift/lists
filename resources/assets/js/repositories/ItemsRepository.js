@@ -285,8 +285,8 @@ var ItemsRepository = {
                 that.$http.put('/api/items/' + item.id, data, function (response) {
                     item.notBefore = response.notBefore;
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
             }
 
@@ -299,8 +299,8 @@ var ItemsRepository = {
                         //this.$broadcast('provide-feedback', 'Item deleted', 'success');
                         that.showLoading = false;
                     })
-                    .error(function (response) {
-                        HelpersRepository.handleResponseError(response);
+                    .error(function (data, status, response) {
+                        HelpersRepository.handleResponseError(data, status, response);
                     });
             }
         }

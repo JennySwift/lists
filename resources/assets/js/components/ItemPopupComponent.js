@@ -29,8 +29,8 @@ var ItemPopup = Vue.component('item-popup', {
             this.$http.put('/api/items/' + item.id, data, function (response) {
                     this.updateItemSuccess(response);
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 

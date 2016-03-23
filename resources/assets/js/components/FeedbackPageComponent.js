@@ -23,8 +23,8 @@ var FeedbackPage = Vue.component('feedback-page', {
                     $.event.trigger('provide-feedback', ['Feedback submitted', 'success']);
                     $.event.trigger('hide-loading');
                 })
-                .error(function (response) {
-                    HelpersRepository.handleResponseError(response);
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
                 });
         },
 

@@ -26,7 +26,7 @@ class StoreItemRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required | max:100',
             'priority' => 'required',
             'category_id' => 'required'
         ];
