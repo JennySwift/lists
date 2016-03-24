@@ -30,6 +30,7 @@
             <filter
                 :categories="categories"
                 :filters.sync="filters"
+                :items.sync="items"
             >
             </filter>
 
