@@ -20,7 +20,7 @@ var HelpersRepository = {
     },
 
     /**
-     * 
+     *
      * @param boolean
      * @returns {number}
      */

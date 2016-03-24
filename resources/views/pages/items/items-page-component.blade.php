@@ -24,7 +24,6 @@
             @include('pages.items.breadcrumb')
 
             <favourite-items
-                :favourite-items="favouriteItems"
             >
             </favourite-items>
 

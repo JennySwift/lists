@@ -21915,7 +21915,7 @@ var HelpersRepository = {
     },
 
     /**
-     * 
+     *
      * @param boolean
      * @returns {number}
      */
@@ -22748,6 +22748,18 @@ var FavouriteItems = Vue.component('favourite-items', {
             $(document).on('toggle-favourite-items', function (event) {
                 that.showFavourites = !that.showFavourites;
             });
+            
+            $(document).on('item-updated', function (event, item) {
+                var indexOfItemInFavourites = _.indexOf(that.favouriteItems, _.findWhere(that.favouriteItems, {id: item.id}));
+                if (item.favourite && indexOfItemInFavourites === -1) {
+                    //Add the item to the favourites
+                    that.favouriteItems.push(item);
+                }
+                else if (!item.favourite && indexOfItemInFavourites !== -1) {
+                    //Remove the item from the favourites
+                    that.favouriteItems = _.without(that.favouriteItems, that.favouriteItems[indexOfItemInFavourites]);
+                }
+            });
         }
     },
     props: [
@@ -23106,6 +23118,7 @@ var ItemPopup = Vue.component('item-popup', {
          */
         updateItemSuccess: function (response) {
             this.selectedItem.notBefore = response.notBefore;
+            $.event.trigger('item-updated', [response]);
             this.selectedItem.recurringUnit = response.recurringUnit;
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
@@ -23158,7 +23171,7 @@ var ItemPopup = Vue.component('item-popup', {
         'items',
         'getItems',
         'deleteItem',
-        'recurringUnits'
+        'recurringUnits',
     ],
     ready: function () {
 
