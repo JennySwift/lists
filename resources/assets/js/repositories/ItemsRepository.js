@@ -23,7 +23,7 @@ var ItemsRepository = {
             body: item.body,
             priority: item.priority,
             urgency: item.urgency,
-            favourite: item.favourite,
+            favourite: HelpersRepository.convertBooleanToInteger(item.favourite),
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,

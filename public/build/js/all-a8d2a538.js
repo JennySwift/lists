@@ -21912,6 +21912,20 @@ var HelpersRepository = {
         if ($event.target.className === 'popup-outer') {
             that.showPopup = false;
         }
+    },
+
+    /**
+     * 
+     * @param boolean
+     * @returns {number}
+     */
+    convertBooleanToInteger: function (boolean) {
+        if (boolean) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 };
 var ItemsRepository = {
@@ -21939,7 +21953,7 @@ var ItemsRepository = {
             body: item.body,
             priority: item.priority,
             urgency: item.urgency,
-            favourite: item.favourite,
+            favourite: HelpersRepository.convertBooleanToInteger(item.favourite),
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,

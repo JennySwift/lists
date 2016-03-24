@@ -17,5 +17,19 @@ var HelpersRepository = {
         if ($event.target.className === 'popup-outer') {
             that.showPopup = false;
         }
+    },
+
+    /**
+     * 
+     * @param boolean
+     * @returns {number}
+     */
+    convertBooleanToInteger: function (boolean) {
+        if (boolean) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 };

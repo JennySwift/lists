@@ -132,6 +132,37 @@ class ItemsUpdateTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_make_a_favourite_item_no_longer_a_favourite()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->where('favourite', 1)
+            ->first();
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'favourite' => 0
+        ]);
+
+        $content = json_decode($response->getContent(), true);
+        //dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals(0, $content['favourite']);
+        $this->assertEquals($item->title, $content['title']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     *
+     * @test
+     * @return void
+     */
     public function it_can_set_the_recurring_unit_of_an_item_to_null()
     {
         DB::beginTransaction();
