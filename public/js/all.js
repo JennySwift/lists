@@ -22773,7 +22773,7 @@ Vue.component('feedback', {
             this.feedbackMessages.push(newMessage);
 
             setTimeout(function () {
-                that.feedbackMessages = _.without(that.feedbackMessages, newMessage);
+                //that.feedbackMessages = _.without(that.feedbackMessages, newMessage);
             }, 3000);
         },
 
