@@ -274,7 +274,7 @@ var ItemsRepository = {
      */
     deleteItem: function (that, item) {
         if (confirm("Are you sure?")) {
-            that.showLoading = true;
+            $.event.trigger('show-loading');
 
             if (item.recurringUnit) {
                 //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
@@ -284,6 +284,9 @@ var ItemsRepository = {
 
                 that.$http.put('/api/items/' + item.id, data, function (response) {
                     item.notBefore = response.notBefore;
+                    ItemsRepository.closeItemPopup(that);
+                    $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
+                    $.event.trigger('hide-loading');
                 })
                 .error(function (data, status, response) {
                     HelpersRepository.handleResponseError(data, status, response);
@@ -293,15 +296,14 @@ var ItemsRepository = {
             else {
                 //We are actually deleting the item
                 that.$http.delete('/api/items/' + item.id, function (response) {
-                        ItemsRepository.deleteJsItem(that, item);
-                        ItemsRepository.closeItemPopup(that);
-                        $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                        //this.$broadcast('provide-feedback', 'Item deleted', 'success');
-                        that.showLoading = false;
-                    })
-                    .error(function (data, status, response) {
-                        HelpersRepository.handleResponseError(data, status, response);
-                    });
+                    ItemsRepository.deleteJsItem(that, item);
+                    ItemsRepository.closeItemPopup(that);
+                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
+                    $.event.trigger('hide-loading');
+                })
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
+                });
             }
         }
     },
