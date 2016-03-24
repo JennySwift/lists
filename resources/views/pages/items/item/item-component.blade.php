@@ -4,7 +4,6 @@
     <div class="item">
 
         @include('pages.items.item.before-item')
-        <feedback></feedback>
 
         <div
                 v-if="!item.html"

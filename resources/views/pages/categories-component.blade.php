@@ -2,7 +2,6 @@
 
     <div id="categories" class="container">
 
-        <feedback></feedback>
         <loading :show-loading="showLoading"></loading>
 
         <category-popup
