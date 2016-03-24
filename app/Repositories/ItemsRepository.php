@@ -80,6 +80,7 @@ class ItemsRepository {
             ->where('title', $request->get('title'))
             ->where('body', $request->get('body'))
             ->where('category_id', $request->get('category_id'))
+            ->where('parent_id', $request->get('parent_id'))
             ->first();
 
         return $item;

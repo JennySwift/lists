@@ -277,19 +277,6 @@ class ItemsStoreTest extends TestCase
                 abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
                 abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
                 abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
-                abcdefgabcdefgabcdefgabcdefgabcdefg abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg
             ',
             'priority' => 1,
             'category_id' => 2,
@@ -309,4 +296,137 @@ class ItemsStoreTest extends TestCase
         DB::rollBack();
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function it_throws_an_exception_when_a_user_tries_to_create_a_duplicate_item_with_the_same_parent()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        //First create an item
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+//            'parent_id' => 2,
+            'favourite' => 0,
+            'pinned' => 0
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals('koala', $content['title']);
+//        $this->assertEquals('koala', $content['body']);
+//        $this->assertEquals(2, $content['priority']);
+//        $this->assertEquals(1, $content['urgency']);
+//        $this->assertEquals(1, $content['favourite']);
+//        $this->assertEquals(1, $content['pinned']);
+//        $this->assertEquals(5, $content['parent_id']);
+//        $this->assertEquals(2, $content['category_id']);
+//        $this->assertEquals($alarm, $content['alarm']);
+//        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+//        $this->assertEquals('hour', $content['recurringUnit']);
+//        $this->assertEquals(6, $content['recurringFrequency']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        //Then try to enter the item again
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+//            'parent_id' => 1,
+            'favourite' => 0,
+            'pinned' => 0
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertEquals('You already have this item here.', $content['error']);
+        $this->assertEquals(400, $content['status']);
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_does_not_throw_an_exception_when_a_user_tries_to_create_a_duplicate_item_with_a_different_parent()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        //First create an item
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+            'parent_id' => 2,
+            'favourite' => 0,
+            'pinned' => 0
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals('koala', $content['title']);
+        $this->assertNull($content['body']);
+        $this->assertEquals(1, $content['priority']);
+        $this->assertEquals(0, $content['urgency']);
+        $this->assertEquals(0, $content['favourite']);
+        $this->assertEquals(0, $content['pinned']);
+        $this->assertEquals(2, $content['parent_id']);
+        $this->assertEquals(2, $content['category_id']);
+//        $this->assertEquals($alarm, $content['alarm']);
+//        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+//        $this->assertEquals('hour', $content['recurringUnit']);
+//        $this->assertEquals(6, $content['recurringFrequency']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        //Then try to enter the item again
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+            'parent_id' => 1,
+            'favourite' => 0,
+            'pinned' => 0
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertEquals('koala', $content['title']);
+        $this->assertNull($content['body']);
+        $this->assertEquals(1, $content['priority']);
+        $this->assertEquals(0, $content['urgency']);
+        $this->assertEquals(0, $content['favourite']);
+        $this->assertEquals(0, $content['pinned']);
+        $this->assertEquals(1, $content['parent_id']);
+        $this->assertEquals(2, $content['category_id']);
+//        $this->assertEquals($alarm, $content['alarm']);
+//        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+//        $this->assertEquals('hour', $content['recurringUnit']);
+//        $this->assertEquals(6, $content['recurringFrequency']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        DB::rollBack();
+    }
 }

@@ -86,7 +86,10 @@ class ItemsController extends Controller
     public function store(StoreItemRequest $request)
     {
         if ($this->itemsRepository->itemAlreadyExists($request)) {
-            return response([], Response::HTTP_BAD_REQUEST);
+            return response([
+                'error' => "You already have this item here.",
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
         }
         else {
             $parent = false;
