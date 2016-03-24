@@ -289,7 +289,7 @@ class ItemsStoreTest extends TestCase
 //        dd($content);
 
         $this->assertArrayHasKey('title', $content);
-        $this->assertEquals('The title may not be greater than 100 characters.', $content['title'][0]);
+        $this->assertEquals('The title may not be greater than 200 characters.', $content['title'][0]);
 
         $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
 
