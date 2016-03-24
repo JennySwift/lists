@@ -22974,6 +22974,25 @@ var FilterComponent = Vue.component('filter', {
     }
 });
 
+var HelpPage = Vue.component('help-page', {
+    template: '#help-page-template',
+    data: function () {
+        return {
+
+        };
+    },
+    components: {},
+    methods: {
+
+    },
+    props: [
+        //data to be received from parent
+    ],
+    ready: function () {
+
+    }
+});
+
 var Item = Vue.component('item', {
     template: '#item-template',
     data: function () {
@@ -23783,6 +23802,9 @@ router.map({
     },
     '/feedback': {
         component: FeedbackPage
+    },
+    '/help': {
+        component: HelpPage
     }
 });
 

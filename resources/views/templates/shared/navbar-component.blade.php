@@ -60,6 +60,10 @@
                     <li>
                         <a v-link="{path: '/feedback'}">Submit feedback</a>
                     </li>
+
+                    <li>
+                        <a v-link="{path: '/help'}">Help</a>
+                    </li>
                 </ul>
             </li>
 

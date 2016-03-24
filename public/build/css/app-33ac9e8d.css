@@ -746,4 +746,10 @@ li {
   #loading .fa-spinner {
     font-size: 50px; }
 
+#help-page p {
+  max-width: 475px;
+  margin: auto;
+  margin-bottom: 8px;
+  text-align: left; }
+
 /*# sourceMappingURL=app.css.map */

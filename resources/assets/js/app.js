@@ -40,6 +40,9 @@ router.map({
     },
     '/feedback': {
         component: FeedbackPage
+    },
+    '/help': {
+        component: HelpPage
     }
 });
 

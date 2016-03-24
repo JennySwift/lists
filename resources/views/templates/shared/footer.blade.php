@@ -22,6 +22,7 @@
 @include('pages.items.category-popup-component')
 @include('pages.items.favourite-items-component')
 @include('pages.feedback-page-component')
+@include('pages.help-page-component')
 @include('pages.categories-component')
 @include('pages.category-component')
 
