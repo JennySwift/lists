@@ -77,6 +77,7 @@ var ItemsPage = Vue.component('items-page', {
             $.event.trigger('show-loading');
             this.$http.get('/api/categories', function (response) {
                 this.categories = response;
+                $.event.trigger('categories-loaded');
                 $.event.trigger('hide-loading');
             })
             .error(function (data, status, response) {

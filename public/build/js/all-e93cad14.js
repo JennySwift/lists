@@ -22773,7 +22773,7 @@ Vue.component('feedback', {
             this.feedbackMessages.push(newMessage);
 
             setTimeout(function () {
-                //that.feedbackMessages = _.without(that.feedbackMessages, newMessage);
+                that.feedbackMessages = _.without(that.feedbackMessages, newMessage);
             }, 3000);
         },
 
@@ -23209,6 +23209,7 @@ var ItemsPage = Vue.component('items-page', {
             $.event.trigger('show-loading');
             this.$http.get('/api/categories', function (response) {
                 this.categories = response;
+                $.event.trigger('categories-loaded');
                 $.event.trigger('hide-loading');
             })
             .error(function (data, status, response) {
@@ -23453,7 +23454,8 @@ var NewItem = Vue.component('new-item', {
                 title: '',
                 body: '',
                 favourite: false,
-                pinned: false
+                pinned: false,
+                category: {}
             }
         };
     },
@@ -23603,6 +23605,19 @@ var NewItem = Vue.component('new-item', {
                 });
         },
 
+        /**
+         *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('categories-loaded', function (event) {
+                //Set the default category to the first one
+                setTimeout(function () {
+                    that.newItem.category = that.categories[0];
+                }, 1000);
+            });
+        }
+
 
     },
     props: [
@@ -23613,6 +23628,7 @@ var NewItem = Vue.component('new-item', {
     ],
     ready: function () {
         this.getUser();
+        this.listen();
     }
 });
 

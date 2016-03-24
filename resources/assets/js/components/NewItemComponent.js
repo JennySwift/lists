@@ -9,7 +9,8 @@ var NewItem = Vue.component('new-item', {
                 title: '',
                 body: '',
                 favourite: false,
-                pinned: false
+                pinned: false,
+                category: {}
             }
         };
     },
@@ -159,6 +160,19 @@ var NewItem = Vue.component('new-item', {
                 });
         },
 
+        /**
+         *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('categories-loaded', function (event) {
+                //Set the default category to the first one
+                setTimeout(function () {
+                    that.newItem.category = that.categories[0];
+                }, 1000);
+            });
+        }
+
 
     },
     props: [
@@ -169,5 +183,6 @@ var NewItem = Vue.component('new-item', {
     ],
     ready: function () {
         this.getUser();
+        this.listen();
     }
 });
