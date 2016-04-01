@@ -95,6 +95,11 @@ var ItemPopup = Vue.component('item-popup', {
         'deleteItem',
         'recurringUnits',
     ],
+    events: {
+        'option-chosen': function (option) {
+            this.selectedItem.parent_id = option.id;
+        }
+    },
     ready: function () {
 
     }

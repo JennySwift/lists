@@ -13,6 +13,10 @@
     display: none;
 }
 
+#item-autocomplete {
+    max-width: 500px;
+}
+
 #pinned-items, #alarms, #urgent-items, #items {
     padding: 5px 55px 30px;
     h5 {

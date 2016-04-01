@@ -145,9 +145,22 @@
                             class="form-control"
                     >
                 </div>
+            </div>
+
+            <div class="flex">
+                <div id="item-autocomplete">
+                    <autocomplete
+                            {{--:insert-item-function="insertEntry"--}}
+                            url="/api/items"
+                            autocomplete-field="new parent"
+                            {{--id-to-focus-after-autocomplete="new-exercise-entry-quantity"--}}
+                            autocomplete-field-id="item-popup-autocomplete"
+                    >
+                    </autocomplete>
+                </div>
 
                 <div class="form-group">
-                    <label for="selected-item-parent">Parent Id (To move item home, make field empty)</label>
+                    <label for="selected-item-parent">Parent Id (To move home, make field empty)</label>
                     <input
                             v-model="selectedItem.parent_id"
                             type="text"

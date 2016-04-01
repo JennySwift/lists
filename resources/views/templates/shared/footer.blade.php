@@ -13,6 +13,7 @@
 @include('templates.shared.navbar-component')
 @include('pages.items.items-page-component')
 @include('pages.items.item-popup-component')
+@include('pages.items.autocomplete-component')
 @include('pages.items.alarms-component')
 @include('pages.items.urgent-items-component')
 @include('pages.items.trash-page-component')
