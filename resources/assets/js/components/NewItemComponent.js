@@ -10,7 +10,8 @@ var NewItem = Vue.component('new-item', {
                 body: '',
                 favourite: false,
                 pinned: false,
-                category: {}
+                category: {},
+                priority: 1
             }
         };
     },
