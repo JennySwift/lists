@@ -458,7 +458,8 @@ li {
   text-align: center; }
 
 .selected {
-  background: #5bc0de; }
+  background: #5bc0de;
+  color: white; }
 
 .vertical-center {
   display: -webkit-flex;
@@ -767,6 +768,8 @@ li {
   justify-content: space-between;
   -webkit-align-items: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 5px; }
 
 /*# sourceMappingURL=app.css.map */

@@ -72,8 +72,13 @@ var Autocomplete = Vue.component('autocomplete', {
 
         /**
          *
+         * @param index
          */
-        selectOption: function () {
+        selectOption: function (index) {
+            if (index) {
+                //Item was chosen by clicking
+                this.currentIndex = index;
+            }
             this.chosenOption = this.autocompleteOptions[this.currentIndex];
             this.showDropdown = false;
             if (this.idToFocusAfterAutocomplete) {
@@ -83,6 +88,14 @@ var Autocomplete = Vue.component('autocomplete', {
                 }, 100);
             }
             this.$dispatch('option-chosen', this.chosenOption);
+        },
+
+        /**
+         *
+         * @param index
+         */
+        hoverItem: function(index) {
+            this.currentIndex = index;
         },
 
         /**

@@ -6,7 +6,7 @@
             <input
                     v-model="chosenOption.title"
                     v-on:keyup="respondToKeyup($event.keyCode)"
-                    v-on:blur="showDropdown = false"
+                    {{--v-on:blur="showDropdown = false"--}}
                     type="text"
                     :id="autocompleteFieldId"
                     :name="autocompleteFieldId"
@@ -22,8 +22,11 @@
             <div
                     v-for="option in autocompleteOptions"
                     v-bind:class="{'selected': currentIndex === $index}"
-                    class="autocomplete-option">
-                <div>@{{ option.title }}</div>
+                    v-on:mouseover="hoverItem($index)"
+                    v-on:mousedown="selectOption($index)"
+                    class="autocomplete-option"
+            >
+                <div >@{{ option.title }}</div>
                 <span class="label label-primary">@{{ option.category.name }}</span>
             </div>
         </div>
