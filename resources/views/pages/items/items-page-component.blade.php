@@ -5,16 +5,16 @@
         @include('pages.items.alarms')
 
         <urgent-items
-                {{--:items-filter="itemsFilter"--}}
-                {{--:title-filter="titleFilter"--}}
-                {{--:priority-filter="priorityFilter"--}}
-                {{--:category-filter="categoryFilter"--}}
+                :items-filter="itemsFilter"
+                :title-filter="titleFilter"
+                :priority-filter="priorityFilter"
+                :category-filter="categoryFilter"
                 :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
-                {{--:item="item"--}}
+                :item="item"
                 :categories="categories"
                 :selected-item.sync="selectedItem"
-                class="item-with-children"
+                {{--class="item-with-children"--}}
         >
         </urgent-items>
 

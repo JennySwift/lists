@@ -187,12 +187,12 @@ class ItemSeeder extends Seeder
             'priority' => $this->faker->numberBetween(1,5)
         ]);
 
-        if ($item->priority === 1) {
-            $urgent = $this->faker->boolean(5);
-            if ($urgent) {
-                $item->urgency = 1;
-            }
-        }
+//        if ($item->priority === 1) {
+//            $urgent = $this->faker->boolean(5);
+//            if ($urgent) {
+//                $item->urgency = 1;
+//            }
+//        }
 
         $item->user()->associate(User::first());
 
