@@ -84,18 +84,17 @@ class ItemsController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-//        if ($this->itemsRepository->itemAlreadyExists($request)) {
-//            return response([
-//                'error' => "You already have this item here.",
-//                'status' => Response::HTTP_BAD_REQUEST
-//            ], Response::HTTP_BAD_REQUEST);
-//        }
-        if (false) {
+        $currentUser = Auth::user();
 
+        if ($currentUser && $this->itemsRepository->itemAlreadyExists($request)) {
+            //Checking $currentUser is true because if it's feedback sent from one of my apps,
+            //the itemAlreadyExists method will throw an exception because the user isn't logged in
+            return response([
+                'error' => "You already have this item here.",
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
         }
         else {
-            $parent = false;
-
             $item = new Item($request->only([
                 'title',
                 'body',
@@ -118,12 +117,11 @@ class ItemsController extends Controller
                 $item->alarm = null;
             }
 
+            $parent = false;
             if ($request->get('parent_id')) {
                 $parent = Item::find($request->get('parent_id'));
                 $item->parent()->associate($parent);
             }
-
-            $currentUser = Auth::user();
 
             if ($currentUser) {
                 $item->user()->associate(Auth::user());
@@ -131,7 +129,6 @@ class ItemsController extends Controller
 
             else {
                 //User is not logged in. It could be a feedback request from one of my apps. Add the item to my items (user_id 1).
-                return response('welcome!', 200);
                 $item->user()->associate(1);
             }
 

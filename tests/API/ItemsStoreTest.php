@@ -86,7 +86,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
-        dd($response);
+//        dd($response);
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 

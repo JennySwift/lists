@@ -57,10 +57,6 @@ class Handler extends ExceptionHandler
             ], Response::HTTP_UNAUTHORIZED);
         }
 
-        if ($request->is('api/*')) {
-            app('Asm89\Stack\CorsService')->addActualRequestHeaders(parent::render($request, $e), $request);
-        }
-
         return parent::render($request, $e);
     }
 }
