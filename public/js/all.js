@@ -22550,7 +22550,10 @@ var Autocomplete = Vue.component('autocomplete', {
                 title: ''
             },
             showDropdown: false,
-            currentIndex: 0
+            currentIndex: 0,
+            timeSinceKeyPress: 0,
+            interval: '',
+            startedCounting: false
         };
     },
     components: {},
@@ -22563,7 +22566,7 @@ var Autocomplete = Vue.component('autocomplete', {
         respondToKeyup: function (keycode) {
             if (keycode !== 13 && keycode !== 38 && keycode !== 40 && keycode !== 39 && keycode !== 37) {
                 //not enter, up, down, right or left arrows
-                this.populateOptions();
+                this.startCounting();
             }
             else if (keycode === 38) {
                 //up arrow pressed
@@ -22581,6 +22584,25 @@ var Autocomplete = Vue.component('autocomplete', {
                 this.respondToEnter();
             }
         },
+
+        /**
+         * Called each time a key is pressed that would fire the request to get the results (not enter, arrows, etc)
+         * So a request isn't fired each time a key is pressed if the user types quickly
+         */
+        startCounting: function () {
+            var that = this;
+            clearInterval(this.interval);
+            this.timeSinceKeyPress = 0;
+
+            this.interval = setInterval(function () {
+                that.timeSinceKeyPress++;
+                if (that.timeSinceKeyPress > 1) {
+                    that.populateOptions();
+                    clearInterval(that.interval);
+                }
+            }, 500);
+        },
+
 
         /**
          *
