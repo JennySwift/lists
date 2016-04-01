@@ -45,7 +45,7 @@ var Autocomplete = Vue.component('autocomplete', {
         populateOptions: function () {
             //fill the dropdown
             $.event.trigger('show-loading');
-            this.$http.get(this.url + '?typing=' + this.chosenOption.title, function (response) {
+            this.$http.get(this.url + '?filter=' + this.chosenOption.title, function (response) {
                     this.autocompleteOptions = response;
                     this.showDropdown = true;
                     this.currentIndex = 0;
