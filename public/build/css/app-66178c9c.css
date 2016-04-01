@@ -114,6 +114,9 @@ li {
 
 #login {
   padding-top: 85px; }
+  @media (max-width: 1000px) {
+    #login {
+      padding-top: 0; } }
   #login .flex {
     display: -webkit-flex;
     display: -ms-flexbox;

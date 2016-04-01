@@ -1,5 +1,8 @@
 #login {
     padding-top: 85px;
+    @media (max-width: 1000px) {
+        padding-top: 0;
+    }
     .flex {
         display: flex;
         flex-direction: column;
