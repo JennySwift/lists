@@ -147,7 +147,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="selected-item-parent">Parent Id</label>
+                    <label for="selected-item-parent">Parent Id (To move item home, make field empty)</label>
                     <input
                             v-model="selectedItem.parent_id"
                             type="text"

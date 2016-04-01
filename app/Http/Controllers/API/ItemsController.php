@@ -232,7 +232,13 @@ class ItemsController extends Controller
             $item->update($data);
 
             if ($request->has('parent_id')) {
-                $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
+                //So the parent_id can be removed (so the item moves to the top-most level, home)
+                if ($request->get('parent_id') === 'none') {
+                    $item->parent()->dissociate();
+                }
+                else {
+                    $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
+                }
                 $item->save();
             }
 

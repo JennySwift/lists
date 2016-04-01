@@ -21988,6 +21988,9 @@ var ItemsRepository = {
         else if (zoomedItem) {
             data.parent_id = zoomedItem.id;
         }
+        else if (item.oldParentId && item.parent_id === '') {
+            data.parent_id = 'none';
+        }
         else {
             data.parent_id = null;
         }
