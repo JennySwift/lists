@@ -145,7 +145,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class
+        Spatie\Backup\BackupServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class
 
     ],
 

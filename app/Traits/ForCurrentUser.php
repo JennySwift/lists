@@ -1,5 +1,6 @@
 <?php  namespace App\Traits;
 
+use App\Exceptions\NotLoggedInException;
 use Auth;
 
 /**
@@ -17,19 +18,21 @@ trait ForCurrentUser {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * @param $query
+     * @param null $table
+     * @return mixed
+     */
     public function scopeForCurrentUser($query, $table = null)
     {
-        if(is_null($table)) {
-            // Make sure the user is logged in, we never know. If so, modify the query by adding a whereUserId clause to
-            // it with the current user id
-            if (Auth::check()) {
+        if (Auth::check()) {
+            if (is_null($table)) {
                 return $query->whereUserId(Auth::user()->id);
             }
-            return $query;
+            return $query->where($table.'.user_id', Auth::user()->id);
         }
 
-        return $query->where($table.'.user_id', Auth::user()->id);
-
+        throw new NotLoggedInException;
     }
 
 }

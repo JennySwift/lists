@@ -50,6 +50,17 @@ class Handler extends ExceptionHandler
             ], Response::HTTP_NOT_FOUND);
         }
 
+        if ($e instanceof NotLoggedInException) {
+            return response([
+                'error' => 'You are not logged in',
+                'status' => Response::HTTP_UNAUTHORIZED
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        if ($request->is('api/*')) {
+            app('Asm89\Stack\CorsService')->addActualRequestHeaders(parent::render($request, $e), $request);
+        }
+
         return parent::render($request, $e);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 
 /**
  * Class ItemsIndexTest
@@ -23,6 +24,23 @@ class ItemsIndexTest extends TestCase
         $this->checkItemKeysExist($content[0]);
 
         $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_throws_an_exception_for_index_method_if_user_is_not_logged_in()
+    {
+        $response = $this->call('GET', '/api/items');
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->assertArrayHasKey('error', $content);
+        $this->assertContains('not logged in', $content['error']);
+        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $content['status']);
+
+        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
     /**

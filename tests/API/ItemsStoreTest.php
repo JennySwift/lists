@@ -65,6 +65,55 @@ class ItemsStoreTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_create_an_item_if_not_logged_in()
+    {
+        DB::beginTransaction();
+        $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+
+        $item = [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'urgency' => 1,
+            'favourite' => 1,
+            'pinned' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'alarm' => $alarm,
+            'not_before' => '2050-02-03 13:30:05',
+            'recurring_unit' => 'hour',
+            'recurring_frequency' => 6
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+        dd($response);
+        $content = json_decode($response->getContent(), true);
+//      dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals('numbat', $content['title']);
+        $this->assertEquals('koala', $content['body']);
+        $this->assertEquals(2, $content['priority']);
+        $this->assertEquals(1, $content['urgency']);
+        $this->assertEquals(1, $content['favourite']);
+        $this->assertEquals(1, $content['pinned']);
+        $this->assertEquals(5, $content['parent_id']);
+        $this->assertEquals(2, $content['category_id']);
+        $this->assertEquals($alarm, $content['alarm']);
+        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+        $this->assertEquals('hour', $content['recurringUnit']);
+        $this->assertEquals(6, $content['recurringFrequency']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_create_an_item_with_a_null_recurring_unit()
     {
         DB::beginTransaction();

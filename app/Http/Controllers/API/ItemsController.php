@@ -35,7 +35,6 @@ class ItemsController extends Controller
      */
     public function __construct(ItemsRepository $itemsRepository)
     {
-        $this->middleware('auth');
         $this->itemsRepository = $itemsRepository;
     }
 
@@ -85,11 +84,14 @@ class ItemsController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
-        if ($this->itemsRepository->itemAlreadyExists($request)) {
-            return response([
-                'error' => "You already have this item here.",
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
+//        if ($this->itemsRepository->itemAlreadyExists($request)) {
+//            return response([
+//                'error' => "You already have this item here.",
+//                'status' => Response::HTTP_BAD_REQUEST
+//            ], Response::HTTP_BAD_REQUEST);
+//        }
+        if (false) {
+
         }
         else {
             $parent = false;
@@ -121,7 +123,18 @@ class ItemsController extends Controller
                 $item->parent()->associate($parent);
             }
 
-            $item->user()->associate(Auth::user());
+            $currentUser = Auth::user();
+
+            if ($currentUser) {
+                $item->user()->associate(Auth::user());
+            }
+
+            else {
+                //User is not logged in. It could be a feedback request from one of my apps. Add the item to my items (user_id 1).
+                return response('welcome!', 200);
+                $item->user()->associate(1);
+            }
+
             $item->category()->associate(Category::find($request->get('category_id')));
             $item->index = $item->calculateIndex($request->get('index'), $parent);
 
