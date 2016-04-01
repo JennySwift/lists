@@ -2,7 +2,7 @@
     position: fixed;
     right: 11px;
     top: 44px;
-    z-index: 9999;
+    z-index: $zIndex2;
     .feedback-message {
         min-height: 25px;
         background: white;
