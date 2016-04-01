@@ -12,7 +12,10 @@ return [
      |
      */
     'supportsCredentials' => false,
-    'allowedOrigins' => ['http://budget_app.dev:8000'],
+    'allowedOrigins' => [
+        'http://budget_app.dev:8000',
+        'http://budget_app.jennyswiftcreations.com'
+    ],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],
