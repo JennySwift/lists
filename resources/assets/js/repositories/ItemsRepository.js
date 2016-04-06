@@ -15,6 +15,27 @@ var ItemsRepository = {
     /**
      *
      * @param item
+     * @param response
+     */
+    updateProperties: function (item, response) {
+        item.title = response.title;
+        item.body = response.body;
+        item.parent_id = response.parent_id;
+        item.category_id = response.category_id;
+        item.category = response.category;
+        item.favourite = response.favourite;
+        item.alarm = response.alarm;
+        item.notBefore = response.notBefore;
+        item.recurringUnit = response.recurringUnit;
+        item.recurringFrequency = response.recurringFrequency;
+        item.priority = response.priority;
+        item.urgency = response.urgency;
+        item.parent = response.parent;
+    },
+
+    /**
+     *
+     * @param item
      * @returns {{title: *, body: (*|string|Array|HTMLElement), priority: *, favourite: (*|boolean), pinned: (*|boolean), category_id: *, parent_id: (*|null)}}
      */
     setData: function (item, zoomedItem) {

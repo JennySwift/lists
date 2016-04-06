@@ -166,7 +166,7 @@
                             type="text"
                             id="selected-item-parent"
                             name="selected-item-parent"
-                            placeholder="parent.id"
+                            placeholder=""
                             class="form-control"
                     >
                 </div>

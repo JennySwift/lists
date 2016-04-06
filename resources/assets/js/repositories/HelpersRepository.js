@@ -31,5 +31,13 @@ var HelpersRepository = {
         else {
             return 0;
         }
+    },
+
+    /**
+     *
+     * @param object
+     */
+    clone: function (object) {
+        return JSON.parse(JSON.stringify(object))
     }
 };

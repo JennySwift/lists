@@ -22316,6 +22316,14 @@ var HelpersRepository = {
         else {
             return 0;
         }
+    },
+
+    /**
+     *
+     * @param object
+     */
+    clone: function (object) {
+        return JSON.parse(JSON.stringify(object))
     }
 };
 var ItemsRepository = {
@@ -22330,6 +22338,27 @@ var ItemsRepository = {
             return true;
         }
         return false;
+    },
+
+    /**
+     *
+     * @param item
+     * @param response
+     */
+    updateProperties: function (item, response) {
+        item.title = response.title;
+        item.body = response.body;
+        item.parent_id = response.parent_id;
+        item.category_id = response.category_id;
+        item.category = response.category;
+        item.favourite = response.favourite;
+        item.alarm = response.alarm;
+        item.notBefore = response.notBefore;
+        item.recurringUnit = response.recurringUnit;
+        item.recurringFrequency = response.recurringFrequency;
+        item.priority = response.priority;
+        item.urgency = response.urgency;
+        item.parent = response.parent;
     },
 
     /**
@@ -23484,7 +23513,9 @@ var ItemPopup = Vue.component('item-popup', {
          * @param response
          */
         updateItemSuccess: function (response) {
-            this.selectedItem.notBefore = response.notBefore;
+            var index = _.indexOf(this.items, _.findWhere(this.items, {id: response.id}));
+            ItemsRepository.updateProperties(this.items[index], response);
+
             $.event.trigger('item-updated', [response]);
             this.selectedItem.recurringUnit = response.recurringUnit;
             if (this.selectedItem.oldParentId != response.parent_id) {
@@ -23549,7 +23580,7 @@ var ItemPopup = Vue.component('item-popup', {
         listen: function () {
             var that = this;
             $(document).on('show-item-popup', function (event, item) {
-                that.selectedItem = item;
+                that.selectedItem = HelpersRepository.clone(item);
                 that.selectedItem.oldParentId = item.parent_id;
                 that.selectedItem.oldAlarm = item.alarm;
                 that.showPopup = true;
