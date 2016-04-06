@@ -6,16 +6,24 @@ var DateTimeRepository = {
      * @returns {*}
      */
     convertToDateTime: function (dateAndTime) {
-        if (dateAndTime == 't') {
-            dateAndTime = 'today';
+        var dateTime = Date.create(dateAndTime).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
+
+        if (dateTime == 'Invalid Date') {
+            //Only add my shortcuts if the date is invalid for Sugar
+            if (dateAndTime == 't') {
+                dateAndTime = 'today';
+            }
+            else if (dateAndTime == 'to') {
+                dateAndTime = 'tomorrow';
+            }
+            else if (dateAndTime == 'y') {
+                dateAndTime = 'yesterday';
+            }
+
+            dateTime = Date.create(dateAndTime).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
         }
-        else if (dateAndTime == 'to') {
-            dateAndTime = 'tomorrow';
-        }
-        else if (dateAndTime == 'y') {
-            dateAndTime = 'yesterday';
-        }
-        return Date.create(dateAndTime).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
+
+        return dateTime;
         //if (Date.parse(dateAndTime)) {
         //    return Date.parse(dateAndTime).toString('yyyy-MM-dd HH:mm:ss');
         //}
