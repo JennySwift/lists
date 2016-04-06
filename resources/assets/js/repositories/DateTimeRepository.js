@@ -6,6 +6,15 @@ var DateTimeRepository = {
      * @returns {*}
      */
     convertToDateTime: function (dateAndTime) {
+        if (dateAndTime == 't') {
+            dateAndTime = 'today';
+        }
+        else if (dateAndTime == 'to') {
+            dateAndTime = 'tomorrow';
+        }
+        else if (dateAndTime == 'y') {
+            dateAndTime = 'yesterday';
+        }
         return Date.create(dateAndTime).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
         //if (Date.parse(dateAndTime)) {
         //    return Date.parse(dateAndTime).toString('yyyy-MM-dd HH:mm:ss');

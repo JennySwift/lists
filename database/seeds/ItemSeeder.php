@@ -57,7 +57,7 @@ class ItemSeeder extends Seeder
      */
     private function giveANotBeforeValueToSomeItems()
     {
-        $dateTime = Carbon::yesterday();
+        $dateTime = Carbon::yesterday()->subDays(1);
         $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(3)->get();
         foreach ($items as $index => $item) {
             $dateTime->addDay(1);
