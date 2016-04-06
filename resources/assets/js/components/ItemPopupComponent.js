@@ -54,7 +54,7 @@ var ItemPopup = Vue.component('item-popup', {
                 //the alarm has been changed
                 $.event.trigger('alarm-updated', [response]);
             }
-            this.showItemPopup = false;
+            this.showPopup = false;
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             $.event.trigger('hide-loading');
         },
