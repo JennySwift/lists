@@ -9,11 +9,11 @@ var ItemPopup = Vue.component('item-popup', {
     filters: {
         /**
          *
-         * @param dateAndTime
+         * @param dateTime
          * @returns {*|string}
          */
-        userFriendlyDateTimeFilter: function (dateAndTime) {
-            return ItemsRepository.userFriendlyDateTimeFilter(dateAndTime);
+        userFriendlyDateTimeFilter: function (dateTime) {
+            return DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(dateTime));
         }
     },
     components: {},

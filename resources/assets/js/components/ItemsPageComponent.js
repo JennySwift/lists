@@ -43,7 +43,7 @@ var ItemsPage = Vue.component('items-page', {
     components: {},
     filters: {
         itemsFilter: function (items) {
-            return ItemsRepository.filter(items, this);
+            return FiltersRepository.filter(items, this);
         }
     },
     methods: {

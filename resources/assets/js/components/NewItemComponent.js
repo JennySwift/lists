@@ -22,7 +22,7 @@ var NewItem = Vue.component('new-item', {
          * @returns {*|string}
          */
         userFriendlyDateTimeFilter: function (dateAndTime) {
-            return ItemsRepository.userFriendlyDateTimeFilter(dateAndTime);
+            return DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(dateAndTime));
         }
     },
     components: {},

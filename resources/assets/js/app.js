@@ -1,6 +1,9 @@
 
 var App = Vue.component('app', {
-
+    ready: function () {
+        //Set Sugar to use Australian date formatting
+        Date.setLocale('en-AU');
+    }
 });
 
 var router = new VueRouter({

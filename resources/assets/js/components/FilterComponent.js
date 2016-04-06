@@ -13,7 +13,7 @@ var FilterComponent = Vue.component('filter', {
          * @returns {*|string}
          */
         userFriendlyDateFilter: function (date) {
-            return ItemsRepository.userFriendlyDateTimeFilter(date, 'DD/MM/YY');
+            return DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(date), 'DD/MM/YY');
         }
     },
     methods: {
