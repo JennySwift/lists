@@ -22207,16 +22207,6 @@ var ItemsRepository = {
     },
 
     /**
-     * For when item is deleted from the item popup
-     */
-    closeItemPopup: function (that) {
-        if (that.showItemPopup) {
-            that.showItemPopup = false;
-            that.selectedItem = {};
-        }
-    },
-
-    /**
      *
      * @param that
      * @param item
@@ -22233,7 +22223,7 @@ var ItemsRepository = {
 
                 that.$http.put('/api/items/' + item.id, data, function (response) {
                     item.notBefore = response.notBefore;
-                    ItemsRepository.closeItemPopup(that);
+                    that.showPopup = false;
                     $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
@@ -22246,7 +22236,7 @@ var ItemsRepository = {
                 //We are actually deleting the item
                 that.$http.delete('/api/items/' + item.id, function (response) {
                     ItemsRepository.deleteJsItem(that, item);
-                    ItemsRepository.closeItemPopup(that);
+                    that.showPopup = false;
                     $.event.trigger('provide-feedback', ['Item deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
@@ -23219,30 +23209,32 @@ var Item = Vue.component('item', {
 
         /**
          *
-         * @param $item
+         * @param item
          */
-        openItemPopup: function ($item) {
-            this.showItemPopup = true;
-            this.selectedItem = $item;
-            this.selectedItem.oldParentId = $item.parent_id;
-            this.selectedItem.oldAlarm = $item.alarm;
+        showItemPopup: function (item) {
+            $.event.trigger('show-item-popup', [item]);
+        },
+
+        /**
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
         },
     },
     props: [
         //data to be received from parent
-        'showLoading',
-        'showItemPopup',
         'items',
         'item',
-        'selectedItem',
         'zoomedItem',
         'zoom',
         'categories',
         'showChildren',
         'getItems',
         'itemsFilter',
-        'filters',
-        'deleteItem'
+        'filters'
     ],
     ready: function () {
         //this.listen();
@@ -23253,7 +23245,8 @@ var ItemPopup = Vue.component('item-popup', {
     template: '#item-popup-template',
     data: function () {
         return {
-
+            selectedItem: {},
+            showPopup: false
         };
     },
     filters: {
@@ -23331,19 +23324,41 @@ var ItemPopup = Vue.component('item-popup', {
             else {
                 this.items = _.without(this.items, this.selectedItem);
             }
+        },
 
+        /**
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
+        },
+
+        /**
+        *
+        */
+        closePopup: function ($event) {
+            HelpersRepository.closePopup($event, this);
+        },
+
+        /**
+         *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('show-item-popup', function (event, item) {
+                that.selectedItem = item;
+                that.selectedItem.oldParentId = item.parent_id;
+                that.selectedItem.oldAlarm = item.alarm;
+                that.showPopup = true;
+            });
         }
     },
     props: [
-        //data to be received from parent
-        'showLoading',
-        'showItemPopup',
-        'selectedItem',
         'categories',
-        'closePopup',
         'items',
         'getItems',
-        'deleteItem',
         'recurringUnits',
     ],
     events: {
@@ -23352,7 +23367,7 @@ var ItemPopup = Vue.component('item-popup', {
         }
     },
     ready: function () {
-
+        this.listen();
     }
 });
 
@@ -23360,8 +23375,6 @@ var ItemsPage = Vue.component('items-page', {
     template: '#items-page-template',
     data: function () {
         return {
-            showItemPopup: false,
-            selectedItem: {},
             items: [],
             categories: [],
             alarms: [],
@@ -23407,17 +23420,6 @@ var ItemsPage = Vue.component('items-page', {
         }
     },
     methods: {
-
-        /**
-         * Run the items filter every minute so that the not before filter
-         * keeps up with the current time
-         */
-        //runFilterRegularly: function () {
-        //    var that = this;
-        //    var interval = setInterval(function () {
-        //        that.items = ItemsRepository.filter(items, this);
-        //    }, 6000);
-        //},
 
         /**
          * Update the currentTime every minute so the not-before filter stays up to date
@@ -23563,18 +23565,6 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
-         *
-         * @param $event
-         * @param $popup
-         */
-        closePopup: function ($event, $popup) {
-            if ($event.target.className === 'popup-outer') {
-                //show.popups[$popup] = false;
-                this[$popup] = false;
-            }
-        },
-
-        /**
          * After undoing delete item, restored item is returned in the response.
          * Add this item to the items with the JS.
          * @param $item
@@ -23595,15 +23585,6 @@ var ItemsPage = Vue.component('items-page', {
                     $parent.children.push($item);
                 }
             }
-        },
-
-        /**
-         * Todo: If the item is an alarm,
-         * delete it from the alarm with the JS, too
-         * @param item
-         */
-        deleteItem: function (item) {
-            ItemsRepository.deleteItem(this, item);
         }
 
     },
@@ -23615,9 +23596,6 @@ var ItemsPage = Vue.component('items-page', {
         this.getItems('zoom');
         this.getPinnedItems();
         this.keepCurrentTimeUpToDate();
-        //this.runFilterRegularly();
-
-        console.log(Date.parse('2pm 21 march').toString('yyyy-MM-dd HH:mm:ss'));
     }
 });
 Vue.component('loading', {

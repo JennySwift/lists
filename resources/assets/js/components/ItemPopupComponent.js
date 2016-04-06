@@ -2,7 +2,8 @@ var ItemPopup = Vue.component('item-popup', {
     template: '#item-popup-template',
     data: function () {
         return {
-
+            selectedItem: {},
+            showPopup: false
         };
     },
     filters: {
@@ -80,19 +81,41 @@ var ItemPopup = Vue.component('item-popup', {
             else {
                 this.items = _.without(this.items, this.selectedItem);
             }
+        },
 
+        /**
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
+        },
+
+        /**
+        *
+        */
+        closePopup: function ($event) {
+            HelpersRepository.closePopup($event, this);
+        },
+
+        /**
+         *
+         */
+        listen: function () {
+            var that = this;
+            $(document).on('show-item-popup', function (event, item) {
+                that.selectedItem = item;
+                that.selectedItem.oldParentId = item.parent_id;
+                that.selectedItem.oldAlarm = item.alarm;
+                that.showPopup = true;
+            });
         }
     },
     props: [
-        //data to be received from parent
-        'showLoading',
-        'showItemPopup',
-        'selectedItem',
         'categories',
-        'closePopup',
         'items',
         'getItems',
-        'deleteItem',
         'recurringUnits',
     ],
     events: {
@@ -101,6 +124,6 @@ var ItemPopup = Vue.component('item-popup', {
         }
     },
     ready: function () {
-
+        this.listen();
     }
 });

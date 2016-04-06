@@ -2,8 +2,6 @@ var ItemsPage = Vue.component('items-page', {
     template: '#items-page-template',
     data: function () {
         return {
-            showItemPopup: false,
-            selectedItem: {},
             items: [],
             categories: [],
             alarms: [],
@@ -49,17 +47,6 @@ var ItemsPage = Vue.component('items-page', {
         }
     },
     methods: {
-
-        /**
-         * Run the items filter every minute so that the not before filter
-         * keeps up with the current time
-         */
-        //runFilterRegularly: function () {
-        //    var that = this;
-        //    var interval = setInterval(function () {
-        //        that.items = ItemsRepository.filter(items, this);
-        //    }, 6000);
-        //},
 
         /**
          * Update the currentTime every minute so the not-before filter stays up to date
@@ -205,18 +192,6 @@ var ItemsPage = Vue.component('items-page', {
         },
 
         /**
-         *
-         * @param $event
-         * @param $popup
-         */
-        closePopup: function ($event, $popup) {
-            if ($event.target.className === 'popup-outer') {
-                //show.popups[$popup] = false;
-                this[$popup] = false;
-            }
-        },
-
-        /**
          * After undoing delete item, restored item is returned in the response.
          * Add this item to the items with the JS.
          * @param $item
@@ -237,15 +212,6 @@ var ItemsPage = Vue.component('items-page', {
                     $parent.children.push($item);
                 }
             }
-        },
-
-        /**
-         * Todo: If the item is an alarm,
-         * delete it from the alarm with the JS, too
-         * @param item
-         */
-        deleteItem: function (item) {
-            ItemsRepository.deleteItem(this, item);
         }
 
     },
@@ -257,8 +223,5 @@ var ItemsPage = Vue.component('items-page', {
         this.getItems('zoom');
         this.getPinnedItems();
         this.keepCurrentTimeUpToDate();
-        //this.runFilterRegularly();
-
-        console.log(Date.parse('2pm 21 march').toString('yyyy-MM-dd HH:mm:ss'));
     }
 });

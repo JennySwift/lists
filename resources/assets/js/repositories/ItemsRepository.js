@@ -277,16 +277,6 @@ var ItemsRepository = {
     },
 
     /**
-     * For when item is deleted from the item popup
-     */
-    closeItemPopup: function (that) {
-        if (that.showItemPopup) {
-            that.showItemPopup = false;
-            that.selectedItem = {};
-        }
-    },
-
-    /**
      *
      * @param that
      * @param item
@@ -303,7 +293,7 @@ var ItemsRepository = {
 
                 that.$http.put('/api/items/' + item.id, data, function (response) {
                     item.notBefore = response.notBefore;
-                    ItemsRepository.closeItemPopup(that);
+                    that.showPopup = false;
                     $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })
@@ -316,7 +306,7 @@ var ItemsRepository = {
                 //We are actually deleting the item
                 that.$http.delete('/api/items/' + item.id, function (response) {
                     ItemsRepository.deleteJsItem(that, item);
-                    ItemsRepository.closeItemPopup(that);
+                    that.showPopup = false;
                     $.event.trigger('provide-feedback', ['Item deleted', 'success']);
                     $.event.trigger('hide-loading');
                 })

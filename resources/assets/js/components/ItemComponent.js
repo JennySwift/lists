@@ -25,30 +25,32 @@ var Item = Vue.component('item', {
 
         /**
          *
-         * @param $item
+         * @param item
          */
-        openItemPopup: function ($item) {
-            this.showItemPopup = true;
-            this.selectedItem = $item;
-            this.selectedItem.oldParentId = $item.parent_id;
-            this.selectedItem.oldAlarm = $item.alarm;
+        showItemPopup: function (item) {
+            $.event.trigger('show-item-popup', [item]);
+        },
+
+        /**
+         * Todo: If the item is an alarm,
+         * delete it from the alarm with the JS, too
+         * @param item
+         */
+        deleteItem: function (item) {
+            ItemsRepository.deleteItem(this, item);
         },
     },
     props: [
         //data to be received from parent
-        'showLoading',
-        'showItemPopup',
         'items',
         'item',
-        'selectedItem',
         'zoomedItem',
         'zoom',
         'categories',
         'showChildren',
         'getItems',
         'itemsFilter',
-        'filters',
-        'deleteItem'
+        'filters'
     ],
     ready: function () {
         //this.listen();

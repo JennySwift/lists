@@ -1,8 +1,8 @@
 <script id="item-popup-template" type="x-template">
 
     <div
-        v-if="showItemPopup"
-        v-on:click="closePopup($event, 'showItemPopup')"
+        v-if="showPopup"
+        v-on:click="closePopup($event)"
         class="popup-outer">
 
         <div id="item-popup" class="popup-inner">
@@ -173,7 +173,7 @@
             </div>
 
             <div class="buttons">
-                <button v-on:click="showItemPopup = false" class="btn btn-danger">Cancel</button>
+                <button v-on:click="showPopup = false" class="btn btn-danger">Cancel</button>
                 <button v-on:click="updateItem(selectedItem)" class="btn btn-success">Save</button>
             </div>
 
