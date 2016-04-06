@@ -6,6 +6,16 @@ var FilterComponent = Vue.component('filter', {
         };
     },
     components: {},
+    filters: {
+        /**
+         *
+         * @param date
+         * @returns {*|string}
+         */
+        userFriendlyDateFilter: function (date) {
+            return ItemsRepository.userFriendlyDateTimeFilter(date, 'DD/MM/YY');
+        }
+    },
     methods: {
 
         /**

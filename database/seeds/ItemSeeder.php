@@ -57,9 +57,11 @@ class ItemSeeder extends Seeder
      */
     private function giveANotBeforeValueToSomeItems()
     {
-        $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(2)->get();
+        $dateTime = Carbon::yesterday();
+        $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(3)->get();
         foreach ($items as $index => $item) {
-            $item->not_before = Carbon::tomorrow()->format('Y-m-d H:i:s');
+            $dateTime->addDay(1);
+            $item->not_before = $dateTime->copy()->format('Y-m-d H:i:s');
 
             if ($index === 1) {
                 //Make it a recurring item

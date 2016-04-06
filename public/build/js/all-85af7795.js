@@ -22063,12 +22063,14 @@ var ItemsRepository = {
     /**
      *
      * @param dateAndTime
-     * @returns {string}
+     * @param format
+     * @returns {*}
      */
-    userFriendlyDateTimeFilter: function (dateAndTime) {
+    userFriendlyDateTimeFilter: function (dateAndTime, format) {
         var dateTime = this.formatNaturalLanguageDateTime(dateAndTime);
+        var format = format || 'DD/MM/YY hh:mma';
         if (dateTime) {
-            return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('DD/MM/YY hh:mma');
+            return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format(format);
         }
         else {
             return 'Invalid date/time';
@@ -22140,9 +22142,23 @@ var ItemsRepository = {
             else if (that.filters.category && item.category_id !== that.filters.category) {
                 filteredIn = false;
             }
-            //Not before filter
+            //Not before filter (if checked, do not show items with a not before value after the current time)
             else if (that.filters.notBefore && ItemsRepository.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
                 filteredIn = false;
+            }
+            //Not before date filter
+            else if (that.filters.notBeforeDate) {
+                //Only show items with a not before date on the specified date
+                if (!item.notBefore || !Date.parse(that.filters.notBeforeDate)) {
+                    filteredIn = false;
+                }
+                else {
+                    var filterDate = Date.parse(that.filters.notBeforeDate).toString('yyyy-MM-dd');
+                    var itemDate = moment(item.notBefore, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD');
+                    if (filterDate !== itemDate) {
+                        filteredIn = false;
+                    }
+                }
             }
 
             return filteredIn;
@@ -23080,6 +23096,16 @@ var FilterComponent = Vue.component('filter', {
         };
     },
     components: {},
+    filters: {
+        /**
+         *
+         * @param date
+         * @returns {*|string}
+         */
+        userFriendlyDateFilter: function (date) {
+            return ItemsRepository.userFriendlyDateTimeFilter(date, 'DD/MM/YY');
+        }
+    },
     methods: {
 
         /**
@@ -23354,7 +23380,8 @@ var ItemsPage = Vue.component('items-page', {
                 title: '',
                 urgency: '',
                 urgencyOut: '',
-                notBefore: true
+                notBefore: true,
+                notBeforeDate: ''
             }
 
         }

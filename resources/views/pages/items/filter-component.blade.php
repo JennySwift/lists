@@ -65,6 +65,19 @@
         </div>
 
         <div class="form-group">
+            <label for="filter-not-before-date">Not before</label>
+            <input
+                v-model="filters.notBeforeDate"
+                type="text"
+                id="filter-not-before-date"
+                name="filter-not-before-date"
+                placeholder="today"
+                class="form-control"
+            >
+            <div>@{{ filters.notBeforeDate | userFriendlyDateFilter }}</div>
+        </div>
+
+        <div class="form-group">
             <label for="category-filter">Filter by category</label>
 
             <select v-model="filters.category" id="category-filter" class="form-control">
