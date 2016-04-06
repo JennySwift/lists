@@ -98,8 +98,8 @@ var FiltersRepository = {
                     filteredIn = false;
                 }
                 else {
-                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.filters.notBeforeDate), 'YYYY-MM-DD');
-                    var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore, 'YYYY-MM-DD');
+                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.filters.notBeforeDate));
+                    var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore);
                     if (filterDate !== itemDate) {
                         filteredIn = false;
                     }

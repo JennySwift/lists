@@ -38,7 +38,7 @@ var DateTimeRepository = {
      * @returns {*}
      */
     convertFromDateTime: function (dateTime, format) {
-        format = format || 'DD/MM/YY hh:mma';
+        format = format || 'ddd DD/MM/YY hh:mma';
         return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format(format);
     }
 };

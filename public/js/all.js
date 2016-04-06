@@ -22125,7 +22125,7 @@ var DateTimeRepository = {
      * @returns {*}
      */
     convertFromDateTime: function (dateTime, format) {
-        format = format || 'DD/MM/YY hh:mma';
+        format = format || 'ddd DD/MM/YY hh:mma';
         return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format(format);
     }
 };
@@ -22229,8 +22229,8 @@ var FiltersRepository = {
                     filteredIn = false;
                 }
                 else {
-                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.filters.notBeforeDate), 'YYYY-MM-DD');
-                    var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore, 'YYYY-MM-DD');
+                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.filters.notBeforeDate));
+                    var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore);
                     if (filterDate !== itemDate) {
                         filteredIn = false;
                     }
@@ -23323,7 +23323,7 @@ var FilterComponent = Vue.component('filter', {
          * @returns {*|string}
          */
         userFriendlyDateFilter: function (date) {
-            return DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(date), 'DD/MM/YY');
+            return DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(date), 'ddd DD/MM/YY');
         }
     },
     methods: {
