@@ -1,6 +1,7 @@
 <script id="item-template" type="x-template">
 
 <li>
+    
     <div class="item">
 
         @include('pages.items.item.before-item')
