@@ -3,6 +3,7 @@ var ItemPopup = Vue.component('item-popup', {
     data: function () {
         return {
             selectedItem: {},
+            selectedItemInItemsArray: {},
             showPopup: false
         };
     },
@@ -40,11 +41,12 @@ var ItemPopup = Vue.component('item-popup', {
          * @param response
          */
         updateItemSuccess: function (response) {
-            var index = _.indexOf(this.items, _.findWhere(this.items, {id: response.id}));
-            ItemsRepository.updateProperties(this.items[index], response);
+            //var index = _.indexOf(this.items, _.findWhere(this.items, {id: response.id}));
+            //ItemsRepository.updateProperties(this.items[index], response);
+            ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
 
             $.event.trigger('item-updated', [response]);
-            this.selectedItem.recurringUnit = response.recurringUnit;
+
             if (this.selectedItem.oldParentId != response.parent_id) {
                 this.jsMoveToNewParent(response);
             }
@@ -56,6 +58,7 @@ var ItemPopup = Vue.component('item-popup', {
                 //the alarm has been changed
                 $.event.trigger('alarm-updated', [response]);
             }
+
             this.showPopup = false;
             $.event.trigger('provide-feedback', ['Item updated', 'success']);
             $.event.trigger('hide-loading');
@@ -110,6 +113,9 @@ var ItemPopup = Vue.component('item-popup', {
                 that.selectedItem = HelpersRepository.clone(item);
                 that.selectedItem.oldParentId = item.parent_id;
                 that.selectedItem.oldAlarm = item.alarm;
+
+                that.selectedItemInItemsArray = item;
+
                 that.showPopup = true;
             });
         }
