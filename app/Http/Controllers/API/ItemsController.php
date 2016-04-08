@@ -215,6 +215,11 @@ class ItemsController extends Controller
                 $data['recurring_unit'] = null;
             }
 
+            //So the not before time can be removed
+            if ($request->exists('not_before') && !$request->get('not_before')) {
+                $data['not_before'] = null;
+            }
+
             //So the recurring frequency can be removed
             if ($request->get('recurring_frequency') === '') {
                 $data['recurring_frequency'] = null;

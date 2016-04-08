@@ -96,6 +96,35 @@ class ItemsUpdateTest extends TestCase
         DB::rollBack();
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_update_the_not_before_time_of_an_item_to_null()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->whereNotNull('not_before')
+            ->first();
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'not_before' => null
+        ]);
+
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertNull($content['notBefore']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
 
     /**
      *
