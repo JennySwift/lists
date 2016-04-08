@@ -6,6 +6,10 @@ var DateTimeRepository = {
      * @returns {*}
      */
     convertToDateTime: function (dateAndTime) {
+        if (!dateAndTime || dateAndTime === '') {
+            return null;
+        }
+
         var dateTime = Date.create(dateAndTime).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
 
         if (dateTime == 'Invalid Date') {
