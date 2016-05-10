@@ -22328,7 +22328,17 @@ var HelpersRepository = {
      */
     clone: function (object) {
         return JSON.parse(JSON.stringify(object))
-    }
+    },
+
+    /**
+     *
+     * @param array
+     * @param id
+     * @returns {*}
+     */
+    findIndexById: function (array, id) {
+        return _.indexOf(array, _.findWhere(array, {id: id}));
+    },
 };
 var ItemsRepository = {
 
@@ -22486,12 +22496,15 @@ var ItemsRepository = {
      * @param item
      */
     deleteJsItem: function (that, item) {
-        var parent = ItemsRepository.findParent(that.items, item);
+        var parent = ItemsRepository.findParent(that.items, item, false, true);
+        var index;
         if (parent) {
-            parent.children = _.without(parent.children, item);
+            index = HelpersRepository.findIndexById(parent.children, item.id);
+            parent.children = _.without(parent.children, parent.children[index]);
         }
         else {
-            that.items = _.without(that.items, item);
+            index = HelpersRepository.findIndexById(that.items, item.id);
+            that.items = _.without(that.items, that.items[index]);
         }
     },
 
@@ -22509,10 +22522,16 @@ var ItemsRepository = {
      * @param oldParentId
      * @returns {*}
      */
-    findParent: function (array, item, oldParentId) {
+    findParent: function (array, item, oldParentId, resetParent) {
         var parent;
         var that = this;
         var parentId = item.parent_id;
+
+        if (resetParent) {
+            //It's the first time the method is being called, rather than it being called from within itself.
+            //So make sure the parent isn't set from a previous time the method was called.
+            that.parent = null;
+        }
 
         if (oldParentId) {
             parentId = oldParentId;

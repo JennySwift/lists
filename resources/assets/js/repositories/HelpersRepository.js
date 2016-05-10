@@ -39,5 +39,15 @@ var HelpersRepository = {
      */
     clone: function (object) {
         return JSON.parse(JSON.stringify(object))
-    }
+    },
+
+    /**
+     *
+     * @param array
+     * @param id
+     * @returns {*}
+     */
+    findIndexById: function (array, id) {
+        return _.indexOf(array, _.findWhere(array, {id: id}));
+    },
 };
