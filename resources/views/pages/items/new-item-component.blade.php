@@ -145,18 +145,18 @@
             </div>
 
             {{--Pinned--}}
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-pinned">Pinned</label>
-                <input
-                        v-model="newItem.pinned"
-                        v-on:keyup.13="insertItem()"
-                        type="checkbox"
-                        id="new-item-pinned"
-                        name="new-item-pinned"
-                        placeholder="pinned"
-                        class="form-control"
-                >
-            </div>
+            {{--<div v-show="showNewItemFields" class="form-group">--}}
+                {{--<label for="new-item-pinned">Pinned</label>--}}
+                {{--<input--}}
+                        {{--v-model="newItem.pinned"--}}
+                        {{--v-on:keyup.13="insertItem()"--}}
+                        {{--type="checkbox"--}}
+                        {{--id="new-item-pinned"--}}
+                        {{--name="new-item-pinned"--}}
+                        {{--placeholder="pinned"--}}
+                        {{--class="form-control"--}}
+                {{-->--}}
+            {{--</div>--}}
 
             <div v-show="showNewItemFields" class="form-group">
                 <button

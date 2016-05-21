@@ -23,11 +23,11 @@
                             class="favourite fa fa-star">
                     </button>
 
-                    <button
-                            v-on:click="selectedItem.pinned = !selectedItem.pinned"
-                            v-bind:class="{'pinned': selectedItem.pinned, 'unpinned': !selectedItem.pinned}"
-                            class="pin-btn fa fa-map-pin">
-                    </button>
+                    {{--<button--}}
+                            {{--v-on:click="selectedItem.pinned = !selectedItem.pinned"--}}
+                            {{--v-bind:class="{'pinned': selectedItem.pinned, 'unpinned': !selectedItem.pinned}"--}}
+                            {{--class="pin-btn fa fa-map-pin">--}}
+                    {{--</button>--}}
                 </div>
 
             </div>
