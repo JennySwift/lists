@@ -147,6 +147,18 @@ li {
     align-items: center; }
     #login #remember-me-container label {
       margin-bottom: 0; }
+  #login #requirements {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    #login #requirements p {
+      width: 540px; }
 
 #register #trial-message {
   background: #fca700;
@@ -547,6 +559,17 @@ li {
     padding: 10px 0; }
     #navbar li a {
       color: #337ab7; }
+
+#playground-notice {
+  text-align: center;
+  background: #d9534f;
+  padding: 8px;
+  color: white;
+  margin-top: -22px; }
+  #playground-notice a {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline; }
 
 .debug-info {
   position: absolute;

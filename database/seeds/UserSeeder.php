@@ -20,6 +20,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('abcdefg')
         ]);
 
+        $jennyswiftcreations = User::create([
+            'name' => 'Demo User',
+            'email' => 'jennyswiftcreations@gmail.com',
+            'password' => bcrypt('abcdefg')
+        ]);
+
         $dummy = User::create([
             'name' => 'Dummy',
             'email' => 'dummy@example.com',

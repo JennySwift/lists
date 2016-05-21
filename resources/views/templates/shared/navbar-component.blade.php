@@ -71,5 +71,7 @@
 
     </ul>
 
+    <div id="playground-notice">This is for trial purposes only. The data is reset regularly. Other people using this trial version may see the data you enter, and vice versa.</div>
+
 
 </script>

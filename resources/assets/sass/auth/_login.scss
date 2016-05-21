@@ -25,5 +25,13 @@
             margin-bottom: 0;
         }
     }
+    #requirements {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p {
+            width: 540px;
+        }
+    }
 
 }

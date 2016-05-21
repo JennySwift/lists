@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 
 class ItemSeeder extends Seeder
 {
+    private $user;
 
     /**
      *
@@ -27,14 +28,22 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
-        $this->createItems();
+        $users = User::all();
 
-        $this->deleteSomeItems();
+        foreach ($users as $user) {
+            $this->user = $user;
+
+            $this->createItems();
+
+            $this->deleteSomeItems();
 //        $this->pinSomeItems();
-        $this->favouriteSomeItems();
+            $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
-        $this->giveANotBeforeValueToSomeItems();
+            $this->giveANotBeforeValueToSomeItems();
+        }
+
+
     }
 
     /**
@@ -196,7 +205,7 @@ class ItemSeeder extends Seeder
 //            }
 //        }
 
-        $item->user()->associate(User::first());
+        $item->user()->associate($this->user);
 
         if ($this->faker->boolean(50)) {
             $item->body = 'item body';

@@ -15,3 +15,16 @@
 		}
 	}
 }
+
+#playground-notice {
+	text-align: center;
+	background: $danger;
+	padding: 8px;
+	color: white;
+	margin-top: -22px;
+	a {
+		color: white;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+}
