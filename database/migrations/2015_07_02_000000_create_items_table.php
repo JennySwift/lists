@@ -23,7 +23,14 @@ class CreateItemsTable extends Migration
             $table->integer('category_id')->unsigned()->nullable()->index();
             $table->integer('priority')->index();
             $table->boolean('favourite')->default(false)->index();
-            $table->boolean('pinned')->default(false)->index();
+//            $table->boolean('pinned')->default(false)->index();
+            $table->integer('urgency')->nullable()->index();
+            $table->dateTime('alarm')->nullable()->index();
+            $table->dateTime('not_before')->nullable()->index();
+
+            $table->enum('recurring_unit', ['minute', 'hour', 'day', 'week', 'month', 'year'])->nullable()->index();
+            $table->integer('recurring_frequency')->nullable()->index();
+            
             $table->softDeletes();
             $table->timestamps();
 
