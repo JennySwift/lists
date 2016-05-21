@@ -23306,20 +23306,20 @@ var FeedbackPage = Vue.component('feedback-page', {
          * For submitting feedback to my lists app
          */
         submitFeedback: function () {
-            $.event.trigger('show-loading');
-            var data = {
-                title: this.newFeedback.title,
-                body: this.newFeedback.body,
-                priority: this.newFeedback.priority,
-            };
-
-            this.$http.post('/api/feedback', data, function (response) {
-                    $.event.trigger('provide-feedback', ['Feedback submitted', 'success']);
-                    $.event.trigger('hide-loading');
-                })
-                .error(function (data, status, response) {
-                    HelpersRepository.handleResponseError(data, status, response);
-                });
+            // $.event.trigger('show-loading');
+            // var data = {
+            //     title: this.newFeedback.title,
+            //     body: this.newFeedback.body,
+            //     priority: this.newFeedback.priority,
+            // };
+            //
+            // this.$http.post('/api/feedback', data, function (response) {
+            //         $.event.trigger('provide-feedback', ['Feedback submitted', 'success']);
+            //         $.event.trigger('hide-loading');
+            //     })
+            //     .error(function (data, status, response) {
+            //         HelpersRepository.handleResponseError(data, status, response);
+            //     });
         },
 
     },

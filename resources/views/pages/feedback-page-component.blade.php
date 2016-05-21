@@ -2,6 +2,7 @@
 
     <div>
         <h1>Submit Feedback</h1>
+        <h3>Feature not available for demo version</h3>
 
         <div>
             <div class="form-group">
