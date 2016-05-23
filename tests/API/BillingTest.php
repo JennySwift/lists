@@ -18,7 +18,6 @@ class BillingTest extends TestCase
      */
     public function it_can_bill_a_user()
     {
-        DB::beginTransaction();
         $this->logInUser(2);
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -36,6 +35,7 @@ class BillingTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/payments/bill', $billing);
+//        dd($response);
         $content = json_decode($response->getContent(), true);
 //         dd($content);
 
@@ -45,8 +45,6 @@ class BillingTest extends TestCase
         $this->assertEquals('succeeded', $content['status']);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-
-        DB::rollBack();
     }
 
     /**

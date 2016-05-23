@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Exception;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,7 +10,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Stripe\Charge;
 use Stripe\Customer;
+use Stripe\Error\ApiConnection;
+use Stripe\Error\Authentication;
+use Stripe\Error\Base;
 use Stripe\Error\Card;
+use Stripe\Error\InvalidRequest;
+use Stripe\Error\RateLimit;
 use Stripe\Stripe;
 use Auth;
 
@@ -40,8 +46,26 @@ class PaymentsController extends Controller
             return response($charge->__toArray(), Response::HTTP_OK);
         }
         catch(Card $e) {
-            dd($e);
+            dd($e->getMessage());
             // The card has been declined
+        }
+        catch(RateLimit $e) {
+            dd($e->getMessage());
+        }
+        catch(InvalidRequest $e) {
+            dd($e->getMessage());
+        }
+        catch(Authentication $e) {
+            dd($e->getMessage());
+        }
+        catch(ApiConnection $e) {
+            dd($e->getMessage());
+        }
+        catch(Base $e) {
+            dd($e->getMessage());
+        }
+        catch(Exception $e) {
+            dd($e->getMessage());
         }
     }
 
@@ -51,13 +75,14 @@ class PaymentsController extends Controller
      */
     private function createCustomer(Request $request)
     {
+        $user = Auth::user();
+
         $customer = Customer::create([
             "source" => $request->get('token'),
-            "description" => "Example customer"
+            "email" => Auth::user()->email
         ]);
 
         //Save the user's customer id in the database
-        $user = Auth::user();
         $user->stripe_id = $customer->id;
         $user->save();
 
@@ -72,7 +97,9 @@ class PaymentsController extends Controller
     public function subscribe(Request $request)
     {
         $user = Auth::user();
-        $user->subscription($request->get('plan'))->create($request->get('token'));
+        $user->subscription($request->get('plan'))->create($request->get('token'), [
+            'email' => $user->email
+        ]);
 
         return response($user, Response::HTTP_OK);
     }
