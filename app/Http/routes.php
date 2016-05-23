@@ -1,8 +1,14 @@
 <?php
 
+use JavaScript;
+
 require app_path('Http/Routes/auth.php');
 
 Route::get('/', ['middleware' => 'auth', function () {
+    JavaScript::put([
+        'stripePublishableKey' => env('STRIPE_PUBLISHABLE_KEY')
+    ]);
+    
     return view('pages.home');
 }]);
 //Route::get('/', function () {
@@ -34,8 +40,10 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::put('items/undoDelete', 'ItemsController@undoDeleteItem');
         Route::get('users', 'UsersController@show');
         Route::post('pushNotifications', 'PushNotificationsController@sendPushNotification');
-    });
 
+        Route::post('payments', 'PaymentsController@bill');
+
+    });
 
 });
 

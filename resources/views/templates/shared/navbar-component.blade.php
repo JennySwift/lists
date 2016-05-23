@@ -51,6 +51,10 @@
                 <a v-on:click="toggleFilter()"><i class="fa fa-search"></i></a>
             </li>
 
+            <li>
+                <a v-link="{ path: '/payments/'  }"><i class="fa fa-dollar"></i></a>
+            </li>
+
             <li id="menu-dropdown" class="dropdown">
                 <a href="#" data-toggle="dropdown">
                     Help

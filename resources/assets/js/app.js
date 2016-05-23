@@ -46,6 +46,9 @@ router.map({
     },
     '/help': {
         component: HelpPage
+    },
+    '/payments': {
+        component: PaymentsPage
     }
 });
 
