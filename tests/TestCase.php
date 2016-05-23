@@ -93,4 +93,19 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('name', $category);
         $this->assertArrayHasKey('path', $category);
     }
+
+    /**
+     * 
+     * @param $user
+     */
+    public function checkStripeKeysExist($user)
+    {
+        $this->assertArrayHasKey('stripe_active', $user);
+        $this->assertArrayHasKey('stripe_id', $user);
+        $this->assertArrayHasKey('stripe_subscription', $user);
+        $this->assertArrayHasKey('stripe_plan', $user);
+        $this->assertArrayHasKey('last_four', $user);
+        $this->assertArrayHasKey('trial_ends_at', $user);
+        $this->assertArrayHasKey('subscription_ends_at', $user);
+    }
 }

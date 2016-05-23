@@ -39,7 +39,11 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::get('users', 'UsersController@show');
         Route::post('pushNotifications', 'PushNotificationsController@sendPushNotification');
 
-        Route::post('payments', 'PaymentsController@bill');
+        Route::group(['prefix' => 'payments'], function () {
+            Route::post('bill', 'PaymentsController@bill');
+            Route::post('subscribe', 'PaymentsController@subscribe');
+        });
+
 
     });
 

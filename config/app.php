@@ -146,7 +146,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
-        Barryvdh\Cors\ServiceProvider::class
+        Barryvdh\Cors\ServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class
 
     ],
 
