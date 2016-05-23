@@ -42,6 +42,8 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::group(['prefix' => 'payments'], function () {
             Route::post('bill', 'PaymentsController@bill');
             Route::post('subscribe', 'PaymentsController@subscribe');
+            Route::post('createCustomer', 'PaymentsController@createCustomer');
+            Route::post('updateCustomer', 'PaymentsController@updateCustomer');
         });
 
 

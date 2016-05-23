@@ -17,13 +17,14 @@ class UserSeeder extends Seeder
         $jenny = User::create([
             'name' => 'Jenny',
             'email' => 'cheezyspaghetti@gmail.com',
-            'password' => bcrypt('abcdefg')
+            'password' => bcrypt('abcdefg'),
+            'stripe_id' => 'cus_8VDR5n00EaiTkT'
         ]);
 
         $dummy = User::create([
             'name' => 'Dummy',
             'email' => 'dummy@example.com',
-            'password' => bcrypt('abcdefg')
+            'password' => bcrypt('abcdefg'),
         ]);
     }
 }

@@ -10,6 +10,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+    protected $user;
 
     /**
      * Creates the application.
@@ -48,6 +49,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     /**
      *
+     * @param int $id
      * @return mixed
      */
     public function logInUser($id = 1)
@@ -95,7 +97,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     /**
-     * 
+     *
      * @param $user
      */
     public function checkStripeKeysExist($user)

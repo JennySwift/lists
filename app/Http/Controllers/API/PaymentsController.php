@@ -36,44 +36,20 @@ class PaymentsController extends Controller
             $user = $this->createCustomer($request);
         }
 
-        try {
-            $charge = Charge::create([
-                "amount" => 1000,
-                "currency" => "aud",
-                "customer" => $user->stripe_id
-            ]);
+        $charge = Charge::create([
+            "amount" => 1000,
+            "currency" => "aud",
+            "customer" => $user->stripe_id
+        ]);
 
-            return response($charge->__toArray(), Response::HTTP_OK);
-        }
-        catch(Card $e) {
-            dd($e->getMessage());
-            // The card has been declined
-        }
-        catch(RateLimit $e) {
-            dd($e->getMessage());
-        }
-        catch(InvalidRequest $e) {
-            dd($e->getMessage());
-        }
-        catch(Authentication $e) {
-            dd($e->getMessage());
-        }
-        catch(ApiConnection $e) {
-            dd($e->getMessage());
-        }
-        catch(Base $e) {
-            dd($e->getMessage());
-        }
-        catch(Exception $e) {
-            dd($e->getMessage());
-        }
+        return response($charge->__toArray(), Response::HTTP_OK);
     }
 
     /**
      *
      * @param Request $request
      */
-    private function createCustomer(Request $request)
+    public function createCustomer(Request $request)
     {
         $user = Auth::user();
 
@@ -87,6 +63,24 @@ class PaymentsController extends Controller
         $user->save();
 
         return $user;
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return Customer
+     */
+    public function updateCustomer(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $user = Auth::user();
+
+        $customer = Customer::retrieve($user->stripe_id);
+        $customer->email = $user->email;
+        $customer->source = $request->get('token');
+        $customer->save();
+
+        return response($customer->__toArray(), Response::HTTP_OK);
     }
 
     /**

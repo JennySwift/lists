@@ -5,6 +5,12 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
+use Stripe\Error\ApiConnection;
+use Stripe\Error\Authentication;
+use Stripe\Error\Base;
+use Stripe\Error\Card;
+use Stripe\Error\InvalidRequest;
+use Stripe\Error\RateLimit;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -55,6 +61,56 @@ class Handler extends ExceptionHandler
                 'error' => 'You are not logged in',
                 'status' => Response::HTTP_UNAUTHORIZED
             ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        //Stripe error handling
+        if ($e instanceof Card) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof RateLimit) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof InvalidRequest) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof Authentication) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof ApiConnection) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof Base) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        if ($e instanceof Exception) {
+            return response([
+                'error' => $e->getMessage(),
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return parent::render($request, $e);
