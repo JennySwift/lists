@@ -1,14 +1,12 @@
 <?php
 
-use JavaScript;
-
 require app_path('Http/Routes/auth.php');
 
 Route::get('/', ['middleware' => 'auth', function () {
     JavaScript::put([
         'stripePublishableKey' => env('STRIPE_PUBLISHABLE_KEY')
     ]);
-    
+
     return view('pages.home');
 }]);
 //Route::get('/', function () {
