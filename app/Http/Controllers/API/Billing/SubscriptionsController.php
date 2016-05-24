@@ -19,7 +19,16 @@ class SubscriptionsController extends Controller
     {
         $user = Auth::user();
 
-        $user->subscription($request->get('plan'))->swap();
+        $newPlan = $request->get('plan');
+
+        if ($newPlan === $user->stripe_plan) {
+            return response([
+                'error' => 'You are already on the ' . $newPlan . ' plan.',
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user->subscription($newPlan)->swap();
 
         return response($user, Response::HTTP_OK);
     }

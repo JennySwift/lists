@@ -57,6 +57,34 @@ class SubscriptionsTest extends TestCase
      * @test
      * @return void
      */
+    public function it_errors_if_user_tries_to_change_plans_and_they_are_already_on_that_plan()
+    {
+//        DB::beginTransaction();
+        $this->logInUser(1);
+        
+        $this->assertEquals('monthly', $this->user->stripe_plan);
+
+        $billing = [
+            'plan' => 'monthly'
+        ];
+
+        $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
+//        dd($response);
+        $content = json_decode($response->getContent(), true);
+//         dd($content);
+
+        $this->assertEquals('You are already on the monthly plan.', $content['error']);
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $content['status']);
+
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
+
+//        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_subscribe_an_existing_customer_to_the_yearly_plan()
     {
 //        DB::beginTransaction();

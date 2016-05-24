@@ -23642,7 +23642,11 @@ Vue.component('feedback', {
 
             if (typeof data !== "undefined") {
 
-                if (data.status) {
+                if (data.error) {
+                    messages.push(data.error);
+                }
+
+                else if (data.status) {
                     switch(data.status) {
                         case 503:
                             messages.push('Sorry, application under construction. Please try again later.');
@@ -23658,6 +23662,7 @@ Vue.component('feedback', {
                             break;
                     }
                 }
+
                 else if (status) {
                     if (status === 422) {
                         messages = this.setMessagesFrom422Status(data);
@@ -23678,13 +23683,6 @@ Vue.component('feedback', {
          */
         setMessagesFrom422Status: function (data) {
             var messages = [];
-
-            //for (var i = 0; i < data.length; i++) {
-            //    var error = data[i];
-            //    for (var j = 0; j < error.length; j++) {
-            //        html += '<li>' + error[j] + '</li>';
-            //    }
-            //}
 
             $.each(data, function (key, value) {
                 var error = this;
