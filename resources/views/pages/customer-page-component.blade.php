@@ -1,7 +1,7 @@
-<script id="payments-page-template" type="x-template">
+<script id="customer-page-template" type="x-template">
 
-<div id="payments-page">
-    <h1>Payments</h1>
+<div id="customer-page">
+    <h1>Credit Card Info</h1>
 
     <div class="form-group">
         <label for="card-number">Number</label>

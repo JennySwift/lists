@@ -26,7 +26,9 @@
 @include('pages.help-page-component')
 @include('pages.categories-component')
 @include('pages.category-component')
-@include('pages.payments-page-component')
+
+{{--Billing--}}
+@include('pages.customer-page-component')
 
 @include('templates.shared.analytics-tracking')
 

@@ -51,10 +51,20 @@
                 <a v-on:click="toggleFilter()"><i class="fa fa-search"></i></a>
             </li>
 
-            <li>
-                <a v-link="{ path: '/payments/'  }"><i class="fa fa-dollar"></i></a>
+            {{--Billing--}}
+            <li id="menu-dropdown" class="dropdown">
+                <a href="#" data-toggle="dropdown">
+                    <i class="fa fa-dollar"></i>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a v-link="{ path: '/customer/' }">Credit Card</a>
+                    </li>
+                </ul>
             </li>
 
+            {{--Help--}}
             <li id="menu-dropdown" class="dropdown">
                 <a href="#" data-toggle="dropdown">
                     Help

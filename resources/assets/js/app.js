@@ -47,8 +47,8 @@ router.map({
     '/help': {
         component: HelpPage
     },
-    '/payments': {
-        component: PaymentsPage
+    '/customer': {
+        component: CustomerPage
     }
 });
 
