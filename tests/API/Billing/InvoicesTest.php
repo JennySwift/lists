@@ -22,9 +22,7 @@ class InvoicesTest extends TestCase
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
-        $this->assertArrayHasKey('amount_due', $content[0]);
-        $this->assertArrayHasKey('paid', $content[0]);
-        $this->assertArrayHasKey('total', $content[0]);
+        $this->checkInvoiceKeysExist($content[0]);
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -32,25 +30,41 @@ class InvoicesTest extends TestCase
     /**
      * @test
      */
-    public function it_can_show_an_invoice()
+    public function it_can_show_an_upcoming_invoice()
     {
         $this->logInUser();
 
-        //Get an invoice id
-        $response = $this->call('GET', '/api/invoices');
+        $response = $this->call('GET', '/api/invoices?upcoming=true');
         $content = json_decode($response->getContent(), true);
-        $invoiceId = $content[0]['id'];
-
-        $response = $this->call('GET', '/api/invoices/' . $invoiceId);
-        dd($response);
-        $content = json_decode($response->getContent(), true);
-        //dd($content);
+//        dd($content);
 
         $this->checkInvoiceKeysExist($content);
 
-        $this->assertEquals(1, $content['id']);
-
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
+
+    /**
+     * @test
+     */
+//    public function it_can_show_an_invoice()
+//    {
+//        $this->logInUser();
+//
+//        //Get an invoice id
+//        $response = $this->call('GET', '/api/invoices');
+//        $content = json_decode($response->getContent(), true);
+//        $invoiceId = $content[0]['id'];
+//
+//        $response = $this->call('GET', '/api/invoices/' . $invoiceId);
+//        dd($response);
+//        $content = json_decode($response->getContent(), true);
+//        //dd($content);
+//
+//        $this->checkInvoiceKeysExist($content);
+//
+//        $this->assertEquals(1, $content['id']);
+//
+//        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+//    }
 
 }

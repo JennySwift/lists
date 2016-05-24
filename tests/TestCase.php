@@ -110,4 +110,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('trial_ends_at', $user);
         $this->assertArrayHasKey('subscription_ends_at', $user);
     }
+
+    /**
+     * 
+     * @param $invoice
+     */
+    public function checkInvoiceKeysExist($invoice)
+    {
+        $this->assertArrayHasKey('amount_due', $invoice);
+        $this->assertArrayHasKey('paid', $invoice);
+        $this->assertArrayHasKey('total', $invoice);
+    }
 }

@@ -22863,7 +22863,8 @@ var InvoicesPage = Vue.component('invoices-page', {
     template: '#invoices-page-template',
     data: function () {
         return {
-            invoices: []
+            invoices: [],
+            upcomingInvoice: {}
         };
     },
     components: {},
@@ -22876,6 +22877,20 @@ var InvoicesPage = Vue.component('invoices-page', {
         }
     },
     methods: {
+
+        /**
+        *
+        */
+        getUpcomingInvoice: function () {
+            $.event.trigger('show-loading');
+            this.$http.get('/api/invoices?upcoming=true', function (response) {
+                this.upcomingInvoice = response;
+                $.event.trigger('hide-loading');
+            })
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
+            });
+        },
 
         /**
         *
@@ -22895,6 +22910,7 @@ var InvoicesPage = Vue.component('invoices-page', {
         //data to be received from parent
     ],
     ready: function () {
+        this.getUpcomingInvoice();
         this.getInvoices();
     }
 });
