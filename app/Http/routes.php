@@ -46,6 +46,7 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
 
         Route::group(['namespace' => 'Billing'], function () {
             Route::resource('customers', 'CustomersController', ['only' => ['store', 'update']]);
+            Route::resource('invoices', 'InvoicesController', ['only' => ['index']]);
             Route::put('subscriptions', 'SubscriptionsController@update');
             Route::resource('subscriptionPlans', 'SubscriptionPlansController', ['only' => ['index']]);
         });

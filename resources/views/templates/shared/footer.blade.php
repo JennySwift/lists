@@ -30,6 +30,7 @@
 {{--Billing--}}
 @include('pages.billing.customer-page-component')
 @include('pages.billing.subscription-page-component')
+@include('pages.billing.invoices-page-component')
 
 @include('templates.shared.analytics-tracking')
 

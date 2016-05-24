@@ -64,6 +64,9 @@
                     <li>
                         <a v-link="{ path: '/subscription/' }">Subscription</a>
                     </li>
+                    <li>
+                        <a v-link="{ path: '/invoices/' }">Invoices</a>
+                    </li>
                 </ul>
             </li>
 

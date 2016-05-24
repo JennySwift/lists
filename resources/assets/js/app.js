@@ -52,6 +52,9 @@ router.map({
     },
     '/subscription': {
         component: SubscriptionPage
+    },
+    '/invoices': {
+        component: InvoicesPage
     }
 });
 

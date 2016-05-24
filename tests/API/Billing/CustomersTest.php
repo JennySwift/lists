@@ -10,7 +10,7 @@ use Stripe\Token;
  */
 class CustomersTest extends TestCase
 {
-    use DatabaseTransactions;
+//    use DatabaseTransactions;
 
     /**
      * @test

@@ -9,7 +9,7 @@ use Stripe\Stripe;
  */
 class SubscriptionsTest extends TestCase
 {
-    use DatabaseTransactions;
+//    use DatabaseTransactions;
 
     /**
      * @test
