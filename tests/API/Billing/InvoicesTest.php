@@ -28,6 +28,21 @@ class InvoicesTest extends TestCase
     }
 
     /**
+     * This test assumes the user has no invoices yet
+     * @test
+     * @return void
+     */
+    public function it_does_not_error_if_there_are_no_invoices()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/invoices');
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
+    }
+
+    /**
      * @test
      */
     public function it_can_show_an_upcoming_invoice()

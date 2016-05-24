@@ -16,13 +16,20 @@ class InvoicesController extends Controller
 {
     /**
      * GET /api/invoices
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
+
+        if (!$user->stripe_id) {
+            return response([], Response::HTTP_NO_CONTENT);
+        }
+
         if ($request->has('upcoming')) {
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-            $customer = Customer::retrieve(Auth::user()->stripe_id);
+            $customer = Customer::retrieve($user->stripe_id);
 
             return Invoice::upcoming(["customer" => $customer->id])->__toArray();
         }

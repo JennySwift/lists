@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Jenny',
             'email' => 'cheezyspaghetti@gmail.com',
             'password' => bcrypt('abcdefg'),
-            'stripe_id' => 'cus_8VDR5n00EaiTkT'
+//            'stripe_id' => 'cus_8VDR5n00EaiTkT'
         ]);
 
         $dummy = User::create([
