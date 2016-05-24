@@ -29,4 +29,28 @@ class InvoicesTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+    /**
+     * @test
+     */
+    public function it_can_show_an_invoice()
+    {
+        $this->logInUser();
+
+        //Get an invoice id
+        $response = $this->call('GET', '/api/invoices');
+        $content = json_decode($response->getContent(), true);
+        $invoiceId = $content[0]['id'];
+
+        $response = $this->call('GET', '/api/invoices/' . $invoiceId);
+        dd($response);
+        $content = json_decode($response->getContent(), true);
+        //dd($content);
+
+        $this->checkInvoiceKeysExist($content);
+
+        $this->assertEquals(1, $content['id']);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
 }

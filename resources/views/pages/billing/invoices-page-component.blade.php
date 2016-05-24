@@ -12,10 +12,10 @@
         </tr>
         <tr v-for="invoice in invoices">
             <td>@{{ invoice.date | formatDate }}</td>
-            <td>@{{ invoice.amount_due  | centsToDollars }}</td>
+            <td>@{{ invoice.total  | centsToDollars }}</td>
             <td v-if="invoice.paid">Paid</td>
             <td v-else>Unpaid</td>
-            <td></td>
+            <td><a href="/api/invoices/@{{ invoice.id }}">Download</a></td>
         </tr>
     </table>
 </div>

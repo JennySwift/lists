@@ -50,6 +50,17 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
             Route::put('subscriptions', 'SubscriptionsController@update');
             Route::resource('subscriptionPlans', 'SubscriptionPlansController', ['only' => ['index']]);
         });
+
+        Route::get('invoices/{invoice}', function ($invoiceId) {
+            dd(Auth::user()->downloadInvoice($invoiceId, [
+                'product' => 'Awesome product',
+                'vendor' => 'Awesome vendor'
+            ]));
+            return Auth::user()->downloadInvoice($invoiceId, [
+                'vendor'  => 'Your Company',
+                'product' => 'Your Product',
+            ]);
+        });
         
     });
 
