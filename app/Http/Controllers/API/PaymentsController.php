@@ -52,10 +52,16 @@ class PaymentsController extends Controller
      */
     public function subscribe(Request $request)
     {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $user = Auth::user();
-        $user->subscription($request->get('plan'))->create($request->get('token'), [
-            'email' => $user->email
-        ]);
+        $customer = Customer::retrieve($user->stripe_id);
+        $token = $customer->__toArray()['default_source'];
+
+        $user->subscription($request->get('plan'))->swap();
+
+//        $user->subscription($request->get('plan'))->create($token, [
+//            'email' => $user->email
+//        ]);
 
         return response($user, Response::HTTP_OK);
     }

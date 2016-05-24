@@ -10,7 +10,7 @@ use Stripe\Token;
  */
 class BillingTest extends TestCase
 {
-    use DatabaseTransactions;
+//    use DatabaseTransactions;
 
     /**
      * @test
@@ -51,29 +51,29 @@ class BillingTest extends TestCase
      * @test
      * @return void
      */
-    public function it_can_subscribe_a_user_to_the_monthly_plan()
+    public function it_can_subscribe_an_existing_customer_to_the_monthly_plan()
     {
 //        DB::beginTransaction();
-        $this->logInUser();
+        $this->logInUser(1);
 
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        $data = Token::create([
-            'card' => [
-                "number" => "4242424242424242",
-                "exp_month" => 11,
-                "exp_year" => 2030,
-                "cvc" => "123"
-            ]
-        ]);
+//        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+//        $data = Token::create([
+//            'card' => [
+//                "number" => "4242424242424242",
+//                "exp_month" => 11,
+//                "exp_year" => 2030,
+//                "cvc" => "123"
+//            ]
+//        ]);
 
         $billing = [
-            'token' => $data['id'],
+//            'token' => $data['id'],
             'plan' => 'monthly'
         ];
 
         $response = $this->apiCall('POST', '/api/payments/subscribe', $billing);
         $content = json_decode($response->getContent(), true);
-//         dd($content);
+         dd($content);
 
         $this->checkStripeKeysExist($content);
 
@@ -88,27 +88,68 @@ class BillingTest extends TestCase
 //        DB::rollBack();
     }
 
+//    /**
+//     * @test
+//     * @return void
+//     */
+//    public function it_can_subscribe_a_user_to_the_monthly_plan_if_they_are_not_yet_a_customer()
+//    {
+////        DB::beginTransaction();
+//        $this->logInUser(2);
+//
+////        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+////        $data = Token::create([
+////            'card' => [
+////                "number" => "4242424242424242",
+////                "exp_month" => 11,
+////                "exp_year" => 2030,
+////                "cvc" => "123"
+////            ]
+////        ]);
+//
+//        $billing = [
+////            'token' => $data['id'],
+//            'plan' => 'monthly'
+//        ];
+//
+//        $response = $this->apiCall('POST', '/api/payments/subscribe', $billing);
+//        $content = json_decode($response->getContent(), true);
+////         dd($content);
+//
+//        $this->checkStripeKeysExist($content);
+//
+//        $this->assertTrue($content['stripe_active']);
+//        $this->assertEquals('monthly', $content['stripe_plan']);
+//        $this->assertNull($content['trial_ends_at']);
+//        $this->assertNull($content['subscription_ends_at']);
+//
+//
+//        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+//
+////        DB::rollBack();
+//    }
+
     /**
      * @test
      * @return void
      */
-    public function it_can_subscribe_a_user_to_the_yearly_plan()
+    public function it_can_subscribe_an_existing_customer_to_the_yearly_plan()
     {
 //        DB::beginTransaction();
         $this->logInUser();
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        $data = Token::create([
-            'card' => [
-                "number" => "4242424242424242",
-                "exp_month" => 11,
-                "exp_year" => 2030,
-                "cvc" => "123"
-            ]
-        ]);
+//        $data = Token::create([
+//            'card' => [
+//                "number" => "4242424242424242",
+//                "exp_month" => 11,
+//                "exp_year" => 2030,
+//                "cvc" => "123"
+//            ]
+//        ]);
 
         $billing = [
-            'token' => $data['id'],
+//            'token' => $data['id'],
             'plan' => 'yearly'
         ];
 
