@@ -2,6 +2,7 @@ var PaymentsPage = Vue.component('payments-page', {
     template: '#payments-page-template',
     data: function () {
         return {
+            me: me,
             card: {
                 number: '4242424242424242',
                 cvc: '123',
@@ -63,7 +64,7 @@ var PaymentsPage = Vue.component('payments-page', {
          *
          */
         saveCustomer: function () {
-            if (me.stripe_id) {
+            if (this.me.stripe_id) {
                 this.updateCustomer();
             }
             else {
@@ -81,7 +82,7 @@ var PaymentsPage = Vue.component('payments-page', {
             };
 
             this.$http.post('/api/customers', data, function (response) {
-                me = response;
+                this.me = response;
                 $.event.trigger('provide-feedback', ['Details added', 'success']);
                 $.event.trigger('hide-loading');
             })

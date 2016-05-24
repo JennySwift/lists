@@ -28,7 +28,8 @@
 @include('pages.category-component')
 
 {{--Billing--}}
-@include('pages.customer-page-component')
+@include('pages.billing.customer-page-component')
+@include('pages.billing.subscription-page-component')
 
 @include('templates.shared.analytics-tracking')
 

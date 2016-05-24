@@ -61,6 +61,9 @@
                     <li>
                         <a v-link="{ path: '/customer/' }">Credit Card</a>
                     </li>
+                    <li>
+                        <a v-link="{ path: '/subscription/' }">Subscription</a>
+                    </li>
                 </ul>
             </li>
 

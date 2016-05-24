@@ -49,6 +49,9 @@ router.map({
     },
     '/customer': {
         component: CustomerPage
+    },
+    '/subscription': {
+        component: SubscriptionPage
     }
 });
 
