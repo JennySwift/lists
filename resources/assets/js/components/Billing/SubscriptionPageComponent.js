@@ -2,12 +2,17 @@ var SubscriptionPage = Vue.component('subscription-page', {
     template: '#subscription-page-template',
     data: function () {
         return {
-            me: me,
+            userRepository: UserRepository.state,
             subscriptionPlans: [],
-            subscriptionPlan: me.stripe_plan
+            subscriptionPlan: UserRepository.state.me.stripe_plan
         };
     },
     components: {},
+    computed: {
+        me: function () {
+            return this.userRepository.me;
+        }
+    },
     methods: {
 
         /**
@@ -35,7 +40,7 @@ var SubscriptionPage = Vue.component('subscription-page', {
             };
 
             this.$http.put('/api/subscriptions', data, function (response) {
-                this.me = response;
+                UserRepository.updateUser(response);
                 $.event.trigger('provide-feedback', ['Subscription updated', 'success']);
                 $.event.trigger('hide-loading');
             })

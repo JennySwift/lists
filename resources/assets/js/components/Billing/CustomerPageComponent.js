@@ -2,6 +2,7 @@ var CustomerPage = Vue.component('customer-page', {
     template: '#customer-page-template',
     data: function () {
         return {
+            me: UserRepository.state.me,
             card: {
                 number: '4242424242424242',
                 cvc: '123',
@@ -49,7 +50,6 @@ var CustomerPage = Vue.component('customer-page', {
          * @param response
          */
         handleGenerateTokenResponse: function (status, response) {
-            console.log(status, response);
             if (response.error) {
                 HelpersRepository.handleResponseError(null, status, response);
             }
@@ -63,7 +63,7 @@ var CustomerPage = Vue.component('customer-page', {
          *
          */
         saveCustomer: function () {
-            if (me.stripe_id) {
+            if (this.me.stripe_id) {
                 this.updateCustomer();
             }
             else {
@@ -81,7 +81,7 @@ var CustomerPage = Vue.component('customer-page', {
             };
 
             this.$http.post('/api/customers', data, function (response) {
-                me = response;
+                UserRepository.updateUser(response);
                 $.event.trigger('provide-feedback', ['Details added', 'success']);
                 $.event.trigger('hide-loading');
             })
@@ -100,7 +100,7 @@ var CustomerPage = Vue.component('customer-page', {
                 token: this.token
             };
 
-            this.$http.put('/api/customers/' + me.stripe_id, data, function (response) {
+            this.$http.put('/api/customers/' + this.me.stripe_id, data, function (response) {
                 $.event.trigger('provide-feedback', ['Details updated', 'success']);
                 $.event.trigger('hide-loading');
             })

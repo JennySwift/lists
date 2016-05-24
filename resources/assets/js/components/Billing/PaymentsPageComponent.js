@@ -2,7 +2,7 @@ var PaymentsPage = Vue.component('payments-page', {
     template: '#payments-page-template',
     data: function () {
         return {
-            me: me,
+            me: UserRepository.state.me,
             card: {
                 number: '4242424242424242',
                 cvc: '123',
@@ -101,7 +101,7 @@ var PaymentsPage = Vue.component('payments-page', {
                 token: this.token
             };
 
-            this.$http.put('/api/customers/' + me.stripe_id, data, function (response) {
+            this.$http.put('/api/customers/' + this.me.stripe_id, data, function (response) {
                 $.event.trigger('provide-feedback', ['Details updated', 'success']);
                 $.event.trigger('hide-loading');
             })

@@ -22716,10 +22716,25 @@ var TimeRepository = {
         }
     ]
 };
+var UserRepository = {
+
+    state: {
+        me: me
+    },
+
+    /**
+    *
+    * @param user
+    */
+    updateUser: function (user) {
+        this.state.me = user;
+    }
+};
 var CustomerPage = Vue.component('customer-page', {
     template: '#customer-page-template',
     data: function () {
         return {
+            me: UserRepository.state.me,
             card: {
                 number: '4242424242424242',
                 cvc: '123',
@@ -22767,7 +22782,6 @@ var CustomerPage = Vue.component('customer-page', {
          * @param response
          */
         handleGenerateTokenResponse: function (status, response) {
-            console.log(status, response);
             if (response.error) {
                 HelpersRepository.handleResponseError(null, status, response);
             }
@@ -22781,7 +22795,7 @@ var CustomerPage = Vue.component('customer-page', {
          *
          */
         saveCustomer: function () {
-            if (me.stripe_id) {
+            if (this.me.stripe_id) {
                 this.updateCustomer();
             }
             else {
@@ -22799,7 +22813,7 @@ var CustomerPage = Vue.component('customer-page', {
             };
 
             this.$http.post('/api/customers', data, function (response) {
-                me = response;
+                UserRepository.updateUser(response);
                 $.event.trigger('provide-feedback', ['Details added', 'success']);
                 $.event.trigger('hide-loading');
             })
@@ -22818,7 +22832,7 @@ var CustomerPage = Vue.component('customer-page', {
                 token: this.token
             };
 
-            this.$http.put('/api/customers/' + me.stripe_id, data, function (response) {
+            this.$http.put('/api/customers/' + this.me.stripe_id, data, function (response) {
                 $.event.trigger('provide-feedback', ['Details updated', 'success']);
                 $.event.trigger('hide-loading');
             })
@@ -22919,7 +22933,7 @@ var PaymentsPage = Vue.component('payments-page', {
     template: '#payments-page-template',
     data: function () {
         return {
-            me: me,
+            me: UserRepository.state.me,
             card: {
                 number: '4242424242424242',
                 cvc: '123',
@@ -23018,7 +23032,7 @@ var PaymentsPage = Vue.component('payments-page', {
                 token: this.token
             };
 
-            this.$http.put('/api/customers/' + me.stripe_id, data, function (response) {
+            this.$http.put('/api/customers/' + this.me.stripe_id, data, function (response) {
                 $.event.trigger('provide-feedback', ['Details updated', 'success']);
                 $.event.trigger('hide-loading');
             })
@@ -23063,12 +23077,17 @@ var SubscriptionPage = Vue.component('subscription-page', {
     template: '#subscription-page-template',
     data: function () {
         return {
-            me: me,
+            userRepository: UserRepository.state,
             subscriptionPlans: [],
-            subscriptionPlan: me.stripe_plan
+            subscriptionPlan: UserRepository.state.me.stripe_plan
         };
     },
     components: {},
+    computed: {
+        me: function () {
+            return this.userRepository.me;
+        }
+    },
     methods: {
 
         /**
@@ -23096,7 +23115,7 @@ var SubscriptionPage = Vue.component('subscription-page', {
             };
 
             this.$http.put('/api/subscriptions', data, function (response) {
-                this.me = response;
+                UserRepository.updateUser(response);
                 $.event.trigger('provide-feedback', ['Subscription updated', 'success']);
                 $.event.trigger('hide-loading');
             })
