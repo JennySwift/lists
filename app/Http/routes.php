@@ -42,12 +42,10 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
 
         Route::group(['prefix' => 'payments'], function () {
             Route::post('bill', 'PaymentsController@bill');
-            Route::post('subscribe', 'PaymentsController@subscribe');
         });
 
         Route::resource('customers', 'CustomersController', ['only' => ['store', 'update']]);
-
-
+        Route::put('subscriptions', 'SubscriptionsController@update');
     });
 
 });

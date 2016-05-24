@@ -46,6 +46,12 @@ class RouteServiceProvider extends ServiceProvider
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
             return Customer::retrieve($stripeId);
         });
+
+//        Route::bind('subscriptions', function($stripeId)
+//        {
+//            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+//            return Customer::retrieve($stripeId);
+//        });
     }
 
     /**

@@ -71,9 +71,10 @@ class BillingTest extends TestCase
             'plan' => 'monthly'
         ];
 
-        $response = $this->apiCall('POST', '/api/payments/subscribe', $billing);
+        $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
+//        dd($response);
         $content = json_decode($response->getContent(), true);
-         dd($content);
+//         dd($content);
 
         $this->checkStripeKeysExist($content);
 
@@ -87,47 +88,6 @@ class BillingTest extends TestCase
 
 //        DB::rollBack();
     }
-
-//    /**
-//     * @test
-//     * @return void
-//     */
-//    public function it_can_subscribe_a_user_to_the_monthly_plan_if_they_are_not_yet_a_customer()
-//    {
-////        DB::beginTransaction();
-//        $this->logInUser(2);
-//
-////        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-////        $data = Token::create([
-////            'card' => [
-////                "number" => "4242424242424242",
-////                "exp_month" => 11,
-////                "exp_year" => 2030,
-////                "cvc" => "123"
-////            ]
-////        ]);
-//
-//        $billing = [
-////            'token' => $data['id'],
-//            'plan' => 'monthly'
-//        ];
-//
-//        $response = $this->apiCall('POST', '/api/payments/subscribe', $billing);
-//        $content = json_decode($response->getContent(), true);
-////         dd($content);
-//
-//        $this->checkStripeKeysExist($content);
-//
-//        $this->assertTrue($content['stripe_active']);
-//        $this->assertEquals('monthly', $content['stripe_plan']);
-//        $this->assertNull($content['trial_ends_at']);
-//        $this->assertNull($content['subscription_ends_at']);
-//
-//
-//        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-//
-////        DB::rollBack();
-//    }
 
     /**
      * @test
@@ -153,7 +113,7 @@ class BillingTest extends TestCase
             'plan' => 'yearly'
         ];
 
-        $response = $this->apiCall('POST', '/api/payments/subscribe', $billing);
+        $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
         $content = json_decode($response->getContent(), true);
 //         dd($content);
 
