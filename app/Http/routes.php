@@ -4,6 +4,7 @@ require app_path('Http/Routes/auth.php');
 
 Route::get('/', ['middleware' => 'auth', function () {
     JavaScript::put([
+        'me' => Auth::user(),
         'stripePublishableKey' => env('STRIPE_PUBLISHABLE_KEY')
     ]);
 
@@ -42,9 +43,9 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::group(['prefix' => 'payments'], function () {
             Route::post('bill', 'PaymentsController@bill');
             Route::post('subscribe', 'PaymentsController@subscribe');
-            Route::post('createCustomer', 'PaymentsController@createCustomer');
-            Route::post('updateCustomer', 'PaymentsController@updateCustomer');
         });
+
+        Route::resource('customers', 'CustomersController', ['only' => ['store', 'update']]);
 
 
     });

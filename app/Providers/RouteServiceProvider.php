@@ -7,6 +7,8 @@ use App\Models\Item;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Stripe\Customer;
+use Stripe\Stripe;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,6 +39,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('categories', function($id)
         {
             return Category::forCurrentUser()->findOrFail($id);
+        });
+
+        Route::bind('customers', function($stripeId)
+        {
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+            return Customer::retrieve($stripeId);
         });
     }
 

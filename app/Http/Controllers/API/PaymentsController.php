@@ -48,44 +48,6 @@ class PaymentsController extends Controller
     /**
      *
      * @param Request $request
-     */
-    public function createCustomer(Request $request)
-    {
-        $user = Auth::user();
-
-        $customer = Customer::create([
-            "source" => $request->get('token'),
-            "email" => Auth::user()->email
-        ]);
-
-        //Save the user's customer id in the database
-        $user->stripe_id = $customer->id;
-        $user->save();
-
-        return $user;
-    }
-
-    /**
-     *
-     * @param Request $request
-     * @return Customer
-     */
-    public function updateCustomer(Request $request)
-    {
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-        $user = Auth::user();
-
-        $customer = Customer::retrieve($user->stripe_id);
-        $customer->email = $user->email;
-        $customer->source = $request->get('token');
-        $customer->save();
-
-        return response($customer->__toArray(), Response::HTTP_OK);
-    }
-
-    /**
-     *
-     * @param Request $request
      * @return Response
      */
     public function subscribe(Request $request)

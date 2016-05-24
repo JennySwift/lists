@@ -59,7 +59,7 @@
         </select>
     </div>
 
-    <button v-on:click="bill()" class="btn btn-default">Pay Now</button>
+    <button v-on:click="generateToken()" class="btn btn-default">Save Details</button>
 </div>
 
 </script>

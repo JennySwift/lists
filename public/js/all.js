@@ -24104,11 +24104,12 @@ var PaymentsPage = Vue.component('payments-page', {
     data: function () {
         return {
             card: {
-                number: '',
-                cvc: '',
+                number: '4242424242424242',
+                cvc: '123',
                 expirationMonth: '12',
                 expirationYear: this.getCurrentYear()
             },
+            token: '',
             months: [
                 {name: 'January', value: 1},
                 {name: 'February', value: 2},
@@ -24130,9 +24131,9 @@ var PaymentsPage = Vue.component('payments-page', {
     methods: {
 
         /**
-         * 
+         *
          */
-        bill: function () {
+        generateToken: function () {
             Stripe.setPublishableKey(stripePublishableKey);
 
             Stripe.card.createToken({
@@ -24140,7 +24141,7 @@ var PaymentsPage = Vue.component('payments-page', {
                 cvc: this.card.cvc,
                 exp_month: this.card.expirationMonth,
                 exp_year: this.card.expirationYear
-            }, this.stripeResponseHandler);
+            }, this.handleGenerateTokenResponse);
         },
 
         /**
@@ -24148,8 +24149,65 @@ var PaymentsPage = Vue.component('payments-page', {
          * @param status
          * @param response
          */
-        stripeResponseHandler: function (status, response) {
+        handleGenerateTokenResponse: function (status, response) {
             console.log(status, response);
+            if (response.error) {
+                HelpersRepository.handleResponseError(null, status, response);
+            }
+            else {
+                this.token = response.id;
+                this.saveCustomer();
+            }
+        },
+
+        /**
+         *
+         */
+        saveCustomer: function () {
+            if (me.stripe_id) {
+                this.updateCustomer();
+            }
+            else {
+                this.insertCustomer();
+            }
+        },
+
+        /**
+        *
+        */
+        insertCustomer: function () {
+            $.event.trigger('show-loading');
+            var data = {
+                token: this.token
+            };
+
+            this.$http.post('/api/customers', data, function (response) {
+                me = response;
+                $.event.trigger('provide-feedback', ['Details added', 'success']);
+                $.event.trigger('hide-loading');
+            })
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
+            });
+        },
+
+        /**
+        *
+        */
+        updateCustomer: function () {
+            $.event.trigger('show-loading');
+
+            var data = {
+                token: this.token
+            };
+
+            this.$http.put('/api/customers/' + me.stripe_id, data, function (response) {
+                $.event.trigger('provide-feedback', ['Details updated', 'success']);
+                $.event.trigger('hide-loading');
+            })
+            .error(function (data, status, response) {
+                HelpersRepository.handleResponseError(data, status, response);
+            });
         },
 
         /**
