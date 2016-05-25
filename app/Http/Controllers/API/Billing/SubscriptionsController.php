@@ -45,4 +45,16 @@ class SubscriptionsController extends Controller
         return response($user, Response::HTTP_OK);
     }
 
+    /**
+     * PUT /api/subscriptions/resume
+     * @return Response
+     */
+    public function resume()
+    {
+        $user = Auth::user();
+        $user->subscription($user->getStripePlan())->resume();
+
+        return response($user, Response::HTTP_OK);
+    }
+
 }

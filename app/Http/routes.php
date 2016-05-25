@@ -47,8 +47,14 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::group(['namespace' => 'Billing'], function () {
             Route::resource('customers', 'CustomersController', ['only' => ['store', 'update']]);
             Route::resource('invoices', 'InvoicesController', ['only' => ['index']]);
+
+            //Update subscription
             Route::put('subscriptions', 'SubscriptionsController@update');
+            //Cancel subscription
             Route::delete('subscriptions', 'SubscriptionsController@destroy');
+            //Resume subscription
+            Route::put('subscriptions/resume', 'SubscriptionsController@resume');
+
             Route::resource('subscriptionPlans', 'SubscriptionPlansController', ['only' => ['index']]);
         });
 

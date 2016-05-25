@@ -82,6 +82,7 @@ class CustomersTest extends TestCase
      */
     public function it_can_update_a_customer()
     {
+        DB::beginTransaction();
         $this->logInUser();
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
@@ -107,5 +108,7 @@ class CustomersTest extends TestCase
         $this->assertEquals($this->user->email, $content['email']);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        
+        DB::rollback();
     }
 }
