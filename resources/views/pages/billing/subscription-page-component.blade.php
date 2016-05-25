@@ -3,6 +3,8 @@
 <div id="subscription-page">
     <h1>Subscription</h1>
 
+    <h5 v-if="!me.stripe_id">Please enter your credit card details before selecting a subscription plan</h5>
+
     <div>
         <span>Current Plan: </span>
         <span v-if="me.stripe_plan">@{{ me.stripe_plan }}</span>
@@ -27,7 +29,16 @@
     </div>
 
     <button v-on:click="updateSubscription()" class="btn btn-success">Update Subscription Plan</button>
-    
+    <button
+        v-if="me.stripe_plan && !me.subscription_ends_at"
+        v-on:click="cancelSubscription()"
+        class="btn btn-danger"
+    >
+        Cancel Subscription
+    </button>
+
+    <div v-if="me.subscription_ends_at">Your subscription has been cancelled but will remain until @{{ me.subscription_ends_at | formatDateTime }}.</div>
+
     
 </div>
 

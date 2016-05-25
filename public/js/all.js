@@ -23088,6 +23088,11 @@ var SubscriptionPage = Vue.component('subscription-page', {
             return this.userRepository.me;
         }
     },
+    filters: {
+        formatDateTime: function (dateTime) {
+            return DateTimeRepository.convertFromDateTime(dateTime, 'ddd DD/MM/YY') + ', at ' + DateTimeRepository.convertFromDateTime(dateTime, 'hh:mma');
+        }
+    },
     methods: {
 
         /**
@@ -23122,6 +23127,23 @@ var SubscriptionPage = Vue.component('subscription-page', {
             .error(function (data, status, response) {
                 HelpersRepository.handleResponseError(data, status, response);
             });
+        },
+
+        /**
+        *
+        */
+        cancelSubscription: function () {
+            if (confirm("Are you sure?")) {
+                $.event.trigger('show-loading');
+                this.$http.delete('/api/subscriptions', function (response) {
+                    UserRepository.updateUser(response);
+                    $.event.trigger('provide-feedback', ['Subscription cancelled', 'success']);
+                    $.event.trigger('hide-loading');
+                })
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
+                });
+            }
         }
     },
     props: [

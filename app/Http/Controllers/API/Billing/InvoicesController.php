@@ -28,6 +28,10 @@ class InvoicesController extends Controller
         }
 
         if ($request->has('upcoming')) {
+            if ($user->subscription_ends_at) {
+                return response([], Response::HTTP_NO_CONTENT);
+            }
+
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
             $customer = Customer::retrieve($user->stripe_id);
 
