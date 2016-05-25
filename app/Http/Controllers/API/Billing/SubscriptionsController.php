@@ -33,4 +33,16 @@ class SubscriptionsController extends Controller
         return response($user, Response::HTTP_OK);
     }
 
+    /**
+     * DELETE /api/subscriptions/{subscriptions}
+     * @return Response
+     */
+    public function destroy()
+    {
+        $user = Auth::user();
+        $user->subscription($user->getStripePlan())->cancel();
+
+        return response($user, Response::HTTP_OK);
+    }
+
 }

@@ -1,8 +1,11 @@
 <?php
 
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 use Stripe\Stripe;
+use Stripe\Token;
 
 /**
  * Class SubscriptionsTest
@@ -120,5 +123,65 @@ class SubscriptionsTest extends TestCase
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
 
 //        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_cancel_a_subscription()
+    {
+        DB::beginTransaction();
+        $userId = 1;
+        $this->logInUser($userId);
+
+        if (!$this->user->stripe_id) {
+            //Create the customer first
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+            $data = Token::create([
+                'card' => [
+                    "number" => "4242424242424242",
+                    "exp_month" => 11,
+                    "exp_year" => 2030,
+                    "cvc" => "123"
+                ]
+            ]);
+
+            $billing = [
+                'token' => $data['id']
+            ];
+
+            $response = $this->apiCall('POST', '/api/customers', $billing);
+        }
+
+        if ($this->user->stripe_plan !== 'monthly') {
+            //Subscribe the user to a plan so I can test cancelling the subscription
+            $billing = [
+                'plan' => 'monthly'
+            ];
+
+            $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
+            $this->user = User::find($userId);
+        }
+
+        $this->assertEquals(1, $this->user->stripe_active);
+        $this->assertEquals('monthly', $this->user->stripe_plan);
+        $this->assertNull($this->user->subscription_ends_at);
+
+        $response = $this->apiCall('DELETE', '/api/subscriptions');
+//        dd($response);
+        $content = json_decode($response->getContent(), true);
+//         dd($content);
+
+        $this->assertFalse($content['stripe_active']);
+        $this->assertEquals('monthly', $content['stripe_plan']);
+        //Check the subscription ends one month from today (assuming the seeder was run today)
+        $this->assertEquals(Carbon::today()->addMonth()->format('Y-m-d'), Carbon::createFromFormat('Y-m-d H:i:s', $content['subscription_ends_at'])->format('Y-m-d'));
+        $this->assertNotNull($content['stripe_id']);
+        $this->assertNotNull($content['stripe_subscription']);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+
+        DB::rollBack();
     }
 }
