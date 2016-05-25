@@ -38,20 +38,22 @@ var SubscriptionPage = Vue.component('subscription-page', {
         *
         */
         updateSubscription: function () {
-            $.event.trigger('show-loading');
+            if (confirm("Are you sure?")) {
+                $.event.trigger('show-loading');
 
-            var data = {
-                plan: this.subscriptionPlan
-            };
+                var data = {
+                    plan: this.subscriptionPlan
+                };
 
-            this.$http.put('/api/subscriptions', data, function (response) {
-                UserRepository.updateUser(response);
-                $.event.trigger('provide-feedback', ['Subscription updated', 'success']);
-                $.event.trigger('hide-loading');
-            })
-            .error(function (data, status, response) {
-                HelpersRepository.handleResponseError(data, status, response);
-            });
+                this.$http.put('/api/subscriptions', data, function (response) {
+                    UserRepository.updateUser(response);
+                    $.event.trigger('provide-feedback', ['Subscription updated', 'success']);
+                    $.event.trigger('hide-loading');
+                })
+                    .error(function (data, status, response) {
+                        HelpersRepository.handleResponseError(data, status, response);
+                    });
+            }
         },
 
         /**
@@ -69,7 +71,25 @@ var SubscriptionPage = Vue.component('subscription-page', {
                     HelpersRepository.handleResponseError(data, status, response);
                 });
             }
-        }
+        },
+
+        /**
+         *
+         */
+        resumeSubscription: function () {
+            if (confirm("Are you sure?")) {
+                $.event.trigger('show-loading');
+                this.$http.put('/api/subscriptions/resume', function (response) {
+                    UserRepository.updateUser(response);
+                    $.event.trigger('provide-feedback', ['Subscription resumed', 'success']);
+                    $.event.trigger('hide-loading');
+                })
+                .error(function (data, status, response) {
+                    HelpersRepository.handleResponseError(data, status, response);
+                });
+            }
+        },
+
     },
     props: [
         //data to be received from parent

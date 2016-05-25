@@ -37,7 +37,10 @@
         Cancel Subscription
     </button>
 
-    <div v-if="me.subscription_ends_at">Your subscription has been cancelled but will remain until @{{ me.subscription_ends_at | formatDateTime }}.</div>
+    <div v-if="me.subscription_ends_at">
+        <span>Your subscription has been cancelled but will remain until @{{ me.subscription_ends_at | formatDateTime }}.</span>
+        <button v-on:click="resumeSubscription()" class="btn btn-success">Resume Subscription</button>
+    </div>
 
     
 </div>
