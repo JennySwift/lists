@@ -15,6 +15,7 @@ class BillingTest extends TestCase
 
     /**
      * @test
+     * @group billing
      * @return void
      */
     public function it_can_bill_a_user()

@@ -12,7 +12,7 @@ class SubscriptionPlansTestTest extends TestCase
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_gets_the_subscription_plans()
     {

@@ -16,7 +16,7 @@ class CustomersTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_create_a_customer()
     {
@@ -48,7 +48,7 @@ class CustomersTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_throws_an_exception_creating_a_customer_with_invalid_details()
     {
@@ -80,7 +80,7 @@ class CustomersTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_update_a_customer()
     {
@@ -117,6 +117,7 @@ class CustomersTest extends BillingTest
     
     /**
      * @test
+     * @group billing
      */
     public function it_can_delete_a_customer()
     {

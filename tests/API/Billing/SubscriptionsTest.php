@@ -16,7 +16,7 @@ class SubscriptionsTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_subscribe_an_existing_customer_to_the_monthly_plan()
     {
@@ -45,7 +45,7 @@ class SubscriptionsTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_errors_if_user_tries_to_change_plans_and_they_are_already_on_that_plan()
     {
@@ -73,7 +73,7 @@ class SubscriptionsTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_subscribe_an_existing_customer_to_the_yearly_plan()
     {
@@ -99,7 +99,7 @@ class SubscriptionsTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_cancel_a_subscription()
     {
@@ -138,7 +138,7 @@ class SubscriptionsTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_can_resume_a_cancelled_subscription()
     {

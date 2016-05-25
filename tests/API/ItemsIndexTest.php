@@ -12,7 +12,6 @@ class ItemsIndexTest extends TestCase
 
     /**
      * @test
-     * @return void
      */
     public function it_gets_the_items()
     {

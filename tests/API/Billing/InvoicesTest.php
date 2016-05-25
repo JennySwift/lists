@@ -12,7 +12,7 @@ class InvoicesTest extends BillingTest
 
     /**
      * @test
-     * @return void
+     * @group billing
      */
     public function it_gets_the_invoices()
     {
@@ -32,7 +32,7 @@ class InvoicesTest extends BillingTest
     /**
      * This test assumes the user has no invoices yet
      * @test
-     * @return void
+     * @group billing
      */
     public function it_does_not_error_if_there_are_no_invoices()
     {
@@ -47,6 +47,7 @@ class InvoicesTest extends BillingTest
 
     /**
      * @test
+     * @group billing
      */
     public function it_can_show_an_upcoming_invoice()
     {
@@ -66,6 +67,7 @@ class InvoicesTest extends BillingTest
 
     /**
      * @test
+     * @group billing
      */
 //    public function it_can_show_an_invoice()
 //    {
