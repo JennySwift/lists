@@ -40,12 +40,12 @@ Route::group(['namespace' => 'API', 'prefix' => 'api'], function () {
         Route::get('users', 'UsersController@show');
         Route::post('pushNotifications', 'PushNotificationsController@sendPushNotification');
 
-        Route::group(['prefix' => 'payments'], function () {
-            Route::post('bill', 'PaymentsController@bill');
-        });
-
         Route::group(['namespace' => 'Billing'], function () {
-            Route::resource('customers', 'CustomersController', ['only' => ['store', 'update']]);
+            Route::group(['prefix' => 'payments'], function () {
+                Route::post('bill', 'PaymentsController@bill');
+            });
+
+            Route::resource('customers', 'CustomersController', ['only' => ['store', 'update', 'destroy']]);
             Route::resource('invoices', 'InvoicesController', ['only' => ['index']]);
 
             //Update subscription

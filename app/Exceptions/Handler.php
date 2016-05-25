@@ -79,6 +79,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof InvalidRequest) {
+            dd('hi');
             return response([
                 'error' => $e->getMessage(),
                 'status' => Response::HTTP_UNPROCESSABLE_ENTITY

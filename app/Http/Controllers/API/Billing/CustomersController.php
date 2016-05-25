@@ -51,4 +51,32 @@ class CustomersController extends Controller
 
         return response($customer->__toArray(), Response::HTTP_OK);
     }
+
+    /**
+     * DELETE /api/customers/{customers}
+     * @param Request $request
+     * @param Customer $customer
+     * @return Response
+     */
+    public function destroy(Request $request, Customer $customer)
+    {
+        $customer->delete();
+
+//        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+//        dd(Customer::retrieve(Auth::user()->stripe_id)->__toArray());
+
+        //Remove Stripe values from database
+        $user = Auth::user();
+        $user->stripe_active = 0;
+        $user->stripe_id = null;
+        $user->stripe_subscription = null;
+        $user->stripe_plan = null;
+        $user->last_four = null;
+        $user->trial_ends_at = null;
+        $user->subscription_ends_at = null;
+
+        $user->save();
+
+        return response([], Response::HTTP_NO_CONTENT);
+    }
 }

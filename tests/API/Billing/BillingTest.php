@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 use Stripe\Stripe;
@@ -10,7 +11,7 @@ use Stripe\Token;
  */
 class BillingTest extends TestCase
 {
-//    use DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * @test
@@ -19,7 +20,26 @@ class BillingTest extends TestCase
     public function it_can_bill_a_user()
     {
         $this->logInUser(2);
+        $this->createCustomer();
 
+        $response = $this->apiCall('POST', '/api/payments/bill');
+//        dd($response);
+        $content = json_decode($response->getContent(), true);
+//         dd($content);
+
+        $this->assertEquals('1000', $content['amount']);
+        $this->assertEquals('aud', $content['currency']);
+        $this->assertTrue($content['paid']);
+        $this->assertEquals('succeeded', $content['status']);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     *
+     */
+    protected function createCustomer()
+    {
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $data = Token::create([
             'card' => [
@@ -34,16 +54,31 @@ class BillingTest extends TestCase
             'token' => $data['id']
         ];
 
-        $response = $this->apiCall('POST', '/api/payments/bill', $billing);
-//        dd($response);
-        $content = json_decode($response->getContent(), true);
-//         dd($content);
+        $response = $this->apiCall('POST', '/api/customers', $billing);
+    }
 
-        $this->assertEquals('1000', $content['amount']);
-        $this->assertEquals('aud', $content['currency']);
-        $this->assertTrue($content['paid']);
-        $this->assertEquals('succeeded', $content['status']);
+    /**
+     *
+     * @param $plan
+     */
+    protected function subscribeUserToPlan($plan)
+    {
+        $billing = [
+            'plan' => $plan
+        ];
 
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
+        //Update $this->user because their subscription has changed
+        $this->user = User::find($this->user->id);
+    }
+
+    /**
+     *
+     */
+    protected function cancelSubscription()
+    {
+        $response = $this->apiCall('DELETE', '/api/subscriptions');
+        //Update $this->user because their subscription has been cancelled
+        $this->user = User::find($this->user->id);
     }
 }

@@ -24,7 +24,10 @@ class PaymentsController extends Controller
         $user = Auth::user();
 
         if (!$user->stripe_id) {
-            $user = $this->createCustomer($request);
+            return response([
+                'error' => 'User is not a customer',
+                'status' => Response::HTTP_UNPROCESSABLE_ENTITY
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $charge = Charge::create([

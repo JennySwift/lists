@@ -1,16 +1,18 @@
 <?php
 
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
+use Stripe\Customer;
 use Stripe\Stripe;
 use Stripe\Token;
 
 /**
  * Class CustomersTest
  */
-class CustomersTest extends TestCase
+class CustomersTest extends BillingTest
 {
-//    use DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * @test
@@ -84,6 +86,7 @@ class CustomersTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->createCustomer();
 
         Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $data = Token::create([
@@ -110,5 +113,40 @@ class CustomersTest extends TestCase
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         
         DB::rollback();
+    }
+    
+    /**
+     * @test
+     */
+    public function it_can_delete_a_customer()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+        $this->createCustomer();
+
+        $stripeId = $this->user->stripe_id;
+        $this->assertNotNull($this->user->stripe_id);
+
+        $response = $this->apiCall('DELETE', '/api/customers/'. $this->user->stripe_id);
+        $this->assertEquals(204, $response->getStatusCode());
+
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+        $customer = Customer::retrieve($stripeId)->__toArray();
+        $this->assertTrue($customer['deleted']);
+        $this->user = User::find($this->user->id);
+
+        //Check stripe details are removed from database
+        $this->assertEquals(0, $this->user->stripe_active);
+        $this->assertNull($this->user->stripe_id);
+        $this->assertNull($this->user->stripe_subscription);
+        $this->assertNull($this->user->stripe_plan);
+        $this->assertNull($this->user->last_four);
+        $this->assertNull($this->user->trial_ends_at);
+        $this->assertNull($this->user->subscription_ends_at);
+
+        $response = $this->call('DELETE', '/api/customers/' . $this->user->stripe_id);
+        $this->assertEquals(422, $response->getStatusCode());
+    
+        DB::rollBack();
     }
 }

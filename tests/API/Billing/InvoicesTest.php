@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 /**
  * Class InvoicesTest
  */
-class InvoicesTest extends TestCase
+class InvoicesTest extends BillingTest
 {
     use DatabaseTransactions;
 
@@ -17,6 +17,8 @@ class InvoicesTest extends TestCase
     public function it_gets_the_invoices()
     {
         $this->logInUser();
+        $this->createCustomer();
+        $this->subscribeUserToPlan('monthly');
         $response = $this->call('GET', '/api/invoices');
 //        dd($response);
         $content = json_decode($response->getContent(), true);
@@ -36,6 +38,7 @@ class InvoicesTest extends TestCase
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/invoices');
+//        dd($response);
         $content = json_decode($response->getContent(), true);
 //        dd($content);
 
@@ -48,6 +51,9 @@ class InvoicesTest extends TestCase
     public function it_can_show_an_upcoming_invoice()
     {
         $this->logInUser();
+
+        $this->createCustomer();
+        $this->subscribeUserToPlan('monthly');
 
         $response = $this->call('GET', '/api/invoices?upcoming=true');
         $content = json_decode($response->getContent(), true);
