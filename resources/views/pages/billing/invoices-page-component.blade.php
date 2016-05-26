@@ -26,7 +26,10 @@
                 <th>Status</th>
                 {{--<th>View</th>--}}
             </tr>
-            <tr v-for="invoice in invoices">
+            <tr
+                v-for="invoice in invoices"
+                v-if="invoice.total !== 0"
+            >
                 <td>@{{ invoice.date | formatDate }}</td>
                 <td>@{{ invoice.total  | centsToDollars }}</td>
                 <td v-if="invoice.paid">Paid</td>
