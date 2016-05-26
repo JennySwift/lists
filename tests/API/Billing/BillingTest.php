@@ -61,6 +61,7 @@ class BillingTest extends TestCase
     /**
      *
      * @param $plan
+     * @return Response
      */
     protected function subscribeUserToPlan($plan)
     {
@@ -71,6 +72,8 @@ class BillingTest extends TestCase
         $response = $this->apiCall('PUT', '/api/subscriptions', $billing);
         //Update $this->user because their subscription has changed
         $this->user = User::find($this->user->id);
+
+        return $response;
     }
 
     /**

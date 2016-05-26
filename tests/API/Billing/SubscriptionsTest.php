@@ -4,6 +4,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
+use Stripe\Customer;
 use Stripe\Stripe;
 use Stripe\Token;
 
@@ -93,6 +94,51 @@ class SubscriptionsTest extends BillingTest
         $this->assertEquals('yearly', $content['stripe_plan']);
         $this->assertNull($content['trial_ends_at']);
         $this->assertNull($content['subscription_ends_at']);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     * @group billing
+     */
+    public function it_can_downgrade_the_subscription_plan_for_a_user()
+    {
+        $this->logInUser();
+        $this->createCustomer();
+        $this->subscribeUserToPlan('yearly');
+
+        $currentPeriodEnd = $this->user->subscription()->getSubscriptionEndDate();
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $this->subscribeUserToPlan('monthly');
+
+        $response = $this->call('GET', '/api/invoices');
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+        $this->user = Auth::user()->find($this->user->id);
+
+        $this->assertEquals('monthly', $this->user->stripe_plan);
+
+        //Check trial_ends_at is correct
+        $this->assertEquals(Carbon::today()->addYear()->format('Y-m-d'), $this->user->trial_ends_at->format('Y-m-d'));
+        $this->assertEquals($currentPeriodEnd, $this->user->trial_ends_at);
+        
+        $this->assertEquals(1, $this->user->stripe_active);
+        $this->assertNotNull($this->user->stripe_id);
+        $this->assertEquals(Customer::retrieve($this->user->stripe_id)->subscriptions->data[0]->id, $this->user->stripe_subscription);
+        $this->assertNull($this->user->subscription_ends_at);
+
+
+        $this->assertCount(2, $content);
+
+        $this->assertEquals('0', $content[0]['amount_due']);
+        $this->assertEquals(false, $content[0]['lines']['data'][0]['proration']);
+        $this->assertCount(1, $content[0]['lines']['data']);
+
+        $this->assertEquals(6000, $content[1]['amount_due']);
+        $this->assertEquals(false, $content[1]['lines']['data'][0]['proration']);
+        $this->assertCount(1, $content[1]['lines']['data']);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }

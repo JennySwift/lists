@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
+use Stripe\Plan;
+use Stripe\Stripe;
 
 /**
  * Class SubscriptionPlansTestTest
@@ -9,6 +11,32 @@ use Illuminate\Http\Response;
 class SubscriptionPlansTestTest extends TestCase
 {
     use DatabaseTransactions;
+
+
+    /**
+     * @test
+     * This is just so I can create plans quickly after I reset the test data in the Stripe user interface
+     */
+    public function it_can_create_a_subscription_plan()
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        Plan::create([
+            "amount" => 500,
+            "interval" => "month",
+            "name" => "monthly",
+            "currency" => "aud",
+            "id" => "monthly"
+        ]);
+
+        Plan::create([
+            "amount" => 6000,
+            "interval" => "year",
+            "name" => "yearly",
+            "currency" => "aud",
+            "id" => "yearly"
+        ]);
+    }
 
     /**
      * @test
