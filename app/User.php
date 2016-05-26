@@ -35,6 +35,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'name',
         'email',
         'password',
+        'trial_plan'
 //        'stripe_active',
 //        'stripe_id',
 //        'stripe_subscription',

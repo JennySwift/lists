@@ -5,10 +5,18 @@
 
     <h5 v-if="!me.stripe_id">Please enter your credit card details before selecting a subscription plan</h5>
 
-    <div>
-        <span>Current Plan: </span>
-        <span v-if="me.stripe_plan">@{{ me.stripe_plan }}</span>
-        <span v-else>Unsubscribed</span>
+    <div class="subscription-status">
+
+        <div v-if="onTrial">
+            <span>You are currently on the @{{ me.trial_plan }} plan, but have downgraded to the @{{ me.stripe_plan }} plan. This will take effect on @{{ me.trial_ends_at | formatDateTime}}.</span>
+        </div>
+
+        <div v-else>
+            <span>Current Plan: </span>
+            <span v-if="me.stripe_plan">@{{ me.stripe_plan }}</span>
+            <span v-else>Unsubscribed</span>
+        </div>
+
     </div>
     
     <div class="form-group">

@@ -11,6 +11,9 @@ var SubscriptionPage = Vue.component('subscription-page', {
     computed: {
         me: function () {
             return this.userRepository.me;
+        },
+        onTrial: function () {
+            return this.me.trial_plan && moment() < moment(me.trial_ends_at, 'YYYY-MM-DD HH:mm:ss');
         }
     },
     filters: {

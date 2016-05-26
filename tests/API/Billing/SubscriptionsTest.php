@@ -123,8 +123,9 @@ class SubscriptionsTest extends BillingTest
         //Check trial_ends_at is correct
         $this->assertEquals(Carbon::today()->addYear()->format('Y-m-d'), $this->user->trial_ends_at->format('Y-m-d'));
         $this->assertEquals($currentPeriodEnd, $this->user->trial_ends_at);
-        
+
         $this->assertEquals(1, $this->user->stripe_active);
+        $this->assertEquals('yearly', $this->user->trial_plan);
         $this->assertNotNull($this->user->stripe_id);
         $this->assertEquals(Customer::retrieve($this->user->stripe_id)->subscriptions->data[0]->id, $this->user->stripe_subscription);
         $this->assertNull($this->user->subscription_ends_at);

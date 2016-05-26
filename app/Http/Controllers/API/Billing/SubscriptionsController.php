@@ -48,6 +48,7 @@ class SubscriptionsController extends Controller
                 'trial_end' => $subscriptionEnd->copy()->getTimestamp()
             ]);
 
+            $user->trial_plan = $user->stripe_plan;
             $user->trial_ends_at = $subscriptionEnd->copy()->format('Y-m-d H:i:s');
             $user->stripe_plan = $newPlan;
             $user->stripe_active = 1;
