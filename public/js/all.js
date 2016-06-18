@@ -23900,6 +23900,13 @@ var Navbar = Vue.component('navbar', {
          */
         toggleFilter: function () {
             $.event.trigger('toggle-filter');
+        },
+
+        /**
+         *
+         */
+        toggleFavouriteItems: function () {
+            $.event.trigger('toggle-favourite-items');
         }
     },
     props: [

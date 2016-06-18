@@ -394,6 +394,13 @@ li {
     cursor: pointer; }
     #favourite-items li:hover {
       background: lightblue; }
+  @media (max-width: 320px) {
+    #favourite-items {
+      max-height: 505px;
+      top: 49px;
+      right: auto;
+      width: 91%;
+      max-width: 91%; } }
 
 /*==============================font awesome==============================*/
 .fa-home {
