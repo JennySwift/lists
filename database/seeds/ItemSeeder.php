@@ -32,8 +32,8 @@ class ItemSeeder extends Seeder
         $this->deleteSomeItems();
 //        $this->pinSomeItems();
         $this->favouriteSomeItems();
-//        $this->makeSomeItemsUrgent();
-//        $this->giveAlarmsToSomeItems();
+        $this->makeSomeItemsUrgent();
+        $this->giveAlarmsToSomeItems();
         $this->giveANotBeforeValueToSomeItems();
     }
 
@@ -63,7 +63,7 @@ class ItemSeeder extends Seeder
             $dateTime->addDay(1);
             $item->not_before = $dateTime->copy()->format('Y-m-d H:i:s');
 
-            if ($index === 1) {
+            if ($index === 2) {
                 //Make it a recurring item
                 $item->recurring_unit = 'minute';
                 $item->recurring_frequency = 1;

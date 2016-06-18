@@ -97,7 +97,6 @@ class ItemsController extends Controller
                 'priority',
                 'urgency',
                 'favourite',
-                'pinned',
                 'alarm',
                 'not_before',
                 'recurring_unit',

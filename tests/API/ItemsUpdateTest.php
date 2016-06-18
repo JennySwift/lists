@@ -274,37 +274,4 @@ class ItemsUpdateTest extends TestCase
         DB::rollBack();
     }
 
-    /**
-     *
-     * @test
-     * @return void
-     */
-    public function it_can_unpin_an_item()
-    {
-        DB::beginTransaction();
-        $this->logInUser();
-
-        $item = Item::forCurrentUser()
-            ->where('pinned', 1)
-            ->first();
-
-        $response = $this->call('PUT', '/api/items/'.$item->id, [
-            'pinned' => 0,
-            'favourite' => 0
-        ]);
-
-//        dd($response);
-        $content = json_decode($response->getContent(), true);
-//        dd($content);
-
-        $this->checkItemKeysExist($content);
-
-        $this->assertEquals(0, $content['pinned']);
-
-        $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
-    }
-
-
 }

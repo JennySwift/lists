@@ -32,7 +32,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
         $expectedNextTime = Carbon::tomorrow()->addMinutes(1)->format('Y-m-d H:i:s');
 
@@ -118,7 +118,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
         $this->assertEquals('2050-06-10 15:30:00', $content['notBefore']);
 
@@ -161,7 +161,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
         $this->assertEquals('2018-01-10 15:30:00', $content['notBefore']);
 
@@ -204,7 +204,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
         $this->assertEquals('2017-01-10 15:30:00', $content['notBefore']);
 
@@ -244,7 +244,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
 
         $expectedNextTime = Carbon::now();
