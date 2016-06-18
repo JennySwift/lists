@@ -24,7 +24,6 @@ class ItemsUpdateTest extends TestCase
 
         $item = Item::forCurrentUser()
             ->where('favourite', 0)
-            ->where('pinned', 0)
             ->where('category_id', 1)
             ->where('priority', 1)
             ->whereNull('urgency')
@@ -36,7 +35,6 @@ class ItemsUpdateTest extends TestCase
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
@@ -55,7 +53,6 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals('koala', $content['body']);
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals($alarm, $content['alarm']);
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);

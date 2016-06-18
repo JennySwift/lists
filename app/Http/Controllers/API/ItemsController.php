@@ -45,11 +45,7 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('pinned')) {
-            $items = Item::forCurrentUser()->where('pinned', 1)->get();
-        }
-
-        elseif ($request->has('alarm')) {
+        if ($request->has('alarm')) {
             $items = Item::forCurrentUser()->whereNotNull('alarm')->get();
         }
 
