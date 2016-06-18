@@ -388,7 +388,7 @@ li {
   top: 110px;
   margin: auto;
   right: 12px;
-  z-index: 99;
+  z-index: 99999;
   max-width: 400px; }
   #favourite-items li {
     cursor: pointer; }
@@ -396,7 +396,7 @@ li {
       background: lightblue; }
   @media (max-width: 320px) {
     #favourite-items {
-      max-height: 505px;
+      max-height: 430px;
       top: 49px;
       right: auto;
       width: 91%;

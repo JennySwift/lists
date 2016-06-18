@@ -5,7 +5,7 @@
     top: 110px;
     margin: auto;
     right: 12px;
-    z-index: $zIndex2;
+    z-index: $zIndex5;
     max-width: 400px;
     li {
         cursor: pointer;
@@ -15,7 +15,7 @@
     }
     
     @media (max-width: $breakpoint1) {
-        max-height: 505px;
+        max-height: 430px;
         top: 49px;
         right: auto;
         width: 91%;
