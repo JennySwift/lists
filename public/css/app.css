@@ -396,7 +396,7 @@ li {
       background: lightblue; }
   @media (max-width: 320px) {
     #favourite-items {
-      max-height: 430px;
+      max-height: 400px;
       top: 49px;
       right: auto;
       width: 91%;
