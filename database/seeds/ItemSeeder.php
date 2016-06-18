@@ -32,7 +32,7 @@ class ItemSeeder extends Seeder
         $this->deleteSomeItems();
 //        $this->pinSomeItems();
         $this->favouriteSomeItems();
-        $this->makeSomeItemsUrgent();
+//        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
         $this->giveANotBeforeValueToSomeItems();
     }
@@ -141,7 +141,7 @@ class ItemSeeder extends Seeder
      */
     private function favouriteSomeItems()
     {
-        $items = Item::limit(6)->offset(4)->get();
+        $items = Item::limit(18)->offset(4)->get();
         foreach ($items as $item) {
             $item->favourite = 1;
             $item->save();

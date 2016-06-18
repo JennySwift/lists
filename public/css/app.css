@@ -284,6 +284,7 @@ li {
 
 #search-container {
   position: fixed;
+  z-index: 9;
   top: 47px;
   right: 10px;
   width: 230px;
@@ -387,7 +388,7 @@ li {
   top: 110px;
   margin: auto;
   right: 12px;
-  z-index: 9;
+  z-index: 99;
   max-width: 400px; }
   #favourite-items li {
     cursor: pointer; }

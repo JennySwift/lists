@@ -1,5 +1,6 @@
 #search-container {
     position: fixed;
+    z-index: $zIndex1;
     top: 47px;
     right: 10px;
     width: 230px;
