@@ -47,7 +47,8 @@ var FiltersRepository = {
      */
     order: function (items) {
         //Sort first by priority, then by urgency, then by notBefore, then by category name, then by id
-        return _.chain(items).sortBy('id')
+        //Reverse is so the more recently added items are on top of the older items
+        return _.chain(items).sortBy('id').reverse()
             .sortBy(function (item) {
                 return item.category.name;
             })

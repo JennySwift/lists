@@ -33,7 +33,7 @@ class ItemSeeder extends Seeder
 //        $this->pinSomeItems();
         $this->favouriteSomeItems();
         $this->makeSomeItemsUrgent();
-        $this->giveAlarmsToSomeItems();
+//        $this->giveAlarmsToSomeItems();
         $this->giveANotBeforeValueToSomeItems();
     }
 
