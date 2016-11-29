@@ -198,7 +198,6 @@ class ItemsController extends Controller
                 'title',
                 'body',
                 'favourite',
-                'pinned',
                 'alarm',
                 'not_before',
                 'recurring_unit',

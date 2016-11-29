@@ -194,7 +194,7 @@
             *
             */
             updateItem: function () {
-                var data = ItemsRepository.setData(item);
+                var data = ItemsRepository.setData(this.selectedItem);
 
                 helpers.put({
                     url: '/api/items/' + this.selectedItem.id,
@@ -256,13 +256,6 @@
              */
             deleteItem: function () {
                 ItemsRepository.deleteItem(this, this.selectedItem);
-            },
-
-            /**
-             *
-             */
-            closePopup: function ($event) {
-                helpers.closePopup($event, this);
             },
 
             /**
