@@ -9,7 +9,7 @@
 
         <!--Text input-->
         <input
-            v-if="!options"
+            v-if="!options && !url"
             v-model="model"
             v-on:keyup.13="enter()"
             type="text"
@@ -19,7 +19,8 @@
 
         <!--Autocomplete-->
         <autocomplete
-            v-if="options"
+            v-if="options || url"
+            :url="url"
             :input-id="id"
             :prop="optionsProp"
             :unfiltered-options="options"
@@ -46,6 +47,7 @@
             'label',
             'model',
             'id',
+            'url',
             'options',
             'optionsProp',
             //Text to add after each option

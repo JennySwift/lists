@@ -108,10 +108,10 @@
 
                     <input-group
                         label="New Parent:"
-                        url="/api/items"
                         :model.sync="selectedItem.newParent"
                         :enter="updateItem"
                         id="selected-item-new-parent"
+                        url="/api/items"
                         options-prop="title"
                     >
                     </input-group>
