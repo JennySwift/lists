@@ -56,7 +56,7 @@
 
 
 
-                {{--Actions dropdown for small screens--}}
+                <!--Actions dropdown for small screens-->
                 <div class="btn-group small-screen">
 
                     <button

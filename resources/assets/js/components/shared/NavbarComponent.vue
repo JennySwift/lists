@@ -57,6 +57,8 @@
 </template>
 
 <script>
+    require('bootstrap');
+
     module.exports = {
         template: '#navbar-template',
         data: function () {

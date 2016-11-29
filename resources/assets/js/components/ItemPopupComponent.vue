@@ -270,7 +270,7 @@
              *
              */
             closePopup: function ($event) {
-                HelpersRepository.closePopup($event, this);
+                helpers.closePopup($event, this);
             },
 
             /**
@@ -279,7 +279,7 @@
             listen: function () {
                 var that = this;
                 $(document).on('show-item-popup', function (event, item) {
-                    that.selectedItem = HelpersRepository.clone(item);
+                    that.selectedItem = helpers.clone(item);
                     that.selectedItem.oldParentId = item.parent_id;
                     that.selectedItem.oldAlarm = item.alarm;
 

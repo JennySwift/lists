@@ -2,7 +2,6 @@
     <div>
         <!--Popup-->
         <item-popup
-            :categories="categories"
             :items.sync="items"
             :get-items="getItems"
             :recurring-units="recurringUnits"
@@ -14,7 +13,6 @@
             :show-loading.sync="showLoading"
             :show-item-popup.sync="showItemPopup"
             :selected-item.sync="selectedItem"
-            :categories="categories"
             :close-popup="closePopup"
         >
         </alarms>
@@ -26,7 +24,6 @@
             :priority-filter="priorityFilter"
             :category-filter="categoryFilter"
             :item="item"
-            :categories="categories"
         >
         </urgent-items>
 
@@ -52,7 +49,6 @@
 
             <!--Filter-->
             <filter
-                :categories="categories"
                 :filters.sync="filters"
                 :items.sync="items"
             >
@@ -61,7 +57,6 @@
             <!--New item-->
             <new-item
                 :items.sync="items"
-                :categories="categories"
                 :zoomed-item="zoomedItem"
                 :recurring-units="recurringUnits"
             >
@@ -79,7 +74,6 @@
                     :item="item"
                     :zoomed-item="zoomedItem"
                     :get-items="getItems"
-                    :categories="categories"
                     :zoom="zoom"
                     class="item-with-children"
                 >
