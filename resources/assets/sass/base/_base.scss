@@ -111,6 +111,10 @@ input[type="checkbox"] {
 
 a {
     cursor: pointer;
+	color: $base4;
+	&:hover, &:focus {
+		color: $base4;
+	}
 }
 
 

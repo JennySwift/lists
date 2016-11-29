@@ -10,7 +10,7 @@
 
 @mixin inputGroupLabel {
     background: $base1;
-    color: white;
+    color: $base4;
     min-width: 160px;
     text-align: right;
 }
@@ -24,11 +24,11 @@
 @mixin footer {
     @include navBackground;
 
-    color: white;
+    //color: white;
     a {
-        color: white;
+        color: $base4;
         &:hover {
-            color: white;
+            color: $base4;
             text-decoration: none;
         }
     }
