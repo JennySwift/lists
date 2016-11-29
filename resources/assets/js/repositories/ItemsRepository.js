@@ -1,4 +1,4 @@
-var ItemsRepository = {
+module.exports = {
 
     /**
      *

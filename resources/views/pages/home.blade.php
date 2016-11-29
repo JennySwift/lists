@@ -17,6 +17,7 @@
 </div>
 
 @include('templates.shared.footer')
+@include('templates.shared.scripts')
 
 </body>
 </html>
