@@ -186,6 +186,7 @@
 
 <script>
     var DateTimeRepository = require('../repositories/DateTimeRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
 
     module.exports = {
         template: '#item-template',

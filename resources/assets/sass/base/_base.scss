@@ -7,15 +7,9 @@ html, body {
 	height: 100%;
 }
 
-//for positioning my debug info absolute
-body {
-    position: relative;
-}
-
 body {
 	padding-top: 55px;
     color: #777;
-	// padding-bottom: 50px;
 	@media (max-width: 600px) {
 		padding-top: 51px;
 	}

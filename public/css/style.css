@@ -6,9 +6,6 @@ html, body {
   height: 100%; }
 
 body {
-  position: relative; }
-
-body {
   padding-top: 55px;
   color: #777; }
   @media (max-width: 600px) {
@@ -116,6 +113,20 @@ li {
   h1 {
     font-size: 20px;
     margin: 2px 2px; } }
+
+.swal2-modal button {
+  margin-right: 5px;
+  margin-left: 5px; }
+
+.show-swal2 {
+  animation-name: expand;
+  animation-duration: .3s; }
+
+@keyframes expand {
+  0% {
+    transform: scale(0.5); }
+  100% {
+    transform: scale(1); } }
 
 #login {
   padding-top: 85px; }

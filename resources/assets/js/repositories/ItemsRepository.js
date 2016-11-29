@@ -109,45 +109,38 @@ module.exports = {
         return false;
     },
 
-
     /**
-     *
-     * @param that
-     * @param item
-     */
+    *
+    */
     deleteItem: function (that, item) {
-        if (confirm("Are you sure?")) {
-            $.event.trigger('show-loading');
+        if (item.recurringUnit) {
+            //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
+            var data = {
+                updatingNextTimeForRecurringItem: true
+            };
 
-            if (item.recurringUnit) {
-                //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
-                var data = {
-                    updatingNextTimeForRecurringItem: true
-                };
-
-                that.$http.put('/api/items/' + item.id, data, function (response) {
-                    item.notBefore = response.notBefore;
-                    that.showPopup = false;
-                    $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
-                    $.event.trigger('hide-loading');
-                })
+            that.$http.put('/api/items/' + item.id, data, function (response) {
+                item.notBefore = response.notBefore;
+                that.showPopup = false;
+                $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
+                $.event.trigger('hide-loading');
+            })
                 .error(function (data, status, response) {
                     helpers.handleResponseError(data, status, response);
                 });
-            }
+        }
 
-            else {
-                //We are actually deleting the item
-                that.$http.delete('/api/items/' + item.id, function (response) {
-                    ItemsRepository.deleteJsItem(that, item);
-                    that.showPopup = false;
-                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                    $.event.trigger('hide-loading');
-                })
-                .error(function (data, status, response) {
-                    helpers.handleResponseError(data, status, response);
-                });
-            }
+        else {
+            helpers.delete({
+                url: '/api/items/' + item.id,
+                // array: 'items',
+                // itemToDelete: this.item,
+                message: 'Item deleted',
+                redirectTo: this.redirectTo,
+                callback: function () {
+                    this.deleteJsItem(that, item);
+                }.bind(this)
+            });
         }
     },
 
@@ -156,7 +149,7 @@ module.exports = {
      * @param item
      */
     deleteJsItem: function (that, item) {
-        var parent = ItemsRepository.findParent(that.items, item, false, true);
+        var parent = this.findParent(that.items, item, false, true);
         var index;
         if (parent) {
             index = helpers.findIndexById(parent.children, item.id);
