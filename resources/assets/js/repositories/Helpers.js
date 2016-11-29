@@ -34,6 +34,16 @@ module.exports = {
 
     /**
      *
+     */
+    closePopup: function ($event, that, routeToGoTo) {
+        if ($($event.target).hasClass('popup-outer')) {
+            that.showPopup = false;
+            router.go(routeToGoTo);
+        }
+    },
+
+    /**
+     *
      * @param object
      */
     clone: function (object) {

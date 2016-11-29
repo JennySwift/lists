@@ -1,154 +1,167 @@
 <template>
-    <div
-        v-show="showPopup"
-        v-on:click="closePopup($event)"
-        class="popup-outer">
+    <popup
+        :show-popup.sync="showPopup"
+        id="item-popup"
+        :redirect-to="redirectTo"
+        :update="updateItem"
+        :destroy="deleteItem"
+    >
+        <div slot="content">
+            <div id="item-popup" class="popup-inner">
 
-        <div id="item-popup" class="popup-inner">
+                <div class="top-btns">
+                    <!--<button v-on:click="deleteItem(selectedItem)" class="btn btn-danger delete-item">Delete</button>-->
 
-            <span class="tooltipster" title="This is my span's tooltip message!">Some text</span>
+                    <div>
+                        <button
+                            v-if="!selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star-o">
+                        </button>
 
-            <div class="top-btns">
-                <button v-on:click="deleteItem(selectedItem)" class="btn btn-danger delete-item">Delete</button>
+                        <button
+                            v-if="selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star">
+                        </button>
 
-                <div>
-                    <button
-                        v-if="!selectedItem.favourite"
-                        v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                        class="favourite fa fa-star-o">
-                    </button>
-
-                    <button
-                        v-if="selectedItem.favourite"
-                        v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                        class="favourite fa fa-star">
-                    </button>
+                    </div>
 
                 </div>
 
-            </div>
+                <h3>Title (id: {{ selectedItem.id }}, parentId: {{ selectedItem.parent_id }}</h3>
 
-            <h3>Title (id: {{ selectedItem.id }}, parentId: {{ selectedItem.parent_id }}</h3>
-
-            <textarea
-                v-model="selectedItem.title"
-                rows="2">
+                <textarea
+                    v-model="selectedItem.title"
+                    rows="2">
         </textarea>
 
-            <h3>Note</h3>
+                <h3>Note</h3>
 
-            <textarea
-                v-model="selectedItem.body"
-                rows="10">
+                <textarea
+                    v-model="selectedItem.body"
+                    rows="10">
         </textarea>
 
-            <div class="input-group-container">
-                <input-group
-                    label="Not Before:"
-                    :model.sync="selectedItem.notBefore"
-                    :enter="updateItem"
-                    id="selected-item-not-before"
-                >
-                </input-group>
+                <div class="input-group-container">
+                    <input-group
+                        label="Not Before:"
+                        :model.sync="selectedItem.notBefore"
+                        :enter="updateItem"
+                        id="selected-item-not-before"
+                    >
+                    </input-group>
 
-                <div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>
+                    <div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>
 
-                <input-group
-                    label="Category:"
-                    :model.sync="selectedItem.category"
-                    :enter="updateItem"
-                    id="selected-item-category"
-                    :options="shared.categories"
-                    options-prop="name"
-                >
-                </input-group>
+                    <input-group
+                        label="Category:"
+                        :model.sync="selectedItem.category"
+                        :enter="updateItem"
+                        id="selected-item-category"
+                        :options="shared.categories"
+                        options-prop="name"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Alarm:"
-                    :model.sync="selectedItem.alarm"
-                    :enter="updateItem"
-                    id="selected-item-alarm"
-                >
-                </input-group>
+                    <input-group
+                        label="Alarm:"
+                        :model.sync="selectedItem.alarm"
+                        :enter="updateItem"
+                        id="selected-item-alarm"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Recurring Unit:"
-                    :model.sync="selectedItem.recurringUnit"
-                    :enter="updateItem"
-                    id="selected-item-recurring-unit"
-                    :options="shared.recurringUnits"
-                >
-                </input-group>
+                    <input-group
+                        label="Recurring Unit:"
+                        :model.sync="selectedItem.recurringUnit"
+                        :enter="updateItem"
+                        id="selected-item-recurring-unit"
+                        :options="shared.recurringUnits"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Recurring Frequency:"
-                    :model.sync="selectedItem.recurringFrequency"
-                    :enter="updateItem"
-                    id="selected-item-recurring-frequency"
-                >
-                </input-group>
+                    <input-group
+                        label="Recurring Frequency:"
+                        :model.sync="selectedItem.recurringFrequency"
+                        :enter="updateItem"
+                        id="selected-item-recurring-frequency"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Priority:"
-                    :model.sync="selectedItem.priority"
-                    :enter="updateItem"
-                    id="selected-item-priority"
-                >
-                </input-group>
+                    <input-group
+                        label="Priority:"
+                        :model.sync="selectedItem.priority"
+                        :enter="updateItem"
+                        id="selected-item-priority"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="Urgency:"
-                    :model.sync="selectedItem.urgency"
-                    :enter="updateItem"
-                    id="selected-item-urgency"
-                    type="number"
-                >
-                </input-group>
+                    <input-group
+                        label="Urgency:"
+                        :model.sync="selectedItem.urgency"
+                        :enter="updateItem"
+                        id="selected-item-urgency"
+                        type="number"
+                    >
+                    </input-group>
 
-                <input-group
-                    label="New Parent:"
-                    url="/api/items"
-                    :model.sync="selectedItem.newParent"
-                    :enter="updateItem"
-                    id="selected-item-new-parent"
-                    options-prop="title"
-                >
-                </input-group>
+                    <input-group
+                        label="New Parent:"
+                        url="/api/items"
+                        :model.sync="selectedItem.newParent"
+                        :enter="updateItem"
+                        id="selected-item-new-parent"
+                        options-prop="title"
+                    >
+                    </input-group>
 
-                <!--<div id="item-autocomplete">-->
-                <!--<autocomplete-->
-                <!--url="/api/items"-->
-                <!--autocomplete-field="new parent"-->
-                <!--autocomplete-field-id="item-popup-autocomplete"-->
-                <!--&gt;-->
-                <!--</autocomplete>-->
-                <!--</div>-->
+                    <!--<div id="item-autocomplete">-->
+                    <!--<autocomplete-->
+                    <!--url="/api/items"-->
+                    <!--autocomplete-field="new parent"-->
+                    <!--autocomplete-field-id="item-popup-autocomplete"-->
+                    <!--&gt;-->
+                    <!--</autocomplete>-->
+                    <!--</div>-->
 
-                <div class="tooltip_templates">
-                    <div id="selected-item-parent-id-tooltip">
-                        To move home, make field empty
+                    <input-group
+                        label="Parent Id:"
+                        :model.sync="selectedItem.parent_id"
+                        :enter="updateItem"
+                        id="selected-item-parent-id"
+                        tooltip-id="selected-item-parent-id-tooltip"
+                    >
+                    </input-group>
+
+                    <div class="tooltip_templates">
+                        <div id="selected-item-parent-id-tooltip">
+                            To move home, make field empty
+                        </div>
                     </div>
                 </div>
 
-                <input-group
-                    label="Parent Id:"
-                    :model.sync="selectedItem.parent_id"
-                    :enter="updateItem"
-                    id="selected-item-parent-id"
-                    tooltip-id="selected-item-parent-id-tooltip"
+                <buttons
+                    :save="updateItem"
+                    :destroy="deleteItem"
+                    :redirect-to="redirectTo"
                 >
-                </input-group>
-            </div>
+                </buttons>
 
-            <div class="buttons">
-                <button v-on:click="showPopup = false" class="btn btn-danger">Cancel</button>
-                <button v-on:click="updateItem(selectedItem)" class="btn btn-success">Save</button>
-            </div>
+                <!--<div class="buttons">-->
+                <!--<button v-on:click="showPopup = false" class="btn btn-danger">Cancel</button>-->
+                <!--<button v-on:click="updateItem(selectedItem)" class="btn btn-success">Save</button>-->
+                <!--</div>-->
 
+            </div>
         </div>
+    </popup>
 
-    </div>
 </template>
+
+
+
+
 
 <script>
     var DateTimeRepository = require('../repositories/DateTimeRepository');
@@ -180,11 +193,11 @@
             /**
             *
             */
-            updateItem: function (item) {
+            updateItem: function () {
                 var data = ItemsRepository.setData(item);
 
                 helpers.put({
-                    url: '/api/items/' + item.id,
+                    url: '/api/items/' + this.selectedItem.id,
                     data: data,
                     property: 'items',
                     message: 'Item updated',
@@ -241,8 +254,8 @@
              * delete it from the alarm with the JS, too
              * @param item
              */
-            deleteItem: function (item) {
-                ItemsRepository.deleteItem(this, item);
+            deleteItem: function () {
+                ItemsRepository.deleteItem(this, this.selectedItem);
             },
 
             /**

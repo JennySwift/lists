@@ -16,11 +16,11 @@ global.filters = require('./repositories/Filters');
 Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
 Vue.component('feedback', require('@jennyswift/feedback'));
 Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
-// Vue.component('popup', require('./components/shared/PopupComponent.vue'));
+Vue.component('popup', require('./components/shared/PopupComponent.vue'));
 Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
 
 // Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
-// Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
+Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
 Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
 // Vue.component('checkbox-group', require('./components/shared/CheckboxGroupComponent.vue'));
 
