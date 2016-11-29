@@ -139,6 +139,7 @@ module.exports = {
                 redirectTo: this.redirectTo,
                 callback: function () {
                     this.deleteJsItem(that, item);
+                    that.showPopup = false;
                 }.bind(this)
             });
         }
