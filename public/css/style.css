@@ -419,6 +419,21 @@ li {
 #login-form {
   margin-top: 130px; }
 
+.input-group-container {
+  margin-bottom: 7px; }
+  .input-group-container .input-group:not(:first-child) input {
+    border-top: none; }
+    .input-group-container .input-group:not(:first-child) input:focus {
+      border: 1px solid #66afe9; }
+  .input-group-container .input-group input {
+    border-radius: 0; }
+
+label.input-group-addon {
+  background: #5cb85c;
+  color: white;
+  min-width: 160px;
+  text-align: right; }
+
 .pointer {
   cursor: pointer; }
 

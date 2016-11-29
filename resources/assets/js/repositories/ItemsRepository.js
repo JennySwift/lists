@@ -44,7 +44,7 @@ module.exports = {
             body: item.body,
             priority: item.priority,
             urgency: item.urgency,
-            favourite: HelpersRepository.convertBooleanToInteger(item.favourite),
+            favourite: helpers.convertBooleanToInteger(item.favourite),
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,
@@ -130,7 +130,7 @@ module.exports = {
                     $.event.trigger('hide-loading');
                 })
                 .error(function (data, status, response) {
-                    HelpersRepository.handleResponseError(data, status, response);
+                    helpers.handleResponseError(data, status, response);
                 });
             }
 
@@ -143,7 +143,7 @@ module.exports = {
                     $.event.trigger('hide-loading');
                 })
                 .error(function (data, status, response) {
-                    HelpersRepository.handleResponseError(data, status, response);
+                    helpers.handleResponseError(data, status, response);
                 });
             }
         }
@@ -157,11 +157,11 @@ module.exports = {
         var parent = ItemsRepository.findParent(that.items, item, false, true);
         var index;
         if (parent) {
-            index = HelpersRepository.findIndexById(parent.children, item.id);
+            index = helpers.findIndexById(parent.children, item.id);
             parent.children = _.without(parent.children, parent.children[index]);
         }
         else {
-            index = HelpersRepository.findIndexById(that.items, item.id);
+            index = helpers.findIndexById(that.items, item.id);
             that.items = _.without(that.items, that.items[index]);
         }
     },

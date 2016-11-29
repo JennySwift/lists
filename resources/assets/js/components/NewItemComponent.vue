@@ -121,7 +121,7 @@
                     class="form-control"
                 >
                     <option
-                        v-for="recurringUnit in recurringUnits"
+                        v-for="recurringUnit in shared.recurringUnits"
                         v-bind:value="recurringUnit"
                     >
                         {{ recurringUnit }}
@@ -172,6 +172,7 @@
         data: function () {
             return {
                 me: {},
+                shared: store.state,
                 showNewItemFields: false,
                 addingNewItems: false,
                 newItem: {
@@ -354,8 +355,7 @@
         },
         props: [
             'items',
-            'zoomedItem',
-            'recurringUnits'
+            'zoomedItem'
         ],
         ready: function () {
             this.getUser();

@@ -2,17 +2,16 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('style.scss');
+    mix.version(["css/style.css"]);
 
-    mix.scripts([
-        'plugins/*.js',
-        'config.js',
-        //'helpers.js',
-        'repositories/**/*.js',
-        'components/**/*.js',
-        'app.js',
-        //'routes.js'
-    ], 'public/js/all.js');
+    //Copy css from node_modules to my css directory
+    mix.copy('node_modules/bootstrap/dist/css/bootstrap.min.css', 'resources/assets/css/bootstrap.min.css');
+    mix.copy('node_modules/tooltipster/dist/css/tooltipster.bundle.min.css', 'resources/assets/css/tooltipster.min.css');
+    mix.copy('node_modules/animate.css/animate.min.css', 'resources/assets/css/animate.min.css');
 
-    mix.version(["css/app.css", "js/all.js"]);
     mix.stylesIn('resources/assets/css', 'public/css/plugins.css');
 });
+
+
+
+

@@ -7,3 +7,10 @@
     right: 0;
     margin: auto;
 }
+
+@mixin inputGroupLabel {
+    background: $base1;
+    color: white;
+    min-width: 160px;
+    text-align: right;
+}

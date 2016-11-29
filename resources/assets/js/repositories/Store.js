@@ -12,7 +12,8 @@ module.exports = {
         me: {gravatar: ''},
         loading: false,
         categories: [],
-        categoriesLoaded: false
+        categoriesLoaded: false,
+        recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year']
     },
 
     /**

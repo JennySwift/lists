@@ -1,10 +1,12 @@
 <template>
     <div
-        v-if="showPopup"
+        v-show="showPopup"
         v-on:click="closePopup($event)"
         class="popup-outer">
 
         <div id="item-popup" class="popup-inner">
+
+            <span class="tooltipster" title="This is my span's tooltip message!">Some text</span>
 
             <div class="top-btns">
                 <button v-on:click="deleteItem(selectedItem)" class="btn btn-danger delete-item">Delete</button>
@@ -40,128 +42,102 @@
                 rows="10">
         </textarea>
 
-            <div class="flex">
-                <div class="form-group">
-                    <label for="item-popup-category">Category</label>
+            <div class="input-group-container">
+                <input-group
+                    label="Not Before:"
+                    :model.sync="selectedItem.notBefore"
+                    :enter="updateItem"
+                    id="selected-item-not-before"
+                >
+                </input-group>
 
-                    <select
-                        v-model="selectedItem.category"
-                        id="item-popup-category"
-                        class="form-control"
-                    >
-                        <option v-for="category in categories" v-bind:value="category">
-                            {{ category.name }}
-                        </option>
-                    </select>
+                <div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>
+
+                <input-group
+                    label="Category:"
+                    :model.sync="selectedItem.category"
+                    :enter="updateItem"
+                    id="selected-item-category"
+                    :options="shared.categories"
+                    options-prop="name"
+                >
+                </input-group>
+
+                <input-group
+                    label="Alarm:"
+                    :model.sync="selectedItem.alarm"
+                    :enter="updateItem"
+                    id="selected-item-alarm"
+                >
+                </input-group>
+
+                <input-group
+                    label="Recurring Unit:"
+                    :model.sync="selectedItem.recurringUnit"
+                    :enter="updateItem"
+                    id="selected-item-recurring-unit"
+                    :options="shared.recurringUnits"
+                >
+                </input-group>
+
+                <input-group
+                    label="Recurring Frequency:"
+                    :model.sync="selectedItem.recurringFrequency"
+                    :enter="updateItem"
+                    id="selected-item-recurring-frequency"
+                >
+                </input-group>
+
+                <input-group
+                    label="Priority:"
+                    :model.sync="selectedItem.priority"
+                    :enter="updateItem"
+                    id="selected-item-priority"
+                >
+                </input-group>
+
+                <input-group
+                    label="Urgency:"
+                    :model.sync="selectedItem.urgency"
+                    :enter="updateItem"
+                    id="selected-item-urgency"
+                    type="number"
+                >
+                </input-group>
+
+                <input-group
+                    label="New Parent:"
+                    url="/api/items"
+                    :model.sync="selectedItem.newParent"
+                    :enter="updateItem"
+                    id="selected-item-new-parent"
+                    options-prop="title"
+                >
+                </input-group>
+
+                <!--<div id="item-autocomplete">-->
+                <!--<autocomplete-->
+                <!--url="/api/items"-->
+                <!--autocomplete-field="new parent"-->
+                <!--autocomplete-field-id="item-popup-autocomplete"-->
+                <!--&gt;-->
+                <!--</autocomplete>-->
+                <!--</div>-->
+
+                <div class="tooltip_templates">
+                    <div id="selected-item-parent-id-tooltip">
+                        To move home, make field empty
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="selected-item-alarm">Alarm</label>
-                    <input
-                        v-model="selectedItem.alarm"
-                        type="text"
-                        id="selected-item-alarm"
-                        name="selected-item-alarm"
-                        placeholder="alarm"
-                        class="form-control"
-                    >
-                </div>
-
-                <!--Not before-->
-                <div class="form-group">
-                    <label for="selected-item-not-before">Not before</label>
-                    <input
-                        v-model="selectedItem.notBefore"
-                        type="text"
-                        id="selected-item-not-before"
-                        name="selected-item-not-before"
-                        placeholder=""
-                        class="form-control"
-                    >
-                    <div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>
-                </div>
-
-            </div>
-
-            <div class="flex">
-                <div class="form-group">
-                    <label for="selected-item-recurring-unit">Recurring unit</label>
-
-                    <select
-                        v-model="selectedItem.recurringUnit"
-                        id="selected-item-recurring-unit"
-                        class="form-control"
-                    >
-                        <option
-                            v-for="recurringUnit in recurringUnits"
-                            v-bind:value="recurringUnit"
-                        >
-                            {{ recurringUnit }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="selected-item-recurring-frequency">Recurring frequency</label>
-                    <input
-                        v-model="selectedItem.recurringFrequency"
-                        type="number"
-                        id="selected-item-recurring-frequency"
-                        name="selected-item-recurring-frequency"
-                        placeholder=""
-                        class="form-control"
-                    >
-                </div>
-
-            </div>
-
-            <div class="flex">
-                <div class="form-group">
-                    <label for="selected-item-priority">Priority</label>
-                    <input
-                        v-model="selectedItem.priority"
-                        type="number"
-                        id="selected-item-priority"
-                        name="selected-item-priority"
-                        placeholder="priority"
-                        class="form-control"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="selected-item-urgency">Urgency</label>
-                    <input
-                        v-model="selectedItem.urgency"
-                        type="number"
-                        id="selected-item-urgency"
-                        name="selected-item-urgency"
-                        placeholder="urgency"
-                        class="form-control"
-                    >
-                </div>
-            </div>
-
-            <div class="flex">
-                <div id="item-autocomplete">
-                    <autocomplete
-                        url="/api/items"
-                        autocomplete-field="new parent"
-                        autocomplete-field-id="item-popup-autocomplete"
-                    >
-                    </autocomplete>
-                </div>
-
-                <div class="form-group">
-                    <label for="selected-item-parent">Parent Id (To move home, make field empty)</label>
-                    <input
-                        v-model="selectedItem.parent_id"
-                        type="text"
-                        id="selected-item-parent"
-                        name="selected-item-parent"
-                        placeholder=""
-                        class="form-control"
-                    >
-                </div>
+                <input-group
+                    label="Parent Id:"
+                    :model.sync="selectedItem.parent_id"
+                    :enter="updateItem"
+                    id="selected-item-parent-id"
+                    tooltip-id="selected-item-parent-id-tooltip"
+                >
+                </input-group>
             </div>
 
             <div class="buttons">
@@ -175,6 +151,9 @@
 </template>
 
 <script>
+    var DateTimeRepository = require('../repositories/DateTimeRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
+
     module.exports = {
         template: '#item-popup-template',
         data: function () {
@@ -292,7 +271,6 @@
         props: [
             'items',
             'getItems',
-            'recurringUnits',
         ],
         events: {
             'option-chosen': function (option) {
@@ -300,6 +278,10 @@
             }
         },
         ready: function () {
+            setTimeout(function () {
+                helpers.tooltips();
+            }, 2000);
+
             this.listen();
         }
     };

@@ -4,7 +4,6 @@
         <item-popup
             :items.sync="items"
             :get-items="getItems"
-            :recurring-units="recurringUnits"
         >
         </item-popup>
 
@@ -58,7 +57,6 @@
             <new-item
                 :items.sync="items"
                 :zoomed-item="zoomedItem"
-                :recurring-units="recurringUnits"
             >
             </new-item>
 
@@ -103,7 +101,6 @@
                 editingItems: false,
                 newIndex: -1,
                 currentTime: moment(),
-                recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year'],
 
                 filters: {
                     minimumPriority: '',
