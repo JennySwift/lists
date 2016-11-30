@@ -1,5 +1,5 @@
 <template>
-    <div id="categories" class="container">
+    <div id="categories">
 
         <category-popup
             :categories.sync="categories"

@@ -1,32 +1,32 @@
 <template>
-    <div
-        v-show="showPopup"
-        v-on:click="closePopup($event)"
-        class="popup-outer"
+    <popup
+        :show-popup.sync="showPopup"
+        id="category-popup"
+        :redirect-to="redirectTo"
+        :update="updateCategory"
+        :destroy="deleteCategory"
     >
-
-        <div id="category-popup" class="popup-inner">
-
-            <div class="form-group">
-                <label for="selected-category-name">Name</label>
-                <input
-                    v-model="selectedCategory.name"
-                    type="text"
+        <div slot="content">
+            <div class="input-group-container">
+                <input-group
+                    label="Name:"
+                    :model.sync="selectedCategory.name"
+                    :enter="updateCategory"
                     id="selected-category-name"
-                    name="selected-category-name"
-                    placeholder="name"
-                    class="form-control"
                 >
+                </input-group>
             </div>
 
-            <div class="buttons">
-                <button v-on:click="showPopup = false" class="btn btn-default">Cancel</button>
-                <button v-on:click="deleteCategory()" class="btn btn-danger">Delete</button>
-                <button v-on:click="updateCategory()" class="btn btn-success">Save</button>
-            </div>
+            <buttons
+                :save="updateCategory"
+                :destroy="deleteCategory"
+                :redirect-to="redirectTo"
+            >
+            </buttons>
 
         </div>
-    </div>
+    </popup>
+
 </template>
 
 <script>

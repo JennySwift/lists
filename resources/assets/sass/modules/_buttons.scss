@@ -6,3 +6,12 @@
         border-color: $base1;
     }
 }
+
+.btn-danger{
+    background: $warning;
+    border-color: $base1;
+    &:hover {
+        background: darken($warning, 3%);
+        border-color: $base1;
+    }
+}
