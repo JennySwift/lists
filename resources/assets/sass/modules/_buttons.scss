@@ -1,0 +1,8 @@
+.btn-success{
+    background: $base4;
+    border-color: $base1;
+    &:hover {
+        background: darken($base4, 3%);
+        border-color: $base1;
+    }
+}

@@ -111,10 +111,15 @@ caption {
 li {
   list-style-type: none; }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 20px;
-    margin: 2px 2px; } }
+h1 {
+  color: #6998da; }
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 20px;
+      margin: 2px 2px; } }
+
+h1, button {
+  font-family: "Annie Use Your Telescope"; }
 
 .swal2-modal button {
   margin-right: 5px;
@@ -811,6 +816,13 @@ label.input-group-addon {
   align-items: center;
   cursor: pointer;
   padding: 5px 5px; }
+
+.btn-success {
+  background: #6998da;
+  border-color: #E0EAFC; }
+  .btn-success:hover {
+    background: #5d8fd6;
+    border-color: #E0EAFC; }
 
 #categories ul {
   margin-top: 20px; }
