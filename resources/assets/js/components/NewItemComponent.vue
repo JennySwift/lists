@@ -1,25 +1,40 @@
 <template>
     <div id="new-item">
 
-        <!--First column-->
-        <div>
+        <div class="input-group-container">
             <!--Title-->
-            <div class="form-group">
-                <label for="new-item-title">Title <span class="fa fa-asterisk"></span></label>
-                <input
-                    v-model="newItem.title"
-                    v-on:keyup.13="insertItem()"
-                    v-on:focus="showNewItemFields = true"
-                    type="text"
-                    id="new-item-title"
-                    name="new-item-title"
-                    placeholder="title"
-                    class="form-control"
-                >
-            </div>
+            <input-group
+                label="Title:"
+                :model.sync="newItem.title"
+                :enter="insertItem"
+                id="new-item-title"
+                required="true"
+            >
+            </input-group>
+
+            <input-group
+                label="Category:"
+                :model.sync="newItem.category"
+                :enter="insertItem"
+                id="new-item-category"
+                :options="shared.categories"
+                options-prop="name"
+                required="true"
+            >
+            </input-group>
+
+            <!--Priority-->
+            <input-group
+                label="Priority:"
+                :model.sync="newItem.priority"
+                :enter="insertItem"
+                id="new-item-priority"
+                required="true"
+            >
+            </input-group>
 
             <!--Body-->
-            <div v-show="showNewItemFields" class="form-group">
+            <div class="form-group item-body">
                 <label for="new-item-body">Body</label>
                 <textarea
                     v-model="newItem.body"
@@ -27,137 +42,73 @@
                     class="note"
                     name="new-item-body"
                 >
-            </textarea>
-            </div>
-        </div>
-
-        <!--Second column-->
-
-        <div>
-            <!--Category-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-category">Category <span class="fa fa-asterisk"></span></label>
-
-                <select
-                    v-model="newItem.category"
-                    v-on:keyup.13="insertItem()"
-                    id="new-item-category"
-                    class="form-control"
-                >
-                    <option
-                        v-for="category in categories"
-                        v-bind:value="category"
-                    >
-                        {{ category.name }}
-                    </option>
-                </select>
-            </div>
-
-            <!--Priority-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-priority">Priority <span class="fa fa-asterisk"></span></label>
-                <input
-                    v-model="newItem.priority"
-                    v-on:keyup.13="insertItem()"
-                    type="number"
-                    id="new-item-priority"
-                    name="new-item-priority"
-                    placeholder=""
-                    class="form-control priority"
-                >
+                </textarea>
             </div>
 
             <!--Urgency-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-urgency">Urgency</label>
-                <input
-                    v-model="newItem.urgency"
-                    v-on:keyup.13="insertItem()"
-                    type="number"
-                    id="new-item-urgency"
-                    name="new-item-urgency"
-                    placeholder=""
-                    class="form-control urgency"
-                >
-            </div>
+            <input-group
+                label="Urgency:"
+                :model.sync="newItem.urgency"
+                :enter="insertItem"
+                id="new-item-urgency"
+            >
+            </input-group>
 
             <!--Alarm-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-alarm">Alarm</label>
-                <input
-                    v-model="newItem.alarm"
-                    v-on:keyup.13="insertItem()"
-                    type="text"
-                    id="new-item-alarm"
-                    name="new-item-alarm"
-                    placeholder="alarm"
-                    class="form-control"
-                >
-            </div>
+            <input-group
+                label="Alarm:"
+                :model.sync="newItem.alarm"
+                :enter="insertItem"
+                id="new-item-alarm"
+            >
+            </input-group>
 
             <!--Not before-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-not-before">Not before</label>
-                <input
-                    v-model="newItem.notBefore"
-                    v-on:keyup.13="insertItem()"
-                    type="text"
-                    id="new-item-not-before"
-                    name="new-item-not-before"
-                    placeholder=""
-                    class="form-control"
-                >
-                <div>{{ newItem.notBefore | userFriendlyDateTimeFilter }}</div>
-            </div>
+            <input-group
+                label="Not Before:"
+                :model.sync="newItem.notBefore"
+                :enter="insertItem"
+                id="new-item-not-before"
+            >
+            </input-group>
+            <div>{{ newItem.notBefore | userFriendlyDateTimeFilter }}</div>
 
             <!--Recurring unit-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-recurring-unit">Recurring unit</label>
-
-                <select
-                    v-model="newItem.recurringUnit"
-                    v-on:keyup.13="insertItem()"
-                    id="new-item-recurring-unit"
-                    class="form-control"
-                >
-                    <option
-                        v-for="recurringUnit in shared.recurringUnits"
-                        v-bind:value="recurringUnit"
-                    >
-                        {{ recurringUnit }}
-                    </option>
-                </select>
-            </div>
+            <input-group
+                label="Recurring Unit:"
+                :model.sync="newItem.recurringUnit"
+                :enter="insertItem"
+                id="new-item-recurring-unit"
+                :options="shared.recurringUnits"
+            >
+            </input-group>
 
             <!--Recurring Frequency-->
-            <div v-show="showNewItemFields" class="form-group">
-                <label for="new-item-recurring-frequency">Recurring frequency</label>
-                <input
-                    v-model="newItem.recurringFrequency"
-                    v-on:keyup.13="insertItem()"
-                    type="number"
-                    id="new-item-recurring-frequency"
-                    name="new-item-recurring-frequency"
-                    placeholder=""
-                    class="form-control"
-                >
-            </div>
+            <input-group
+                label="Recurring Frequency:"
+                :model.sync="newItem.recurringFrequency"
+                :enter="insertItem"
+                id="new-item-recurring-frequency"
+            >
+            </input-group>
 
-            <div v-show="showNewItemFields" class="form-group">
-                <button
-                    v-on:click="insertItem(13)"
-                    :disabled="!newItem.title || !newItem.category || !newItem.priority"
-                    class="btn btn-success"
-                >
-                    Add item
-                </button>
-                <button
-                    v-on:click="showNewItemFields = false"
-                    class="btn btn-default"
-                >
-                    Cancel
-                </button>
-            </div>
+        </div>
+
+
+        <div class="form-group">
+            <button
+                v-on:click="showNewItemFields = false"
+                class="btn btn-default"
+            >
+                Cancel
+            </button>
+            <button
+                v-on:click="insertItem(13)"
+                :disabled="!newItem.title || !newItem.category || !newItem.priority"
+                class="btn btn-success"
+            >
+                Add item
+            </button>
         </div>
 
     </div>
@@ -166,6 +117,7 @@
 
 <script>
     var DateTimeRepository = require('../repositories/DateTimeRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
 
     module.exports = {
         template: '#new-item-template',
@@ -211,11 +163,10 @@
                     message: 'Item created',
                     clearFields: this.clearFields,
                     redirectTo: this.redirectTo,
-                    callback: function () {
+                    callback: function (response) {
                         this.showNewItemFields = false;
                         this.items.push(response);
                         this.clearNewItemFields();
-                        $.event.trigger('provide-feedback', ['Item created', 'success']);
                         if (response.alarm) {
                             $.event.trigger('alarm-created', [response]);
                         }
@@ -242,7 +193,7 @@
              * @param feedback
              * @param itemId The id of the item for the app in my lists app
              */
-            insertItem: function (feedback, itemId) {
+            insertItemFromFeedback: function (feedback, itemId) {
                 data = {
                     title: feedback.title,
                     body: feedback.body,

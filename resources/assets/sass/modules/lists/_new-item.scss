@@ -1,27 +1,20 @@
 #new-item {
 
-    display: flex;
-    //flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    //    padding: 30px 0;
-    //    border: 1px solid #777;
-    //    box-shadow: 3px 3px 5px #777;
-    width: 900px;
-    > * {
-        margin: 0 10px 0 10px;
-    }
+    //display: flex;
+    //justify-content: center;
+    //align-items: flex-start;
+    //margin-bottom: 20px;
+    //border-radius: 8px;
+    //width: 900px;
+    //> * {
+    //    margin: 0 10px 0 10px;
+    //}
     .fa-asterisk {
         color: $danger;
         font-size: 16px;
     }
-    .priority, .urgency {
-        //width: 50px;
-    }
     .note {
-        width: 450px;
+        width: 100%;
     }
     textarea {
         height: 300px;
@@ -31,23 +24,26 @@
             //                line-height: 40;
         }
     }
-    input[type="checkbox"] {
-        width: auto;
+    .item-body {
+        margin-top: 6px;
     }
-
-    @media (max-width: 320px) {
-        justify-content: flex-start;
-        width: auto;
-        flex-wrap: wrap;
-        > div {
-            flex-grow: 1;
-        }
-        select {
-            width: 100%;
-        }
-        .note {
-            width: 100%;
-        }
-    }
+    //input[type="checkbox"] {
+    //    width: auto;
+    //}
+    //
+    //@media (max-width: 320px) {
+    //    justify-content: flex-start;
+    //    width: auto;
+    //    flex-wrap: wrap;
+    //    > div {
+    //        flex-grow: 1;
+    //    }
+    //    select {
+    //        width: 100%;
+    //    }
+    //    .note {
+    //        width: 100%;
+    //    }
+    //}
 
 }

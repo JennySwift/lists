@@ -2,7 +2,11 @@
     <div class="input-group">
         <!--Label-->
         <label :for="id" class="input-group-addon">
+            <!--Asterix if required-->
+            <span v-if="required" class="fa fa-asterisk"></span>
+
             {{label}}
+
             <!--Tooltip-->
             <span v-if="tooltipId" class="tooltipster fa fa-question-circle" data-tooltipster='{"side":"bottom"}' data-tooltip-content="#{{tooltipId}}"></span>
         </label>
@@ -55,7 +59,8 @@
             'tooltipId',
             //Method to run on enter
             'enter',
-            'optionPartial'
+            'optionPartial',
+            'required'
         ]
     };
 </script>
