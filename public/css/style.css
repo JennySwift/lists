@@ -812,4 +812,10 @@ label.input-group-addon {
   cursor: pointer;
   padding: 5px 5px; }
 
+#categories ul {
+  margin-top: 20px; }
+
+#new-category button {
+  width: 100%; }
+
 /*# sourceMappingURL=style.css.map */

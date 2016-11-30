@@ -32,6 +32,7 @@ Vue.component('urgent-items', require('./components/UrgentItemsComponent.vue'));
 Vue.component('favourite-items', require('./components/FavouriteItemsComponent.vue'));
 Vue.component('filter', require('./components/FilterComponent.vue'));
 Vue.component('new-item', require('./components/NewItemComponent.vue'));
+Vue.component('new-category', require('./components/NewCategoryComponent.vue'));
 Vue.component('item', require('./components/ItemComponent.vue'));
 Vue.component('category', require('./components/CategoryComponent.vue'));
 
