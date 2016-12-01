@@ -22,6 +22,7 @@ Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
 // Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
 Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
 Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
+Vue.component('date-picker', require('./components/shared/DatepickerComponent.vue'));
 // Vue.component('checkbox-group', require('./components/shared/CheckboxGroupComponent.vue'));
 
 //Components

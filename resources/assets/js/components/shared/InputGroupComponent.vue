@@ -1,5 +1,5 @@
 <template>
-    <div class="input-group">
+    <div class="input-group" v-bind:class="{'top-border': topBorder}">
         <!--Label-->
         <label :for="id" class="input-group-addon">
             <!--Asterix if required-->
@@ -60,7 +60,8 @@
             //Method to run on enter
             'enter',
             'optionPartial',
-            'required'
+            'required',
+            'topBorder'
         ]
     };
 </script>

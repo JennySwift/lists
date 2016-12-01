@@ -51,27 +51,31 @@
                 :model.sync="newItem.urgency"
                 :enter="insertItem"
                 id="new-item-urgency"
+                top-border="true"
             >
             </input-group>
 
             <!--Alarm-->
-            <input-group
-                label="Alarm:"
-                :model.sync="newItem.alarm"
-                :enter="insertItem"
-                id="new-item-alarm"
+            <date-picker
+                :function-on-enter="insertItem"
+                :chosen-date.sync="newItem.alarm"
+                input-id="new-item-alarm"
+                label="Alarm"
+                input-placeholder=""
+                property="alarm"
             >
-            </input-group>
+            </date-picker>
 
             <!--Not before-->
-            <input-group
-                label="Not Before:"
-                :model.sync="newItem.notBefore"
-                :enter="insertItem"
-                id="new-item-not-before"
+            <date-picker
+                :function-on-enter="insertItem"
+                :chosen-date.sync="newItem.notBefore"
+                input-id="new-item-not-before"
+                label="Not Before"
+                input-placeholder=""
+                property="notBefore"
             >
-            </input-group>
-            <div>{{ newItem.notBefore | userFriendlyDateTimeFilter }}</div>
+            </date-picker>
 
             <!--Recurring unit-->
             <input-group

@@ -420,21 +420,6 @@ h1, button {
 #login-form {
   margin-top: 130px; }
 
-.input-group-container {
-  margin-bottom: 7px; }
-  .input-group-container .input-group:not(:first-child) input {
-    border-top: none; }
-    .input-group-container .input-group:not(:first-child) input:focus {
-      border: 1px solid #66afe9; }
-  .input-group-container .input-group input {
-    border-radius: 0; }
-
-label.input-group-addon {
-  background: #E0EAFC;
-  color: #6998da;
-  min-width: 160px;
-  text-align: right; }
-
 .pointer {
   cursor: pointer; }
 
@@ -807,6 +792,33 @@ label.input-group-addon {
   .btn-danger:hover {
     background: #dd8276;
     border-color: #E0EAFC; }
+
+.input-group-container {
+  margin-bottom: 7px; }
+  .input-group-container .input-group:not(:first-child) input {
+    border-top: none; }
+    .input-group-container .input-group:not(:first-child) input:focus {
+      border: 1px solid #66afe9; }
+  .input-group-container .input-group:not(:first-child) label {
+    border-top: none; }
+  .input-group-container .input-group input {
+    border-radius: 0; }
+    .input-group-container .input-group input:not(':first-child') {
+      border-top: 0; }
+  .input-group-container .input-group.top-border {
+    border-top: 1px solid #ccc; }
+
+label.input-group-addon {
+  background: #E0EAFC;
+  color: #6998da;
+  min-width: 160px;
+  text-align: right;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+  label.input-group-addon:not('first-child') {
+    border-top: 0; }
 
 #categories ul {
   margin-top: 20px; }
