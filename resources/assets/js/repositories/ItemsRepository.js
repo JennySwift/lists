@@ -64,7 +64,7 @@ module.exports = {
             //This check is here because if item.alarm was false,
             //I think PHP was getting value 0, making the item have an alarm
             //at '0000-00-00 00:00:00.'
-            data.alarm = this.formatAlarm(item.alarm)
+            data.alarm = filters.formatAlarm(item.alarm)
         }
 
         if (!data.pinned) {

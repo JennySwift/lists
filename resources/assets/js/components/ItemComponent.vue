@@ -198,10 +198,10 @@
         components: {},
         filters: {
             itemsFilter: function (items) {
-                return FiltersRepository.filter(items, this);
+                return filters.filter(items, this);
             },
             timeLeftFilter: function (seconds) {
-                return FiltersRepository.timeLeftFilter(seconds);
+                return filters.timeLeftFilter(seconds);
             },
             dateTimeFilter: function (dateTime) {
                 return DateTimeRepository.convertFromDateTime(dateTime);

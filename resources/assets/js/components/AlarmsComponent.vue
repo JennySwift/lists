@@ -21,6 +21,7 @@
 
 <script>
     var ItemsRepository = require('../repositories/ItemsRepository');
+    var moment = require('moment');
 
     module.exports = {
         template: '#alarms-template',

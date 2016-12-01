@@ -1,6 +1,7 @@
 var TimeRepository = require('./TimeRepository');
 var DateAndTimeRepository = require('./DateTimeRepository');
 var moment = require('moment');
+require('sugar');
 
 module.exports = {
     /**
@@ -38,7 +39,8 @@ module.exports = {
         //}
         //
         else {
-            alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
+            alarm = Date.create(alarm).format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
+            // alarm = Date.parse(alarm).toString('yyyy-MM-dd HH:mm:ss');
         }
         //console.log(alarm);
         return alarm;
