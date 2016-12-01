@@ -16,7 +16,7 @@
             v-if="!options && !url"
             v-model="model"
             v-on:keyup.13="enter()"
-            v-on:focus="focus()"
+            v-on:focus="onFocus()"
             type="text"
             :id="id"
             class="form-control"
@@ -46,46 +46,53 @@
 
     module.exports = {
         methods: {
-
+            /**
+             * So it doesn't error if a method isn't given to be run when the input is focused
+             */
+            onFocus: function () {
+                if (this.focus) {
+                    this.focus();
+                }
+            }
         },
-//        props: {
-//            label: {},
-//            model: {},
-//            id: {},
-//            url: {},
-//            options: {},
-//            optionsProp: {},
-//            //Text to add after each option
-//            optionsAdditionalText: {},
-//            tooltipId: {},
-//            //Method to run on enter
-//            enter: {},
-//            //Method to run on focus
-//            focus: {
-//
-//            },
-//            optionPartial: {},
-//            required: {},
-//            topBorder: {}
-//
-//        }
-        props: [
-            'label',
-            'model',
-            'id',
-            'url',
-            'options',
-            'optionsProp',
+        props: {
+            label: {},
+            model: {},
+            id: {},
+            url: {},
+            options: {},
+            optionsProp: {},
             //Text to add after each option
-            'optionsAdditionalText',
-            'tooltipId',
+            optionsAdditionalText: {},
+            tooltipId: {},
             //Method to run on enter
-            'enter',
+            enter: {},
             //Method to run on focus
-            'focus',
-            'optionPartial',
-            'required',
-            'topBorder'
-        ]
+            focus: {
+
+            },
+            optionPartial: {},
+            required: {},
+            topBorder: {}
+
+        }
+//        props: [
+//            'label',
+//            'model',
+//            'id',
+//            'url',
+//            'options',
+//            'optionsProp',
+//            //Text to add after each option
+//            'optionsAdditionalText',
+//            'tooltipId',
+//            //Method to run on enter
+//            'enter',
+//            //Method to run on focus
+//            'focus',
+//            'optionPartial',
+//            'required',
+//            'topBorder'
+//        ]
     };
 </script>
