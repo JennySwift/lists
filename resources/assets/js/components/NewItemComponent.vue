@@ -2,107 +2,14 @@
     <div id="new-item">
 
         <div class="input-group-container">
-            <!--Title-->
-            <input-group
-                label="Title:"
-                :model.sync="newItem.title"
+            <item-fields
+                :item="newItem"
+                action="insert"
+                :show="showNewItemFields"
                 :enter="insertItem"
-                id="new-item-title"
-                required="true"
                 :focus="showFields"
             >
-            </input-group>
-
-            <input-group
-                v-show="showNewItemFields"
-                label="Category:"
-                :model.sync="newItem.category"
-                :enter="insertItem"
-                id="new-item-category"
-                :options="shared.categories"
-                options-prop="name"
-                required="true"
-            >
-            </input-group>
-
-            <!--Priority-->
-            <input-group
-                v-show="showNewItemFields"
-                label="Priority:"
-                :model.sync="newItem.priority"
-                :enter="insertItem"
-                id="new-item-priority"
-                required="true"
-            >
-            </input-group>
-
-            <!--Body-->
-            <div v-show="showNewItemFields" class="form-group item-body">
-                <label for="new-item-body">Body</label>
-                <textarea
-                    v-model="newItem.body"
-                    placeholder="note"
-                    class="note"
-                    name="new-item-body"
-                >
-                </textarea>
-            </div>
-
-            <!--Urgency-->
-            <input-group
-                v-show="showNewItemFields"
-                label="Urgency:"
-                :model.sync="newItem.urgency"
-                :enter="insertItem"
-                id="new-item-urgency"
-                top-border="true"
-            >
-            </input-group>
-
-            <!--Alarm-->
-            <date-picker
-                v-show="showNewItemFields"
-                :function-on-enter="insertItem"
-                :chosen-date.sync="newItem.alarm"
-                input-id="new-item-alarm"
-                label="Alarm"
-                input-placeholder=""
-                property="alarm"
-            >
-            </date-picker>
-
-            <!--Not before-->
-            <date-picker
-                v-show="showNewItemFields"
-                :function-on-enter="insertItem"
-                :chosen-date.sync="newItem.notBefore"
-                input-id="new-item-not-before"
-                label="Not Before"
-                input-placeholder=""
-                property="notBefore"
-            >
-            </date-picker>
-
-            <!--Recurring unit-->
-            <input-group
-                v-show="showNewItemFields"
-                label="Recurring Unit:"
-                :model.sync="newItem.recurringUnit"
-                :enter="insertItem"
-                id="new-item-recurring-unit"
-                :options="shared.recurringUnits"
-            >
-            </input-group>
-
-            <!--Recurring Frequency-->
-            <input-group
-                v-show="showNewItemFields"
-                label="Recurring Frequency:"
-                :model.sync="newItem.recurringFrequency"
-                :enter="insertItem"
-                id="new-item-recurring-frequency"
-            >
-            </input-group>
+            </item-fields>
 
         </div>
 

@@ -36,6 +36,7 @@ Vue.component('new-item', require('./components/NewItemComponent.vue'));
 Vue.component('new-category', require('./components/NewCategoryComponent.vue'));
 Vue.component('item', require('./components/ItemComponent.vue'));
 Vue.component('category', require('./components/CategoryComponent.vue'));
+Vue.component('item-fields', require('./components/ItemFieldsComponent.vue'));
 
 //Filters
 
