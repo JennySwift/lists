@@ -72,7 +72,7 @@ module.exports = {
      */
     put: function (options) {
         store.showLoading();
-        Vue.http.put(options.url, options.data).then(function (response) {
+        Vue.http.put(options.url, {params: options.data}).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
             }

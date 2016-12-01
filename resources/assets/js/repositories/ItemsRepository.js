@@ -119,15 +119,17 @@ module.exports = {
                 updatingNextTimeForRecurringItem: true
             };
 
-            that.$http.put('/api/items/' + item.id, data, function (response) {
-                item.notBefore = response.notBefore;
-                that.showPopup = false;
-                $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
-                $.event.trigger('hide-loading');
-            })
-                .error(function (data, status, response) {
-                    helpers.handleResponseError(data, status, response);
-                });
+            helpers.put({
+                url: '/api/items/' + item.id,
+                data: data,
+                property: 'items',
+                message: 'Item has been rescheduled, not deleted',
+                redirectTo: this.redirectTo,
+                callback: function (response) {
+                    item.notBefore = response.notBefore;
+                    that.showPopup = false;
+                }
+            });
         }
 
         else {
