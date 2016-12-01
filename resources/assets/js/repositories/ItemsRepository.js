@@ -156,7 +156,7 @@ module.exports = {
             index = helpers.findIndexById(parent.children, item.id);
             parent.children = _.without(parent.children, parent.children[index]);
         }
-        else {
+        else if (that.items) {
             index = helpers.findIndexById(that.items, item.id);
             that.items = _.without(that.items, that.items[index]);
         }

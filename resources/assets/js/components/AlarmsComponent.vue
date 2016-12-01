@@ -99,9 +99,8 @@
             },
         },
         props: [
-            'showLoading',
             'showItemPopup',
-            'selectedItem',
+            'selectedItem'
         ],
         ready: function () {
             this.getItemsWithAlarm();
