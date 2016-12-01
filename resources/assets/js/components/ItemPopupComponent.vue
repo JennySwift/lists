@@ -31,80 +31,88 @@
 
                 <h3>Title (id: {{ selectedItem.id }}, parentId: {{ selectedItem.parent_id }}</h3>
 
-                <textarea
-                    v-model="selectedItem.title"
-                    rows="2">
-        </textarea>
+                <item-fields
+                    :item="selectedItem"
+                    action="update"
+                    :show="true"
+                    :enter="updateItem"
+                >
+                </item-fields>
 
-                <h3>Note</h3>
+                <!--<textarea-->
+                    <!--v-model="selectedItem.title"-->
+                    <!--rows="2">-->
+                <!--</textarea>-->
 
-                <textarea
-                    v-model="selectedItem.body"
-                    rows="10">
-        </textarea>
+                <!--<h3>Note</h3>-->
 
-                <div class="input-group-container">
-                    <input-group
-                        label="Not Before:"
-                        :model.sync="selectedItem.notBefore"
-                        :enter="updateItem"
-                        id="selected-item-not-before"
-                    >
-                    </input-group>
+                <!--<textarea-->
+                    <!--v-model="selectedItem.body"-->
+                    <!--rows="10">-->
+        <!--</textarea>-->
 
-                    <div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>
+                <!--<div class="input-group-container">-->
+                    <!--<input-group-->
+                        <!--label="Not Before:"-->
+                        <!--:model.sync="selectedItem.notBefore"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-not-before"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
-                    <input-group
-                        label="Category:"
-                        :model.sync="selectedItem.category"
-                        :enter="updateItem"
-                        id="selected-item-category"
-                        :options="shared.categories"
-                        options-prop="name"
-                    >
-                    </input-group>
+                    <!--<div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>-->
 
-                    <input-group
-                        label="Alarm:"
-                        :model.sync="selectedItem.alarm"
-                        :enter="updateItem"
-                        id="selected-item-alarm"
-                    >
-                    </input-group>
+                    <!--<input-group-->
+                        <!--label="Category:"-->
+                        <!--:model.sync="selectedItem.category"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-category"-->
+                        <!--:options="shared.categories"-->
+                        <!--options-prop="name"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
-                    <input-group
-                        label="Recurring Unit:"
-                        :model.sync="selectedItem.recurringUnit"
-                        :enter="updateItem"
-                        id="selected-item-recurring-unit"
-                        :options="shared.recurringUnits"
-                    >
-                    </input-group>
+                    <!--<input-group-->
+                        <!--label="Alarm:"-->
+                        <!--:model.sync="selectedItem.alarm"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-alarm"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
-                    <input-group
-                        label="Recurring Frequency:"
-                        :model.sync="selectedItem.recurringFrequency"
-                        :enter="updateItem"
-                        id="selected-item-recurring-frequency"
-                    >
-                    </input-group>
+                    <!--<input-group-->
+                        <!--label="Recurring Unit:"-->
+                        <!--:model.sync="selectedItem.recurringUnit"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-recurring-unit"-->
+                        <!--:options="shared.recurringUnits"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
-                    <input-group
-                        label="Priority:"
-                        :model.sync="selectedItem.priority"
-                        :enter="updateItem"
-                        id="selected-item-priority"
-                    >
-                    </input-group>
+                    <!--<input-group-->
+                        <!--label="Recurring Frequency:"-->
+                        <!--:model.sync="selectedItem.recurringFrequency"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-recurring-frequency"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
-                    <input-group
-                        label="Urgency:"
-                        :model.sync="selectedItem.urgency"
-                        :enter="updateItem"
-                        id="selected-item-urgency"
-                        type="number"
-                    >
-                    </input-group>
+                    <!--<input-group-->
+                        <!--label="Priority:"-->
+                        <!--:model.sync="selectedItem.priority"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-priority"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
+
+                    <!--<input-group-->
+                        <!--label="Urgency:"-->
+                        <!--:model.sync="selectedItem.urgency"-->
+                        <!--:enter="updateItem"-->
+                        <!--id="selected-item-urgency"-->
+                        <!--type="number"-->
+                    <!--&gt;-->
+                    <!--</input-group>-->
 
                     <input-group
                         label="New Parent:"
