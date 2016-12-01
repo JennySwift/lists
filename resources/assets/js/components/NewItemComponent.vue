@@ -9,10 +9,12 @@
                 :enter="insertItem"
                 id="new-item-title"
                 required="true"
+                :focus="showFields"
             >
             </input-group>
 
             <input-group
+                v-show="showNewItemFields"
                 label="Category:"
                 :model.sync="newItem.category"
                 :enter="insertItem"
@@ -25,6 +27,7 @@
 
             <!--Priority-->
             <input-group
+                v-show="showNewItemFields"
                 label="Priority:"
                 :model.sync="newItem.priority"
                 :enter="insertItem"
@@ -34,7 +37,7 @@
             </input-group>
 
             <!--Body-->
-            <div class="form-group item-body">
+            <div v-show="showNewItemFields" class="form-group item-body">
                 <label for="new-item-body">Body</label>
                 <textarea
                     v-model="newItem.body"
@@ -47,6 +50,7 @@
 
             <!--Urgency-->
             <input-group
+                v-show="showNewItemFields"
                 label="Urgency:"
                 :model.sync="newItem.urgency"
                 :enter="insertItem"
@@ -57,6 +61,7 @@
 
             <!--Alarm-->
             <date-picker
+                v-show="showNewItemFields"
                 :function-on-enter="insertItem"
                 :chosen-date.sync="newItem.alarm"
                 input-id="new-item-alarm"
@@ -68,6 +73,7 @@
 
             <!--Not before-->
             <date-picker
+                v-show="showNewItemFields"
                 :function-on-enter="insertItem"
                 :chosen-date.sync="newItem.notBefore"
                 input-id="new-item-not-before"
@@ -79,6 +85,7 @@
 
             <!--Recurring unit-->
             <input-group
+                v-show="showNewItemFields"
                 label="Recurring Unit:"
                 :model.sync="newItem.recurringUnit"
                 :enter="insertItem"
@@ -89,6 +96,7 @@
 
             <!--Recurring Frequency-->
             <input-group
+                v-show="showNewItemFields"
                 label="Recurring Frequency:"
                 :model.sync="newItem.recurringFrequency"
                 :enter="insertItem"
@@ -99,7 +107,7 @@
         </div>
 
 
-        <div class="form-group">
+        <div v-show="showNewItemFields" class="form-group">
             <button
                 v-on:click="showNewItemFields = false"
                 class="btn btn-default"
@@ -153,6 +161,13 @@
         },
         components: {},
         methods: {
+
+            /**
+             *
+             */
+            showFields: function () {
+                this.showNewItemFields = true;
+            },
 
             /**
             *

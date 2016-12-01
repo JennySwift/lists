@@ -16,6 +16,7 @@
             v-if="!options && !url"
             v-model="model"
             v-on:keyup.13="enter()"
+            v-on:focus="focus()"
             type="text"
             :id="id"
             class="form-control"
@@ -47,6 +48,27 @@
         methods: {
 
         },
+//        props: {
+//            label: {},
+//            model: {},
+//            id: {},
+//            url: {},
+//            options: {},
+//            optionsProp: {},
+//            //Text to add after each option
+//            optionsAdditionalText: {},
+//            tooltipId: {},
+//            //Method to run on enter
+//            enter: {},
+//            //Method to run on focus
+//            focus: {
+//
+//            },
+//            optionPartial: {},
+//            required: {},
+//            topBorder: {}
+//
+//        }
         props: [
             'label',
             'model',
@@ -59,6 +81,8 @@
             'tooltipId',
             //Method to run on enter
             'enter',
+            //Method to run on focus
+            'focus',
             'optionPartial',
             'required',
             'topBorder'
