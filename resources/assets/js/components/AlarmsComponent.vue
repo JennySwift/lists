@@ -6,7 +6,7 @@
             <div id="alarm"></div>
 
             <item
-                v-for="item in items | order"
+                v-for="item in items | order" track-by="$index"
                 :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
