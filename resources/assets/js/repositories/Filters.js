@@ -1,5 +1,5 @@
 var TimeRepository = require('./TimeRepository');
-var DateAndTimeRepository = require('./DateTimeRepository');
+var DateTimeRepository = require('./DateTimeRepository');
 var moment = require('moment');
 require('sugar');
 
@@ -71,41 +71,41 @@ module.exports = {
         //Filter
         return items.filter(function (item) {
             //Title filter
-            var filteredIn = item.title.toLowerCase().indexOf(that.filters.title.toLowerCase()) !== -1;
+            var filteredIn = item.title.toLowerCase().indexOf(that.shared.filters.title.toLowerCase()) !== -1;
 
             //Priority filter-at or higher than priority specified
-            if (that.filters.minimumPriority && item.priority > that.filters.minimumPriority) {
+            if (that.shared.filters.minimumPriority && item.priority > that.shared.filters.minimumPriority) {
                 filteredIn = false;
             }
 
             //Priority filter
-            if (that.filters.priority && item.priority != that.filters.priority) {
+            if (that.shared.filters.priority && item.priority != that.shared.filters.priority) {
                 filteredIn = false;
             }
             //Urgency filter
-            else if (that.filters.urgency && item.urgency != that.filters.urgency) {
+            else if (that.shared.filters.urgency && item.urgency != that.shared.filters.urgency) {
                 filteredIn = false;
             }
             //Urgency out filter
-            else if (that.filters.urgencyOut && item.urgency >= that.filters.urgencyOut) {
+            else if (that.shared.filters.urgencyOut && item.urgency >= that.shared.filters.urgencyOut) {
                 filteredIn = false;
             }
             //Category filter
-            else if (that.filters.category && item.category_id !== that.filters.category) {
+            else if (that.shared.filters.category.id && item.category_id !== that.shared.filters.category.id) {
                 filteredIn = false;
             }
             //Not before filter (if checked, do not show items with a not before value after the current time)
-            else if (that.filters.notBefore && filters.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
+            else if (that.shared.filters.notBefore && filters.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
                 filteredIn = false;
             }
             //Not before date filter
-            else if (that.filters.notBeforeDate) {
+            else if (that.shared.filters.notBeforeDate) {
                 //Only show items with a not before date on the specified date
                 if (!item.notBefore) {
                     filteredIn = false;
                 }
                 else {
-                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.filters.notBeforeDate));
+                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.shared.filters.notBeforeDate));
                     var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore);
                     if (filterDate !== itemDate) {
                         filteredIn = false;

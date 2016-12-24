@@ -5,93 +5,78 @@
             <button v-on:click="toggleFavouriteItems()" class="btn btn-info fa fa-star-o"></button>
         </div>
 
-        <label>Search all items by title</label>
-        <input
-            v-on:keyup.13="filter"
-            type="text"
-            placeholder="title"
-            id="filter"
-            class="input-sm"
-        />
+        <div class="input-group-container">
+            <!--<input-group-->
+                <!--label="Title (all items):"-->
+                <!--:model.sync=""-->
+                <!--:enter="filter"-->
+                <!--id=""-->
+                <!--tooltip-id=""-->
+            <!--&gt;-->
+            <!--</input-group>-->
 
-        <label>Filter by title</label>
-        <input
-            v-model="filters.title"
-            type="text"
-            placeholder="title"
-            class="input-sm"
-        />
-
-        <label>Filter by minimum priority</label>
-        <input
-            v-model="filters.minimumPriority"
-            type="text"
-            placeholder="minimum priority"
-            class="input-sm"
-        />
-
-        <label>Filter by priority</label>
-        <input
-            v-model="filters.priority"
-            type="text"
-            placeholder="priority"
-            class="input-sm"
-        />
-
-        <label>Filter in by urgency</label>
-        <input
-            v-model="filters.urgency"
-            type="text"
-            placeholder="urgency"
-            class="input-sm"
-        />
-
-        <label>Filter out by urgency >=</label>
-        <input
-            v-model="filters.urgencyOut"
-            type="text"
-            placeholder="urgency"
-            class="input-sm"
-        />
-
-        <div class="checkbox-container">
-            <label for="filter-not-before">Do not show items with a not-before time after the current time</label>
-            <input
-                v-model="filters.notBefore"
-                id="filter-not-before"
-                type="checkbox"
+            <input-group
+                label="Title:"
+                :model.sync="shared.filters.title"
+                id="title-filter"
             >
-        </div>
+            </input-group>
 
-        <div class="form-group">
-            <label for="filter-not-before-date">Not before</label>
-            <input
-                v-model="filters.notBeforeDate"
-                type="text"
-                id="filter-not-before-date"
-                name="filter-not-before-date"
-                placeholder="today"
-                class="form-control"
+            <input-group
+                label="Min Priority:"
+                :model.sync="shared.filters.minimumPriority"
+                id="min-priority-filter"
             >
-            <div>{{ filters.notBeforeDate | userFriendlyDateFilter }}</div>
-        </div>
+            </input-group>
 
-        <div class="form-group">
-            <label for="category-filter">Filter by category</label>
+            <input-group
+                label="Priority:"
+                :model.sync="filter.priority"
+                id="priority-filter"
+            >
+            </input-group>
 
-            <select v-model="filters.category" id="category-filter" class="form-control">
-                <option v-for="category in shared.categories" v-bind:value="category.id">
-                    {{ category.name }}
-                </option>
-            </select>
-        </div>
+            <input-group
+                label="Urgency (in):"
+                :model.sync="shared.filters.urgency"
+                id="urgency-filter"
+            >
+            </input-group>
 
-        <div>
-            <button
-                v-on:click="filters.category=''"
-                class="btn btn-xs btn-info">
-                clear
-            </button>
+            <input-group
+                label="Urgency (out >=):"
+                :model.sync="shared.filters.urgencyOut"
+                id="urgency-out-filter"
+            >
+            </input-group>
+
+            <date-picker
+                :function-on-enter="enter"
+                :chosen-date.sync="shared.filters.notBeforeDate"
+                input-id="filter-not-before-date"
+                label="Not Before"
+                property="notBeforeDate"
+            >
+            </date-picker>
+
+            <input-group
+                label="Category:"
+                :model.sync="shared.filters.category"
+                :enter=""
+                id="filter-category"
+                :options="categoryOptions"
+                options-prop="name"
+            >
+            </input-group>
+
+            <div class="checkbox-container">
+                <label for="filter-not-before">Hide items not before future time:</label>
+                <input
+                    v-model="shared.filters.notBefore"
+                    id="filter-not-before"
+                    type="checkbox"
+                >
+            </div>
         </div>
 
     </div>
@@ -108,6 +93,14 @@
                 showFilter: undefined,
                 shared: store.state
             };
+        },
+        computed: {
+            categoryOptions: function () {
+                var categories = this.shared.categories;
+                categories.unshift({name: 'Any'});
+
+              return categories;
+            }
         },
         components: {},
         filters: {
@@ -174,7 +167,6 @@
         },
         props: [
             'favouriteItems',
-            'filters',
             'items'
         ],
         ready: function () {

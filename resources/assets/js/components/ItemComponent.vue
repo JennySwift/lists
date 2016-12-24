@@ -198,10 +198,10 @@
         components: {},
         filters: {
             itemsFilter: function (items) {
-                return filters.filter(items, this);
+                return shared.filter(items, this);
             },
             timeLeftFilter: function (seconds) {
-                return filters.timeLeftFilter(seconds);
+                return shared.timeLeftFilter(seconds);
             },
             dateTimeFilter: function (dateTime) {
                 return DateTimeRepository.convertFromDateTime(dateTime);
@@ -239,7 +239,6 @@
             'showChildren',
             'getItems',
             'itemsFilter',
-            'filters'
         ],
         ready: function () {
             //this.listen();

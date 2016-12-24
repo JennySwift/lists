@@ -48,7 +48,6 @@
 
             <!--Filter-->
             <filter
-                :filters.sync="filters"
                 :items.sync="items"
             >
             </filter>
@@ -100,19 +99,7 @@
                 breadcrumb: [],
                 editingItems: false,
                 newIndex: -1,
-                currentTime: moment(),
-
-                filters: {
-                    minimumPriority: '',
-                    priority: '',
-                    category: '',
-                    title: '',
-                    urgency: '',
-                    urgencyOut: '',
-                    notBefore: true,
-                    notBeforeDate: ''
-                }
-
+                currentTime: moment()
             }
         },
         watch: {

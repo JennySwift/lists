@@ -13,7 +13,17 @@ module.exports = {
         loading: false,
         categories: [],
         categoriesLoaded: false,
-        recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year']
+        recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year'],
+        filters: {
+            minimumPriority: '',
+            priority: '',
+            category: {},
+            title: '',
+            urgency: '',
+            urgencyOut: '',
+            notBefore: true,
+            notBeforeDate: ''
+        }
     },
 
     /**
