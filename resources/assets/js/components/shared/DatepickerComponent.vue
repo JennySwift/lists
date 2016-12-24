@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="date-feedback-for-user">{{ chosenDate | dateAndTimeFilter }}</div>
+            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ chosenDate | dateAndTimeFilter }}</div>
         </div>
 
 
@@ -241,7 +241,8 @@
             'chosenDate',
             'inputId',
             'inputPlaceholder',
-            'label'
+            'label',
+            'showDateFeedback'
         ],
         ready: function () {
 

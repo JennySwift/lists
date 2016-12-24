@@ -1,9 +1,9 @@
 <template>
     <div v-show="showFilter" id="search-container">
 
-        <div>
-            <button v-on:click="toggleFavouriteItems()" class="btn btn-info fa fa-star-o"></button>
-        </div>
+        <!--<div>-->
+            <!--<button v-on:click="toggleFavouriteItems()" class="btn btn-info fa fa-star-o"></button>-->
+        <!--</div>-->
 
         <div class="input-group-container">
             <!--<input-group-->
