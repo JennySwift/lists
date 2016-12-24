@@ -9,7 +9,7 @@ $info: #5bc0de;
 $primary: #337ab7;
 $lightgrey: #f5f5f5;
 
-$base1: #E0EAFC;
-$base2:  #CFDEF3;
-$base3: lighten($base2, 9%);
-$base4: darken($base2, 25%);
+$base1:  lighten(#3CD3AD, 30%);
+$base2: #97D7D6;
+$base3: #B0E4DC;
+$base4: $base2;

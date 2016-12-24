@@ -75,7 +75,7 @@
         justify-content: space-between;
         align-items: center;
         .priority {
-            background: $info;
+            background: $base2;
         }
         .urgency-one {
             background: $danger;
@@ -116,6 +116,9 @@
         align-items: center;
         > * {
             margin: 0 5px;
+        }
+        .category {
+            background: $base2;
         }
     }
     &:hover {

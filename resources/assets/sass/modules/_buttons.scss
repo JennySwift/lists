@@ -7,6 +7,15 @@
     }
 }
 
+.btn-info{
+    background: $base2;
+    border-color: $base1;
+    &:hover {
+        background: darken($base2, 3%);
+        border-color: $base1;
+    }
+}
+
 .btn-danger{
     background: $warning;
     border-color: $base1;

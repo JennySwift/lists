@@ -251,15 +251,17 @@
 </script>
 
 <style lang="sass" rel="stylesheet/scss">
-    $base1: #E0EAFC;
-    $base2:  #CFDEF3;
-    $base3: lighten($base2, 9%);
-    $base4: darken($base2, 25%);
+    $base1:  lighten(#3CD3AD, 30%);
+    $base2: #97D7D6;
+    $base3: #B0E4DC;
+    $base4: $base2;
+
+
     $zIndex1: 9;
 
     @mixin inputGroupLabel {
-        background: $base1;
-        color: $base4;
+        background: $base3;
+        color: white;
         min-width: 160px;
         text-align: right;
     }

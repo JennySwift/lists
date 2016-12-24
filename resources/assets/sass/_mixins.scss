@@ -9,8 +9,8 @@
 }
 
 @mixin inputGroupLabel {
-    background: $base1;
-    color: $base4;
+    background: $base3;
+    color: white;
     min-width: 160px;
     text-align: right;
     border-left: 1px solid #ccc;
@@ -19,8 +19,8 @@
 
 @mixin navBackground {
     background: #FF5F6D; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, $base1 , $base2); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, $base1 , $base2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to left, $base2 , $base1); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, $base2 , $base1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 @mixin footer {
@@ -28,9 +28,9 @@
 
     //color: white;
     a {
-        color: $base4;
+        color: white;
         &:hover {
-            color: $base4;
+            color: white;
             text-decoration: none;
         }
     }

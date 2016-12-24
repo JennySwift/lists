@@ -26,15 +26,15 @@ body {
     background: #FF5F6D;
     /* fallback for old browsers */
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #E0EAFC, #CFDEF3);
+    background: linear-gradient(to left, #97D7D6, #b9efe1);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 25px;
     position: relative;
     margin-top: -25px; }
     body footer a {
-      color: #6998da; }
+      color: white; }
       body footer a:hover {
-        color: #6998da;
+        color: white;
         text-decoration: none; }
     body footer li {
       display: -ms-flexbox;
@@ -92,9 +92,9 @@ input[type="checkbox"] {
 
 a {
   cursor: pointer;
-  color: #6998da; }
+  color: #97D7D6; }
   a:hover, a:focus {
-    color: #6998da; }
+    color: #97D7D6; }
 
 th, table {
   text-align: center; }
@@ -112,7 +112,7 @@ li {
   list-style-type: none; }
 
 h1 {
-  color: #6998da; }
+  color: #97D7D6; }
   @media (max-width: 600px) {
     h1 {
       font-size: 20px;
@@ -328,7 +328,9 @@ h1, button {
   padding: 10px;
   width: 900px;
   max-width: 100%;
-  background: #f4f7fc; }
+  background: #97D7D6; }
+  #breadcrumb a {
+    color: white; }
   #breadcrumb span {
     font-size: 16px;
     cursor: pointer; }
@@ -510,7 +512,7 @@ h1, button {
   background: #FF5F6D;
   /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #E0EAFC, #CFDEF3);
+  background: linear-gradient(to left, #97D7D6, #b9efe1);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 0;
   margin: 0; }
@@ -534,9 +536,9 @@ h1, button {
     #navbar .dropdown-menu li, #guest-navbar .dropdown-menu li {
       background: white; }
       #navbar .dropdown-menu li a, #guest-navbar .dropdown-menu li a {
-        color: #6998da; }
+        color: #97D7D6; }
       #navbar .dropdown-menu li:hover, #guest-navbar .dropdown-menu li:hover {
-        background: #CFDEF3; }
+        background: #97D7D6; }
         #navbar .dropdown-menu li:hover a, #guest-navbar .dropdown-menu li:hover a {
           color: white; }
       #navbar .dropdown-menu li a:focus, #navbar .dropdown-menu li a:hover, #guest-navbar .dropdown-menu li a:focus, #guest-navbar .dropdown-menu li a:hover {
@@ -559,7 +561,7 @@ h1, button {
     #navbar > li > a, #guest-navbar > li > a {
       transition: all .5s ease; }
   #navbar a, #guest-navbar a {
-    color: #6998da; }
+    color: white; }
   #navbar .gravatar-li .gravatar-container, #guest-navbar .gravatar-li .gravatar-container {
     margin-left: 5px;
     display: -ms-flexbox;
@@ -634,7 +636,7 @@ h1, button {
     -ms-flex-align: center;
     align-items: center; }
     .item .before-item .priority {
-      background: #5bc0de; }
+      background: #97D7D6; }
     .item .before-item .urgency-one {
       background: #d9534f; }
     .item .before-item i {
@@ -667,6 +669,8 @@ h1, button {
     align-items: center; }
     .item .after-item > * {
       margin: 0 5px; }
+    .item .after-item .category {
+      background: #97D7D6; }
   .item:hover .delete-item {
     visibility: visible; }
   .item .delete-item {
@@ -720,7 +724,7 @@ h1, button {
       background: #d9534f;
       color: white; }
     #feedback .feedback-message.success {
-      background: #6998da;
+      background: #97D7D6;
       color: white; }
     #feedback .feedback-message ul {
       margin: 0;
@@ -780,18 +784,25 @@ h1, button {
   padding: 5px 5px; }
 
 .btn-success {
-  background: #6998da;
-  border-color: #E0EAFC; }
+  background: #97D7D6;
+  border-color: #b9efe1; }
   .btn-success:hover {
-    background: #5d8fd6;
-    border-color: #E0EAFC; }
+    background: #8cd3d2;
+    border-color: #b9efe1; }
+
+.btn-info {
+  background: #97D7D6;
+  border-color: #b9efe1; }
+  .btn-info:hover {
+    background: #8cd3d2;
+    border-color: #b9efe1; }
 
 .btn-danger {
   background: #E08D82;
-  border-color: #E0EAFC; }
+  border-color: #b9efe1; }
   .btn-danger:hover {
     background: #dd8276;
-    border-color: #E0EAFC; }
+    border-color: #b9efe1; }
 
 .input-group-container {
   margin-bottom: 7px; }
@@ -809,8 +820,8 @@ h1, button {
     border-top: 1px solid #ccc; }
 
 label.input-group-addon {
-  background: #E0EAFC;
-  color: #6998da;
+  background: #B0E4DC;
+  color: white;
   min-width: 160px;
   text-align: right;
   border-left: 1px solid #ccc;
