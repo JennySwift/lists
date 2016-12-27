@@ -1,5 +1,7 @@
 <template>
     <div id="new-item">
+        
+        <pre>@{{shared.categories | json}}</pre>
 
         <div class="input-group-container">
             <item-fields

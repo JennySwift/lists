@@ -96,7 +96,7 @@
         },
         computed: {
             categoryOptions: function () {
-                var categories = this.shared.categories;
+                var categories = helpers.clone(this.shared.categories);
                 categories.unshift({name: 'Any'});
 
               return categories;
