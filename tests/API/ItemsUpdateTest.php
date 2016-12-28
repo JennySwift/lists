@@ -133,6 +133,8 @@ class ItemsUpdateTest extends TestCase
         DB::beginTransaction();
         $this->logInUser();
 
+        $this->createAlarms();
+
         $item = Item::forCurrentUser()
             ->whereNotNull('alarm')
             ->first();
@@ -253,6 +255,8 @@ class ItemsUpdateTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+
+        $this->createUrgentItems();
 
         $item = Item::forCurrentUser()
             ->where('urgency', 1)

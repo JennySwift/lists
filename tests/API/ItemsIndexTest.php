@@ -64,38 +64,6 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
-     *
-     */
-    private function createAlarms()
-    {
-        $item = [
-            'title' => 'numbat',
-            'body' => 'koala',
-            'priority' => 2,
-            'favourite' => 1,
-            'parent_id' => 5,
-            'category_id' => 2,
-            'alarm' => '2030-01-01 06:00:00',
-        ];
-
-        $response = $this->call('POST', '/api/items', $item);
-
-        $item = [
-            'title' => 'frog',
-            'body' => 'body',
-            'priority' => 2,
-            'favourite' => 1,
-            'parent_id' => 5,
-            'category_id' => 2,
-            'alarm' => '2030-01-01 10:00:00',
-        ];
-
-        $response = $this->call('POST', '/api/items', $item);
-    }
-
-
-
-    /**
      * @test
      * @return void
      */
@@ -135,36 +103,6 @@ class ItemsIndexTest extends TestCase
         }
 
         $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    /**
-     *
-     */
-    private function createUrgentItems()
-    {
-        $item = [
-            'title' => 'numbat',
-            'body' => 'koala',
-            'priority' => 2,
-            'favourite' => 1,
-            'parent_id' => 5,
-            'category_id' => 2,
-            'urgency' => 1,
-        ];
-
-        $response = $this->call('POST', '/api/items', $item);
-
-        $item = [
-            'title' => 'frog',
-            'body' => 'body',
-            'priority' => 2,
-            'favourite' => 1,
-            'parent_id' => 5,
-            'category_id' => 2,
-            'urgency' => 2,
-        ];
-
-        $response = $this->call('POST', '/api/items', $item);
     }
 
 
