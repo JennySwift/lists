@@ -2,6 +2,7 @@ var Vue = require('vue');
 var VueResource = require('vue-resource');
 Vue.use(VueResource);
 var helpers = require('./Helpers');
+var ItemsRepository = require('./ItemsRepository');
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
@@ -57,26 +58,24 @@ module.exports = {
         });
     },
 
-    /**
-     *
-     */
-    getItems: function (expandOrZoom, item) {
-        console.log('getting items');
-        var url;
-        if (item) {
-            url = '/api/items/' + item.id;
-        }
-        else {
-            var id = helpers.getIdFromUrl(this);
-            url = id ? '/api/items/' + id : '/api/items';
-        }
-
+    getItems: function () {
         helpers.get({
-            url: url,
+            url: ItemsRepository.getUrl(),
             storeProperty: 'items',
             loadedProperty: 'itemsLoaded',
             callback: function (response) {
-                this.getItemsSuccess(response, expandOrZoom, item);
+                this.zoom(response);
+            }.bind(this)
+        });
+    },
+
+    getItemWithChildren: function (item) {
+        helpers.get({
+            url: '/api/items/' + item.id,
+            callback: function (response) {
+                // var parent = ItemsRepository.findParent(this.state.items, item);
+                // console.log(parent);
+                item.children = response.children;
             }.bind(this)
         });
     },
@@ -84,27 +83,26 @@ module.exports = {
     /**
      *
      * @param response
-     * @param expandOrZoom
-     * @param item
      */
-    getItemsSuccess: function (response, expandOrZoom, item) {
-        if (expandOrZoom === 'zoom') {
-            if (response.children) {
-                this.state.zoomedItem = response;
-                this.state.items = response.children;
-                this.state.breadcrumb = response.breadcrumb;
-            }
-            else {
-                //home page
-                this.state.zoomedItem = false;
-                this.state.items = response;
-                this.state.breadcrumb = [];
-            }
+    zoom: function (response) {
+        if (response.children) {
+            this.state.zoomedItem = response;
+            this.state.items = response.children;
+            this.state.breadcrumb = response.breadcrumb;
+        }
+        else {
+            this.goHome(response);
+        }
+    },
 
-        }
-        else if (expandOrZoom === 'expand') {
-            item.children = response.children;
-        }
+    /**
+     *
+     * @param response
+     */
+    goHome: function (response) {
+        this.state.zoomedItem = false;
+        this.state.items = response;
+        this.state.breadcrumb = [];
     },
 
     /**

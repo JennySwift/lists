@@ -191,5 +191,41 @@ module.exports = {
 
         console.log(that.parent);
         return that.parent;
+    },
+
+    // findItem: function (array, item) {
+    //     var that = this;
+    //     var parentId = item.parent_id;
+    //
+    //     $(array).each(function () {
+    //         if (this.id === parentId) {
+    //             parent = this;
+    //             that.parent = this;
+    //             return false;
+    //         }
+    //         if (this.children) {
+    //             return that.findParent(this.children, item, oldParentId);
+    //         }
+    //     });
+    //
+    //     console.log(that.parent);
+    //     return that.parent;
+    // },
+
+    /**
+     *
+     */
+    getUrl: function (item) {
+        var url;
+
+        // if (item) {
+        //     url = '/api/items/' + item.id;
+        // }
+        // else {
+            var id = helpers.getIdFromUrl();
+            url = id ? '/api/items/' + id : '/api/items';
+        // }
+
+        return url;
     }
 };

@@ -167,7 +167,7 @@ module.exports = {
      * @param that
      * @returns {*}
      */
-    getIdFromUrl: function (that) {
+    getIdFromUrl: function () {
         //For some reason $route.params was undefined.
         //if (that.$route.params.id) {
         //    return that.$route.params.id.slice(1);

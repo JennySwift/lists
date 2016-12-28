@@ -34,25 +34,25 @@
                 >
                 </i>
 
-                <!--<i-->
-                    <!--v-if="item.has_children && (!item.children || item.children.length === 0)"-->
-                    <!--v-on:click="getItems('expand', item)"-->
-                    <!--class="fa fa-plus big-screen"-->
-                <!--&gt;-->
-                <!--</i>-->
+                <i
+                    v-if="item.has_children && (!item.children || item.children.length === 0)"
+                    v-on:click="expand(item)"
+                    class="fa fa-plus big-screen"
+                >
+                </i>
 
-                <!--<i-->
-                    <!--v-if="item.has_children && item.children && item.children.length > 0"-->
-                    <!--v-on:click="collapseItem(item)"-->
-                    <!--class="fa fa-minus big-screen"-->
-                <!--&gt;-->
-                <!--</i>-->
+                <i
+                    v-if="item.has_children && item.children && item.children.length > 0"
+                    v-on:click="collapseItem(item)"
+                    class="fa fa-minus big-screen"
+                >
+                </i>
 
-                <!--<i-->
-                    <!--v-if="!item.has_children"-->
-                    <!--class="fa fa-plus my-hidden big-screen"-->
-                <!--&gt;-->
-                <!--</i>-->
+                <i
+                    v-if="!item.has_children"
+                    class="fa fa-plus my-hidden big-screen"
+                >
+                </i>
 
 
 
@@ -93,7 +93,7 @@
 
                 <i
                     v-if="item.has_children && (!item.children || item.children.length === 0)"
-                    v-on:click="getItems('expand', item)"
+                    v-on:click="expand(item)"
                     class="fa fa-plus small-screen"
                 >
                 </i>
@@ -215,11 +215,8 @@
                 $.event.trigger('show-item-popup', [item]);
             },
 
-            /**
-             *
-             */
-            getItems: function (zoomOrExpand, item) {
-                store.getItems(zoomOrExpand, item);
+            expand: function () {
+                store.getItemWithChildren(this.item);
             },
 
             /**
