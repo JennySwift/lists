@@ -12,7 +12,7 @@
                       v-bind:class="{'urgency-one': item.urgency == 1}"
                       class="badge"
                 >
-        {{ item.urgency }}
+                {{ item.urgency }}
     </span>
 
                 <span v-if="!item.urgency"
@@ -167,7 +167,6 @@
         <ul v-if="item.children.length > 0">
 
             <item
-                v-if="!breadcrumb || breadcrumb.length < 1"
                 v-for="item in item.children | itemsFilter"
                 :filters="filters"
                 :show-children="showChildren"
@@ -199,6 +198,9 @@
             },
             dateTimeFilter: function (dateTime) {
                 return DateTimeRepository.convertFromDateTime(dateTime);
+            },
+            itemsFilter: function (items) {
+                return filters.filter(items, this);
             }
         },
         methods: {
@@ -232,8 +234,7 @@
             //data to be received from parent
             'zoom',
             'showChildren',
-            'item',
-            'itemsFilter'
+            'item'
         ],
         ready: function () {
             //this.listen();
