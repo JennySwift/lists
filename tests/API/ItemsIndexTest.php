@@ -64,17 +64,51 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
+     *
+     */
+    private function createAlarms()
+    {
+        $item = [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'alarm' => '2030-01-01 06:00:00',
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+
+        $item = [
+            'title' => 'frog',
+            'body' => 'body',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'alarm' => '2030-01-01 10:00:00',
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+    }
+
+
+
+    /**
      * @test
      * @return void
      */
     public function it_gets_the_items_with_an_alarm()
     {
         $this->logInUser();
+        $this->createAlarms();
         $response = $this->call('GET', '/api/items?alarm=true');
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
+        $this->assertCount(2, $content);
 
         foreach ($content as $item) {
             $this->assertNotNull($item['alarm']);
@@ -104,17 +138,51 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
+     *
+     */
+    private function createUrgentItems()
+    {
+        $item = [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'urgency' => 1,
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+
+        $item = [
+            'title' => 'frog',
+            'body' => 'body',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'urgency' => 2,
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+    }
+
+
+    /**
      * @test
      * @return void
      */
     public function it_gets_the_urgent_items()
     {
         $this->logInUser();
+        $this->createUrgentItems();
         $response = $this->call('GET', '/api/items?urgent=true');
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
+        //Only items with urgency 1 are retrieved
+        $this->assertCount(1, $content);
 
         foreach ($content as $item) {
             $this->assertEquals(1, $item['urgency']);
