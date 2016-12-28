@@ -27,7 +27,7 @@
             <ul id="items">
 
                 <item
-                    v-for="item in shared.items"
+                    v-for="item in shared.items | itemsFilter"
                     :items-filter="itemsFilter"
                     :filters="filters"
                     :show-children="showChildren"

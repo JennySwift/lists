@@ -31,7 +31,7 @@
 
             <input-group
                 label="Priority:"
-                :model.sync="filter.priority"
+                :model.sync="shared.filters.priority"
                 id="priority-filter"
             >
             </input-group>
