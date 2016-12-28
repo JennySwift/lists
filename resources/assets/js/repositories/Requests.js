@@ -10,10 +10,6 @@ module.exports = {
     get: function (options) {
         store.showLoading();
         Vue.http.get(options.url).then(function (response) {
-            if (options.callback) {
-                options.callback(response.data);
-            }
-
             if (options.storeProperty) {
                 if (options.updatingArray) {
                     //Update the array the item is in
@@ -22,6 +18,10 @@ module.exports = {
                 else {
                     store.set(response.data, options.storeProperty);
                 }
+            }
+
+            if (options.callback) {
+                options.callback(response.data);
             }
 
             if (options.loadedProperty) {

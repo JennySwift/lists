@@ -1,5 +1,6 @@
 <template>
     <div>
+        
         <div v-if="shared.itemsWithAlarm.length > 0" id="alarms">
             <h5>Alarms</h5>
 
@@ -100,8 +101,8 @@
             'selectedItem'
         ],
         ready: function () {
-//            this.getItemsWithAlarm();
-//            this.listen();
+            this.getItemsWithAlarm();
+            this.listen();
         }
     };
 </script>

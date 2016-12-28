@@ -195,10 +195,10 @@
         components: {},
         filters: {
             itemsFilter: function (items) {
-                return shared.filter(items, this);
+                return filters.filter(items, this);
             },
             timeLeftFilter: function (seconds) {
-                return shared.timeLeftFilter(seconds);
+                return filters.timeLeftFilter(seconds);
             },
             dateTimeFilter: function (dateTime) {
                 return DateTimeRepository.convertFromDateTime(dateTime);
