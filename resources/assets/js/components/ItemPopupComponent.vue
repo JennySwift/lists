@@ -238,23 +238,27 @@
              * @param response
              */
             jsMoveToNewParent: function (response) {
-                var parent = ItemsRepository.findParent(this.items, response);
-                if (parent && !parent.children) {
-                    this.getItems('expand', parent);
-                    //parent.children.push(response);
-                }
-                else if (parent) {
-                    parent.children.push(response);
+                var newParent = ItemsRepository.findParent(this.shared.items, response);
+//                if (parent && !parent.children) {
+//                    this.getItems('expand', parent);
+//                    //parent.children.push(response);
+//                }
+                //Add the item to the new parent if it is already expanded
+
+//                console.log('\n\n new parent: ' + JSON.stringify(newParent, null, 4) + '\n\n');
+//                console.log('new parent: ' + newParent);
+                if (newParent && newParent.children) {
+                    newParent.children.push(response);
                 }
 
                 //Remove item from old parent
-                var oldParent = ItemsRepository.findParent(this.items, response, this.selectedItem.oldParentId);
-                if (oldParent) {
-                    oldParent.children = _.without(oldParent.children, this.selectedItem);
-                }
-                else {
-                    this.items = _.without(this.items, this.selectedItem);
-                }
+//                var oldParent = ItemsRepository.findParent(this.items, response, this.selectedItem.oldParentId);
+//                if (oldParent) {
+//                    oldParent.children = _.without(oldParent.children, this.selectedItem);
+//                }
+//                else {
+//                    this.items = _.without(this.items, this.selectedItem);
+//                }
             },
 
             /**
