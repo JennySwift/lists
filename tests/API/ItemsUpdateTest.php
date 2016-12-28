@@ -274,4 +274,34 @@ class ItemsUpdateTest extends TestCase
         DB::rollBack();
     }
 
+    /**
+     *
+     * @test
+     * @return void
+     */
+    public function it_can_remove_a_note_from_an_item()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->whereNotNull('body')
+            ->first();
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'body' => ''
+        ]);
+
+        $content = json_decode($response->getContent(), true);
+        //dd($content);
+
+        $this->checkItemKeysExist($content);
+        $this->assertEquals(null, $content['body']);
+
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
 }

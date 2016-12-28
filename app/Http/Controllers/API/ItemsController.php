@@ -228,6 +228,11 @@ class ItemsController extends Controller
                 $data['urgency'] = null;
             }
 
+            //So the body of an item can be removed
+            if ($request->get('body') === '') {
+                $data['body'] = '';
+            }
+
             $item->update($data);
 
             if ($request->has('parent_id')) {
