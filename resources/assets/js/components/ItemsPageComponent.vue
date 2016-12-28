@@ -27,7 +27,7 @@
             <ul id="items">
 
                 <item
-                    v-for="item in shared.items | itemsFilter"
+                    v-for="item in shared.items"
                     :items-filter="itemsFilter"
                     :filters="filters"
                     :show-children="showChildren"
@@ -68,7 +68,7 @@
             '$route': function (val, oldVal) {
                 //So this doesn't run on page load before the companies are loaded
                 if (oldVal) {
-                    this.getItems('zoom');
+                    store.getItems('zoom');
                 }
             }
         },

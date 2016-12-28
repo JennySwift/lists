@@ -34,25 +34,25 @@
                 >
                 </i>
 
-                <i
-                    v-if="item.has_children && (!item.children || item.children.length === 0)"
-                    v-on:click="getItems('expand', item)"
-                    class="fa fa-plus big-screen"
-                >
-                </i>
+                <!--<i-->
+                    <!--v-if="item.has_children && (!item.children || item.children.length === 0)"-->
+                    <!--v-on:click="getItems('expand', item)"-->
+                    <!--class="fa fa-plus big-screen"-->
+                <!--&gt;-->
+                <!--</i>-->
 
-                <i
-                    v-if="item.has_children && item.children && item.children.length > 0"
-                    v-on:click="collapseItem(item)"
-                    class="fa fa-minus big-screen"
-                >
-                </i>
+                <!--<i-->
+                    <!--v-if="item.has_children && item.children && item.children.length > 0"-->
+                    <!--v-on:click="collapseItem(item)"-->
+                    <!--class="fa fa-minus big-screen"-->
+                <!--&gt;-->
+                <!--</i>-->
 
-                <i
-                    v-if="!item.has_children"
-                    class="fa fa-plus my-hidden big-screen"
-                >
-                </i>
+                <!--<i-->
+                    <!--v-if="!item.has_children"-->
+                    <!--class="fa fa-plus my-hidden big-screen"-->
+                <!--&gt;-->
+                <!--</i>-->
 
 
 
@@ -194,9 +194,6 @@
         },
         components: {},
         filters: {
-            itemsFilter: function (items) {
-                return filters.filter(items, this);
-            },
             timeLeftFilter: function (seconds) {
                 return filters.timeLeftFilter(seconds);
             },
@@ -219,6 +216,13 @@
             },
 
             /**
+             *
+             */
+            getItems: function (zoomOrExpand, item) {
+                store.getItems(zoomOrExpand, item);
+            },
+
+            /**
              * Todo: If the item is an alarm,
              * delete it from the alarm with the JS, too
              * @param item
@@ -231,7 +235,8 @@
             //data to be received from parent
             'zoom',
             'showChildren',
-            'item'
+            'item',
+            'itemsFilter'
         ],
         ready: function () {
             //this.listen();

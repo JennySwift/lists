@@ -174,11 +174,11 @@ module.exports = {
         //}
         // var path = that.$route.path;
         if (!router.app) return false;
-        var path = router;
+        var path = router.app.$route.path;
         console.log(path);
         var index = path.indexOf(':');
         if (index != -1) {
-            return that.$route.path.slice(index+1);
+            return path.slice(index+1);
         }
         return false;
     }
