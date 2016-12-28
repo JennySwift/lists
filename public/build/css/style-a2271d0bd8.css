@@ -289,6 +289,13 @@ h1, button {
     min-width: 140px; }
   #search-container .datepicker .btn {
     left: 0; }
+  #search-container .checkbox-container {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 5px 5px; }
+    #search-container .checkbox-container label {
+      margin-bottom: 0;
+      font-weight: normal; }
   @media (max-width: 768px) {
     #search-container {
       right: 0;
