@@ -171,11 +171,8 @@
                 v-for="item in item.children | itemsFilter"
                 :filters="filters"
                 :show-children="showChildren"
-                :items.sync="items"
                 :item="item"
                 :selected-item.sync="selectedItem"
-                :zoomed-item="zoomedItem"
-                :get-items="getItems"
                 :zoom="zoom"
                 class="item-with-children"
             >
@@ -232,13 +229,9 @@
         },
         props: [
             //data to be received from parent
-            'items',
-            'item',
-            'zoomedItem',
             'zoom',
             'showChildren',
-            'getItems',
-            'itemsFilter',
+            'item'
         ],
         ready: function () {
             //this.listen();

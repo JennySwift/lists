@@ -1,82 +1,43 @@
 <template>
     <div>
-        <!--Popup-->
-        <item-popup
-            :items.sync="items"
-            :get-items="getItems"
-        >
-        </item-popup>
+        <item-popup></item-popup>
 
-        <!--Alarms-->
         <alarms
-            :show-loading.sync="showLoading"
             :show-item-popup.sync="showItemPopup"
             :selected-item.sync="selectedItem"
             :close-popup="closePopup"
         >
         </alarms>
 
-        <!--Urgent items-->
         <urgent-items
-            :items-filter="itemsFilter"
-            :title-filter="titleFilter"
-            :priority-filter="priorityFilter"
-            :category-filter="categoryFilter"
             :item="item"
         >
         </urgent-items>
 
         <div id="lists" class="container">
-            <!--Breadcrumb-->
-            <div id="breadcrumb">
-                <div>
-                    <a v-link="{ path: '/items/' }">Home</a>
-                    <i v-if="breadcrumb.length > 0" class="fa fa-angle-right"></i>
-                </div>
-                <div v-for="item in breadcrumb">
-                    <a v-link="{ path: '/items/:' + item.id }">
-                        {{ item.title }}
-                    </a>
-                    <i v-if="$index !== breadcrumb.length - 1" class="fa fa-angle-right"></i>
-                </div>
-            </div>
+            <breadcrumb></breadcrumb>
 
-            <!--Favourites-->
-            <favourite-items
-            >
-            </favourite-items>
+            <favourite-items></favourite-items>
 
-            <!--Filter-->
-            <filter
-                :items.sync="items"
-            >
-            </filter>
+            <filter></filter>
 
-            <!--New item-->
-            <new-item
-                :items.sync="items"
-                :zoomed-item="zoomedItem"
-            >
-            </new-item>
+            <new-item></new-item>
 
             <!--Items-->
             <ul id="items">
 
                 <item
-                    v-for="item in items | itemsFilter"
+                    v-for="item in shared.items | itemsFilter"
                     :items-filter="itemsFilter"
                     :filters="filters"
                     :show-children="showChildren"
-                    :items.sync="items"
                     :item="item"
-                    :zoomed-item="zoomedItem"
-                    :get-items="getItems"
                     :zoom="zoom"
                     class="item-with-children"
                 >
                 </item>
 
-                <div v-if="items.length === 0">No items here</div>
+                <div v-if="shared.items.length === 0">No items here</div>
             </ul>
 
         </div>
@@ -92,11 +53,6 @@
         data: function () {
             return {
                 shared: store.state,
-                items: [],
-                alarms: [],
-                zoomedItem: {},
-                pinnedItems: [],
-                breadcrumb: [],
                 editingItems: false,
                 newIndex: -1,
                 currentTime: moment()
@@ -137,13 +93,13 @@
             /**
              * If the url specifies an item, zoom on that item
              */
-            zoomItemThatMatchesRoute: function () {
-                this.zoomedItem = this.findItemThatMatchesRoute();
-                if (!this.zoomedItem) {
-                    $.event.trigger('provide-feedback', ['There is no item with an id of ' + this.$route.params.id.slice(1), 'error']);
-                    //this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
-                }
-            },
+//            zoomItemThatMatchesRoute: function () {
+//                this.zoomedItem = this.findItemThatMatchesRoute();
+//                if (!this.zoomedItem) {
+//                    $.event.trigger('provide-feedback', ['There is no item with an id of ' + this.$route.params.id.slice(1), 'error']);
+//                    //this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
+//                }
+//            },
 
             /**
              * Called on on page load (from getItemsSuccess-todo), and when the url is changed
@@ -151,80 +107,6 @@
              */
             findItemThatMatchesRoute: function () {
                 return ItemsRepository.findModelThatMatchesRoute(this, this.items);
-            },
-
-            /**
-            *
-            */
-            getItems: function (expandOrZoom, item) {
-                var url;
-                if (item) {
-                    url = '/api/items/' + item.id;
-                }
-                else {
-                    var id = ItemsRepository.getIdFromUrl(this);
-                    if (id) {
-                        url = '/api/items/' + id;
-                    }
-                    else {
-                        url = '/api/items';
-                    }
-                }
-
-                helpers.get({
-                    url: url,
-//                    storeProperty: 'items',
-//                    loadedProperty: 'itemsLoaded',
-                    callback: function (response) {
-                        this.items = response;
-                        this.getItemsSuccess(response, expandOrZoom, item);
-                    }.bind(this)
-                });
-            },
-
-            /**
-             *
-             * @param response
-             * @param expandOrZoom
-             * @param item
-             */
-            getItemsSuccess: function (response, expandOrZoom, item) {
-                if (expandOrZoom === 'zoom') {
-                    if (response.children) {
-                        this.zoomedItem = response;
-                        this.items = response.children;
-                        this.breadcrumb = response.breadcrumb;
-                    }
-                    else {
-                        //home page
-                        this.zoomedItem = false;
-                        this.items = response;
-                        this.breadcrumb = [];
-                    }
-
-                }
-                else if (expandOrZoom === 'expand') {
-                    item.children = response.children;
-                }
-            },
-
-            /**
-             *
-             * @param $response
-             * @param $typing
-             * @returns {*}
-             */
-            highlightLetters: function ($response, $typing) {
-                $typing = $typing.toLowerCase();
-
-                for (var i = 0; i < $response.length; i++) {
-                    var $title = $response[i].title;
-                    var $index = $title.toLowerCase().indexOf($typing);
-                    var $substr = $title.substr($index, $typing.length);
-                    var $html = $title.replace($substr, '<span class="highlight">' + $substr + '</span>');
-                    $response[i].html = $html;
-                }
-                return $response;
             },
 
             /**
@@ -265,7 +147,6 @@
             //data to be received from parent
         ],
         ready: function () {
-            this.getItems('zoom');
             this.keepCurrentTimeUpToDate();
         }
     };

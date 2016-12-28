@@ -92,24 +92,6 @@ module.exports = {
     },
 
     /**
-     * If url is /items/:2, return 2
-     * @param that
-     * @returns {*}
-     */
-    getIdFromUrl: function (that) {
-        //For some reason $route.params was undefined.
-        //if (that.$route.params.id) {
-        //    return that.$route.params.id.slice(1);
-        //}
-        var path = that.$route.path;
-        var index = path.indexOf(':');
-        if (index != -1) {
-            return that.$route.path.slice(index+1);
-        }
-        return false;
-    },
-
-    /**
     *
     */
     deleteItem: function (that, item) {

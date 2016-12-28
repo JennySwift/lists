@@ -13,6 +13,12 @@ module.exports = {
         loading: false,
         categories: [],
         categoriesLoaded: false,
+        items: [],
+        itemsLoaded: false,
+        itemsWithAlarm: [],
+        itemsWithAlarmLoaded: false,
+        zoomedItem: {},
+        breadcrumb: [],
         recurringUnits: ['none', 'minute', 'hour', 'day', 'week', 'month', 'year'],
         filters: {
             minimumPriority: '',
@@ -49,6 +55,56 @@ module.exports = {
             storeProperty: 'categories',
             loadedProperty: 'categoriesLoaded'
         });
+    },
+
+    /**
+     *
+     */
+    getItems: function (expandOrZoom, item) {
+        console.log('getting items');
+        var url;
+        if (item) {
+            url = '/api/items/' + item.id;
+        }
+        else {
+            var id = helpers.getIdFromUrl(this);
+            url = id ? '/api/items/' + id : '/api/items';
+        }
+
+        helpers.get({
+            url: url,
+            storeProperty: 'items',
+            loadedProperty: 'itemsLoaded',
+            callback: function (response) {
+                this.getItemsSuccess(response, expandOrZoom, item);
+            }.bind(this)
+        });
+    },
+
+    /**
+     *
+     * @param response
+     * @param expandOrZoom
+     * @param item
+     */
+    getItemsSuccess: function (response, expandOrZoom, item) {
+        if (expandOrZoom === 'zoom') {
+            if (response.children) {
+                this.state.zoomedItem = response;
+                this.state.items = response.children;
+                this.state.breadcrumb = response.breadcrumb;
+            }
+            else {
+                //home page
+                this.state.zoomedItem = false;
+                this.state.items = response;
+                this.state.breadcrumb = [];
+            }
+
+        }
+        else if (expandOrZoom === 'expand') {
+            item.children = response.children;
+        }
     },
 
     /**

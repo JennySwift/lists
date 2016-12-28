@@ -1,17 +1,15 @@
 <template>
     <div>
-        <div v-if="items.length > 0" id="alarms">
+        <div v-if="shared.itemsWithAlarm.length > 0" id="alarms">
             <h5>Alarms</h5>
 
             <div id="alarm"></div>
 
             <item
-                v-for="item in items | order" track-by="$index"
-                :show-loading.sync="showLoading"
+                v-for="item in shared.itemsWithAlarm | order" track-by="$index"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
                 :selected-item.sync="selectedItem"
-                :categories="categories"
                 :delete-item="deleteItem"
             >
             </item>
@@ -27,13 +25,13 @@
         template: '#alarms-template',
         data: function () {
             return {
-                items: []
+                shared: store.state
             };
         },
         components: {},
         filters: {
-            order: function (items) {
-                return filters.order(items);
+            order: function (itemsWithAlarm) {
+                return filters.order(itemsWithAlarm);
             }
         },
         methods: {
@@ -44,12 +42,11 @@
             getItemsWithAlarm: function () {
                 helpers.get({
                     url: '/api/items?alarm=true',
-                    storeProperty: 'items',
-                    loadedProperty: 'itemsLoaded',
+                    storeProperty: 'itemsWithAlarm',
+                    loadedProperty: 'itemsWithAlarmLoaded',
                     callback: function (response) {
-                        this.items = response;
-                        for (var i = 0; i < this.items.length; i++) {
-                            this.startAlarmCountDown(this.items[i]);
+                        for (var i = 0; i < this.shared.itemsWithAlarm.length; i++) {
+                            this.startAlarmCountDown(this.shared.itemsWithAlarm[i]);
                         }
                     }.bind(this)
                 });
@@ -78,19 +75,19 @@
             listen: function () {
                 var that = this;
                 $(document).on('alarm-created', function (event, item) {
-                    that.items.push(item);
+                    store.add(item, 'itemsWithAlarm');
                     that.startAlarmCountDown(item);
                 });
                 $(document).on('alarm-updated', function (event, item) {
                     //Updating didn't work so I'm instead deleting then adding it.
-                    that.items = _.without(that.items, _.findWhere(that.items, {id: item.id}));
-                    that.items.push(item);
+                    store.delete(item, 'itemsWithAlarm');
+                    store.add(item, 'itemsWithAlarm');
                     that.startAlarmCountDown(item);
                 });
             },
 
             /**
-             * Todo: If the alarm item is visible in the items or the urgent items
+             * Todo: If the alarm item is visible in the items or the urgent itemsWithAlarm
              * delete it from those places with the JS, too
              * @param item
              */
@@ -103,9 +100,8 @@
             'selectedItem'
         ],
         ready: function () {
-            this.getItemsWithAlarm();
-            this.listen();
-            //console.log(Date.parse('9am next mon'));
+//            this.getItemsWithAlarm();
+//            this.listen();
         }
     };
 </script>

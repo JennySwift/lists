@@ -6,10 +6,8 @@
 
             <item
                 v-for="item in items | order"
-                :show-loading.sync="showLoading"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
-                :categories="categories"
                 :delete-item="deleteItem"
                 :selected-item.sync="selectedItem"
                 class="item-with-children"
@@ -79,7 +77,6 @@
             }
         },
         props: [
-            'showLoading',
             'showItemPopup',
             'selectedItem'
         ],

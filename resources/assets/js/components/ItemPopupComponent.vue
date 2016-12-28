@@ -234,7 +234,7 @@
 
 
             /**
-             *
+             * Todo: use the store instead of this.items
              * @param response
              */
             jsMoveToNewParent: function (response) {
@@ -282,10 +282,6 @@
                 });
             }
         },
-        props: [
-            'items',
-            'getItems',
-        ],
         events: {
             'option-chosen': function (option) {
                 this.selectedItem.parent_id = option.id;

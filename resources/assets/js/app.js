@@ -27,6 +27,7 @@ Vue.component('date-picker', require('./components/shared/DatepickerComponent.vu
 
 //Components
 Vue.component('item-popup', require('./components/ItemPopupComponent.vue'));
+Vue.component('breadcrumb', require('./components/BreadcrumbComponent.vue'));
 Vue.component('category-popup', require('./components/CategoryPopupComponent.vue'));
 Vue.component('alarms', require('./components/AlarmsComponent.vue'));
 Vue.component('urgent-items', require('./components/UrgentItemsComponent.vue'));

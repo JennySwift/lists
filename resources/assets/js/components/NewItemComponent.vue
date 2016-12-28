@@ -1,7 +1,5 @@
 <template>
     <div id="new-item">
-        
-        <pre>@{{shared.categories | json}}</pre>
 
         <div class="input-group-container">
             <item-fields
@@ -93,7 +91,6 @@
                     redirectTo: this.redirectTo,
                     callback: function (response) {
                         this.showNewItemFields = false;
-                        this.items.push(response);
                         this.clearNewItemFields();
                         if (response.alarm) {
                             $.event.trigger('alarm-created', [response]);
