@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var assert = require('chai').assert;
 var Vue = require('vue');
 
-describe.only('move item', function () {
+describe('move item', function () {
     var vm;
 
     beforeEach(function () {
@@ -47,13 +47,48 @@ describe.only('move item', function () {
         ];
     });
 
+    it.only('can remove an item from an old parent', function () {
+        vm.selectedItem = {
+            oldParentId: 1
+        };
+        vm.removeFromOldParent({title: '1.2', id:5, parent_id: 2});
+
+        var expectedOldParent = {
+            title: '1',
+            id: 1,
+            children: [
+                {
+                    title: '1.1',
+                    id: 4,
+                    parent_id: 1
+                },
+                //Item 1.2 was moved so no longer here
+                // {
+                //     title: '1.2',
+                //     id: 5,
+                //     parent_id: 1
+                // },
+                {
+                    title: '1.3',
+                    id: 6,
+                    parent_id: 1
+                }
+            ]
+        };
+
+        console.log('\n\n first item: ' + JSON.stringify(store.state.items[0], null, 4) + '\n\n');
+        console.log('\n\n expected: ' + JSON.stringify(expectedOldParent, null, 4) + '\n\n');
+        assert.deepEqual(expectedOldParent, store.state.items[0]);
+    });
+
 
 
 
     it('can move an item to a new parent', function () {
         // console.log('\n\n items before: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
-        var test = 2;
-        assert.equal(2, test);
+        vm.selectedItem = {
+            oldParentId: 1
+        };
         var itemMoved = {title: '1.2', id: 5, parent_id: 2};
         vm.jsMoveToNewParent(itemMoved);
 
@@ -67,11 +102,12 @@ describe.only('move item', function () {
                         id: 4,
                         parent_id: 1
                     },
-                    {
-                        title: '1.2',
-                        id: 5,
-                        parent_id: 1
-                    },
+                    //Item 1.2 was moved so no longer here
+                    // {
+                    //     title: '1.2',
+                    //     id: 5,
+                    //     parent_id: 1
+                    // },
                     {
                         title: '1.3',
                         id: 6,

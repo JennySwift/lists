@@ -150,6 +150,8 @@ module.exports = {
      * @param path
      */
     delete: function (itemToDelete, path) {
+        console.log('\n\n get: ' + JSON.stringify(object.get(this.state, path), null, 4) + '\n\n');
+        console.log('\n\n item to delete: ' + JSON.stringify(itemToDelete, null, 4) + '\n\n');
         object.set(this.state, path, helpers.deleteById(object.get(this.state, path), itemToDelete.id));
     }
 };

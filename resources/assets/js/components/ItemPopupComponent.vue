@@ -251,14 +251,23 @@
                     newParent.children.push(response);
                 }
 
-                //Remove item from old parent
-//                var oldParent = ItemsRepository.findParent(this.items, response, this.selectedItem.oldParentId);
-//                if (oldParent) {
-//                    oldParent.children = _.without(oldParent.children, this.selectedItem);
-//                }
-//                else {
-//                    this.items = _.without(this.items, this.selectedItem);
-//                }
+                this.removeFromOldParent(response);
+            },
+
+            /**
+             *
+             */
+            removeFromOldParent: function (response) {
+                var oldParent = ItemsRepository.findParent(this.shared.items, response, this.selectedItem.oldParentId);
+//                console.log('\n\n old parent: ' + JSON.stringify(oldParent, null, 4) + '\n\n');
+                if (oldParent) {
+                    store.delete(response, 'items[0].children');
+//                    helpers.deleteById(oldParent.children, response.id);
+//                    oldParent.children = _.without(oldParent.children, response);
+                }
+                else {
+                    store.delete(this.response, 'items');
+                }
             },
 
             /**
