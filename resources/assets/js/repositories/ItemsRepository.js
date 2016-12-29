@@ -212,6 +212,18 @@ module.exports = {
     //     return that.parent;
     // },
 
+    getAncestorIds: function (item, parentIds) {
+        var that = this;
+        var parent = this.findParent(store.state.items, item);
+        if (parent) {
+            parentIds.push(parent.id);
+            return this.getAncestorIds(parent, parentIds);
+        }
+
+        console.log('parent ids: ' + parentIds);
+        return parentIds;
+    },
+
     /**
      *
      */

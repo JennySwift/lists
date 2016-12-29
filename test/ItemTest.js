@@ -47,7 +47,7 @@ describe('move item', function () {
         ];
     });
 
-    it.only('can remove an item from an old parent', function () {
+    it('can remove an item from an old parent', function () {
         vm.selectedItem = {
             oldParentId: 1
         };
