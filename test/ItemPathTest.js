@@ -49,7 +49,14 @@ describe.only('path to item', function () {
                                     {
                                         title: '1.1.2.4',
                                         id: 12,
-                                        parent_id: 8
+                                        parent_id: 8,
+                                        children: [
+                                            {
+                                                title: '1.1.2.4.1',
+                                                id: 13,
+                                                parent_id: 12
+                                            },
+                                        ]
                                     },
                                 ]
                             },
@@ -70,15 +77,14 @@ describe.only('path to item', function () {
         ];
 
         var item = {
-            title: '1.1.2.4',
-            id: 12,
-            parent_id: 8
+            title: '1.1.2.4.1',
+            id: 13,
+            parent_id: 12
         };
 
         var result = ItemsRepository.getAncestorIds(item, []);
 
-        // var expectedPath = '[0][1][3]';
-        var expectedResult = [8,1];
+        var expectedResult = [12,8,1];
 
         console.log('result: ' + result);
 
