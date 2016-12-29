@@ -280,7 +280,7 @@
 //                    oldParent.children = _.without(oldParent.children, response);
                 }
                 else {
-                    store.delete(this.response, 'items');
+                    store.delete(this.selectedItem, 'items');
                 }
             },
 
