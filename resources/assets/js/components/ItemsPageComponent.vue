@@ -25,6 +25,8 @@
 
             <!--Items-->
             <ul id="items">
+                
+                <!--<pre>@{{$data.shared.items | json}}</pre>-->
 
                 <item
                     v-for="item in shared.items | itemsFilter"

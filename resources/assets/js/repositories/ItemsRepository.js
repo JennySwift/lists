@@ -241,6 +241,17 @@ module.exports = {
         return string;
     },
 
+    getPathAsString: function (item) {
+        var ancestorIds = ItemsRepository.getAncestorIds(item, []);
+
+        console.log('ancestor ids: ' + ancestorIds);
+
+        var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
+
+        console.log('path: ' + path);
+        return ItemsRepository.createPathAsString(path);
+    },
+
     getPath: function (item, ancestorIds, path, indexInPath) {
         console.log('indexINPath: ' + indexInPath);
         console.log('next: ' + ancestorIds[indexInPath]);

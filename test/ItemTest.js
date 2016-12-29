@@ -328,7 +328,7 @@ describe('move item', function () {
 
 
 
-        it('can move an item to a new parent', function () {
+        it.only('can move an item to a new parent', function () {
             // console.log('\n\n items before: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
             vm.selectedItem = {
                 oldParentId: 1,

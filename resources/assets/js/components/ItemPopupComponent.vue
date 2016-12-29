@@ -207,7 +207,7 @@
                 helpers.put({
                     url: '/api/items/' + this.selectedItem.id,
                     data: data,
-                    property: 'items',
+//                    property: ItemsRepository.getPathAsString(this.selectedItem),
                     message: 'Item updated',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
