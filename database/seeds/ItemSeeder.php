@@ -65,9 +65,14 @@ class ItemSeeder extends Seeder
         $item3 = $this->createControlledItem('3');
 
         //Create child items
-        $this->createControlledItem('1.1', $item1);
+        $item1Child = $this->createControlledItem('1.1', $item1);
         $this->createControlledItem('1.2', $item1);
         $this->createControlledItem('1.3', $item1);
+
+        //Create deeper items
+        $this->createControlledItem('1.1.1', $item1Child);
+        $this->createControlledItem('1.1.2', $item1Child);
+        $this->createControlledItem('1.1.3', $item1Child);
 
         $this->createControlledItem('2.1', $item2);
 
