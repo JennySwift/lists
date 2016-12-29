@@ -35,6 +35,8 @@ class ItemSeeder extends Seeder
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
         $this->giveANotBeforeValueToSomeItems();
+
+        $this->createControlledItems();
     }
 
     /**
@@ -50,6 +52,51 @@ class ItemSeeder extends Seeder
                 $this->createDescendants($parent);
             }
         }
+    }
+
+    /**
+     *
+     */
+    public function createControlledItems()
+    {
+        //Create top level items
+        $item1 = $this->createControlledItem('1');
+        $item2 = $this->createControlledItem('2');
+        $item3 = $this->createControlledItem('3');
+
+        //Create child items
+        $this->createControlledItem('1.1', $item1);
+        $this->createControlledItem('1.2', $item1);
+        $this->createControlledItem('1.3', $item1);
+
+        $this->createControlledItem('2.1', $item2);
+
+    }
+
+    /**
+     *
+     * @param $title
+     * @param null $parent
+     * @return Item
+     */
+    public function createControlledItem($title, $parent = NULL)
+    {
+        $item = new Item([
+            'title' => $title,
+            'category_id' => 1,
+            'priority' => 1
+        ]);
+
+        $item->user()->associate(User::first());
+
+        if(!is_null($parent))
+        {
+            $item->parent()->associate($parent);
+        }
+
+        $item->save();
+
+        return $item;
     }
 
     /**
