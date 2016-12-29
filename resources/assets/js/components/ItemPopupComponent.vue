@@ -258,7 +258,7 @@
              *
              */
             removeFromOldParent: function (response) {
-                var oldParent = ItemsRepository.findParent(this.shared.items, response, this.selectedItem.oldParentId);
+                var oldParent = ItemsRepository.findParent(this.shared.items, this.selectedItem, this.selectedItem.oldParentId);
 //                console.log('\n\n old parent: ' + JSON.stringify(oldParent, null, 4) + '\n\n');
                 console.log('\n\n selected item: ' + JSON.stringify(this.selectedItem, null, 4) + '\n\n');
                 if (oldParent) {
@@ -270,7 +270,9 @@
 
                     console.log('path: ' + path);
 
-                    var stringPath = 'items[' + path + '].children';
+//                    var stringPath = 'items[' + path + '].children';
+//                    var stringPath = 'items[0].children[0].children[1].children[3].children';
+                    var stringPath = ItemsRepository.createPathAsString(path);
                     console.log('stringPath: ' + stringPath);
 
                     store.delete(response, stringPath);

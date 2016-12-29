@@ -229,6 +229,18 @@ module.exports = {
         return ancestorIds.reverse();
     },
 
+    createPathAsString: function (array) {
+        var string = 'items';
+
+        for (var i = 0; i < array.length; i++) {
+            string+= '[' + array[i] + '].children';
+
+        }
+        // return 'items[0].children[0].children[1].children[3].children';
+
+        return string;
+    },
+
     getPath: function (item, ancestorIds, path, indexInPath) {
         console.log('indexINPath: ' + indexInPath);
         console.log('next: ' + ancestorIds[indexInPath]);
