@@ -212,16 +212,48 @@ module.exports = {
     //     return that.parent;
     // },
 
-    getAncestorIds: function (item, parentIds) {
-        var that = this;
+    /**
+     *
+     * @param item
+     * @param parentIds
+     * @returns {*}
+     */
+    getAncestorIds: function (item, ancestorIds) {
         var parent = this.findParent(store.state.items, item);
         if (parent) {
-            parentIds.push(parent.id);
-            return this.getAncestorIds(parent, parentIds);
+            ancestorIds.push(parent.id);
+            return this.getAncestorIds(parent, ancestorIds);
         }
 
-        console.log('parent ids: ' + parentIds);
-        return parentIds;
+        console.log('ancestor ids: ' + ancestorIds);
+        return ancestorIds.reverse();
+    },
+
+    getPath: function (item, ancestorIds, path, indexInPath) {
+        console.log('indexINPath: ' + indexInPath);
+        console.log('next: ' + ancestorIds[indexInPath]);
+        if (!item) {
+            // console.log('\n\n item: ' + JSON.stringify(item, null, 4) + '\n\n');
+            item = helpers.findById(store.state.items, ancestorIds[0]);
+            path.push(helpers.findIndexById(store.state.items, ancestorIds[0]));
+            // indexInPath++;
+            // item = helpers.findById(item.children, ancestorIds[indexInPath]);
+        }
+
+        indexInPath++;
+
+        if (indexInPath < ancestorIds.length) {
+            path.push(helpers.findIndexById(item.children, ancestorIds[indexInPath]));
+        }
+
+        item = helpers.findById(item.children, ancestorIds[indexInPath]);
+
+        if (indexInPath < ancestorIds.length) {
+            return this.getPath(item, ancestorIds, path, indexInPath);
+        }
+
+        console.log('path: ' + path);
+        return path;
     },
 
     /**

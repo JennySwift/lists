@@ -8,9 +8,7 @@ describe.only('path to item', function () {
 
     beforeEach(function () {
         vm = new Vue(require('../resources/assets/js/components/ItemPopupComponent.vue'));
-    });
 
-    it.only('can get an array of ancestor ids for an item', function () {
         store.state.items = [
             {
                 title: '1',
@@ -29,7 +27,7 @@ describe.only('path to item', function () {
                             {
                                 title: '1.1.2',
                                 id: 8,
-                                parent_id: 1,
+                                parent_id: 4,
                                 children: [
                                     {
                                         title: '1.1.2.1',
@@ -75,7 +73,9 @@ describe.only('path to item', function () {
                 ]
             }
         ];
+    });
 
+    it('can get an array of ancestor ids for an item', function () {
         var item = {
             title: '1.1.2.4.1',
             id: 13,
@@ -84,7 +84,19 @@ describe.only('path to item', function () {
 
         var result = ItemsRepository.getAncestorIds(item, []);
 
-        var expectedResult = [12,8,1];
+        var expectedResult = [1,4,8,12];
+
+        console.log('result: ' + result);
+
+        assert.deepEqual(expectedResult, result);
+    });
+
+    it.only('can get an array of indexes for the path to an item, based on an array of ancestor ids', function () {
+        var ancestorIds = [1,4,8,12];
+
+        var result = ItemsRepository.getPath(null, ancestorIds, [], 0);
+
+        var expectedResult = [0,0,1,3];
 
         console.log('result: ' + result);
 
