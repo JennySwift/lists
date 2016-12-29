@@ -47,10 +47,14 @@ describe('move item', function () {
         ];
     });
 
-    it('can remove an item from an old parent', function () {
+    it.only('can remove an item from an old parent', function () {
         vm.selectedItem = {
-            oldParentId: 1
+            oldParentId: 1,
+            title: '1.2',
+            id: 5,
+            parent_id: 1
         };
+
         vm.removeFromOldParent({title: '1.2', id:5, parent_id: 2});
 
         var expectedOldParent = {

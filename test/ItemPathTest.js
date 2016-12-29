@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var Vue = require('vue');
 global.ItemsRepository = require('../resources/assets/js/repositories/ItemsRepository');
 
-describe.only('path to item', function () {
+describe('path to item', function () {
     var vm;
 
     beforeEach(function () {
@@ -91,7 +91,7 @@ describe.only('path to item', function () {
         assert.deepEqual(expectedResult, result);
     });
 
-    it.only('can get an array of indexes for the path to an item, based on an array of ancestor ids', function () {
+    it('can get an array of indexes for the path to an item, based on an array of ancestor ids', function () {
         var ancestorIds = [1,4,8,12];
 
         var result = ItemsRepository.getPath(null, ancestorIds, [], 0);

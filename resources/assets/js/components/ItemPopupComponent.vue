@@ -260,8 +260,20 @@
             removeFromOldParent: function (response) {
                 var oldParent = ItemsRepository.findParent(this.shared.items, response, this.selectedItem.oldParentId);
 //                console.log('\n\n old parent: ' + JSON.stringify(oldParent, null, 4) + '\n\n');
+                console.log('\n\n selected item: ' + JSON.stringify(this.selectedItem, null, 4) + '\n\n');
                 if (oldParent) {
-                    store.delete(response, 'items[0].children');
+                    var ancestorIds = ItemsRepository.getAncestorIds(this.selectedItem, []);
+
+                    console.log('ancestor ids: ' + ancestorIds);
+
+                    var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
+
+                    console.log('path: ' + path);
+
+                    var stringPath = 'items[' + path + '].children';
+                    console.log('stringPath: ' + stringPath);
+
+                    store.delete(response, stringPath);
 //                    helpers.deleteById(oldParent.children, response.id);
 //                    oldParent.children = _.without(oldParent.children, response);
                 }
