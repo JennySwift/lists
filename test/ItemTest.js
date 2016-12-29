@@ -47,7 +47,7 @@ describe('move item', function () {
         ];
     });
 
-    it.only('can remove an item from an old parent', function () {
+    it('can remove an item from an old parent', function () {
         vm.selectedItem = {
             oldParentId: 1,
             title: '1.2',
@@ -80,8 +80,8 @@ describe('move item', function () {
             ]
         };
 
-        console.log('\n\n first item: ' + JSON.stringify(store.state.items[0], null, 4) + '\n\n');
-        console.log('\n\n expected: ' + JSON.stringify(expectedOldParent, null, 4) + '\n\n');
+        // console.log('\n\n first item: ' + JSON.stringify(store.state.items[0], null, 4) + '\n\n');
+        // console.log('\n\n expected: ' + JSON.stringify(expectedOldParent, null, 4) + '\n\n');
         assert.deepEqual(expectedOldParent, store.state.items[0]);
     });
 
@@ -91,7 +91,10 @@ describe('move item', function () {
     it('can move an item to a new parent', function () {
         // console.log('\n\n items before: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
         vm.selectedItem = {
-            oldParentId: 1
+            oldParentId: 1,
+            title: '1.2',
+            id: 5,
+            parent_id: 1
         };
         var itemMoved = {title: '1.2', id: 5, parent_id: 2};
         vm.jsMoveToNewParent(itemMoved);
@@ -145,7 +148,7 @@ describe('move item', function () {
 
 
 
-        console.log('\n\n expected: ' + JSON.stringify(expectedItems, null, 4) + '\n\n');
-        console.log('\n\n items after: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
+        // console.log('\n\n expected: ' + JSON.stringify(expectedItems, null, 4) + '\n\n');
+        // console.log('\n\n items after: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
     });
 });
