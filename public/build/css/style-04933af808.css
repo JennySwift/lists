@@ -784,7 +784,7 @@ h1, button {
   margin-bottom: 8px;
   text-align: left; }
 
-.autocomplete-option {
+.autocomplete .autocomplete-dropdown .autocomplete-option {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: justify;
@@ -793,6 +793,8 @@ h1, button {
   align-items: center;
   cursor: pointer;
   padding: 5px 5px; }
+  .autocomplete .autocomplete-dropdown .autocomplete-option.selected {
+    background: #97D7D6 !important; }
 
 .btn-success {
   background: #97D7D6;
