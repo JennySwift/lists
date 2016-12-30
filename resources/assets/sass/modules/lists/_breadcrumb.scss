@@ -7,9 +7,9 @@
     max-width: 100%;
 //    margin-left: 67px;
 //    @include navBackground;
-    background: $base2;
-    a {
-        color: white;
+    background: lighten($base1, 15%);
+    a, i {
+        color: $base2;
     }
     span {
         font-size: 16px;

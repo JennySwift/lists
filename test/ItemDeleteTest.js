@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 var Vue = require('vue');
 global.ItemsRepository = require('../resources/assets/js/repositories/ItemsRepository');
 
-describe.only('deleting item', function () {
+describe('deleting item', function () {
     var vm;
 
     beforeEach(function () {
