@@ -29,8 +29,6 @@
 
                 </div>
 
-                <h3>Title (id: {{ selectedItem.id }}, parentId: {{ selectedItem.parent_id }}</h3>
-
                 <div class="input-group-container">
                     <item-fields
                         :item="selectedItem"

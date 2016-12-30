@@ -278,6 +278,9 @@ h1, button {
 #item-popup .datepicker .input-group-btn {
   right: 1px; }
 
+#item-popup .item-body {
+  margin-top: 10px; }
+
 #search-container {
   position: fixed;
   z-index: 9;
@@ -492,6 +495,8 @@ h1, button {
 
 .fa {
   font-size: 19px; }
+  .fa.fa-question-circle {
+    font-size: 15px; }
 
 .min-width-md {
   min-width: 40px; }
