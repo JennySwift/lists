@@ -31,88 +31,14 @@
 
                 <h3>Title (id: {{ selectedItem.id }}, parentId: {{ selectedItem.parent_id }}</h3>
 
-                <item-fields
-                    :item="selectedItem"
-                    action="update"
-                    :show="true"
-                    :enter="updateItem"
-                >
-                </item-fields>
-
-                <!--<textarea-->
-                    <!--v-model="selectedItem.title"-->
-                    <!--rows="2">-->
-                <!--</textarea>-->
-
-                <!--<h3>Note</h3>-->
-
-                <!--<textarea-->
-                    <!--v-model="selectedItem.body"-->
-                    <!--rows="10">-->
-        <!--</textarea>-->
-
-                <!--<div class="input-group-container">-->
-                    <!--<input-group-->
-                        <!--label="Not Before:"-->
-                        <!--:model.sync="selectedItem.notBefore"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-not-before"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<div>{{ selectedItem.notBefore | userFriendlyDateTimeFilter }}</div>-->
-
-                    <!--<input-group-->
-                        <!--label="Category:"-->
-                        <!--:model.sync="selectedItem.category"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-category"-->
-                        <!--:options="shared.categories"-->
-                        <!--options-prop="name"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<input-group-->
-                        <!--label="Alarm:"-->
-                        <!--:model.sync="selectedItem.alarm"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-alarm"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<input-group-->
-                        <!--label="Recurring Unit:"-->
-                        <!--:model.sync="selectedItem.recurringUnit"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-recurring-unit"-->
-                        <!--:options="shared.recurringUnits"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<input-group-->
-                        <!--label="Recurring Frequency:"-->
-                        <!--:model.sync="selectedItem.recurringFrequency"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-recurring-frequency"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<input-group-->
-                        <!--label="Priority:"-->
-                        <!--:model.sync="selectedItem.priority"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-priority"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
-
-                    <!--<input-group-->
-                        <!--label="Urgency:"-->
-                        <!--:model.sync="selectedItem.urgency"-->
-                        <!--:enter="updateItem"-->
-                        <!--id="selected-item-urgency"-->
-                        <!--type="number"-->
-                    <!--&gt;-->
-                    <!--</input-group>-->
+                <div class="input-group-container">
+                    <item-fields
+                        :item="selectedItem"
+                        action="update"
+                        :show="true"
+                        :enter="updateItem"
+                    >
+                    </item-fields>
 
                     <input-group
                         label="New Parent:"
@@ -123,15 +49,6 @@
                         options-prop="title"
                     >
                     </input-group>
-
-                    <!--<div id="item-autocomplete">-->
-                    <!--<autocomplete-->
-                    <!--url="/api/items"-->
-                    <!--autocomplete-field="new parent"-->
-                    <!--autocomplete-field-id="item-popup-autocomplete"-->
-                    <!--&gt;-->
-                    <!--</autocomplete>-->
-                    <!--</div>-->
 
                     <input-group
                         label="Parent Id:"
@@ -155,11 +72,6 @@
                     :redirect-to="redirectTo"
                 >
                 </buttons>
-
-                <!--<div class="buttons">-->
-                <!--<button v-on:click="showPopup = false" class="btn btn-danger">Cancel</button>-->
-                <!--<button v-on:click="updateItem(selectedItem)" class="btn btn-success">Save</button>-->
-                <!--</div>-->
 
             </div>
         </div>
