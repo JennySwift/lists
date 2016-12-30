@@ -261,8 +261,8 @@
     $zIndex1: 9;
 
     @mixin inputGroupLabel {
-        background: $base3;
-        color: white;
+        background: lighten($base1, 10%);
+        color: darken($base2, 10%);
         min-width: 160px;
         text-align: right;
     }

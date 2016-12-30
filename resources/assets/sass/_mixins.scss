@@ -9,8 +9,9 @@
 }
 
 @mixin inputGroupLabel {
-    background: $base3;
-    color: white;
+    //background: $base3;
+    background: lighten($base1, 10%);
+    color: darken($base2, 10%);
     min-width: 160px;
     text-align: right;
     border-left: 1px solid #ccc;
