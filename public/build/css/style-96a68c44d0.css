@@ -275,6 +275,9 @@ h1, button {
 #item-popup .fa-star {
   color: #fca700; }
 
+#item-popup .datepicker .input-group-btn {
+  right: 1px; }
+
 #search-container {
   position: fixed;
   z-index: 9;
