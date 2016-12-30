@@ -302,7 +302,7 @@
              * @param item
              */
             deleteItem: function () {
-                ItemsRepository.deleteItem(this, this.selectedItem);
+                ItemsRepository.deleteItem(this.selectedItem, this);
             },
 
             /**

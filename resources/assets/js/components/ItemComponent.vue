@@ -227,7 +227,7 @@
              * @param item
              */
             deleteItem: function (item) {
-                ItemsRepository.deleteItem(this, item);
+                ItemsRepository.deleteItem(item);
             },
         },
         props: [

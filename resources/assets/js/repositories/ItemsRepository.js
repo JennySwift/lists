@@ -94,7 +94,7 @@ module.exports = {
     /**
     *
     */
-    deleteItem: function (that, item) {
+    deleteItem: function (item, that) {
         if (item.recurringUnit) {
             //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
             var data = {
@@ -109,7 +109,9 @@ module.exports = {
                 redirectTo: this.redirectTo,
                 callback: function (response) {
                     item.notBefore = response.notBefore;
-                    that.showPopup = false;
+                    if (that) {
+                        that.showPopup = false;
+                    }
                 }
             });
         }
@@ -122,8 +124,10 @@ module.exports = {
                 message: 'Item deleted',
                 redirectTo: this.redirectTo,
                 callback: function () {
-                    this.deleteJsItem(that, item);
-                    that.showPopup = false;
+                    this.deleteJsItem(item);
+                    if (that) {
+                        that.showPopup = false;
+                    }
                 }.bind(this)
             });
         }
@@ -133,16 +137,15 @@ module.exports = {
      *
      * @param item
      */
-    deleteJsItem: function (that, item) {
-        var parent = this.findParent(that.items, item, false, true);
+    deleteJsItem: function (item) {
+        var parent = this.findParent(store.state.items, item, false, true);
         var index;
         if (parent) {
             index = helpers.findIndexById(parent.children, item.id);
             parent.children = _.without(parent.children, parent.children[index]);
         }
-        else if (that.items) {
-            index = helpers.findIndexById(that.items, item.id);
-            that.items = _.without(that.items, that.items[index]);
+        else if (store.state.items) {
+            store.delete(item, 'items');
         }
     },
 
