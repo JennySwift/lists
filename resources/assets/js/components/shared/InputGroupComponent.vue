@@ -75,7 +75,7 @@
             required: {},
             topBorder: {}
 
-        }
+        },
 //        props: [
 //            'label',
 //            'model',
