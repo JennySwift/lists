@@ -12,14 +12,14 @@
                       v-bind:class="{'urgency-one': item.urgency == 1}"
                       class="badge"
                 >
-                {{ item.urgency }}
-    </span>
+                    {{ item.urgency }}
+                 </span>
 
                 <span v-if="!item.urgency"
                       class="badge my-hidden"
                 >
-        0
-    </span>
+                    0
+                </span>
 
                 <button
                     v-on:click="deleteItem(item)"

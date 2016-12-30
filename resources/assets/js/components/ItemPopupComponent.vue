@@ -276,6 +276,13 @@
                     console.log('stringPath: ' + stringPath);
 
                     store.delete(response, stringPath);
+
+                    //Check if the parent still has children, so the plus sign isn't displayed if it doesn't
+                    if (oldParent.children.length < 1) {
+                        console.log('huh');
+                        oldParent.has_children = false;
+                    }
+                    console.log('children: ' + oldParent.children.length);
 //                    helpers.deleteById(oldParent.children, response.id);
 //                    oldParent.children = _.without(oldParent.children, response);
                 }
