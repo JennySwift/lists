@@ -152,7 +152,8 @@ describe('move item', function () {
                                             //     id: 13,
                                             //     parent_id: 12
                                             // },
-                                        ]
+                                        ],
+                                        has_children: false
                                     },
                                 ]
                             },
@@ -325,7 +326,7 @@ describe('move item', function () {
             assert.deepEqual(expectedOldParent, store.state.items[0]);
         });
 
-        it.only('can remove the last item from an old parent and know that the parent no longer has children', function () {
+        it('can remove the last item from an old parent and know that the parent no longer has children', function () {
             vm.selectedItem = {
                 oldParentId: 2,
                 title: '2.1',
@@ -341,8 +342,27 @@ describe('move item', function () {
                 children: [],
                 has_children: false
             };
-            
+
             assert.deepEqual(expectedOldParent, store.state.items[1]);
+        });
+
+        it('can remove the last item from an old parent and know that the parent no longer has children', function () {
+            vm.selectedItem = {
+                oldParentId: 2,
+                title: '2.1',
+                id: 7,
+                parent_id: 2
+            };
+
+            vm.jsMoveToNewParent({title: '2.1', id:7, parent_id: 3});
+
+            var expectedNewParent = {
+                title: '3',
+                id: 3,
+                has_children: true
+            };
+
+            assert.deepEqual(expectedNewParent, store.state.items[2]);
         });
 
 
@@ -396,7 +416,8 @@ describe('move item', function () {
                             id: 5,
                             parent_id: 2
                         },
-                    ]
+                    ],
+                    has_children: true
                 },
                 {
                     title: '3',

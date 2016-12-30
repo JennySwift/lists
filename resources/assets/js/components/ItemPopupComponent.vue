@@ -251,6 +251,11 @@
                     newParent.children.push(response);
                 }
 
+                if (newParent) {
+                    //So the plus symbol shows
+                    newParent.has_children = true;
+                }
+
                 this.removeFromOldParent(response);
             },
 
