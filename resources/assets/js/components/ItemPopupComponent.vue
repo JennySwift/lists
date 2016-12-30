@@ -239,7 +239,7 @@
         ready: function () {
             setTimeout(function () {
                 helpers.tooltips();
-            }, 2000);
+            }, 1000);
 
             this.listen();
         }

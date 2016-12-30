@@ -135,6 +135,9 @@ h1, button {
   100% {
     transform: scale(1); } }
 
+.tooltip_templates {
+  display: none; }
+
 #login {
   padding-top: 85px; }
   @media (max-width: 1000px) {
