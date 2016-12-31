@@ -35,6 +35,7 @@ class ItemTransformer extends TransformerAbstract
             'notBefore' => $item->not_before,
             'recurringUnit' => $item->recurring_unit,
             'recurringFrequency' => $item->recurring_frequency,
+            'deletedAt' => $item->deleted_at,
             //For Vue
             'children' => false
         ];

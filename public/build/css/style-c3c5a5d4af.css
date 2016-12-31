@@ -619,6 +619,8 @@ h1, button {
   font-size: 16px;
   padding: 5px 0;
   width: 850px; }
+  .item.deleted .title {
+    text-decoration: line-through; }
   .item .not-before, .item .recurring {
     font-weight: bold;
     font-size: 12px; }

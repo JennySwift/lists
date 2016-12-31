@@ -1,7 +1,7 @@
 <template>
     <li>
 
-        <div class="item">
+        <div class="item" v-bind:class="{'deleted': item.deletedAt}">
 
             <!--Before Item-->
             <div class="before-item">

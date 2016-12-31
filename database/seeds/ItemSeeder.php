@@ -174,6 +174,13 @@ class ItemSeeder extends Seeder
         foreach ($items as $item) {
             $item->delete();
         }
+
+        //Delete some from the top level, too
+        $items = Item::where('parent_id', null)->limit(2)->get();
+
+        foreach ($items as $item) {
+            $item->delete();
+        }
     }
 
     /**

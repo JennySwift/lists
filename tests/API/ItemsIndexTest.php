@@ -23,6 +23,15 @@ class ItemsIndexTest extends TestCase
 
         $this->checkItemKeysExist($content[0]);
 
+        //Check the items include the deleted items
+        $count = 0;
+        foreach ($content as $item) {
+            if ($item['deletedAt']) {
+                $count++;
+            }
+        }
+        $this->assertEquals(2, $count);
+
         $this->assertEquals(200, $response->getStatusCode());
     }
 

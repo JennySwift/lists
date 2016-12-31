@@ -81,6 +81,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('notBefore', $item);
         $this->assertArrayHasKey('recurringUnit', $item);
         $this->assertArrayHasKey('recurringFrequency', $item);
+        $this->assertArrayHasKey('deletedAt', $item);
     }
 
     /**
