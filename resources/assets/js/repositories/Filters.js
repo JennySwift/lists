@@ -113,6 +113,11 @@ module.exports = {
                 }
             }
 
+            //Show trashed items filter
+            else if (!that.shared.filters.showTrashed && item.deletedAt) {
+                filteredIn = false;
+            }
+
             return filteredIn;
         });
     },

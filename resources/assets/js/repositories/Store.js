@@ -29,7 +29,8 @@ module.exports = {
             urgency: '',
             urgencyOut: '',
             notBefore: true,
-            notBeforeDate: ''
+            notBeforeDate: '',
+            showTrashed: false
         },
         showFavourites: false,
         favouriteItems: [],
