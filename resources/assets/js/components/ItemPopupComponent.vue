@@ -130,8 +130,8 @@
                     message: 'Item restored',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
-//                        this.selectedItemInItemsArray.deletedAt = null;
-                        this.selectedItemInItemsArray = response;
+                        this.selectedItemInItemsArray.deletedAt = null;
+//                        this.selectedItemInItemsArray = response;
 //                        ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
                         this.updateFavourites(response);
                         this.showPopup = false;
