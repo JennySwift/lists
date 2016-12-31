@@ -31,7 +31,7 @@ module.exports = {
             notBefore: true,
             notBeforeDate: ''
         },
-        showFavourites: true,
+        showFavourites: false,
         favouriteItems: [],
         favourteItemsLoaded: false
     },
