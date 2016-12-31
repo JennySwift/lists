@@ -291,7 +291,7 @@ h1, button {
   right: 15px;
   width: 400px;
   margin-bottom: 20px;
-  padding: 8px 10px;
+  padding: 0;
   background: white;
   max-height: calc(100% - 114px); }
   #search-container label.input-group-addon, #search-container .datepicker-label-container {
