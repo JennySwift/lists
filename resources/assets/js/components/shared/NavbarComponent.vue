@@ -8,17 +8,17 @@
                     <a v-link="{ path: '/categories/'  }">categories</a>
                 </li>
 
-                <li>
-                    <a v-link="{ path: '/trash/'  }"><i class="fa fa-trash"></i></a>
-                </li>
+                <!--<li>-->
+                    <!--<a v-link="{ path: '/trash/'  }"><i class="fa fa-trash"></i></a>-->
+                <!--</li>-->
 
-                <li>
-                    <a
-                        v-on:click="undoDeleteItem()"
-                        href="#">
-                        undo delete item
-                    </a>
-                </li>
+                <!--<li>-->
+                    <!--<a-->
+                        <!--v-on:click="undoDeleteItem()"-->
+                        <!--href="#">-->
+                        <!--undo delete item-->
+                    <!--</a>-->
+                <!--</li>-->
 
                 <li><a href="/auth/logout">Logout</a></li>
             </ul>
