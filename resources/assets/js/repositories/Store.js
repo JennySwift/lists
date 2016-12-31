@@ -30,7 +30,10 @@ module.exports = {
             urgencyOut: '',
             notBefore: true,
             notBeforeDate: ''
-        }
+        },
+        showFavourites: true,
+        favouriteItems: [],
+        favourteItemsLoaded: false
     },
 
     /**
@@ -55,6 +58,17 @@ module.exports = {
             url: '/api/categories',
             storeProperty: 'categories',
             loadedProperty: 'categoriesLoaded'
+        });
+    },
+
+    /**
+     *
+     */
+    getFavouriteItems: function () {
+        helpers.get({
+            url: '/api/items?favourites=true',
+            storeProperty: 'favouriteItems',
+            loadedProperty: 'favouriteItemsLoaded'
         });
     },
 

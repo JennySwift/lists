@@ -80,7 +80,7 @@
              *
              */
             toggleFavouriteItems: function () {
-                $.event.trigger('toggle-favourite-items');
+                store.toggle('showFavourites');
             }
         },
         props: [
