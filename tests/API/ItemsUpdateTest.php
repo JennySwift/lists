@@ -68,6 +68,38 @@ class ItemsUpdateTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_restore_an_item_from_the_trash()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->whereNotNull('deleted_at')
+            ->withTrashed()
+            ->first();
+//        dd($item);
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'deleted_at' => null
+        ]);
+
+//        dd($response);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertNull($content['deletedAt']);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_update_the_parent_id_of_an_item_to_null()
     {
         DB::beginTransaction();

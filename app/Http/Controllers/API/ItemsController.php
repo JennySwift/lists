@@ -233,6 +233,11 @@ class ItemsController extends Controller
                 $data['body'] = '';
             }
 
+            //So the item can be restored from the trash
+            if ($request->exists('deleted_at') && $request['deleted_at'] === null) {
+                $item->restore();
+            }
+
             $item->update($data);
 
             if ($request->has('parent_id')) {
