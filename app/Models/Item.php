@@ -50,6 +50,12 @@ class Item extends Model
                 $child->delete();
             }
         });
+
+        Item::restoring(function ($item) {
+            foreach ($item->children()->withTrashed()->get() as $child) {
+                $child->restore();
+            }
+        });
     }
 
     /**

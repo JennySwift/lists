@@ -91,6 +91,9 @@ class ItemsUpdateTest extends TestCase
 
         $this->assertNull($content['deletedAt']);
 
+        //Check the children are restored, too
+        $this->assertCount(3, $item->children);
+
         $this->assertEquals(200, $response->getStatusCode());
 
         DB::rollBack();
