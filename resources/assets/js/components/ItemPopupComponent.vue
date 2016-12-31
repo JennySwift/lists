@@ -121,7 +121,21 @@
              * Restore a deleted item
              */
             restore: function () {
+                var data = {deleted_at: null};
 
+                helpers.put({
+                    url: '/api/items/' + this.selectedItem.id,
+                    data: data,
+//                    property: ItemsRepository.getPathAsString(this.selectedItem),
+                    message: 'Item restored',
+                    redirectTo: this.redirectTo,
+                    callback: function (response) {
+                        this.selectedItemInItemsArray.deletedAt = null;
+//                        ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
+                        this.updateFavourites(response);
+                        this.showPopup = false;
+                    }.bind(this)
+                });
             },
 
             updateFavourites: function (item) {
