@@ -65,11 +65,20 @@
                 </div>
 
                 <buttons
+                    v-if="!selectedItem.deletedAt"
                     :save="updateItem"
                     :destroy="deleteItem"
                     :redirect-to="redirectTo"
                 >
                 </buttons>
+
+                <button
+                    v-else
+                    v-on:click="restore()"
+                    class="btn btn-success"
+                >
+                    Restore
+                </button>
 
             </div>
         </div>
@@ -107,6 +116,13 @@
         },
         components: {},
         methods: {
+
+            /**
+             * Restore a deleted item
+             */
+            restore: function () {
+
+            },
 
             updateFavourites: function (item) {
                 var itemInFavourites = helpers.findById(this.shared.favouriteItems, item.id);
