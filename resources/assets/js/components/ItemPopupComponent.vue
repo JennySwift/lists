@@ -257,7 +257,7 @@
              * @param item
              */
             deleteItem: function () {
-                ItemsRepository.deleteItem(this.selectedItem, this);
+                ItemsRepository.deleteItem(this.selectedItemInItemsArray, this);
             },
 
             /**
