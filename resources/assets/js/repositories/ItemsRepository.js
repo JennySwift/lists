@@ -138,15 +138,16 @@ module.exports = {
      * @param item
      */
     deleteJsItem: function (item) {
-        var parent = this.findParent(store.state.items, item, false, true);
-        var index;
-        if (parent) {
-            index = helpers.findIndexById(parent.children, item.id);
-            parent.children = _.without(parent.children, parent.children[index]);
-        }
-        else if (store.state.items) {
-            store.delete(item, 'items');
-        }
+        item.deletedAt = true;
+        // var parent = this.findParent(store.state.items, item, false, true);
+        // var index;
+        // if (parent) {
+        //     index = helpers.findIndexById(parent.children, item.id);
+        //     parent.children = _.without(parent.children, parent.children[index]);
+        // }
+        // else if (store.state.items) {
+        //     store.delete(item, 'items');
+        // }
     },
 
     /**
