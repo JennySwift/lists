@@ -108,6 +108,20 @@
         components: {},
         methods: {
 
+            updateFavourites: function (item) {
+                var itemInFavourites = helpers.findById(this.shared.favouriteItems, item.id);
+//                    var indexOfItemInFavourites = _.indexOf(that.favouriteItems, _.findWhere(that.favouriteItems, {id: item.id}));
+                if (item.favourite && !itemInFavourites) {
+                    //Add the item to the favourites
+                    store.add(item, 'favouriteItems');
+                }
+                else if (!item.favourite && itemInFavourites) {
+                    //Remove the item from the favourites
+                    store.delete(itemInFavourites, 'favouriteItems');
+//                        that.favouriteItems = _.without(that.favouriteItems, that.favouriteItems[indexOfItemInFavourites]);
+                }
+            },
+
             /**
             *
             */
@@ -123,7 +137,7 @@
                     callback: function (response) {
                         ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
 
-                        $.event.trigger('item-updated', [response]);
+                        this.updateFavourites(response);
 
                         if (this.selectedItem.oldParentId != response.parent_id) {
                             this.jsMoveToNewParent(response);
