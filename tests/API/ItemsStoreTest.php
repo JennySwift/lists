@@ -22,6 +22,8 @@ class ItemsStoreTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = [
             'title' => 'numbat',
             'body' => 'koala',
@@ -67,6 +69,8 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+
+        $this->restoreTrashedItems();
 
         $item = [
             'title' => 'numbat',
@@ -116,6 +120,8 @@ class ItemsStoreTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = [
             'title' => 'numbat',
             'body' => 'koala',
@@ -162,6 +168,7 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         $item = [
             'title' => 'koala',
@@ -202,6 +209,7 @@ class ItemsStoreTest extends TestCase
         DB::beginTransaction();
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+        $this->restoreTrashedItems();
 
         $item = [
             'title' => 'numbat',
@@ -361,6 +369,7 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         //First create an item
         $item = [

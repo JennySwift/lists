@@ -22,6 +22,8 @@ class ItemsUpdateTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = Item::forCurrentUser()
             ->where('favourite', 0)
             ->where('category_id', 1)
@@ -107,6 +109,7 @@ class ItemsUpdateTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         $item = Item::forCurrentUser()
             ->where('parent_id', 1)

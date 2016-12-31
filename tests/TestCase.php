@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use App\User;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
@@ -153,5 +154,17 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
+    }
+
+    /**
+     * So my tests aren't wrecked up by the trashed items
+     */
+    protected function restoreTrashedItems()
+    {
+        $trashedItems = Item::onlyTrashed()->get();
+        foreach ($trashedItems as $item) {
+            $item->restore();
+        }
+
     }
 }
