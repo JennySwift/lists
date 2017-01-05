@@ -73,6 +73,17 @@ module.exports = {
             //Title filter
             var filteredIn = item.title.toLowerCase().indexOf(that.shared.filters.title.toLowerCase()) !== -1;
 
+            //Body filter
+            if (that.shared.filters.body) {
+                if (item.body && item.body.toLowerCase().indexOf(that.shared.filters.body.toLowerCase()) === -1) {
+                    filteredIn = false;
+                }
+                else if (!item.body) {
+                    filteredIn = false;
+                }
+
+            }
+
             //Priority filter-at or higher than priority specified
             if (that.shared.filters.minimumPriority && item.priority > that.shared.filters.minimumPriority) {
                 filteredIn = false;

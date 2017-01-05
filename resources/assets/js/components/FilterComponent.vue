@@ -23,6 +23,13 @@
             </input-group>
 
             <input-group
+                label="Note:"
+                :model.sync="shared.filters.body"
+                id="body-filter"
+            >
+            </input-group>
+
+            <input-group
                 label="Min Priority:"
                 :model.sync="shared.filters.minimumPriority"
                 id="min-priority-filter"

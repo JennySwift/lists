@@ -26,6 +26,7 @@ module.exports = {
             priority: '',
             category: {},
             title: '',
+            body: '',
             urgency: '',
             urgencyOut: '',
             notBefore: true,
