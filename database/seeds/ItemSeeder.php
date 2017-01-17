@@ -45,7 +45,7 @@ class ItemSeeder extends Seeder
 
         $this->giveANotBeforeValueToSomeItems();
 
-        $this->createControlledItems();
+//        $this->createControlledItems();
     }
 
     /**
