@@ -4,17 +4,21 @@ Vue.use(VueRouter);
 global.router = new VueRouter({hashbang: false});
 
 router.map({
-    '/': {
-        component: require('./components/ItemsPageComponent.vue'),
-        subRoutes: {
-            //default for if no id is specified
-            '/': {
-                component: require('./components/ItemComponent.vue')
-            },
-            '/:id': {
-                component: require('./components/ItemComponent.vue')
-            }
-        }
+    // '/': {
+    //     component: require('./components/ItemsPageComponent.vue'),
+    //     subRoutes: {
+    //         //default for if no id is specified
+    //         '/': {
+    //             component: require('./components/ItemComponent.vue')
+    //         },
+    //         '/:id': {
+    //             component: require('./components/ItemComponent.vue')
+    //         }
+    //     }
+    // },
+    '/welcome': {
+        name: 'welcome',
+        component: require('./components/WelcomePageComponent.vue'),
     },
     '/items': {
         component: require('./components/ItemsPageComponent.vue'),
@@ -40,6 +44,10 @@ router.map({
     '/help': {
         component: require('./components/HelpPageComponent.vue')
     }
+});
+
+router.redirect({
+    '/': '/welcome'
 });
 
 // router.redirect({
