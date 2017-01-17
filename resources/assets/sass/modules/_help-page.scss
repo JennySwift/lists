@@ -1,8 +1,12 @@
 #help-page {
+    padding-bottom: 10px;
     p {
         max-width: 475px;
         margin: auto;
         margin-bottom: 8px;
         text-align: left;
+    }
+    h2 {
+        @include characterFont;
     }
 }

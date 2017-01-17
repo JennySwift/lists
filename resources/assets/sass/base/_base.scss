@@ -144,10 +144,9 @@ h1 {
 		font-size: 20px;
 		margin: 2px 2px;
 	}
-	color: $base4;
 }
 
-h1, button {
+h1, h2 button {
 	@include characterFont;
 }
 

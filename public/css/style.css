@@ -111,15 +111,14 @@ caption {
 li {
   list-style-type: none; }
 
-h1 {
-  color: #97D7D6; }
-  @media (max-width: 600px) {
-    h1 {
-      font-size: 20px;
-      margin: 2px 2px; } }
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px;
+    margin: 2px 2px; } }
 
-h1, button {
-  font-family: "Annie Use Your Telescope"; }
+h1, h2 button {
+  font-family: "Annie Use Your Telescope";
+  color: #97D7D6; }
 
 .swal2-modal button {
   margin-right: 5px;
@@ -780,11 +779,16 @@ h1, button {
   #loading .fa-spinner {
     font-size: 50px; }
 
-#help-page p {
-  max-width: 475px;
-  margin: auto;
-  margin-bottom: 8px;
-  text-align: left; }
+#help-page {
+  padding-bottom: 10px; }
+  #help-page p {
+    max-width: 475px;
+    margin: auto;
+    margin-bottom: 8px;
+    text-align: left; }
+  #help-page h2 {
+    font-family: "Annie Use Your Telescope";
+    color: #97D7D6; }
 
 .autocomplete .autocomplete-dropdown .autocomplete-option {
   display: -ms-flexbox;
