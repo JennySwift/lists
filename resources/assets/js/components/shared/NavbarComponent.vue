@@ -5,7 +5,7 @@
             <a href="#" class="dropdown-toggle fa fa-bars" data-toggle="dropdown"><span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a v-link="{ path: '/categories/'  }">categories</a>
+                    <a v-link="{ path: '/categories/'  }">Categories</a>
                 </li>
 
                 <!--<li>-->
@@ -25,7 +25,7 @@
         </li>
 
         <li>
-            <a v-link="{ path: '/items/' }">lists</a>
+            <a v-link="{ path: '/items/' }">Lists</a>
         </li>
 
         <li>

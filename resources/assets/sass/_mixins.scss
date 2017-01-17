@@ -42,5 +42,6 @@
 }
 
 @mixin characterFont {
-    font-family: "Annie Use Your Telescope"
+    font-family: "Annie Use Your Telescope";
+    color: $base4;
 }
