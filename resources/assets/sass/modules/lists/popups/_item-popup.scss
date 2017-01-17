@@ -1,13 +1,12 @@
 #item-popup {
-    width: 600px;
     //height: 650px;
-    .flex {
-        display: flex;
-        justify-content: flex-start;
-        > * {
-            margin: 10px 10px;
-        }
-    }
+    //.flex {
+    //    display: flex;
+    //    justify-content: flex-start;
+    //    > * {
+    //        margin: 10px 10px;
+    //    }
+    //}
     > input,select,textarea, .save {
         width: 100%;
     }
@@ -21,5 +20,11 @@
     }
     .fa-star {
         color: $warning;
+    }
+    .datepicker .input-group-btn {
+        right: 1px;
+    }
+    .item-body {
+        margin-top: 10px;
     }
 }

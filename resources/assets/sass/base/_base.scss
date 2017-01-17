@@ -4,53 +4,43 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
     background: #fff;
-}
-
-//for positioning my debug info absolute
-body {
-    position: relative;
+	height: 100%;
 }
 
 body {
-	padding-top: 63px;
+	padding-top: 55px;
     color: #777;
-	// padding-bottom: 50px;
 	@media (max-width: 600px) {
 		padding-top: 51px;
 	}
 }
 
+$footerHeight: 25px;
 
-
-//for flexbox sticky footer (works great)
-html, body {
-	height: 100%;
-}
 body {
-	
-	// display: flex;
-	// flex-direction: column;
+	color: #777;
 	.main {
-		padding-bottom: 35px;
 		min-height: 100%;
-		// flex-grow: 1;
+		padding: 0 20px 20px 20px;
+		//margin: 20px;
+		//margin-top: 0;
+		//padding-top: $navHeight + 3px;
 	}
 	footer {
-        display: flex;
-        justify-content: space-around;
-        padding: 11px;
-        background: #000000;
-        height: 35px;
-        position: relative;
-        margin-top: -35px;
-        li {
-            display: flex;
-            align-items: center;
-        }
+		display: flex;
+		justify-content: space-around;
+		padding: 11px;
+		@include footer;
+		height: $footerHeight;
+		position: relative;
+		margin-top: -$footerHeight;
+		li {
+			display: flex;
+			align-items: center;
+		}
 
 	}
 }
-
 
 h1,h2,h3,h4,h5 {
 	text-align: center;
@@ -121,6 +111,10 @@ input[type="checkbox"] {
 
 a {
     cursor: pointer;
+	color: $base4;
+	&:hover, &:focus {
+		color: $base4;
+	}
 }
 
 
@@ -150,5 +144,10 @@ h1 {
 		font-size: 20px;
 		margin: 2px 2px;
 	}
+	color: $base4;
+}
+
+h1, button {
+	@include characterFont;
 }
 

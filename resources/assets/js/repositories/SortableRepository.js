@@ -2,7 +2,7 @@
  * This file currently isn't being used.
  * @type {{findSiblingsWithItem: SortableRepository.findSiblingsWithItem, findParentById: SortableRepository.findParentById, setNewIndex: SortableRepository.setNewIndex, setNewParent: SortableRepository.setNewParent, setNewTarget: SortableRepository.setNewTarget, setMouseDown: SortableRepository.setMouseDown}}
  */
-var SortableRepository = {
+module.exports = {
 
     /**
      * Return an array of the item's siblings including the item itself

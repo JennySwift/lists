@@ -1,4 +1,6 @@
-var DateTimeRepository = {
+var moment = require('moment');
+
+module.exports = {
 
     /**
      *

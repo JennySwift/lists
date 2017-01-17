@@ -17,6 +17,7 @@ class ItemsShowTest extends TestCase
     public function it_can_show_an_item()
     {
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         $item = Item::forCurrentUser()->first();
 

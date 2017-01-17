@@ -23,6 +23,15 @@ class ItemsIndexTest extends TestCase
 
         $this->checkItemKeysExist($content[0]);
 
+        //Check the items include the deleted items
+        $count = 0;
+        foreach ($content as $item) {
+            if ($item['deletedAt']) {
+                $count++;
+            }
+        }
+        $this->assertEquals(2, $count);
+
         $this->assertEquals(200, $response->getStatusCode());
     }
 
@@ -67,34 +76,16 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
-    public function it_gets_the_pinned_items()
-    {
-        $this->logInUser();
-        $response = $this->call('GET', '/api/items?pinned=true');
-        $content = json_decode($response->getContent(), true);
-//      dd($content);
-
-        $this->checkItemKeysExist($content[0]);
-
-        foreach ($content as $item) {
-            $this->assertEquals(1, $item['pinned']);
-        }
-
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
     public function it_gets_the_items_with_an_alarm()
     {
         $this->logInUser();
+        $this->createAlarms();
         $response = $this->call('GET', '/api/items?alarm=true');
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
+        $this->assertCount(2, $content);
 
         foreach ($content as $item) {
             $this->assertNotNull($item['alarm']);
@@ -123,6 +114,7 @@ class ItemsIndexTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
+
     /**
      * @test
      * @return void
@@ -130,11 +122,14 @@ class ItemsIndexTest extends TestCase
     public function it_gets_the_urgent_items()
     {
         $this->logInUser();
+        $this->createUrgentItems();
         $response = $this->call('GET', '/api/items?urgent=true');
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
+        //Only items with urgency 1 are retrieved
+        $this->assertCount(1, $content);
 
         foreach ($content as $item) {
             $this->assertEquals(1, $item['urgency']);

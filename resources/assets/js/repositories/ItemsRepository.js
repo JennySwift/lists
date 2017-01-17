@@ -1,4 +1,6 @@
-var ItemsRepository = {
+var DateTimeRepository = require('./DateTimeRepository');
+
+module.exports = {
 
     /**
      *
@@ -44,7 +46,7 @@ var ItemsRepository = {
             body: item.body,
             priority: item.priority,
             urgency: item.urgency,
-            favourite: HelpersRepository.convertBooleanToInteger(item.favourite),
+            favourite: helpers.convertBooleanToInteger(item.favourite),
             pinned: item.pinned,
             category_id: item.category.id,
             alarm: false,
@@ -62,7 +64,7 @@ var ItemsRepository = {
             //This check is here because if item.alarm was false,
             //I think PHP was getting value 0, making the item have an alarm
             //at '0000-00-00 00:00:00.'
-            data.alarm = this.formatAlarm(item.alarm)
+            data.alarm = filters.formatAlarm(item.alarm)
         }
 
         if (!data.pinned) {
@@ -90,62 +92,44 @@ var ItemsRepository = {
     },
 
     /**
-     * If url is /items/:2, return 2
-     * @param that
-     * @returns {*}
-     */
-    getIdFromUrl: function (that) {
-        //For some reason $route.params was undefined.
-        //if (that.$route.params.id) {
-        //    return that.$route.params.id.slice(1);
-        //}
-        var path = that.$route.path;
-        var index = path.indexOf(':');
-        if (index != -1) {
-            return that.$route.path.slice(index+1);
-        }
-        return false;
-    },
+    *
+    */
+    deleteItem: function (item, that) {
+        if (item.recurringUnit) {
+            //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
+            var data = {
+                updatingNextTimeForRecurringItem: true
+            };
 
-
-    /**
-     *
-     * @param that
-     * @param item
-     */
-    deleteItem: function (that, item) {
-        if (confirm("Are you sure?")) {
-            $.event.trigger('show-loading');
-
-            if (item.recurringUnit) {
-                //It's a recurring item, so we're updating the not-before time of the item, rather than actually deleting the item
-                var data = {
-                    updatingNextTimeForRecurringItem: true
-                };
-
-                that.$http.put('/api/items/' + item.id, data, function (response) {
+            helpers.put({
+                url: '/api/items/' + item.id,
+                data: data,
+                property: 'items',
+                message: 'Item has been rescheduled, not deleted',
+                redirectTo: this.redirectTo,
+                callback: function (response) {
                     item.notBefore = response.notBefore;
-                    that.showPopup = false;
-                    $.event.trigger('provide-feedback', ['Item has been rescheduled, not deleted', 'success']);
-                    $.event.trigger('hide-loading');
-                })
-                .error(function (data, status, response) {
-                    HelpersRepository.handleResponseError(data, status, response);
-                });
-            }
+                    if (that) {
+                        that.showPopup = false;
+                    }
+                }
+            });
+        }
 
-            else {
-                //We are actually deleting the item
-                that.$http.delete('/api/items/' + item.id, function (response) {
-                    ItemsRepository.deleteJsItem(that, item);
-                    that.showPopup = false;
-                    $.event.trigger('provide-feedback', ['Item deleted', 'success']);
-                    $.event.trigger('hide-loading');
-                })
-                .error(function (data, status, response) {
-                    HelpersRepository.handleResponseError(data, status, response);
-                });
-            }
+        else {
+            helpers.delete({
+                url: '/api/items/' + item.id,
+                // array: 'items',
+                // itemToDelete: this.item,
+                message: 'Item deleted',
+                redirectTo: this.redirectTo,
+                callback: function () {
+                    this.deleteJsItem(item);
+                    if (that) {
+                        that.showPopup = false;
+                    }
+                }.bind(this)
+            });
         }
     },
 
@@ -153,17 +137,17 @@ var ItemsRepository = {
      *
      * @param item
      */
-    deleteJsItem: function (that, item) {
-        var parent = ItemsRepository.findParent(that.items, item, false, true);
-        var index;
-        if (parent) {
-            index = HelpersRepository.findIndexById(parent.children, item.id);
-            parent.children = _.without(parent.children, parent.children[index]);
-        }
-        else {
-            index = HelpersRepository.findIndexById(that.items, item.id);
-            that.items = _.without(that.items, that.items[index]);
-        }
+    deleteJsItem: function (item) {
+        item.deletedAt = true;
+        // var parent = this.findParent(store.state.items, item, false, true);
+        // var index;
+        // if (parent) {
+        //     index = helpers.findIndexById(parent.children, item.id);
+        //     parent.children = _.without(parent.children, parent.children[index]);
+        // }
+        // else if (store.state.items) {
+        //     store.delete(item, 'items');
+        // }
     },
 
     /**
@@ -211,5 +195,108 @@ var ItemsRepository = {
 
         console.log(that.parent);
         return that.parent;
+    },
+
+    // findItem: function (array, item) {
+    //     var that = this;
+    //     var parentId = item.parent_id;
+    //
+    //     $(array).each(function () {
+    //         if (this.id === parentId) {
+    //             parent = this;
+    //             that.parent = this;
+    //             return false;
+    //         }
+    //         if (this.children) {
+    //             return that.findParent(this.children, item, oldParentId);
+    //         }
+    //     });
+    //
+    //     console.log(that.parent);
+    //     return that.parent;
+    // },
+
+    /**
+     *
+     * @param item
+     * @param parentIds
+     * @returns {*}
+     */
+    getAncestorIds: function (item, ancestorIds) {
+        var parent = this.findParent(store.state.items, item);
+        if (parent) {
+            ancestorIds.push(parent.id);
+            return this.getAncestorIds(parent, ancestorIds);
+        }
+
+        console.log('ancestor ids: ' + ancestorIds);
+        return ancestorIds.reverse();
+    },
+
+    createPathAsString: function (array) {
+        var string = 'items';
+
+        for (var i = 0; i < array.length; i++) {
+            string+= '[' + array[i] + '].children';
+
+        }
+        // return 'items[0].children[0].children[1].children[3].children';
+
+        return string;
+    },
+
+    getPathAsString: function (item) {
+        var ancestorIds = ItemsRepository.getAncestorIds(item, []);
+
+        console.log('ancestor ids: ' + ancestorIds);
+
+        var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
+
+        console.log('path: ' + path);
+        return ItemsRepository.createPathAsString(path);
+    },
+
+    getPath: function (item, ancestorIds, path, indexInPath) {
+        console.log('indexINPath: ' + indexInPath);
+        console.log('next: ' + ancestorIds[indexInPath]);
+        if (!item) {
+            // console.log('\n\n item: ' + JSON.stringify(item, null, 4) + '\n\n');
+            item = helpers.findById(store.state.items, ancestorIds[0]);
+            path.push(helpers.findIndexById(store.state.items, ancestorIds[0]));
+            // indexInPath++;
+            // item = helpers.findById(item.children, ancestorIds[indexInPath]);
+        }
+
+        indexInPath++;
+
+        if (indexInPath < ancestorIds.length) {
+            path.push(helpers.findIndexById(item.children, ancestorIds[indexInPath]));
+        }
+
+        item = helpers.findById(item.children, ancestorIds[indexInPath]);
+
+        if (indexInPath < ancestorIds.length) {
+            return this.getPath(item, ancestorIds, path, indexInPath);
+        }
+
+        console.log('path: ' + path);
+        return path;
+    },
+
+    /**
+     *
+     */
+    getUrl: function (item) {
+        var url;
+
+        // if (item) {
+        //     url = '/api/items/' + item.id;
+        // }
+        // else {
+            var id = helpers.getIdFromUrl();
+            url = id ? '/api/items/' + id : '/api/items';
+        // }
+
+        return url;
     }
 };

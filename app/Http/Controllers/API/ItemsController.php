@@ -45,11 +45,7 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('pinned')) {
-            $items = Item::forCurrentUser()->where('pinned', 1)->get();
-        }
-
-        elseif ($request->has('alarm')) {
+        if ($request->has('alarm')) {
             $items = Item::forCurrentUser()->whereNotNull('alarm')->get();
         }
 
@@ -101,7 +97,6 @@ class ItemsController extends Controller
                 'priority',
                 'urgency',
                 'favourite',
-                'pinned',
                 'alarm',
                 'not_before',
                 'recurring_unit',
@@ -203,7 +198,6 @@ class ItemsController extends Controller
                 'title',
                 'body',
                 'favourite',
-                'pinned',
                 'alarm',
                 'not_before',
                 'recurring_unit',
@@ -232,6 +226,16 @@ class ItemsController extends Controller
             //So the urgency of an item can be removed
             if ($request->has('urgency') && !$request->get('urgency')) {
                 $data['urgency'] = null;
+            }
+
+            //So the body of an item can be removed
+            if ($request->get('body') === '') {
+                $data['body'] = '';
+            }
+
+            //So the item can be restored from the trash
+            if ($request->exists('deleted_at') && $request['deleted_at'] === null) {
+                $item->restore();
             }
 
             $item->update($data);

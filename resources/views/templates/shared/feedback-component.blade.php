@@ -1,4 +1,3 @@
-
 <template id="feedback-template">
     <div id="feedback">
         <div

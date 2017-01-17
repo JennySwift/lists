@@ -43,7 +43,9 @@ class ItemSeeder extends Seeder
             $this->giveANotBeforeValueToSomeItems();
         }
 
+        $this->giveANotBeforeValueToSomeItems();
 
+        $this->createControlledItems();
     }
 
     /**
@@ -64,6 +66,56 @@ class ItemSeeder extends Seeder
     /**
      *
      */
+    public function createControlledItems()
+    {
+        //Create top level items
+        $item1 = $this->createControlledItem('1');
+        $item2 = $this->createControlledItem('2');
+        $item3 = $this->createControlledItem('3');
+
+        //Create child items
+        $item1Child = $this->createControlledItem('1.1', $item1);
+        $this->createControlledItem('1.2', $item1);
+        $this->createControlledItem('1.3', $item1);
+
+        //Create deeper items
+        $this->createControlledItem('1.1.1', $item1Child);
+        $this->createControlledItem('1.1.2', $item1Child);
+        $this->createControlledItem('1.1.3', $item1Child);
+
+        $this->createControlledItem('2.1', $item2);
+
+    }
+
+    /**
+     *
+     * @param $title
+     * @param null $parent
+     * @return Item
+     */
+    public function createControlledItem($title, $parent = NULL)
+    {
+        $item = new Item([
+            'title' => $title,
+            'category_id' => 1,
+            'priority' => 1
+        ]);
+
+        $item->user()->associate(User::first());
+
+        if(!is_null($parent))
+        {
+            $item->parent()->associate($parent);
+        }
+
+        $item->save();
+
+        return $item;
+    }
+
+    /**
+     *
+     */
     private function giveANotBeforeValueToSomeItems()
     {
         $dateTime = Carbon::yesterday()->subDays(1);
@@ -72,7 +124,7 @@ class ItemSeeder extends Seeder
             $dateTime->addDay(1);
             $item->not_before = $dateTime->copy()->format('Y-m-d H:i:s');
 
-            if ($index === 1) {
+            if ($index === 2) {
                 //Make it a recurring item
                 $item->recurring_unit = 'minute';
                 $item->recurring_frequency = 1;
@@ -131,6 +183,13 @@ class ItemSeeder extends Seeder
         foreach ($items as $item) {
             $item->delete();
         }
+
+        //Delete some from the top level, too
+        $items = Item::where('parent_id', null)->limit(2)->get();
+
+        foreach ($items as $item) {
+            $item->delete();
+        }
     }
 
     /**
@@ -150,7 +209,7 @@ class ItemSeeder extends Seeder
      */
     private function favouriteSomeItems()
     {
-        $items = Item::limit(6)->offset(4)->get();
+        $items = Item::limit(18)->offset(4)->get();
         foreach ($items as $item) {
             $item->favourite = 1;
             $item->save();

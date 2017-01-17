@@ -50,6 +50,12 @@ class Item extends Model
                 $child->delete();
             }
         });
+
+        Item::restoring(function ($item) {
+            foreach ($item->children()->withTrashed()->get() as $child) {
+                $child->restore();
+            }
+        });
     }
 
     /**
@@ -85,7 +91,7 @@ class Item extends Model
      */
     public function children()
     {
-        return $this->hasMany('\App\Models\Item', 'parent_id');
+        return $this->hasMany('\App\Models\Item', 'parent_id')->withTrashed();
     }
 
     /**

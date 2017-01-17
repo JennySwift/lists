@@ -95,6 +95,7 @@ class ItemsRepository {
         return Item::forCurrentUser()
             ->whereNull('parent_id')
             ->order('priority')
+            ->withTrashed()
             ->get();
     }
 

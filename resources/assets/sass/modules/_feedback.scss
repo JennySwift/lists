@@ -2,7 +2,7 @@
     position: fixed;
     right: 11px;
     top: 44px;
-    z-index: $zIndex2;
+    z-index: $zIndex4;
     .feedback-message {
         min-height: 25px;
         background: white;
@@ -19,7 +19,7 @@
             color: white;
         }
         &.success {
-            background: #5cb85c;
+            background: $base4;
             color: white;
         }
         ul {

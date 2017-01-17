@@ -22,13 +22,14 @@ class ItemsStoreTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = [
             'title' => 'numbat',
             'body' => 'koala',
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
@@ -48,7 +49,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['urgency']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
         $this->assertEquals($alarm, $content['alarm']);
@@ -70,13 +70,14 @@ class ItemsStoreTest extends TestCase
         DB::beginTransaction();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = [
             'title' => 'numbat',
             'body' => 'koala',
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
@@ -97,7 +98,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['urgency']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
         $this->assertEquals($alarm, $content['alarm']);
@@ -120,13 +120,14 @@ class ItemsStoreTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = [
             'title' => 'numbat',
             'body' => 'koala',
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
@@ -145,7 +146,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['urgency']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
         $this->assertEquals($alarm, $content['alarm']);
@@ -168,6 +168,7 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         $item = [
             'title' => 'koala',
@@ -175,7 +176,6 @@ class ItemsStoreTest extends TestCase
             'priority' => 1,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 2,
             'category_id' => 3,
         ];
@@ -209,6 +209,7 @@ class ItemsStoreTest extends TestCase
         DB::beginTransaction();
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
+        $this->restoreTrashedItems();
 
         $item = [
             'title' => 'numbat',
@@ -216,7 +217,6 @@ class ItemsStoreTest extends TestCase
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => false
@@ -233,7 +233,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['urgency']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
         $this->assertNull($content['alarm']);
@@ -242,47 +241,6 @@ class ItemsStoreTest extends TestCase
 
         DB::rollBack();
     }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function it_can_create_an_unpinned_item()
-    {
-        DB::beginTransaction();
-        $this->logInUser();
-
-        $item = [
-            'title' => 'numbat',
-            'body' => 'koala',
-            'priority' => 2,
-            'urgency' => 1,
-            'favourite' => 1,
-            'pinned' => 0,
-            'parent_id' => 5,
-            'category_id' => 2
-        ];
-
-        $response = $this->call('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
-//      dd($content);
-
-        $this->checkItemKeysExist($content);
-
-        $this->assertEquals('numbat', $content['title']);
-        $this->assertEquals('koala', $content['body']);
-        $this->assertEquals(2, $content['priority']);
-        $this->assertEquals(1, $content['urgency']);
-        $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(0, $content['pinned']);
-        $this->assertEquals(5, $content['parent_id']);
-        $this->assertEquals(2, $content['category_id']);
-
-        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
-
-        DB::rollBack();
-    }
-
 
     /**
      * @test
@@ -330,7 +288,6 @@ class ItemsStoreTest extends TestCase
             'priority' => 1,
             'category_id' => 2,
             'favourite' => 0,
-            'pinned' => 0
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -361,7 +318,6 @@ class ItemsStoreTest extends TestCase
             'category_id' => 2,
 //            'parent_id' => 2,
             'favourite' => 0,
-            'pinned' => 0
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -375,7 +331,6 @@ class ItemsStoreTest extends TestCase
 //        $this->assertEquals(2, $content['priority']);
 //        $this->assertEquals(1, $content['urgency']);
 //        $this->assertEquals(1, $content['favourite']);
-//        $this->assertEquals(1, $content['pinned']);
 //        $this->assertEquals(5, $content['parent_id']);
 //        $this->assertEquals(2, $content['category_id']);
 //        $this->assertEquals($alarm, $content['alarm']);
@@ -392,7 +347,6 @@ class ItemsStoreTest extends TestCase
             'category_id' => 2,
 //            'parent_id' => 1,
             'favourite' => 0,
-            'pinned' => 0
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -415,6 +369,7 @@ class ItemsStoreTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         //First create an item
         $item = [
@@ -423,7 +378,6 @@ class ItemsStoreTest extends TestCase
             'category_id' => 2,
             'parent_id' => 2,
             'favourite' => 0,
-            'pinned' => 0
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -437,7 +391,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(1, $content['priority']);
         $this->assertEquals(0, $content['urgency']);
         $this->assertEquals(0, $content['favourite']);
-        $this->assertEquals(0, $content['pinned']);
         $this->assertEquals(2, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
 //        $this->assertEquals($alarm, $content['alarm']);
@@ -454,7 +407,6 @@ class ItemsStoreTest extends TestCase
             'category_id' => 2,
             'parent_id' => 1,
             'favourite' => 0,
-            'pinned' => 0
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -466,7 +418,6 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(1, $content['priority']);
         $this->assertEquals(0, $content['urgency']);
         $this->assertEquals(0, $content['favourite']);
-        $this->assertEquals(0, $content['pinned']);
         $this->assertEquals(1, $content['parent_id']);
         $this->assertEquals(2, $content['category_id']);
 //        $this->assertEquals($alarm, $content['alarm']);

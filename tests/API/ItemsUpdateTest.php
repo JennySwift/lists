@@ -22,9 +22,10 @@ class ItemsUpdateTest extends TestCase
         $this->logInUser();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 
+        $this->restoreTrashedItems();
+
         $item = Item::forCurrentUser()
             ->where('favourite', 0)
-            ->where('pinned', 0)
             ->where('category_id', 1)
             ->where('priority', 1)
             ->whereNull('urgency')
@@ -36,7 +37,6 @@ class ItemsUpdateTest extends TestCase
             'priority' => 2,
             'urgency' => 1,
             'favourite' => 1,
-            'pinned' => 1,
             'parent_id' => 5,
             'category_id' => 2,
             'alarm' => $alarm,
@@ -55,7 +55,6 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals('koala', $content['body']);
         $this->assertEquals(2, $content['priority']);
         $this->assertEquals(1, $content['favourite']);
-        $this->assertEquals(1, $content['pinned']);
         $this->assertEquals(5, $content['parent_id']);
         $this->assertEquals($alarm, $content['alarm']);
         $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
@@ -71,10 +70,46 @@ class ItemsUpdateTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_restore_an_item_from_the_trash()
+    {
+        DB::beginTransaction();
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()
+            ->whereNotNull('deleted_at')
+            ->withTrashed()
+            ->first();
+//        dd($item);
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'deleted_at' => null
+        ]);
+
+//        dd($response);
+        $content = json_decode($response->getContent(), true);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertNull($content['deletedAt']);
+
+        //Check the children are restored, too
+        $this->assertCount(3, $item->children);
+
+        $this->assertEquals(200, $response->getStatusCode());
+
+        DB::rollBack();
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_update_the_parent_id_of_an_item_to_null()
     {
         DB::beginTransaction();
         $this->logInUser();
+        $this->restoreTrashedItems();
 
         $item = Item::forCurrentUser()
             ->where('parent_id', 1)
@@ -135,6 +170,8 @@ class ItemsUpdateTest extends TestCase
     {
         DB::beginTransaction();
         $this->logInUser();
+
+        $this->createAlarms();
 
         $item = Item::forCurrentUser()
             ->whereNotNull('alarm')
@@ -257,6 +294,8 @@ class ItemsUpdateTest extends TestCase
         DB::beginTransaction();
         $this->logInUser();
 
+        $this->createUrgentItems();
+
         $item = Item::forCurrentUser()
             ->where('urgency', 1)
             ->first();
@@ -282,32 +321,29 @@ class ItemsUpdateTest extends TestCase
      * @test
      * @return void
      */
-    public function it_can_unpin_an_item()
+    public function it_can_remove_a_note_from_an_item()
     {
         DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::forCurrentUser()
-            ->where('pinned', 1)
+            ->whereNotNull('body')
             ->first();
 
         $response = $this->call('PUT', '/api/items/'.$item->id, [
-            'pinned' => 0,
-            'favourite' => 0
+            'body' => ''
         ]);
 
-//        dd($response);
         $content = json_decode($response->getContent(), true);
-//        dd($content);
+        //dd($content);
 
         $this->checkItemKeysExist($content);
+        $this->assertEquals(null, $content['body']);
 
-        $this->assertEquals(0, $content['pinned']);
 
         $this->assertEquals(200, $response->getStatusCode());
 
         DB::rollBack();
     }
-
 
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use App\User;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
@@ -81,6 +82,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('notBefore', $item);
         $this->assertArrayHasKey('recurringUnit', $item);
         $this->assertArrayHasKey('recurringFrequency', $item);
+        $this->assertArrayHasKey('deletedAt', $item);
     }
 
     /**
@@ -92,5 +94,77 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('id', $category);
         $this->assertArrayHasKey('name', $category);
         $this->assertArrayHasKey('path', $category);
+    }
+
+    /**
+     *
+     */
+    protected function createUrgentItems()
+    {
+        $item = [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'urgency' => 1,
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+
+        $item = [
+            'title' => 'frog',
+            'body' => 'body',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'urgency' => 2,
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+    }
+
+    /**
+     *
+     */
+    protected function createAlarms()
+    {
+        $item = [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'alarm' => '2030-01-01 06:00:00',
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+
+        $item = [
+            'title' => 'frog',
+            'body' => 'body',
+            'priority' => 2,
+            'favourite' => 1,
+            'parent_id' => 5,
+            'category_id' => 2,
+            'alarm' => '2030-01-01 10:00:00',
+        ];
+
+        $response = $this->call('POST', '/api/items', $item);
+    }
+
+    /**
+     * So my tests aren't wrecked up by the trashed items
+     */
+    protected function restoreTrashedItems()
+    {
+        $trashedItems = Item::onlyTrashed()->get();
+        foreach ($trashedItems as $item) {
+            $item->restore();
+        }
+
     }
 }
