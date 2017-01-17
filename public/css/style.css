@@ -175,6 +175,10 @@ h1, h2 button {
     align-items: center; }
     #login #requirements p {
       width: 540px; }
+  #login button {
+    width: 100%; }
+  #login input[type=checkbox] {
+    margin-right: 3px; }
 
 #register #trial-message {
   background: #fca700;
