@@ -248,7 +248,7 @@ class ItemSeeder extends Seeder
      */
     public function createItem($parent = NULL)
     {
-        $categoryIds = Category::lists('id')->all();
+        $categoryIds = Category::where('user_id', $this->user->id)->lists('id')->all();
 
         $item = new Item([
             'title' => $this->faker->sentence,
