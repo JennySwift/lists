@@ -5,8 +5,8 @@
             v-link="{ path: '/items/:' + item.id }"
             v-on:click="toggleFavourites()"
             class="list-group-item">
-            {{ item.title }}
-            <span class="badge">{{ item.id }}</span>
+            <div class="title">{{ item.title }}</div>
+            <div><span class="badge">{{ item.id }}</span></div>
         </li>
     </ul>
 </template>

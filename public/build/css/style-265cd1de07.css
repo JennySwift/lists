@@ -365,6 +365,15 @@ h1, h2 button {
     cursor: pointer; }
     #favourite-items li:hover {
       background: lightblue; }
+  #favourite-items .list-group-item {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center; }
+    #favourite-items .list-group-item .badge {
+      float: none; }
   @media (max-width: 320px) {
     #favourite-items {
       max-height: 400px;
