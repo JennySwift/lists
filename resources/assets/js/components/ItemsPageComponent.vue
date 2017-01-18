@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div><pre>@{{$data.shared.showFavourites | json}}</pre></div>
-        <div><pre>@{{$data.shared.favouriteItems | json}}</pre></div>
 
         <item-popup></item-popup>
 

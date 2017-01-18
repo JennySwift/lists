@@ -209,11 +209,14 @@ class ItemSeeder extends Seeder
      */
     private function favouriteSomeItems()
     {
-        $items = Item::limit(18)->offset(4)->get();
-        foreach ($items as $item) {
-            $item->favourite = 1;
-            $item->save();
+        foreach (User::all() as $user) {
+            $items = $user->items()->limit(18)->offset(4)->get();
+            foreach ($items as $item) {
+                $item->favourite = 1;
+                $item->save();
+            }
         }
+
     }
 
     /**
