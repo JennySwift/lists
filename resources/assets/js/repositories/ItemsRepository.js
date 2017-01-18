@@ -88,9 +88,6 @@ module.exports = {
         if (store.state.zoomedItem) {
             parentId = store.state.zoomedItem.id;
         }
-        else if (zoomedItem) {
-            parentId = zoomedItem.id;
-        }
 
         if (item.parent) {
             parentId = item.parent.id;
