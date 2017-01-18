@@ -13,6 +13,14 @@
             background: lightblue;
         }
     }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .badge {
+            float: none;
+        }
+    }
     
     @media (max-width: $breakpoint1) {
         max-height: 400px;

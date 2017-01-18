@@ -72,23 +72,38 @@ module.exports = {
             data.pinned = 0;
         }
 
-        if (item.parent) {
-            data.parent_id = item.parent.id;
-        }
-        else if (item.parent_id) {
-            data.parent_id = item.parent_id;
-        }
-        else if (zoomedItem) {
-            data.parent_id = zoomedItem.id;
-        }
-        else if (item.oldParentId && item.parent_id === '') {
-            data.parent_id = 'none';
-        }
-        else {
-            data.parent_id = null;
-        }
+        data.parent_id = this.setParentId(item);
 
         return data;
+    },
+
+    /**
+     *
+     * @param item
+     * @returns {*}
+     */
+    setParentId: function (item) {
+        var parentId = null;
+
+        if (store.state.zoomedItem) {
+            parentId = store.state.zoomedItem.id;
+        }
+        else if (zoomedItem) {
+            parentId = zoomedItem.id;
+        }
+
+        if (item.parent) {
+            parentId = item.parent.id;
+        }
+        else if (item.parent_id) {
+            parentId = item.parent_id;
+        }
+
+        if (item.oldParentId && item.parent_id === '') {
+            parentId = 'none';
+        }
+
+        return parentId;
     },
 
     /**
