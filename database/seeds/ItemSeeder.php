@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 
 class ItemSeeder extends Seeder
 {
+    protected $user;
 
     /**
      *
@@ -27,16 +28,22 @@ class ItemSeeder extends Seeder
     {
         Item::truncate();
 
-        $this->createItems();
+        $users = User::all();
 
-        $this->deleteSomeItems();
+        foreach ($users as $user) {
+            $this->user = $user;
+
+            $this->createItems();
+
+            $this->deleteSomeItems();
 //        $this->pinSomeItems();
-        $this->favouriteSomeItems();
+            $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
-        $this->giveANotBeforeValueToSomeItems();
+            $this->giveANotBeforeValueToSomeItems();
 
-        $this->createControlledItems();
+            $this->createControlledItems();
+        }
     }
 
     /**
@@ -92,7 +99,7 @@ class ItemSeeder extends Seeder
             'priority' => 1
         ]);
 
-        $item->user()->associate(User::first());
+        $item->user()->associate($this->user);
 
         if(!is_null($parent))
         {
@@ -110,7 +117,8 @@ class ItemSeeder extends Seeder
     private function giveANotBeforeValueToSomeItems()
     {
         $dateTime = Carbon::yesterday()->subDays(1);
-        $items = Item::orderBy('id', 'desc')->whereNull('parent_id')->limit(3)->get();
+        $items = Item::where('user_id', $this->user->id)->orderBy('id', 'desc')->whereNull('parent_id')->limit(3)->get();
+
         foreach ($items as $index => $item) {
             $dateTime->addDay(1);
             $item->not_before = $dateTime->copy()->format('Y-m-d H:i:s');
@@ -130,7 +138,7 @@ class ItemSeeder extends Seeder
      */
     private function giveAlarmsToSomeItems()
     {
-        $item = Item::whereNull('parent_id')->first();
+        $item = Item::where('user_id', $this->user->id)->whereNull('parent_id')->first();
         $item->alarm = Carbon::today()->hour(20)->minute(0)->second(30);
         $item->save();
     }
@@ -141,21 +149,21 @@ class ItemSeeder extends Seeder
     private function makeSomeItemsUrgent()
     {
         //Give some items on the home page an urgency of 1
-        $items = Item::whereNull('parent_id')->limit(2)->get();
+        $items = Item::where('user_id', $this->user->id)->whereNull('parent_id')->limit(2)->get();
         foreach ($items as $item) {
             $item->urgency = 1;
             $item->save();
         }
 
         //Give some items on the home page an urgency of 2
-        $items = Item::whereNull('parent_id')->limit(2)->offset(2)->get();
+        $items = Item::where('user_id', $this->user->id)->whereNull('parent_id')->limit(2)->offset(2)->get();
         foreach ($items as $item) {
             $item->urgency = 2;
             $item->save();
         }
 
         //Give some items on the home page an urgency of 3
-        $items = Item::whereNull('parent_id')->limit(2)->offset(4)->get();
+        $items = Item::where('user_id', $this->user->id)->whereNull('parent_id')->limit(2)->offset(4)->get();
         foreach ($items as $item) {
             $item->urgency = 3;
             $item->save();
@@ -170,13 +178,13 @@ class ItemSeeder extends Seeder
      */
     private function deleteSomeItems()
     {
-        $items = Item::orderBy('id', 'desc')->limit(4)->get();
+        $items = Item::where('user_id', $this->user->id)->orderBy('id', 'desc')->limit(4)->get();
         foreach ($items as $item) {
             $item->delete();
         }
 
         //Delete some from the top level, too
-        $items = Item::where('parent_id', null)->limit(2)->get();
+        $items = Item::where('user_id', $this->user->id)->where('parent_id', null)->limit(2)->get();
 
         foreach ($items as $item) {
             $item->delete();
@@ -188,7 +196,7 @@ class ItemSeeder extends Seeder
      */
     private function pinSomeItems()
     {
-        $items = Item::limit(4)->get();
+        $items = Item::where('user_id', $this->user->id)->limit(4)->get();
         foreach ($items as $item) {
             $item->pinned = 1;
             $item->save();
@@ -200,7 +208,7 @@ class ItemSeeder extends Seeder
      */
     private function favouriteSomeItems()
     {
-        $items = Item::limit(18)->offset(4)->get();
+        $items = Item::where('user_id', $this->user->id)->limit(18)->offset(4)->get();
         foreach ($items as $item) {
             $item->favourite = 1;
             $item->save();
@@ -255,7 +263,7 @@ class ItemSeeder extends Seeder
 //            }
 //        }
 
-        $item->user()->associate(User::first());
+        $item->user()->associate($this->user);
 
         if ($this->faker->boolean(50)) {
             $item->body = 'item body';
