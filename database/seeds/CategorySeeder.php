@@ -25,18 +25,14 @@ class CategorySeeder extends Seeder
 
         $categoryNames = ['coding', 'social', 'faith', 'health', 'minimalism'];
 
-        $users = User::all();
-
-        foreach ($users as $user) {
-            foreach($categoryNames as $name) {
+        foreach (User::all() as $user) {
+            foreach ($categoryNames as $name)
+            {
                 $category = new Category(['name' => $name]);
                 $category->user()->associate($user);
                 $category->save();
             }
         }
-
-
-
     }
 
 }
