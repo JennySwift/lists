@@ -1,32 +1,27 @@
 <template>
     <div id="new-item">
 
-        <div class="input-group-container">
-            <item-fields
-                :item="newItem"
-                action="insert"
-                :show="showNewItemFields"
-                :enter="insertItem"
-                :focus="showFields"
-            >
-            </item-fields>
+        <item-fields
+            :item="newItem"
+            action="insert"
+            :enter="insertItem"
+            :focus="showFields"
+        >
+        </item-fields>
 
-        </div>
-
-
-        <div v-show="showNewItemFields" class="form-group">
-            <button
-                v-on:click="showNewItemFields = false"
-                class="btn btn-default"
-            >
-                Cancel
-            </button>
+        <div class="form-group">
+            <!--<button-->
+                <!--v-on:click="showNewItemFields = false"-->
+                <!--class="btn btn-default"-->
+            <!--&gt;-->
+                <!--Cancel-->
+            <!--</button>-->
             <button
                 v-on:click="insertItem(13)"
                 :disabled="!newItem.title || !newItem.category || !newItem.priority"
                 class="btn btn-success"
             >
-                Add item
+                Add
             </button>
         </div>
 

@@ -13,6 +13,18 @@
     display: none;
 }
 
+.item-title {
+    height: 50px;
+}
+
+.item-fields {
+    margin-top: 7px;
+}
+
+textarea.note {
+    height: 300px;
+}
+
 #item-autocomplete {
     max-width: 500px;
 }

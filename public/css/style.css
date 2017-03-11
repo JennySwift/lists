@@ -124,7 +124,8 @@ h1, h2 button {
   color: #97D7D6; }
 
 textarea {
-  border: 1px solid #ccc; }
+  border: 1px solid #ccc;
+  width: 100%; }
 
 .swal2-modal button {
   margin-right: 5px;
@@ -292,7 +293,7 @@ textarea {
 #item-popup .item-body {
   margin-top: 10px; }
 
-#item-popup textarea {
+#item-popup textarea.note {
   min-height: 300px; }
 
 #search-container {
@@ -333,12 +334,13 @@ textarea {
   #new-item .note {
     width: 100%; }
   #new-item textarea {
-    height: 300px;
     display: block; }
     #new-item textarea::-webkit-input-placeholder {
       text-align: center; }
   #new-item .item-body {
     margin-top: 6px; }
+  #new-item button {
+    width: 100%; }
 
 #breadcrumb {
   display: -ms-flexbox;
@@ -615,6 +617,15 @@ textarea {
   height: 2px;
   background: #777;
   display: none; }
+
+.item-title {
+  height: 50px; }
+
+.item-fields {
+  margin-top: 7px; }
+
+textarea.note {
+  height: 300px; }
 
 #item-autocomplete {
   max-width: 500px; }
