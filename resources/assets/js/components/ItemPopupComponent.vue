@@ -254,8 +254,10 @@
             }
         },
         events: {
-            'option-chosen': function (option) {
-                this.selectedItem.parent_id = option.id;
+            'option-chosen': function (option, inputId) {
+                if (inputId === 'selected-item-new-parent') {
+                    this.selectedItem.parent_id = option.id;
+                }
             }
         },
         ready: function () {

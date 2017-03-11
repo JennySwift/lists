@@ -1,5 +1,7 @@
 <template>
     <div id="new-item">
+        
+        <pre>@{{$data.newItem.parent_id | json}}</pre>
 
         <item-fields
             :item="newItem"
@@ -47,7 +49,8 @@
                     favourite: false,
                     pinned: false,
                     category: {},
-                    priority: 1
+                    priority: 1,
+                    parent_id: null
                 }
             };
         },
@@ -72,21 +75,40 @@
             },
 
             /**
+             * For determining whether or not to insert the item with the JS at the current location
+             */
+            insertItemAtCurrentLocation: function (data) {
+                if (!this.shared.zoomedItem && !data.parent_id) {
+                    //At home level with no parent specified
+                    return true;
+                }
+                else if (this.shared.zoomedItem && this.shared.zoomedItem.id === data.parent_id) {
+                    return true;
+                }
+                return false;
+            },
+
+            /**
             *
             */
             insertItem: function () {
                 var data = ItemsRepository.setData(this.newItem, this.zoomedItem);
 
+                var array = 'items';
+                //Only add item to the array with JS if the new item is added to the current location
+                if (!this.insertItemAtCurrentLocation(data)) {
+                    array = null;
+                }
+
                 helpers.post({
                     url: '/api/items',
                     data: data,
-                    array: 'items',
+                    array: array,
                     message: 'Item created',
                     clearFields: this.clearFields,
                     redirectTo: this.redirectTo,
                     callback: function (response) {
                         this.showNewItemFields = false;
-                        this.clearNewItemFields();
                         if (response.alarm) {
                             $.event.trigger('alarm-created', [response]);
                         }
@@ -95,6 +117,13 @@
                         }
                     }.bind(this)
                 });
+            },
+
+            clearFields: function () {
+                this.newItem.parent_id = null;
+                this.newItem.title = '';
+                this.newItem.body = '';
+                this.newItem.parent = false;
             },
 
             /**
@@ -228,6 +257,13 @@
             'items',
             'zoomedItem'
         ],
+        events: {
+            'option-chosen': function (option, inputId) {
+                if (inputId === 'new-item-parent') {
+                    this.newItem.parent_id = option.id;
+                }
+            }
+        },
         ready: function () {
             this.getUser();
             this.listen();

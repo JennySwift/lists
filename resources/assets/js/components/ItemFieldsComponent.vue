@@ -129,7 +129,7 @@
                     label="Parent:"
                     :model.sync="item.parent"
                     :enter="enter"
-                    id="item-parent"
+                    id="new-item-parent"
                     url="/api/items"
                     options-prop="title"
                 >
@@ -140,7 +140,7 @@
                     label="Parent Id:"
                     :model.sync="item.parent_id"
                     :enter="enter"
-                    id="selected-item-parent-id"
+                    id="new-item-parent-id"
                     tooltip-id="new-item-parent-id-tooltip"
                 >
                 </input-group>
