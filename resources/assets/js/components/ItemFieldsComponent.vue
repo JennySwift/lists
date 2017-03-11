@@ -5,6 +5,7 @@
         <ul class="nav nav-tabs">
             <li role="presentation" v-on:click="tab = 1" v-bind:class="{'active': tab === 1}"><a href="#">Main</a></li>
             <li role="presentation" v-on:click="tab = 2" v-bind:class="{'active': tab === 2}"><a href="#">Note</a></li>
+            <li role="presentation" v-on:click="tab = 3" v-bind:class="{'active': tab === 3}"><a href="#">Advanced</a></li>
         </ul>
 
         <div v-show="tab === 1">
@@ -41,7 +42,20 @@
                 required="true"
             >
             </input-group>
+        </div>
 
+        <!--Body-->
+        <div v-show="show && tab === 2" class="form-group item-body">
+            <!--<label for="new-item-body">Body</label>-->
+            <textarea
+                v-model="item.body"
+                class="note"
+                name="new-item-body"
+            >
+            </textarea>
+        </div>
+
+        <div v-show="show && tab === 3">
             <!--Urgency-->
             <input-group
                 v-show="show"
@@ -138,17 +152,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--Body-->
-        <div v-show="show && tab === 2" class="form-group item-body">
-            <!--<label for="new-item-body">Body</label>-->
-            <textarea
-                v-model="item.body"
-                class="note"
-                name="new-item-body"
-            >
-            </textarea>
         </div>
     </div>
 
