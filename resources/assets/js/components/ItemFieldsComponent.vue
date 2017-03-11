@@ -3,9 +3,9 @@
     <div>
 
         <ul class="nav nav-tabs">
-            <li role="presentation" v-on:click="tab = 1" v-bind:class="{'active': tab === 1}"><a href="#">Main</a></li>
-            <li role="presentation" v-on:click="tab = 2" v-bind:class="{'active': tab === 2}"><a href="#">Note</a></li>
-            <li role="presentation" v-on:click="tab = 3" v-bind:class="{'active': tab === 3}"><a href="#">Advanced</a></li>
+            <li v-on:click="tab = 1" v-bind:class="{'active': tab === 1}"><a href="javascript:void(0)">Main</a></li>
+            <li v-on:click="tab = 2" v-bind:class="{'active': tab === 2}"><a href="javascript:void(0)">Note</a></li>
+            <li v-on:click="tab = 3" v-bind:class="{'active': tab === 3}"><a href="javascript:void(0)">Advanced</a></li>
         </ul>
 
         <div v-show="tab === 1">
