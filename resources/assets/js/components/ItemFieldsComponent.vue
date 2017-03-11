@@ -121,30 +121,30 @@
                     </div>
                 </div>
 
-                <div v-if="action === 'update'">
-                    <input-group
-                        label="New Parent:"
-                        :model.sync="item.newParent"
-                        :enter="updateItem"
-                        id="selected-item-new-parent"
-                        url="/api/items"
-                        options-prop="title"
-                    >
-                    </input-group>
+                <input-group
+                    v-if="action === 'update'"
+                    label="New Parent:"
+                    :model.sync="item.newParent"
+                    :enter="updateItem"
+                    id="selected-item-new-parent"
+                    url="/api/items"
+                    options-prop="title"
+                >
+                </input-group>
 
-                    <input-group
-                        label="Parent Id:"
-                        :model.sync="item.parent_id"
-                        :enter="updateItem"
-                        id="selected-item-parent-id"
-                        tooltip-id="selected-item-parent-id-tooltip"
-                    >
-                    </input-group>
+                <input-group
 
-                    <div class="tooltip_templates">
-                        <div id="selected-item-parent-id-tooltip">
-                            To move home, make field empty
-                        </div>
+                    label="Parent Id:"
+                    :model.sync="item.parent_id"
+                    :enter="updateItem"
+                    id="selected-item-parent-id"
+                    tooltip-id="selected-item-parent-id-tooltip"
+                >
+                </input-group>
+
+                <div class="tooltip_templates" v-show="action === 'update'">
+                    <div id="selected-item-parent-id-tooltip">
+                        To move home, make field empty
                     </div>
                 </div>
             </div>
