@@ -1,7 +1,5 @@
 <template>
     <div id="new-item">
-        
-        <pre>@{{$data.newItem.parent_id | json}}</pre>
 
         <item-fields
             :item="newItem"
