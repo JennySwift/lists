@@ -16,6 +16,7 @@
                     <label for="new-item-title">Title</label>
                     <textarea
                         v-model="item.title"
+                        v-on:keyup.13="enter()"
                         id="new-item-title"
                         class="item-title"
                     >
