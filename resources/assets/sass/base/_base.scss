@@ -25,6 +25,9 @@ body {
 		//margin: 20px;
 		//margin-top: 0;
 		//padding-top: $navHeight + 3px;
+		@media all and (max-width: $breakpoint2) {
+			padding: 0 5px;
+		}
 	}
 	footer {
 		display: flex;
@@ -148,5 +151,9 @@ h1 {
 
 h1, h2 button {
 	@include characterFont;
+}
+
+textarea {
+	border: 1px solid #ccc;
 }
 

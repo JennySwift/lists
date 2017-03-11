@@ -37,31 +37,6 @@
                         :enter="updateItem"
                     >
                     </item-fields>
-
-                    <input-group
-                        label="New Parent:"
-                        :model.sync="selectedItem.newParent"
-                        :enter="updateItem"
-                        id="selected-item-new-parent"
-                        url="/api/items"
-                        options-prop="title"
-                    >
-                    </input-group>
-
-                    <input-group
-                        label="Parent Id:"
-                        :model.sync="selectedItem.parent_id"
-                        :enter="updateItem"
-                        id="selected-item-parent-id"
-                        tooltip-id="selected-item-parent-id-tooltip"
-                    >
-                    </input-group>
-
-                    <div class="tooltip_templates">
-                        <div id="selected-item-parent-id-tooltip">
-                            To move home, make field empty
-                        </div>
-                    </div>
                 </div>
 
                 <buttons
@@ -69,6 +44,8 @@
                     :save="updateItem"
                     :destroy="deleteItem"
                     :redirect-to="redirectTo"
+                    :show-popup.sync="showPopup"
+
                 >
                 </buttons>
 

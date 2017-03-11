@@ -17,6 +17,9 @@ body {
   body .main {
     min-height: 100%;
     padding: 0 20px 20px 20px; }
+    @media all and (max-width: 768px) {
+      body .main {
+        padding: 0 5px; } }
   body footer {
     display: -ms-flexbox;
     display: flex;
@@ -119,6 +122,9 @@ li {
 h1, h2 button {
   font-family: "Annie Use Your Telescope";
   color: #97D7D6; }
+
+textarea {
+  border: 1px solid #ccc; }
 
 .swal2-modal button {
   margin-right: 5px;
@@ -240,9 +246,12 @@ h1, h2 button {
   .popup-outer .popup-inner {
     border-radius: 5px;
     background: white;
+    width: 100%;
+    height: calc(100% - 67px);
     max-height: calc(100% - 67px);
-    padding: 25px;
-    margin: 0 30px; }
+    max-width: 97%;
+    padding: 0px;
+    margin: 5px; }
     .popup-outer .popup-inner:not(.scrollbar-container) {
       overflow: scroll; }
     .popup-outer .popup-inner .popup-title {
@@ -282,6 +291,9 @@ h1, h2 button {
 
 #item-popup .item-body {
   margin-top: 10px; }
+
+#item-popup textarea {
+  min-height: 300px; }
 
 #search-container {
   position: fixed;

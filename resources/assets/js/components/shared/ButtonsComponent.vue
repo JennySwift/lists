@@ -9,6 +9,14 @@
         </button>
 
         <button
+            v-if="showPopup"
+            v-on:click="showPopup = false"
+            class="btn btn-default"
+        >
+            Cancel
+        </button>
+
+        <button
             v-if="destroy"
             v-on:click="destroy()"
             class="btn btn-danger"
@@ -31,7 +39,9 @@
         props: [
             'save',
             'destroy',
-            'redirectTo'
+            'redirectTo',
+            //For if it's a popup without a redirect path
+            'showPopup'
         ]
     };
 </script>

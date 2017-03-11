@@ -14,7 +14,7 @@
         >
         </urgent-items>
 
-        <div id="lists" class="container">
+        <div id="lists" class="">
             <breadcrumb></breadcrumb>
 
             <favourite-items></favourite-items>

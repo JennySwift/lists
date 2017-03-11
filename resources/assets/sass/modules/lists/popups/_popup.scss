@@ -13,12 +13,15 @@
 	.popup-inner {
 		border-radius: 5px;
 		background: white;
+		width: 100%;
 		&:not(.scrollbar-container) {
 			overflow: scroll;
 		}
+		height: calc(100% - 67px);
 		max-height: calc(100% - 67px);
-		padding: 25px;
-		margin: 0 30px;
+		max-width: 97%;
+		padding: 0px;
+		margin: 5px;
 		.popup-title {
 			margin-bottom: 30px;
 			margin-top: 0;

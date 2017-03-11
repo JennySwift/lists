@@ -1,12 +1,4 @@
 #item-popup {
-    //height: 650px;
-    //.flex {
-    //    display: flex;
-    //    justify-content: flex-start;
-    //    > * {
-    //        margin: 10px 10px;
-    //    }
-    //}
     > input,select,textarea, .save {
         width: 100%;
     }
@@ -26,5 +18,8 @@
     }
     .item-body {
         margin-top: 10px;
+    }
+    textarea {
+        min-height: 300px;
     }
 }
