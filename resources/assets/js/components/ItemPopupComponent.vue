@@ -29,7 +29,7 @@
 
                 </div>
 
-                <div class="input-group-container">
+                <div>
                     <item-fields
                         :item="selectedItem"
                         action="update"
