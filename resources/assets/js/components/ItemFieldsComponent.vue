@@ -5,6 +5,7 @@
         <ul class="nav nav-tabs">
             <li v-on:click="tab = 1" v-bind:class="{'active': tab === 1}"><a href="javascript:void(0)">Main</a></li>
             <li v-on:click="tab = 2" v-bind:class="{'active': tab === 2}"><a href="javascript:void(0)">Note</a></li>
+            <li v-on:click="tab = 4" v-bind:class="{'active': tab === 4}"><a href="javascript:void(0)">Parent</a></li>
             <li v-on:click="tab = 3" v-bind:class="{'active': tab === 3}"><a href="javascript:void(0)">Advanced</a></li>
         </ul>
 
@@ -14,12 +15,11 @@
                 <div class="form-group">
                     <label for="new-item-title">Title</label>
                     <textarea
-                        :model.sync="item.title"
+                        v-model="item.title"
                         id="new-item-title"
-                        required="true"
                         class="item-title"
                     >
-            </textarea>
+                    </textarea>
                 </div>
 
                 <input-group
@@ -53,7 +53,7 @@
                     class="note"
                     name="new-item-body"
                 >
-            </textarea>
+                </textarea>
             </div>
 
             <div v-show="tab === 3" class="input-group-container">
@@ -120,12 +120,37 @@
                         Recurring Frequency
                     </div>
                 </div>
+            </div>
 
+            <div v-show="tab === 4" class="input-group-container">
+                <!--Parent for inserting item-->
+                <input-group
+                    v-if="action === 'insert'"
+                    label="Parent:"
+                    :model.sync="item.parent"
+                    :enter="enter"
+                    id="item-parent"
+                    url="/api/items"
+                    options-prop="title"
+                >
+                </input-group>
+
+                <input-group
+                    v-if="action === 'insert'"
+                    label="Parent Id:"
+                    :model.sync="item.parent_id"
+                    :enter="enter"
+                    id="selected-item-parent-id"
+                    tooltip-id="new-item-parent-id-tooltip"
+                >
+                </input-group>
+
+                <!--Parent for updating item-->
                 <input-group
                     v-if="action === 'update'"
                     label="New Parent:"
                     :model.sync="item.newParent"
-                    :enter="updateItem"
+                    :enter="enter"
                     id="selected-item-new-parent"
                     url="/api/items"
                     options-prop="title"
@@ -133,10 +158,10 @@
                 </input-group>
 
                 <input-group
-
+                    v-if="action === 'update'"
                     label="Parent Id:"
                     :model.sync="item.parent_id"
-                    :enter="updateItem"
+                    :enter="enter"
                     id="selected-item-parent-id"
                     tooltip-id="selected-item-parent-id-tooltip"
                 >
@@ -145,6 +170,12 @@
                 <div class="tooltip_templates" v-show="action === 'update'">
                     <div id="selected-item-parent-id-tooltip">
                         To move home, make field empty
+                    </div>
+                </div>
+
+                <div class="tooltip_templates" v-show="action === 'update'">
+                    <div id="new-item-parent-id-tooltip">
+                        To make a new item in the current location, leave this field empty.
                     </div>
                 </div>
             </div>
