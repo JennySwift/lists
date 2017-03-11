@@ -256,6 +256,7 @@
     $base2: #97D7D6;
     $base3: #B0E4DC;
     $base4: $base2;
+    $breakpoint2: '768px';
 
 
     $zIndex1: 9;
@@ -265,6 +266,9 @@
         color: darken($base2, 10%);
         min-width: 160px;
         text-align: right;
+        @media all and (max-width: $breakpoint2) {
+            min-width: 105px;
+        }
     }
 
     .datepicker {

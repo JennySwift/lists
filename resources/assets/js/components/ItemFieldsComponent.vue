@@ -80,23 +80,37 @@
             <!--Recurring unit-->
             <input-group
                 v-show="show"
-                label="Recurring Unit:"
+                label="RU:"
                 :model.sync="item.recurringUnit"
                 :enter="enter"
                 id="new-item-recurring-unit"
                 :options="shared.recurringUnits"
+                tooltip-id="selected-item-recurring-unit-tooltip"
             >
             </input-group>
 
             <!--Recurring Frequency-->
             <input-group
                 v-show="show"
-                label="Recurring Frequency:"
+                label="RF:"
                 :model.sync="item.recurringFrequency"
                 :enter="enter"
                 id="new-item-recurring-frequency"
+                tooltip-id="selected-item-recurring-frequency-tooltip"
             >
             </input-group>
+
+            <div class="tooltip_templates">
+                <div id="selected-item-recurring-unit-tooltip">
+                    Recurring Unit
+                </div>
+            </div>
+
+            <div class="tooltip_templates">
+                <div id="selected-item-recurring-frequency-tooltip">
+                    Recurring Frequency
+                </div>
+            </div>
 
             <div v-if="action === 'update'">
                 <input-group

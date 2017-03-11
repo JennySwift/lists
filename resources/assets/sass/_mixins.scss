@@ -16,6 +16,9 @@
     text-align: right;
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
+    @media all and (max-width: $breakpoint2) {
+        min-width: 105px;
+    }
 }
 
 @mixin navBackground {

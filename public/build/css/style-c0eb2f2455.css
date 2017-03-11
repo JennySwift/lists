@@ -861,6 +861,9 @@ label.input-group-addon {
   border-bottom: 1px solid #ccc;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0; }
+  @media all and (max-width: 768px) {
+    label.input-group-addon {
+      min-width: 105px; } }
   label.input-group-addon:not('first-child') {
     border-top: 0; }
 
