@@ -1,4 +1,6 @@
 #item-popup {
+    //So the calendar doesn't get chopped off
+    height: auto;
     > input,select,textarea, .save {
         width: 100%;
     }

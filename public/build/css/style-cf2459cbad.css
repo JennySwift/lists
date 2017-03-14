@@ -278,23 +278,20 @@ textarea {
   .popup-inner {
     padding: 22px; } }
 
-#item-popup > input, #item-popup select, #item-popup textarea, #item-popup .save {
-  width: 100%; }
-
-#item-popup .pin-btn.pinned {
-  color: #fca700; }
-
-#item-popup .fa-star {
-  color: #fca700; }
-
-#item-popup .datepicker .input-group-btn {
-  right: 1px; }
-
-#item-popup .item-body {
-  margin-top: 10px; }
-
-#item-popup textarea.note {
-  min-height: 300px; }
+#item-popup {
+  height: auto; }
+  #item-popup > input, #item-popup select, #item-popup textarea, #item-popup .save {
+    width: 100%; }
+  #item-popup .pin-btn.pinned {
+    color: #fca700; }
+  #item-popup .fa-star {
+    color: #fca700; }
+  #item-popup .datepicker .input-group-btn {
+    right: 1px; }
+  #item-popup .item-body {
+    margin-top: 10px; }
+  #item-popup textarea.note {
+    min-height: 300px; }
 
 #search-container {
   position: fixed;
