@@ -1,52 +1,47 @@
-var Vue = require('vue');
-var VueRouter = require('vue-router');
-Vue.use(VueRouter);
-global.router = new VueRouter({hashbang: false});
-
-router.map({
-    '/': {
+module.exports = [
+    {
+        path: '/',
         component: require('./components/ItemsPageComponent.vue'),
-        subRoutes: {
-            //default for if no id is specified
-            '/': {
+        children: [
+            {
+                path: '/',
                 component: require('./components/ItemComponent.vue')
             },
-            '/:id': {
+            {
+                path: '/',
                 component: require('./components/ItemComponent.vue')
             }
-        }
+        ]
     },
-    '/items': {
+    {
+        path: '/items',
         component: require('./components/ItemsPageComponent.vue'),
-        subRoutes: {
-            //default for if no id is specified
-            '/': {
+        children: [
+            {
+                path: '/',
                 component: require('./components/ItemComponent.vue')
             },
-            '/:id': {
+            {
+                path: '/:id',
                 component: require('./components/ItemComponent.vue')
             }
-        }
+        ]
     },
-    '/categories': {
+    {
+        path: '/categories',
         component: require('./components/CategoriesComponent.vue')
     },
-    '/trash': {
+    {
+        path: '/trash',
         component: require('./components/TrashComponent.vue')
     },
-    '/feedback': {
+    {
+        path: '/feedback',
         component: require('./components/FeedbackPageComponent.vue')
     },
-    '/help': {
+    {
+        path: '/help',
         component: require('./components/HelpPageComponent.vue')
     }
-});
 
-// router.redirect({
-//     '/': '/timers'
-// });
-
-var App = Vue.component('app', require('./components/AppComponent'));
-
-router.start(App, 'body');
-
+];

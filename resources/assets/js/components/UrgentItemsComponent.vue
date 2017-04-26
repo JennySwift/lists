@@ -6,6 +6,7 @@
 
             <item
                 v-for="item in items | order"
+                :key="item.id"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
                 :delete-item="deleteItem"

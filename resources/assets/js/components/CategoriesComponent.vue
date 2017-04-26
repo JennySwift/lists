@@ -11,7 +11,7 @@
         <new-category></new-category>
 
         <ul class="list-group">
-            <li v-for="category in shared.categories | orderBy 'name'" class="list-group-item">
+            <li v-for="category in shared.categories" class="list-group-item">
                 <category
                     :category="category"
                 >

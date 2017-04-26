@@ -7,13 +7,15 @@
 </head>
 <body>
 
-<navbar></navbar>
+<div id="app">
+    {{--<navbar></navbar>--}}
 
-<feedback></feedback>
-<loading></loading>
+    {{--<feedback></feedback>--}}
+    {{--<loading></loading>--}}
 
-<div class="main">
-    <router-view></router-view>
+    <div class="main">
+        <router-view></router-view>
+    </div>
 </div>
 
 @include('templates.shared.footer')

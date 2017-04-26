@@ -2,6 +2,7 @@
     <ul v-show="shared.showFavourites" id="favourite-items" class="list-group">
         <li
             v-for="item in shared.favouriteItems"
+            :key="item.id"
             v-link="{ path: '/items/:' + item.id }"
             v-on:click="toggleFavourites()"
             class="list-group-item">

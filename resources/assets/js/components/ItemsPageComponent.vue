@@ -1,33 +1,34 @@
 <template>
     <div>
-        <item-popup></item-popup>
+        <!--<item-popup></item-popup>-->
 
-        <alarms
-            :show-item-popup.sync="showItemPopup"
-            :selected-item.sync="selectedItem"
-            :close-popup="closePopup"
-        >
-        </alarms>
+        <!--<alarms-->
+            <!--:show-item-popup.sync="showItemPopup"-->
+            <!--:selected-item.sync="selectedItem"-->
+            <!--:close-popup="closePopup"-->
+        <!--&gt;-->
+        <!--</alarms>-->
 
-        <urgent-items
-            :item="item"
-        >
-        </urgent-items>
+        <!--<urgent-items-->
+            <!--:item="item"-->
+        <!--&gt;-->
+        <!--</urgent-items>-->
 
         <div id="lists" class="">
-            <breadcrumb></breadcrumb>
+            <!--<breadcrumb></breadcrumb>-->
 
-            <favourite-items></favourite-items>
+            <!--<favourite-items></favourite-items>-->
 
-            <filter></filter>
+            <!--<filter></filter>-->
 
-            <new-item></new-item>
+            <!--<new-item></new-item>-->
 
             <!--Items-->
             <ul id="items">
 
                 <item
-                    v-for="item in shared.items | itemsFilter"
+                    v-for="item in shared.items"
+                    :key="item.id"
                     :items-filter="itemsFilter"
                     :filters="filters"
                     :show-children="showChildren"

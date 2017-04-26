@@ -1,17 +1,12 @@
 <template>
     <div v-show="showFilter" id="search-container">
-
-        <!--<div>-->
-            <!--<button v-on:click="toggleFavouriteItems()" class="btn btn-info fa fa-star-o"></button>-->
-        <!--</div>-->
-
         <div class="input-group-container">
             <!--<input-group-->
-                <!--label="Title (all items):"-->
-                <!--:model.sync=""-->
-                <!--:enter="filter"-->
-                <!--id=""-->
-                <!--tooltip-id=""-->
+            <!--label="Title (all items):"-->
+            <!--:model.sync=""-->
+            <!--:enter="filter"-->
+            <!--id=""-->
+            <!--tooltip-id=""-->
             <!--&gt;-->
             <!--</input-group>-->
 
@@ -69,7 +64,6 @@
             <input-group
                 label="Category:"
                 :model.sync="shared.filters.category"
-                :enter=""
                 id="filter-category"
                 :options="categoryOptions"
                 options-prop="name"
@@ -103,7 +97,6 @@
     var ItemsRepository = require('../repositories/ItemsRepository');
 
     module.exports = {
-        template: '#filter-template',
         data: function () {
             return {
                 showFilter: undefined,
@@ -115,7 +108,7 @@
                 var categories = helpers.clone(this.shared.categories);
                 categories.unshift({name: 'Any'});
 
-              return categories;
+                return categories;
             }
         },
         components: {},
@@ -156,8 +149,8 @@
             //},
 
             /**
-            *
-            */
+             *
+             */
             filter: function () {
                 var filter = $("#filter").val();
 

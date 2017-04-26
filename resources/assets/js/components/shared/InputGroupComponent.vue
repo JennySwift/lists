@@ -8,7 +8,13 @@
             {{label}}
 
             <!--Tooltip-->
-            <span v-if="tooltipId" class="tooltipster fa fa-question-circle" data-tooltipster='{"side":"bottom"}' data-tooltip-content="#{{tooltipId}}"></span>
+            <span
+                v-if="tooltipId"
+                class="tooltipster fa fa-question-circle"
+                data-tooltipster='{"side":"bottom"}'
+                :data-tooltip-content="tooltipId"
+            >
+            </span>
         </label>
 
         <!--Text input-->

@@ -7,6 +7,9 @@ require('tooltipster');
 var requests = require('./Requests');
 var arrays = require('./Arrays');
 
+var VueRouter = require('vue-router');
+Vue.use(VueRouter);
+
 module.exports = {
 
     //Request methods
@@ -38,7 +41,7 @@ module.exports = {
     closePopup: function ($event, that, routeToGoTo) {
         if ($($event.target).hasClass('popup-outer')) {
             that.showPopup = false;
-            router.go(routeToGoTo);
+            VueRouter.go(routeToGoTo);
         }
     },
 
@@ -173,8 +176,8 @@ module.exports = {
         //    return that.$route.params.id.slice(1);
         //}
         // var path = that.$route.path;
-        if (!router.app) return false;
-        var path = router.app.$route.path;
+        if (!VueRouter.app) return false;
+        var path = VueRouter.app.$route.path;
         var index = path.indexOf(':');
         if (index != -1) {
             return path.slice(index+1);

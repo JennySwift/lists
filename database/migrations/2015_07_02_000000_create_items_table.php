@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('title')->index();
             //I got an error when I tried using index() here
             $table->text('body')->nullable();
-            $table->integer('index');
+            $table->integer('index')->nullable();
             $table->integer('category_id')->unsigned()->nullable()->index();
             $table->integer('priority')->index();
             $table->boolean('favourite')->default(false)->index();

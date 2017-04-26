@@ -168,6 +168,7 @@
 
             <item
                 v-for="item in item.children | itemsFilter"
+                :key="item.id"
                 :filters="filters"
                 :show-children="showChildren"
                 :item="item"

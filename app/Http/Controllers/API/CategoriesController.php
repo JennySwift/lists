@@ -25,7 +25,6 @@ class CategoriesController extends Controller
      */
     public function __construct(CategoriesRepository $categoriesRepository)
     {
-        $this->middleware('auth');
         $this->categoriesRepository = $categoriesRepository;
     }
 

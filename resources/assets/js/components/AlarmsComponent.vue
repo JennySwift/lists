@@ -8,6 +8,7 @@
 
             <item
                 v-for="item in shared.itemsWithAlarm | order" track-by="$index"
+                :key="item.id"
                 :show-item-popup.sync="showItemPopup"
                 :item="item"
                 :selected-item.sync="selectedItem"
