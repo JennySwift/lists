@@ -188,7 +188,8 @@
                     callback: function (response) {
                         this.me = response;
                         if (this.me.id === 1 && this.me.email === 'cheezyspaghetti@gmail.com') {
-                            this.listenForFeedback();
+                            //Commenting out Pusher code to see if it speeds up the app.
+//                            this.listenForFeedback();
                         }
                     }.bind(this)
                 });
