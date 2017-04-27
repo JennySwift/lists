@@ -1,0 +1,26 @@
+.btn-success{
+    background: $base4;
+    border-color: $base1;
+    &:hover {
+        background: darken($base4, 3%);
+        border-color: $base1;
+    }
+}
+
+.btn-info{
+    background: $base2;
+    border-color: $base1;
+    &:hover {
+        background: darken($base2, 3%);
+        border-color: $base1;
+    }
+}
+
+//.btn-danger{
+//    background: $danger;
+//    border-color: $base1;
+//    &:hover {
+//        background: darken($warning, 3%);
+//        border-color: $base1;
+//    }
+//}

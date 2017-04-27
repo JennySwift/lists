@@ -1,0 +1,32 @@
+#favourite-items {
+    position: fixed;
+    max-height: 500px;
+    overflow: scroll;
+    top: 110px;
+    margin: auto;
+    right: 12px;
+    z-index: $zIndex5;
+    max-width: 400px;
+    li {
+        cursor: pointer;
+        &:hover {
+            background: lightblue;
+        }
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .badge {
+            float: none;
+        }
+    }
+    
+    @media (max-width: $breakpoint1) {
+        max-height: 400px;
+        top: 49px;
+        right: auto;
+        width: 91%;
+        max-width: 91%;
+    }
+}

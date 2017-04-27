@@ -1,0 +1,83 @@
+#navbar, #guest-navbar {
+	display:flex;
+	border-radius: 0;
+	justify-content: space-around;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	color: white;
+	@include navBackground;
+	padding: 0;
+	margin: 0;
+	@media (max-width: 800px) {
+		#time-till-logout {
+			display: none;
+		}
+	}
+	img {
+		width: 37px;
+	}
+	.fa-cog {
+		font-size: 21px;
+	}
+	.fa-question {
+		font-size: 21px;
+	}
+	#time-till-logout {
+		width: 110px;
+	}
+	.dropdown-menu {
+		//background: $navBackgroundColor;
+		background: white;
+		right: 0;
+		left: auto;
+		min-width: inherit;
+		padding: 2px 0;
+		li {
+			background: white;
+			a {
+				color: $base4;
+			}
+			&:hover {
+				//background: white;
+				background: $base2;
+				a {
+					//color: $navBackgroundColor;
+					color: white;
+				}
+			}
+			a:focus, a:hover {
+				background-color: inherit;
+			}
+		}
+	}
+	> li {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		height: $navHeight;
+		min-width: 70px;
+		.icon-container {
+			display: flex;
+			align-items: center;
+		}
+		> a {
+			transition: all .5s ease;
+		}
+	}
+	a {
+		color: white;
+	}
+	.gravatar-li {
+		.gravatar-container {
+			margin-left: 5px;
+			display: flex;
+			align-items: center;
+			.gravatar {
+				border-radius: 8px;
+				height: 32px;
+			}
+		}
+	}
+}

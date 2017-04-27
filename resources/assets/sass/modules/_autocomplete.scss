@@ -1,0 +1,14 @@
+.autocomplete {
+    .autocomplete-dropdown {
+        .autocomplete-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 5px;
+            &.selected {
+                background: $base2 !important;
+            }
+        }
+    }
+}
