@@ -29,11 +29,7 @@
                 <item
                     v-for="item in shared.items"
                     :key="item.id"
-                    :items-filter="itemsFilter"
-                    :filters="filters"
-                    :show-children="showChildren"
                     :item="item"
-                    :zoom="zoom"
                     class="item-with-children"
                 >
                 </item>
@@ -75,9 +71,9 @@
         },
         components: {},
         filters: {
-            itemsFilter: function (items) {
-                return filters.filter(items, this);
-            }
+//            itemsFilter: function (items) {
+//                return filters.filter(items, this);
+//            }
         },
         methods: {
 

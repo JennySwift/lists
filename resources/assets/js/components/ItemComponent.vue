@@ -28,11 +28,7 @@
                     <span class="fa fa-times"></span>
                 </button>
 
-                <i
-                    v-link="{ path: '/items/:' + item.id }"
-                    class="fa fa-search-plus big-screen"
-                >
-                </i>
+                <router-link v-bind:to="'/items/:' + item.id" tag="i" class="fa fa-search-plus big-screen"></router-link>
 
                 <i
                     v-if="item.has_children && (!item.children || item.children.length === 0)"
@@ -80,12 +76,7 @@
                         </li>
 
                         <li>
-                            <a
-                                href="#"
-                                v-link="{ path: '/items/:' + item.id }"
-                                class="fa fa-search-plus"
-                            >
-                            </a>
+                            <router-link v-bind:to="'/items/:' + item.id" class="fa fa-search-plus"></router-link>
                         </li>
                     </ul>
 
