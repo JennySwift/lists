@@ -17,7 +17,7 @@
         <div id="lists" class="">
             <breadcrumb></breadcrumb>
 
-            <!--<favourite-items></favourite-items>-->
+            <favourite-items></favourite-items>
 
             <!--<filter></filter>-->
 

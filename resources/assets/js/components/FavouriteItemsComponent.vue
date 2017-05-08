@@ -1,14 +1,16 @@
 <template>
     <ul v-show="shared.showFavourites" id="favourite-items" class="list-group">
-        <li
+        <router-link
+            :to="'/items/:' + item.id"
+            tag="li"
             v-for="item in shared.favouriteItems"
             :key="item.id"
-            v-link="{ path: '/items/:' + item.id }"
             v-on:click="toggleFavourites()"
-            class="list-group-item">
+            class="list-group-item"
+        >
             <div class="title">{{ item.title }}</div>
             <div><span class="badge">{{ item.id }}</span></div>
-        </li>
+        </router-link>
     </ul>
 </template>
 
