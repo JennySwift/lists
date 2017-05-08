@@ -53,7 +53,6 @@
             </input-group>
 
             <date-picker
-                :function-on-enter="enter"
                 :chosen-date.sync="shared.filters.notBeforeDate"
                 input-id="filter-not-before-date"
                 label="Not Before"
@@ -174,10 +173,6 @@
                 });
             }
         },
-        props: [
-            'favouriteItems',
-            'items'
-        ],
         ready: function () {
             this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
             this.listen();

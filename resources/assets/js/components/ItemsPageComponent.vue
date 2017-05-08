@@ -19,7 +19,7 @@
 
             <favourite-items></favourite-items>
 
-            <!--<filter></filter>-->
+            <items-filter></items-filter>
 
             <!--<new-item></new-item>-->
 

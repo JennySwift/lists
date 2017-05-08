@@ -10,7 +10,7 @@
                     <!--</div>-->
                 <!--</div>-->
 
-                <label for="{{inputId}}" class="">{{label}}:</label>
+                <label :for="inputId" class="">{{label}}:</label>
                 <!--<span class="tooltipster fa fa-question-circle" data-tooltip-content="{{dataTooltipContent}}"></span>-->
 
             </div>
@@ -251,7 +251,7 @@
 
 </script>
 
-<style lang="sass" rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss">
     $base1:  lighten(#3CD3AD, 30%);
     $base2: #97D7D6;
     $base3: #B0E4DC;
