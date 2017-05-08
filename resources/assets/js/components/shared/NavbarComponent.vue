@@ -1,6 +1,6 @@
 <template>
 
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -20,12 +20,15 @@
                     </li>
 
                     <li>
-                        <a v-on:click="toggleFavouriteItems()" class="fa fa-star-o"></a>
+                        <a v-on:click="toggleFavouriteItems()">Favourites</a>
                     </li>
 
                     <li>
-                        <a v-on:click="toggleFilter()"><i class="fa fa-search"></i></a>
+                        <a v-on:click="toggleFilter()">Filter</a>
                     </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
