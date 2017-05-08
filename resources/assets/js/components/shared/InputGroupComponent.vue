@@ -21,6 +21,7 @@
         <input
             v-if="!options && !url"
             v-model="model"
+            v-on:keyup="sync()"
             v-on:keyup.13="enter()"
             v-on:focus="onFocus()"
             type="text"
@@ -59,6 +60,9 @@
                 if (this.focus) {
                     this.focus();
                 }
+            },
+            sync: function () {
+                this.$emit('update:model', this.model);
             }
         },
         props: {

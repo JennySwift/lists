@@ -27,7 +27,7 @@
             <ul id="items">
 
                 <item
-                    v-for="item in shared.items"
+                    v-for="item in filteredItems"
                     :key="item.id"
                     :item="item"
                     class="item-with-children"
@@ -53,6 +53,11 @@
                 editingItems: false,
                 newIndex: -1,
                 currentTime: moment()
+            }
+        },
+        computed: {
+            filteredItems: function () {
+                return filters.filter(this.shared.items, this);
             }
         },
         watch: {
