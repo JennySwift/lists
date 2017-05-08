@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!--<item-popup></item-popup>-->
+        <item-popup></item-popup>
 
         <!--<alarms-->
             <!--:show-item-popup.sync="showItemPopup"-->
@@ -21,7 +21,7 @@
 
             <items-filter></items-filter>
 
-            <!--<new-item></new-item>-->
+            <new-item></new-item>
 
             <!--Items-->
             <ul id="items">

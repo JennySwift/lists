@@ -78,7 +78,8 @@
                 selectedItem: {},
                 selectedItemInItemsArray: {},
                 showPopup: false,
-                shared: store.state
+                shared: store.state,
+                redirectTo: this.$route.path
             };
         },
         filters: {
