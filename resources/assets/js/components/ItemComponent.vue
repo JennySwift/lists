@@ -158,12 +158,10 @@
         <ul v-if="item.children.length > 0">
 
             <item
-                v-for="item in item.children | itemsFilter"
+                v-for="item in filteredChildren"
                 :key="item.id"
-                :filters="filters"
                 :show-children="showChildren"
                 :item="item"
-                :selected-item.sync="selectedItem"
                 :zoom="zoom"
                 class="item-with-children"
             >
@@ -184,6 +182,11 @@
             };
         },
         components: {},
+        computed: {
+            filteredChildren: function () {
+                return filters.filter(this.item.children, this);
+            }
+        },
         filters: {
             timeLeftFilter: function (seconds) {
                 return filters.timeLeftFilter(seconds);
@@ -191,12 +194,8 @@
             dateTimeFilter: function (dateTime) {
                 return DateTimeRepository.convertFromDateTime(dateTime);
             },
-            itemsFilter: function (items) {
-                return filters.filter(items, this);
-            }
         },
         methods: {
-
             collapseItem: function ($item) {
                 $item.children = [];
             },
