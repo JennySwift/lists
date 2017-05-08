@@ -20,10 +20,10 @@
                 class="autocomplete-dropdown"
         >
             <div
-                    v-for="option in autocompleteOptions"
-                    v-bind:class="{'selected': currentIndex === $index}"
-                    v-on:mouseover="hoverItem($index)"
-                    v-on:mousedown="selectOption($index)"
+                    v-for="(option, index) in autocompleteOptions"
+                    v-bind:class="{'selected': currentIndex === index}"
+                    v-on:mouseover="hoverItem(index)"
+                    v-on:mousedown="selectOption(index)"
                     class="autocomplete-option"
             >
                 <div >@{{ option.title }}</div>
