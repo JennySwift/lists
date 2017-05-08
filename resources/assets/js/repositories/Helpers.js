@@ -41,7 +41,7 @@ module.exports = {
     closePopup: function ($event, that, routeToGoTo) {
         if ($($event.target).hasClass('popup-outer')) {
             that.showPopup = false;
-            VueRouter.go(routeToGoTo);
+            that.$router.push(routeToGoTo);
         }
     },
 
