@@ -1,10 +1,7 @@
 <template>
     <div id="categories">
 
-        <category-popup
-            :categories.sync="categories"
-        >
-        </category-popup>
+        <category-popup></category-popup>
 
         <h1>Categories</h1>
 

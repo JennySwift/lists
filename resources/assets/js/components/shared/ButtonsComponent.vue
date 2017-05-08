@@ -1,12 +1,13 @@
 <template>
     <div>
-        <button
-            v-if="redirectTo"
-            v-link="{path: redirectTo}"
+        <router-link
+            v-if=redirectTo
+            :to="redirectTo"
+            tag="button"
             class="btn btn-default"
         >
             Cancel
-        </button>
+        </router-link>
 
         <button
             v-if="showPopup"

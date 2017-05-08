@@ -1,31 +1,25 @@
 module.exports = [
     {
         path: '/',
-        component: require('./components/ItemsPageComponent.vue'),
-        children: [
-            {
-                path: '/',
-                component: require('./components/ItemComponent.vue')
-            },
-            {
-                path: '/',
-                component: require('./components/ItemComponent.vue')
-            }
-        ]
+        component: require('./components/ItemsPageComponent.vue')
     },
     {
         path: '/items',
         component: require('./components/ItemsPageComponent.vue'),
-        children: [
-            {
-                path: '/',
-                component: require('./components/ItemComponent.vue')
-            },
-            {
-                path: '/:id',
-                component: require('./components/ItemComponent.vue')
-            }
-        ]
+        // children: [
+        //     {
+        //         path: '/',
+        //         component: require('./components/ItemComponent.vue')
+        //     },
+        //     {
+        //         path: '/:id',
+        //         component: require('./components/ItemComponent.vue')
+        //     }
+        // ]
+    },
+    {
+        path: '/items/:id',
+        component: require('./components/ItemComponent.vue')
     },
     {
         path: '/categories',

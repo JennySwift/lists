@@ -10,8 +10,8 @@
 <div id="app">
     <navbar></navbar>
 
-    {{--<feedback></feedback>--}}
-    {{--<loading></loading>--}}
+    <feedback></feedback>
+    <loading></loading>
 
     <div class="main">
         <router-view></router-view>

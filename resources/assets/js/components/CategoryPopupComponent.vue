@@ -36,7 +36,8 @@
             return {
                 selectedCategory: {},
                 showPopup: false,
-                shared: store.state
+                shared: store.state,
+                redirectTo: '/categories'
             };
         },
         components: {},
