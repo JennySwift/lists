@@ -1,5 +1,5 @@
 var Vue = require('vue');
-require('sweetalert2');
+const swal = require('sweetalert2');
 
 module.exports = {
     /**
