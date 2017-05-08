@@ -5,7 +5,7 @@
             <a href="#" class="dropdown-toggle fa fa-bars" data-toggle="dropdown"><span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a v-link="{ path: '/categories/'  }">Categories</a>
+                    <router-link to="/categories">Categories</router-link>
                 </li>
 
                 <!--<li>-->
@@ -25,7 +25,7 @@
         </li>
 
         <li>
-            <a v-link="{ path: '/items/' }">Lists</a>
+            <router-link to="/items">Lists</router-link>
         </li>
 
         <li>
@@ -43,11 +43,11 @@
             </a>
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a v-link="{path: '/feedback'}">Submit feedback</a>
+                    <router-link to="/feedback">Submit Feedback</router-link>
                 </li>
 
                 <li>
-                    <a v-link="{path: '/help'}">Help</a>
+                    <router-link to="/help">Help</router-link>
                 </li>
             </ul>
         </li>

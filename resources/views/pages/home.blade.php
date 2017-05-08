@@ -8,7 +8,7 @@
 <body>
 
 <div id="app">
-    {{--<navbar></navbar>--}}
+    <navbar></navbar>
 
     {{--<feedback></feedback>--}}
     {{--<loading></loading>--}}
