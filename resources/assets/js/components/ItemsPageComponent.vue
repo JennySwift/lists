@@ -15,7 +15,7 @@
         <!--</urgent-items>-->
 
         <div id="lists" class="">
-            <!--<breadcrumb></breadcrumb>-->
+            <breadcrumb></breadcrumb>
 
             <!--<favourite-items></favourite-items>-->
 

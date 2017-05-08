@@ -1,7 +1,7 @@
 <template>
     <div id="breadcrumb">
         <div>
-            <a v-link="{ path: '/items/' }">Home</a>
+            <router-link to="/items/">Home</router-link>
             <i v-if="shared.breadcrumb.length > 0" class="fa fa-angle-right"></i>
         </div>
         <div v-for="item in shared.breadcrumb">
