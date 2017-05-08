@@ -143,7 +143,7 @@
         props: [
             //data to be received from parent
         ],
-        ready: function () {
+        mounted: function () {
             this.keepCurrentTimeUpToDate();
         }
     };

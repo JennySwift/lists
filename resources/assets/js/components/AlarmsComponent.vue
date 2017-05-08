@@ -101,7 +101,7 @@
             'showItemPopup',
             'selectedItem'
         ],
-        ready: function () {
+        mounted: function () {
             this.getItemsWithAlarm();
             this.listen();
         }

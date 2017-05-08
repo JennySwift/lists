@@ -97,7 +97,7 @@
                 });
             }
         },
-        ready: function () {
+        mounted: function () {
             this.listen();
         }
     };

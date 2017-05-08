@@ -173,7 +173,7 @@
                 });
             }
         },
-        ready: function () {
+        mounted: function () {
             this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
             this.listen();
         }

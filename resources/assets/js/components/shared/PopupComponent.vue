@@ -62,7 +62,7 @@
             'id',
             'redirectTo'
         ],
-        ready: function () {
+        mounted: function () {
             //this.listen();
             // helpers.scrollbars();
         }

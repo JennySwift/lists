@@ -28,7 +28,7 @@
         props: [
             'category'
         ],
-        ready: function () {
+        mounted: function () {
 
         }
     };

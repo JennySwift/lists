@@ -244,7 +244,7 @@
             'label',
             'showDateFeedback'
         ],
-        ready: function () {
+        mounted: function () {
 
         }
     };

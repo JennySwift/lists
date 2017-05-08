@@ -81,7 +81,7 @@
             'showItemPopup',
             'selectedItem'
         ],
-        ready: function () {
+        mounted: function () {
             this.getUrgentItems();
             this.listen();
         }

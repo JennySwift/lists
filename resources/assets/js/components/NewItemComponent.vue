@@ -263,7 +263,7 @@
                 }
             }
         },
-        ready: function () {
+        mounted: function () {
             this.getUser();
             this.listen();
         }

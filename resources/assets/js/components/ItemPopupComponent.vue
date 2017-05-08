@@ -261,7 +261,7 @@
                 }
             }
         },
-        ready: function () {
+        mounted: function () {
             setTimeout(function () {
                 helpers.tooltips();
             }, 1000);

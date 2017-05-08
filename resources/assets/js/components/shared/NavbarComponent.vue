@@ -93,7 +93,7 @@
         props: [
             'showFilter'
         ],
-        ready: function () {
+        mounted: function () {
 
         }
     };
