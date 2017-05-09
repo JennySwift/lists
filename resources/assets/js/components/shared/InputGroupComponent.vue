@@ -94,40 +94,6 @@
             required: {},
             topBorder: {}
 
-        },
-//        created: function () {
-//            var that = this;
-//            Event.$on('option-chosen', function (chosenOption) {
-//                that.sync(chosenOption);
-//            });
-//        }
-//        mounted: function () {
-//            this.$on('option-chosen', function(chosenOption){
-//                this.sync(chosenOption);
-//            });
-//        }
-//        events: {
-//            'option-chosen': function (value) {
-//              this.sync(value);
-//            }
-//        }
-//        props: [
-//            'label',
-//            'model',
-//            'id',
-//            'url',
-//            'options',
-//            'optionsProp',
-//            //Text to add after each option
-//            'optionsAdditionalText',
-//            'tooltipId',
-//            //Method to run on enter
-//            'enter',
-//            //Method to run on focus
-//            'focus',
-//            'optionPartial',
-//            'required',
-//            'topBorder'
-//        ]
+        }
     };
 </script>

@@ -32,7 +32,7 @@ global.helpers = require('./repositories/Helpers');
 global.filters = require('./repositories/Filters');
 Date.setLocale('en-AU');
 
-window.Event = new Vue();
+// window.Event = new Vue();
 
 //Shared components
 Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
