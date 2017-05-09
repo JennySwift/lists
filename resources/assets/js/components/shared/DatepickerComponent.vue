@@ -260,6 +260,7 @@
 
 
     $zIndex1: 9;
+    $zIndex2: 99;
 
     @mixin inputGroupLabel {
         background: lighten($base1, 10%);
@@ -302,6 +303,9 @@
         }
         table {
             margin-bottom: 0;
+            td {
+                padding: 8px;
+            }
         }
         .date-feedback-for-user {
             position: absolute;
@@ -340,7 +344,7 @@
             top: 35px;
             padding-top: 8px;
             background: white;
-            z-index: $zIndex1;
+            z-index: $zIndex2;
         }
         .datepicker-calendar {
             //position: absolute;
