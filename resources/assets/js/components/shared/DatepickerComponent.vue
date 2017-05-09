@@ -19,7 +19,7 @@
                 <div class="input-group">
                     <input
                         v-on:keyup.13="functionOnEnter()"
-                        v-model="chosenDate"
+                        v-model="mutableChosenDate"
                         type="text"
                         :id="inputId"
                         :name="inputId"
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ chosenDate | dateAndTimeFilter }}</div>
+            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableChosenDate | dateAndTimeFilter }}</div>
         </div>
 
 
@@ -82,7 +82,8 @@
             return {
                 year: this.setYear(),
                 monthNumber: this.setMonthNumber(),
-                showCalendar: false
+                showCalendar: false,
+                mutableChosenDate: this.chosenDate
             };
         },
         components: {},
@@ -154,9 +155,10 @@
              * @param dayOfMonth
              */
             chooseDate: function (dayOfMonth) {
-                this.chosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
+                this.mutableChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
                 this.hideCalendar();
-                // this.$dispatch('date-chosen', this.chosenDate, this.property);
+                // this.$dispatch('date-chosen', this.mutableChosenDate, this.property);
+                this.$emit('date-chosen', [this.mutableChosenDate]);
             },
 
             /**

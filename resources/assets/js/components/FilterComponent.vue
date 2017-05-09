@@ -54,10 +54,11 @@
             </input-group>
 
             <date-picker
-                :chosen-date.sync="shared.filters.notBeforeDate"
+                :chosen-date="shared.filters.notBeforeDate"
                 input-id="filter-not-before-date"
                 label="Not Before"
                 property="notBeforeDate"
+                @date-chosen="dateChosen"
             >
             </date-picker>
 
@@ -129,6 +130,11 @@
              */
             toggleFavouriteItems: function () {
                 $.event.trigger('toggle-favourite-items');
+            },
+
+            dateChosen: function (args) {
+//                this.$emit('update:model', args[0]);
+                store.set(args[0], 'filters.notBeforeDate');
             },
 
             /**
