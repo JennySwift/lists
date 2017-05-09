@@ -54,7 +54,7 @@
             </input-group>
 
             <date-picker
-                :chosen-date="shared.filters.notBeforeDate"
+                :chosen-date.sync="shared.filters.notBeforeDate"
                 input-id="filter-not-before-date"
                 label="Not Before"
                 property="notBeforeDate"

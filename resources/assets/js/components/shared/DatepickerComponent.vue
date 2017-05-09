@@ -18,6 +18,7 @@
             <div>
                 <div class="input-group">
                     <input
+                        v-on:keyup="keyup"
                         v-on:keyup.13="functionOnEnter()"
                         v-model="mutableChosenDate"
                         type="text"
@@ -129,6 +130,10 @@
         },
         methods: {
 
+            keyup: function () {
+                this.$emit('update:chosenDate', this.mutableChosenDate);
+            },
+
             /**
              *
              */
@@ -238,14 +243,20 @@
                 }
             }
         },
-        props: [
-            'functionOnEnter',
-            'chosenDate',
-            'inputId',
-            'inputPlaceholder',
-            'label',
-            'showDateFeedback'
-        ],
+        props: {
+            functionOnEnter: {
+                required: false,
+                type: Function,
+                default: function () {
+                    return true;
+                }
+            },
+            chosenDate: {},
+            inputId: {},
+            inputPlaceholder: {},
+            label: {},
+            showDateFeedback: {},
+        },
         mounted: function () {
 
         }
