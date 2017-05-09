@@ -10,12 +10,13 @@
 <div id="app">
     <navbar></navbar>
 
-    <feedback></feedback>
-    <loading></loading>
-
     <div class="main">
+        <feedback></feedback>
+        <loading></loading>
+
         <router-view></router-view>
     </div>
+
 </div>
 
 @include('templates.shared.footer')
