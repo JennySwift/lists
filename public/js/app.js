@@ -70708,6 +70708,11 @@ module.exports = {
 
 
 module.exports = {
+    data: function data() {
+        return {
+            mutableModel: this.model
+        };
+    },
     methods: {
         /**
          * So it doesn't error if a method isn't given to be run when the input is focused
@@ -70718,7 +70723,7 @@ module.exports = {
             }
         },
         sync: function sync() {
-            this.$emit('update:model', this.model);
+            this.$emit('update:model', this.mutableModel);
         }
     },
     props: {
@@ -81981,8 +81986,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.model),
-      expression: "model"
+      value: (_vm.mutableModel),
+      expression: "mutableModel"
     }],
     staticClass: "form-control",
     attrs: {
@@ -81990,7 +81995,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": _vm.id
     },
     domProps: {
-      "value": (_vm.model)
+      "value": (_vm.mutableModel)
     },
     on: {
       "keyup": [function($event) {
@@ -82004,7 +82009,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.model = $event.target.value
+        _vm.mutableModel = $event.target.value
       }
     }
   }) : _vm._e(), _vm._v(" "), (_vm.options || _vm.url) ? _c('autocomplete', {

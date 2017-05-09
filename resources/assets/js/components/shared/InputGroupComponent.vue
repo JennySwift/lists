@@ -20,7 +20,7 @@
         <!--Text input-->
         <input
             v-if="!options && !url"
-            v-model="model"
+            v-model="mutableModel"
             v-on:keyup="sync()"
             v-on:keyup.13="enter()"
             v-on:focus="onFocus()"
@@ -52,6 +52,11 @@
 <script>
 
     module.exports = {
+        data: function () {
+            return {
+                mutableModel: this.model
+            };
+        },
         methods: {
             /**
              * So it doesn't error if a method isn't given to be run when the input is focused
@@ -62,7 +67,7 @@
                 }
             },
             sync: function () {
-                this.$emit('update:model', this.model);
+                this.$emit('update:model', this.mutableModel);
             }
         },
         props: {
