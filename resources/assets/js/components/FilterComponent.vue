@@ -1,6 +1,6 @@
 <template>
     <div v-show="showFilter" id="search-container">
-        title: {{shared.filters.title}}
+
         <div class="input-group-container">
             <!--<input-group-->
             <!--label="Title (all items):"-->
@@ -88,7 +88,7 @@
                 >
             </div>
         </div>
-
+        
     </div>
 </template>
 

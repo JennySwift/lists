@@ -32,6 +32,8 @@ global.helpers = require('./repositories/Helpers');
 global.filters = require('./repositories/Filters');
 Date.setLocale('en-AU');
 
+window.Event = new Vue();
+
 //Shared components
 Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
 Vue.component('feedback', require('@jennyswift/feedback'));

@@ -39,6 +39,7 @@
             :function-on-enter="enter"
             :selected.sync="model"
             :option-partial="optionPartial"
+            @option-chosen="optionChosen"
         >
         </autocomplete>
 
@@ -66,6 +67,9 @@
                     this.focus();
                 }
             },
+            optionChosen: function (args) {
+                this.$emit('update:model', args[0]);
+            },
             sync: function () {
                 this.$emit('update:model', this.mutableModel);
             }
@@ -91,6 +95,22 @@
             topBorder: {}
 
         },
+//        created: function () {
+//            var that = this;
+//            Event.$on('option-chosen', function (chosenOption) {
+//                that.sync(chosenOption);
+//            });
+//        }
+//        mounted: function () {
+//            this.$on('option-chosen', function(chosenOption){
+//                this.sync(chosenOption);
+//            });
+//        }
+//        events: {
+//            'option-chosen': function (value) {
+//              this.sync(value);
+//            }
+//        }
 //        props: [
 //            'label',
 //            'model',
