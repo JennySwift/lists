@@ -35,7 +35,7 @@ class ItemSeeder extends Seeder
 
             $this->createItems();
 
-            $this->deleteSomeItems();
+//            $this->deleteSomeItems();
 //        $this->pinSomeItems();
             $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();

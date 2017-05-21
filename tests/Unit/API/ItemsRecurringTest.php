@@ -143,7 +143,7 @@ class ItemsRecurringTest extends TestCase
         $this->assertEquals(1, $item->recurring_frequency);
         $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
 
-        //Make the recurring frequency 5 and the recurring frequency 'year' and the not before date in the past
+        //Make the recurring frequency 2 and the recurring frequency 'year' and the not before date in the past
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'not_before' => '2016-01-10 15:30:00',
             'recurring_unit' => 'year',
@@ -186,7 +186,7 @@ class ItemsRecurringTest extends TestCase
         $this->assertEquals(1, $item->recurring_frequency);
         $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
 
-        //Make the recurring frequency 5 and the recurring frequency 'year' and the not before date in the past
+        //Make the recurring frequency 2 and the recurring frequency 'year' and the not before date in the past
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'not_before' => '2013-01-10 15:30:00',
             'recurring_unit' => 'year',
@@ -207,7 +207,7 @@ class ItemsRecurringTest extends TestCase
 
         $this->checkItemKeysExist($content);
 
-        $this->assertEquals('2017-01-10 15:30:00', $content['notBefore']);
+        $this->assertEquals('2019-01-10 15:30:00', $content['notBefore']);
 
         $this->assertEquals(200, $response->getStatusCode());
 

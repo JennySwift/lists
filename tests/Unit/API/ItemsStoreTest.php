@@ -68,6 +68,7 @@ class ItemsStoreTest extends TestCase
      */
     public function it_can_create_an_item_if_not_logged_in()
     {
+        $this->markTestSkipped('Skipping test "It can create an item if not logged in."');
         DB::beginTransaction();
         $alarm = Carbon::now()->addMinutes(5)->format('Y-m-d H:i:s');
 

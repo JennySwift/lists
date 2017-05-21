@@ -76,13 +76,15 @@ class ItemsUpdateTest extends TestCase
         DB::beginTransaction();
         $this->logInUser();
 
-        $item = Item::forCurrentUser()
-            ->whereNotNull('deleted_at')
-            ->withTrashed()
-            ->first();
-//        dd($item);
+        //Delete an item
+        Item::where('user_id', $this->user->id)->first()->delete();
 
-        $response = $this->call('PUT', '/api/items/'.$item->id, [
+        $item = Item::forCurrentUser()
+//            ->whereNotNull('deleted_at')
+//            ->withTrashed()
+            ->first();
+
+        $response = $this->call('PUT', '/api/items/restore/'. $item->id, [
             'deleted_at' => null
         ]);
 

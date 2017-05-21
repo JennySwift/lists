@@ -39,7 +39,7 @@ Route::get('/', ['middleware' => 'auth', function () {
 //    return 'hi';
 //});
 
-Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth']], function () {
+Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth', 'web']], function () {
     //Cors routes
 //    header('Access-Control-Allow-Origin: http://budget_app.dev:8000');
 //    Route::group(['middleware' => ['cors']], function () {
@@ -47,6 +47,8 @@ Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth']]
 //    });
 
     Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
+    Route::put('/items/restore/{id}', 'ItemsController@restore');
+
     Route::resource('categories', 'CategoriesController', ['except' => ['create', 'edit']]);
     Route::resource('feedback', 'FeedbackController', ['only' => ['store']]);
     //This didn't work without the id specified for the show method

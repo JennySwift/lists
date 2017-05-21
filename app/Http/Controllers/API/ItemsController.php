@@ -215,7 +215,7 @@ class ItemsController extends Controller
             }
 
             //So the recurring frequency can be removed
-            if ($request->get('recurring_frequency') === '') {
+            if ($request->exists('recurring_frequency') && !$request->get('recurring_frequency')) {
                 $data['recurring_frequency'] = null;
             }
 
@@ -229,13 +229,8 @@ class ItemsController extends Controller
             }
 
             //So the body of an item can be removed
-            if ($request->get('body') === '') {
+            if ($request->exists('body') && !$request->get('body')) {
                 $data['body'] = '';
-            }
-
-            //So the item can be restored from the trash
-            if ($request->exists('deleted_at') && $request['deleted_at'] === null) {
-                $item->restore();
             }
 
             $item->update($data);
@@ -317,6 +312,20 @@ class ItemsController extends Controller
             ->orderBy('deleted_at', 'desc')
             ->first();
 
+        $item->restore();
+
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+        return response($item, Response::HTTP_OK);
+    }
+
+    /**
+     *
+     * @param $id
+     * @return Response
+     */
+    public function restore($id)
+    {
+        $item = Item::withTrashed()->where('id', $id)->first();
         $item->restore();
 
         $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
