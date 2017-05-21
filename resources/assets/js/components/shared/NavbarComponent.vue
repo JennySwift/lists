@@ -36,7 +36,7 @@
                                 <router-link to="/categories">Categories</router-link>
                             </li>
 
-                            <li><a href="/auth/logout">Logout</a></li>
+                            <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
 
