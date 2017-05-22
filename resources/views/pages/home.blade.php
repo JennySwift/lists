@@ -9,6 +9,7 @@
 
 <div id="app">
     <navbar></navbar>
+    {{--<toolbar></toolbar>--}}
 
     <div class="main">
         <feedback></feedback>

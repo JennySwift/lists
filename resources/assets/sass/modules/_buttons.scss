@@ -7,6 +7,24 @@
     }
 }
 
+//.btn-default {
+//    border-color: $base2;
+//    color: $base2;
+//}
+
+.btn {
+    &:focus, &.active:focus, &:active {
+        outline: none !important;
+    }
+    &.btn-default {
+        &:focus, &.active:focus, &:active, &:hover {
+            background-color: white !important;
+        }
+
+    }
+
+}
+
 .btn-info{
     background: $base2;
     border-color: $base1;

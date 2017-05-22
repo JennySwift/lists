@@ -36,6 +36,7 @@ Date.setLocale('en-AU');
 
 //Shared components
 Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
+Vue.component('toolbar', require('./components/shared/ToolbarComponent.vue'));
 Vue.component('feedback', require('@jennyswift/feedback'));
 Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
 Vue.component('popup', require('./components/shared/PopupComponent.vue'));

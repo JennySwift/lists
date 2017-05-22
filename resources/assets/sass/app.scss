@@ -7,14 +7,19 @@
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "node_modules/sweetalert2/dist/sweetalert2.min";
 
 @import "mixins";
 @import "colors";
 @import "variables";
+
+$btn-default-color: $base2;
+$btn-default-border: $base2;
+$btn-default-bg: white;
+
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
 @import "base/index";
 @import "overrides/index";
 @import "auth/login";

@@ -15,6 +15,15 @@
         <!--</urgent-items>-->
 
         <div id="lists" class="">
+
+            <button
+                v-on:click="toggleNewItemFields()"
+                id="new-item-btn"
+                class="btn btn-default btn-sm"
+            >
+                New Item
+            </button>
+
             <breadcrumb></breadcrumb>
 
             <favourite-items></favourite-items>
@@ -81,6 +90,10 @@
 //            }
         },
         methods: {
+
+            toggleNewItemFields: function () {
+                store.toggle('showNewItemFields');
+            },
 
             /**
              * Update the currentTime every minute so the not-before filter stays up to date

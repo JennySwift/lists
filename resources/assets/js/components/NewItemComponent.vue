@@ -1,5 +1,5 @@
 <template>
-    <div id="new-item">
+    <div v-show="shared.showNewItemFields" id="new-item">
 
         <item-fields
             :item="newItem"
