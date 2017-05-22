@@ -178,8 +178,8 @@ module.exports = {
         //    return that.$route.params.id.slice(1);
         //}
         // var path = that.$route.path;
-        if (!VueRouter.app) return false;
-        var path = VueRouter.app.$route.path;
+        // if (!VueRouter.app) return false;
+        var path = router.app._route.path;
         var index = path.indexOf(':');
         if (index != -1) {
             return path.slice(index+1);

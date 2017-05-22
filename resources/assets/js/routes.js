@@ -19,7 +19,7 @@ module.exports = [
     },
     {
         path: '/items/:id',
-        component: require('./components/ItemComponent.vue')
+        component: require('./components/ItemsPageComponent.vue')
     },
     {
         path: '/categories',

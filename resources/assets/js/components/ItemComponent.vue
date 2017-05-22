@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li v-if="item">
 
         <div class="item" v-bind:class="{'deleted': item.deletedAt}">
 

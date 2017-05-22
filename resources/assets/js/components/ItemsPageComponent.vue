@@ -26,7 +26,7 @@
                 <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
             </button>
 
-            <breadcrumb></breadcrumb>
+            <!--<breadcrumb></breadcrumb>-->
 
             <favourite-items></favourite-items>
 
@@ -69,6 +69,10 @@
         computed: {
             filteredItems: function () {
                 return filters.filter(this.shared.items, this);
+            },
+            path: function () {
+                console.log(this.$route.path);
+                return this.$route.path;
             }
         },
         watch: {
@@ -78,7 +82,7 @@
              * @param val
              * @param oldVal
              */
-            '$route': function (val, oldVal) {
+            'path': function (val, oldVal) {
                 //So this doesn't run on page load before the companies are loaded
                 if (oldVal) {
                     store.getItems('zoom');
