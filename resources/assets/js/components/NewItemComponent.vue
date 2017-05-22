@@ -113,7 +113,10 @@
                         if (response.urgency == 1) {
                             $.event.trigger('urgent-item-created', [response]);
                         }
-                        $("#new-item-title").focus();
+                        $.event.trigger('set-tab', [1]);
+                        setTimeout(function () {
+                            $("#new-item-title").focus();
+                        }, 200);
                     }.bind(this)
                 });
             },

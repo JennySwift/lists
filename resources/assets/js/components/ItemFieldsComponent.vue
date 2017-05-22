@@ -190,6 +190,7 @@
 </template>
 
 <script>
+    var $ = require('jquery');
     module.exports = {
         data: function () {
             return {
@@ -204,6 +205,23 @@
                 }
                 return 'selected-item-title';
             }
+        },
+        methods: {
+            setTab: function (number) {
+                this.tab = number;
+            },
+            listen: function () {
+                var that = this;
+//                this.$on('set-tab', function (number) {
+//                    this.setTab(number);
+//                });
+                $(document).on('set-tab', function (event, number) {
+                   that.setTab(number);
+                });
+            }
+        },
+        mounted: function () {
+            this.listen();
         },
         props: [
             'item',
