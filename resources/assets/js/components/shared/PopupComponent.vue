@@ -32,6 +32,7 @@
         template: '#popup-template',
         data: function () {
             return {
+                mutableShowPopup: this.showPopup
                 //showPopup: false,
                 //selected: {}
             };

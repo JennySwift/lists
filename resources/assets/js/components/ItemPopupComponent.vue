@@ -244,6 +244,8 @@
             listen: function () {
                 var that = this;
                 $(document).on('show-item-popup', function (event, item) {
+//                    store.set(item, 'selectedItem');
+
                     that.selectedItem = helpers.clone(item);
                     that.selectedItem.oldParentId = item.parent_id;
                     that.selectedItem.oldAlarm = item.alarm;

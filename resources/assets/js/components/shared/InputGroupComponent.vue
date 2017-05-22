@@ -18,6 +18,7 @@
         </label>
 
         <!--Text input-->
+
         <input
             v-if="!options && !url"
             v-model="mutableModel"
@@ -37,7 +38,7 @@
             :prop="optionsProp"
             :unfiltered-options="options"
             :function-on-enter="enter"
-            :selected.sync="model"
+            :selected.sync="mutableModel"
             :option-partial="optionPartial"
             @option-chosen="optionChosen"
         >
@@ -55,8 +56,13 @@
     module.exports = {
         data: function () {
             return {
-                mutableModel: this.model
+//                mutableModel: this.model
             };
+        },
+        computed: {
+            mutableModel: function () {
+              return this.model;
+            }
         },
         methods: {
             /**
