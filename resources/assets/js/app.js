@@ -62,7 +62,7 @@ Vue.component('item-fields', require('./components/ItemFieldsComponent.vue'));
 
 // Vue.component('app', require('./components/AppComponent.js'));
 
-var router = new VueRouter({
+window.router = new VueRouter({
     routes: require('./routes')
 });
 

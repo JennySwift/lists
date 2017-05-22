@@ -60,7 +60,7 @@ module.exports = {
             }
 
             if (options.redirectTo) {
-                router.go(options.redirectTo);
+                router.push(options.redirectTo);
             }
         }, function (response) {
             helpers.handleResponseError(response.data, response.status);
@@ -88,7 +88,7 @@ module.exports = {
             }
 
             if (options.redirectTo) {
-                router.go(options.redirectTo);
+                router.push(options.redirectTo);
             }
 
         }, function (response) {
@@ -128,7 +128,7 @@ module.exports = {
                 }
 
                 if (options.redirectTo) {
-                    router.go(options.redirectTo);
+                    router.push(options.redirectTo);
                 }
             }, function (response) {
                 helpers.handleResponseError(response.data, response.status);
