@@ -26,7 +26,7 @@
                 <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
             </button>
 
-            <!--<breadcrumb></breadcrumb>-->
+            <breadcrumb></breadcrumb>
 
             <favourite-items></favourite-items>
 
