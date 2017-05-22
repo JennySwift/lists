@@ -22,6 +22,8 @@
                 class="btn btn-default btn-sm"
             >
                 New Item
+                <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
+                <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
             </button>
 
             <breadcrumb></breadcrumb>
