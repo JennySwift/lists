@@ -1,13 +1,13 @@
 <template>
     <div
-        v-show="showPopup"
+        v-show="mutableShowPopup"
         transition="popup-outer"
         v-on:click="closePopup($event)"
         class="popup-outer animate"
     >
 
         <div
-            v-show="showPopup"
+            v-show="mutableShowPopup"
             transition="popup-inner"
             :id="id"
             class="popup-inner animate"
@@ -32,10 +32,15 @@
         template: '#popup-template',
         data: function () {
             return {
-                mutableShowPopup: this.showPopup
+//                mutableShowPopup: this.showPopup
                 //showPopup: false,
                 //selected: {}
             };
+        },
+        computed: {
+            mutableShowPopup: function () {
+              return this.showPopup;
+            }
         },
         components: {},
         methods: {

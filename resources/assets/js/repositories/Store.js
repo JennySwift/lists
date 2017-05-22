@@ -36,8 +36,7 @@ module.exports = {
         showFavourites: false,
         showNewItemFields: false,
         favouriteItems: [],
-        favourteItemsLoaded: false,
-        selectedItem: {}
+        favourteItemsLoaded: false
     },
 
     /**

@@ -253,6 +253,7 @@
                     that.selectedItemInItemsArray = item;
 
                     that.showPopup = true;
+//                    store.set(true, 'showItemPopup');
                 });
             }
         },
