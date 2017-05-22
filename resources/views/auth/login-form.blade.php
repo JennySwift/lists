@@ -18,7 +18,7 @@
 
     <div class="form-group">
         <div>
-            <button type="submit" class="btn btn-primary" style="margin-right: 15px;">
+            <button type="submit" class="btn btn-success" style="margin-right: 15px;">
                 Login
             </button>
 
