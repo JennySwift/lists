@@ -6,7 +6,7 @@
         </div>
         <div v-for="(item, key, index) in shared.breadcrumb">
             <router-link
-                :to="'/items/:' + item.id"
+                v-bind:to="'/items/:' + item.id"
             >
                 {{ item.title }}
             </router-link>
