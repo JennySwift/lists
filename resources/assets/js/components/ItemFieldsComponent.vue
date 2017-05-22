@@ -17,7 +17,7 @@
                     <textarea
                         v-model="item.title"
                         v-on:keyup.13="enter()"
-                        id="new-item-title"
+                        :id="titleId"
                         class="item-title"
                     >
                     </textarea>
@@ -196,6 +196,14 @@
                 shared: store.state,
                 tab: 1
             };
+        },
+        computed: {
+            titleId: function () {
+                if (this.action === 'insert') {
+                    return 'new-item-title';
+                }
+                return 'selected-item-title';
+            }
         },
         props: [
             'item',

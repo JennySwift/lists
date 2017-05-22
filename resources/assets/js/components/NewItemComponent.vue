@@ -32,6 +32,7 @@
 <script>
     var DateTimeRepository = require('../repositories/DateTimeRepository');
     var ItemsRepository = require('../repositories/ItemsRepository');
+    var $ = require('jquery');
 
     module.exports = {
         template: '#new-item-template',
@@ -106,13 +107,13 @@
                     clearFields: this.clearFields,
                     redirectTo: this.redirectTo,
                     callback: function (response) {
-                        this.showNewItemFields = false;
                         if (response.alarm) {
                             $.event.trigger('alarm-created', [response]);
                         }
                         if (response.urgency == 1) {
                             $.event.trigger('urgent-item-created', [response]);
                         }
+                        $("#new-item-title").focus();
                     }.bind(this)
                 });
             },
