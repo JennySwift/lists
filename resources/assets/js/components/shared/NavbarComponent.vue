@@ -20,7 +20,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-1">
                 <ul class="nav navbar-nav">
-                    <li v-bind:class="{'active': path === '/items' }">
+                    <li>
                         <router-link to="/items">Lists</router-link>
                     </li>
 
