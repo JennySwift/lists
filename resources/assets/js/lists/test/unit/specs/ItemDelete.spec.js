@@ -1,7 +1,6 @@
 import Vue from 'vue'
 // import Hello from '@/components/Hello'
 import ItemsRepository from '@/repositories/ItemsRepository'
-import ItemPopupComponent from '@/components/ItemPopupComponent'
 // var expect = require('chai').expect;
 // var assert = require('chai').assert;
 

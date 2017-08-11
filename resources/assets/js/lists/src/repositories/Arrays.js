@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     /**
      *
      * @param array
@@ -35,4 +35,4 @@ module.exports = {
 
         return array;
     }
-};
+}

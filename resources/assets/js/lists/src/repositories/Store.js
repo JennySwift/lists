@@ -4,7 +4,7 @@ var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
 
-module.exports = {
+export default {
 
     state: {
         me: {gravatar: ''},
@@ -168,4 +168,4 @@ module.exports = {
         // console.log('\n\n item to delete: ' + JSON.stringify(itemToDelete, null, 4) + '\n\n');
         object.set(this.state, path, helpers.deleteById(object.get(this.state, path), itemToDelete.id));
     }
-};
+}

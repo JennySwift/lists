@@ -1,6 +1,6 @@
 var DateTimeRepository = require('./DateTimeRepository');
 
-module.exports = {
+export default {
 
     /**
      *
@@ -313,4 +313,4 @@ module.exports = {
 
         return url;
     }
-};
+}

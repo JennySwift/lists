@@ -1,7 +1,7 @@
 var Vue = require('vue');
 const swal = require('sweetalert2');
 
-module.exports = {
+export default {
     /**
      * storeProperty is the store property to set once the items are loaded.
      * loadedProperty is the store property to set once the items are loaded, to indicate that the items are loaded.
@@ -137,4 +137,4 @@ module.exports = {
 
         });
     },
-};
+}

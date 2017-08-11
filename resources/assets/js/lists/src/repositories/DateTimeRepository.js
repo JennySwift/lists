@@ -1,6 +1,6 @@
 var moment = require('moment');
 
-module.exports = {
+export default {
 
     /**
      *
@@ -47,4 +47,4 @@ module.exports = {
         format = format || 'ddd DD/MM/YY hh:mma';
         return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format(format);
     }
-};
+}

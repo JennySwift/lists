@@ -7,8 +7,8 @@ require('sweetalert2');
 var requests = require('./Requests');
 var arrays = require('./Arrays');
 
-module.exports = {
-
+export default {
+    
     //Request methods
     get: requests.get,
     post: requests.post,
@@ -183,4 +183,4 @@ module.exports = {
         }
         return false;
     }
-};
+}

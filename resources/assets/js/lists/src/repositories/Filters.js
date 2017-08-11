@@ -3,7 +3,7 @@ var DateTimeRepository = require('./DateTimeRepository');
 var moment = require('moment');
 require('sugar');
 
-module.exports = {
+export default {
     /**
      *
      * @param alarm
@@ -174,4 +174,4 @@ module.exports = {
         return number;
     },
 
-};
+}
