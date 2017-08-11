@@ -20,7 +20,7 @@ class ItemsDestroyTest extends TestCase
         $this->logInUser();
 
         $item = Item::first();
-        
+
         $this->assertEquals(204, $this->deleteItem($item)->getStatusCode());
 
         $this->assertEquals(404, $this->deleteItem($item)->getStatusCode());
@@ -44,18 +44,6 @@ class ItemsDestroyTest extends TestCase
         }
 
         $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    /**
-     *
-     * @param $item
-     * @return \Illuminate\Foundation\Testing\TestResponse
-     */
-    private function deleteItem($item)
-    {
-        $response = $this->call('DELETE', '/api/items/' . $item->id);
-
-        return $response;
     }
 
 

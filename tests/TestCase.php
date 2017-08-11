@@ -172,6 +172,18 @@ abstract class TestCase extends BaseTestCase
         }
 
     }
+
+    /**
+     *
+     * @param $item
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function deleteItem($item)
+    {
+        $response = $this->call('DELETE', '/api/items/' . $item->id);
+
+        return $response;
+    }
 }
 
 

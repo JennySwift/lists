@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Item;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -149,11 +150,17 @@ class ItemsIndexTest extends TestCase
     public function it_gets_the_deleted_items()
     {
         $this->logInUser();
+
+        //First delete some items. This should delete items many because the item has children.
+        $this->deleteItem(Item::find(1));
+
+
         $response = $this->call('GET', '/api/items?trashed=true');
         $content = json_decode($response->getContent(), true);
-//      dd($content);
+//      dd(count($content));
 
         $this->checkItemKeysExist($content[0]);
+        $this->assertEquals(121, count($content));
 
         foreach ($content as $item) {
             $this->assertArrayHasKey('deleted_at', $item);
