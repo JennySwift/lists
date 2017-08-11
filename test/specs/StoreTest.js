@@ -1,8 +1,8 @@
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var Vue = require('vue');
-global.store = require('../resources/assets/js/repositories/Store');
-global.filters = require('../resources/assets/js/repositories/Filters');
+global.store = require('../../resources/assets/js/repositories/Store');
+global.filters = require('../../resources/assets/js/repositories/Filters');
 global._ = require('underscore');
 
 describe('filters', function () {
@@ -83,7 +83,7 @@ describe('filters', function () {
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var Vue = require('vue');
-global.helpers = require('../resources/assets/js/repositories/Helpers');
+global.helpers = require('../../resources/assets/js/repositories/Helpers');
 var VueRouter = require('vue-router');
 Vue.use(VueRouter);
 global.router = new VueRouter({hashbang: false});

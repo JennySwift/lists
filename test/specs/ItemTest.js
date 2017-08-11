@@ -16,7 +16,7 @@ describe('move item', function () {
 
     describe('nested deeper', function () {
         beforeEach(function () {
-            vm = new Vue(require('../resources/assets/js/components/ItemPopupComponent.vue'));
+            vm = new Vue(require('../../resources/assets/js/components/ItemPopupComponent.vue'));
             store.state.items = [
                 {
                     title: '1',
@@ -247,7 +247,7 @@ describe('move item', function () {
 
     describe('nested only one level', function () {
         beforeEach(function () {
-            vm = new Vue(require('../resources/assets/js/components/ItemPopupComponent.vue'));
+            vm = new Vue(require('../../resources/assets/js/components/ItemPopupComponent.vue'));
             store.state.items = [
                 {
                     title: '1',

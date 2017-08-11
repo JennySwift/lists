@@ -1,13 +1,13 @@
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var Vue = require('vue');
-global.ItemsRepository = require('../resources/assets/js/repositories/ItemsRepository');
+global.ItemsRepository = require('../../resources/assets/js/repositories/ItemsRepository');
 
 describe('path to item', function () {
     var vm;
 
     beforeEach(function () {
-        vm = new Vue(require('../resources/assets/js/components/ItemPopupComponent.vue'));
+        vm = new Vue(require('../../resources/assets/js/components/ItemPopupComponent.vue'));
 
         store.state.items = [
             {
