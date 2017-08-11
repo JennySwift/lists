@@ -74,7 +74,7 @@ class ItemsRecurringTest extends TestCase
         $content = json_decode($response->getContent(), true);
         //dd($content);
 
-        $this->checkitemKeysExist($content);
+        $this->checkItemKeysExist($content);
 
         $expectedNextTime = Carbon::tomorrow()->addMinutes(5)->format('Y-m-d H:i:s');
 
@@ -216,12 +216,14 @@ class ItemsRecurringTest extends TestCase
 
 
     /**
+     * Todo This test is very slow to run!
      * @test
      * @return void
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past()
     {
-        DB::beginTransaction();
+        //Skipping because slow to run!
+        $this->markTestSkipped();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -238,6 +240,7 @@ class ItemsRecurringTest extends TestCase
         //dd($content);
         $this->assertEquals('2016-03-01 13:30:05', $content['notBefore']);
 
+        //Todo: it's this line that's making it really slow to run
         //Check it calculates the next time correctly, for when the instance of the recurring item in the past is completed
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
@@ -262,8 +265,6 @@ class ItemsRecurringTest extends TestCase
         $this->assertEquals($expectedNextTime, $content['notBefore']);
 
         $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
     }
 
 
