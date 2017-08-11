@@ -1,4 +1,4 @@
-var DateTimeRepository = require('./../../../repositories/DateTimeRepository');
+var DateTimeRepository = require('./DateTimeRepository');
 
 module.exports = {
 

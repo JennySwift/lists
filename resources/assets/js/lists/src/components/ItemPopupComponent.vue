@@ -68,7 +68,7 @@
 
 
 <script>
-    var DateTimeRepository = require('../../../repositories/DateTimeRepository');
+    var DateTimeRepository = require('../repositories/DateTimeRepository');
     var ItemsRepository = require('../repositories/ItemsRepository');
 
     module.exports = {

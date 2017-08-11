@@ -171,7 +171,7 @@
 </template>
 
 <script>
-    var DateTimeRepository = require('../repositories/DateTimeRepository');
+    var DateTimeRepository = require('../lists/src/repositories/DateTimeRepository');
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
 
     module.exports = {

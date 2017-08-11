@@ -21,16 +21,16 @@ Vue.use(VueRouter);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// global.$ = require('jquery');
-// global.jQuery = require('jquery');
-// global._ = require('underscore');
-// global.store = require('./repositories/Store');
-// var VueResource = require('vue-resource');
-// Vue.use(VueResource);
-// require('./../../config.js');
-// global.helpers = require('./repositories/Helpers');
-// global.filters = require('./repositories/Filters');
-// Date.setLocale('en-AU');
+global.$ = require('jquery');
+global.jQuery = require('jquery');
+global._ = require('underscore');
+global.store = require('./lists/src/repositories/Store');
+var VueResource = require('vue-resource');
+Vue.use(VueResource);
+require('./config.js');
+global.helpers = require('./lists/src/repositories/Helpers');
+global.filters = require('./lists/src/repositories/Filters');
+Date.setLocale('en-AU');
 
 // window.Event = new Vue();
 
