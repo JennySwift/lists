@@ -17,18 +17,13 @@ class ItemsDestroyTest extends TestCase
      */
     public function it_can_delete_an_item()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::first();
+        
+        $this->assertEquals(204, $this->deleteItem($item)->getStatusCode());
 
-        $response = $this->call('DELETE', '/api/items/'.$item->id);
-        $this->assertEquals(204, $response->getStatusCode());
-
-        $response = $this->call('DELETE', '/api/item/' . $item->id);
-        $this->assertEquals(404, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertEquals(404, $this->deleteItem($item)->getStatusCode());
     }
 
     /**
@@ -49,6 +44,18 @@ class ItemsDestroyTest extends TestCase
         }
 
         $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $item
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    private function deleteItem($item)
+    {
+        $response = $this->call('DELETE', '/api/items/' . $item->id);
+
+        return $response;
     }
 
 
