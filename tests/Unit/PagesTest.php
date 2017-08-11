@@ -21,13 +21,10 @@ class PagesTest extends TestCase
 
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertTrue($response->isRedirection());
-        $this->markTestIncomplete('Todo. Method no longer exists.');
-        //This method no longer exists
-//        $this->assertRedirectedTo($this->baseUrl.'/login');
+        $this->assertEquals($this->baseUrl . '/login', $response->headers->get('Location'));
     }
 
     /**
-     * Todo: not actually sure how to get this test to fail
      * @test
      * @return void
      */
@@ -37,9 +34,7 @@ class PagesTest extends TestCase
 
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertTrue($response->isRedirection());
-        //assertRedirectedTo stopped working after upgrade
-//        $this->assertRedirect($this->baseUrl);
-        $this->markTestIncomplete();
+        $this->assertEquals($this->baseUrl, $response->headers->get('Location'));
     }
 
     /**
