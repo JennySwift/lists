@@ -23,7 +23,7 @@
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
     var moment = require('moment');
 
-    module.exports = {
+    export default {
         template: '#alarms-template',
         data: function () {
             return {
@@ -105,5 +105,5 @@
             this.getItemsWithAlarm();
             this.listen();
         }
-    };
+    }
 </script>

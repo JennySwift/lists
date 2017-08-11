@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#help-page-template',
         data: function () {
             return {
@@ -47,5 +47,5 @@
         mounted: function () {
 
         }
-    };
+    }
 </script>

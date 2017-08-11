@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#category-popup-template',
         data: function () {
             return {
@@ -100,5 +100,5 @@
         mounted: function () {
             this.listen();
         }
-    };
+    }
 </script>

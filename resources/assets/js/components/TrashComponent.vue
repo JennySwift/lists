@@ -18,7 +18,7 @@
 <!--</template>-->
 
 <!--<script>-->
-    <!--module.exports = {-->
+    <!--export default {-->
         <!--template: '#trash-template',-->
         <!--data: function () {-->
             <!--return {-->
@@ -49,5 +49,5 @@
         <!--mounted: function () {-->
             <!--this.getTrashedItems();-->
         <!--}-->
-    <!--};-->
+    <!--}-->
 <!--</script>-->

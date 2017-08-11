@@ -97,7 +97,7 @@
     var DateTimeRepository = require('../lists/src/repositories/DateTimeRepository');
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
 
-    module.exports = {
+    export default {
         data: function () {
             return {
                 showFilter: undefined,
@@ -184,5 +184,5 @@
             this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
             this.listen();
         }
-    };
+    }
 </script>

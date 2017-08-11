@@ -57,7 +57,7 @@
     var moment = require('moment');
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
 
-    module.exports = {
+    export default {
         data: function () {
             return {
                 shared: store.state,
@@ -170,5 +170,5 @@
         mounted: function () {
             this.keepCurrentTimeUpToDate();
         }
-    };
+    }
 </script>

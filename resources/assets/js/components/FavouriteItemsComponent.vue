@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#favourite-items-template',
         data: function () {
             return {
@@ -38,5 +38,5 @@
         mounted: function () {
 
         }
-    };
+    }
 </script>

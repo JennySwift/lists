@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#categories-template',
         data: function () {
             return {
@@ -38,5 +38,5 @@
                 this.editingCategory = false;
             }
         }
-    };
+    }
 </script>

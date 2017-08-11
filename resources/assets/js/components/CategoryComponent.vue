@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#category-template',
         data: function () {
             return {
@@ -31,5 +31,5 @@
         mounted: function () {
 
         }
-    };
+    }
 </script>

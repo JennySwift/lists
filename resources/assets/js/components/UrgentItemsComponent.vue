@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#urgent-items-template',
         data: function () {
             return {
@@ -85,5 +85,5 @@
             this.getUrgentItems();
             this.listen();
         }
-    };
+    }
 </script>

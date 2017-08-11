@@ -174,7 +174,7 @@
     var DateTimeRepository = require('../lists/src/repositories/DateTimeRepository');
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
 
-    module.exports = {
+    export default {
         template: '#item-template',
         data: function () {
             return {
@@ -230,5 +230,5 @@
         mounted: function () {
             //this.listen();
         }
-    };
+    }
 </script>

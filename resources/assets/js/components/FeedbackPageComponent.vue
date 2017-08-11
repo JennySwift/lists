@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#feedback-page-template',
         data: function () {
             return {
@@ -77,5 +77,5 @@
         mounted: function () {
 
         }
-    };
+    }
 </script>

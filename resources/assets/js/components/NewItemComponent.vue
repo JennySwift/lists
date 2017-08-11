@@ -34,7 +34,7 @@
     var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
     var $ = require('jquery');
 
-    module.exports = {
+    export default {
         template: '#new-item-template',
         data: function () {
             return {
@@ -271,5 +271,5 @@
             this.getUser();
             this.listen();
         }
-    };
+    }
 </script>

@@ -8,7 +8,7 @@ var requests = require('./Requests');
 var arrays = require('./Arrays');
 
 export default {
-    
+
     //Request methods
     get: requests.get,
     post: requests.post,
