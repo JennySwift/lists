@@ -3,7 +3,7 @@ var $ = require('jquery');
 require('sugar');
 var moment = require('moment');
 require('sweetalert2');
-require('tooltipster');
+// require('tooltipster');
 var requests = require('./Requests');
 var arrays = require('./Arrays');
 
