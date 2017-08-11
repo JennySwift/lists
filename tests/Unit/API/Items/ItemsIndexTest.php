@@ -19,6 +19,11 @@ class ItemsIndexTest extends TestCase
     public function it_gets_the_items()
     {
         $this->logInUser();
+
+        //Delete some items to check they are still retrieved
+        $this->deleteItem(Item::find(607));
+        $this->deleteItem(Item::find(244));
+
         $response = $this->call('GET', '/api/items');
         $content = json_decode($response->getContent(), true);
 //      dd($content);
