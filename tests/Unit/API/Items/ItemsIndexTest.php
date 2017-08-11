@@ -48,18 +48,17 @@ class ItemsIndexTest extends TestCase
      */
     public function it_throws_an_exception_for_index_method_if_user_is_not_logged_in()
     {
-        //Stopped working after upgrade
-        $this->markTestIncomplete();
         $response = $this->call('GET', '/api/items');
 //        dd($response->getStatusCode());
         $content = json_decode($response->getContent(), true);
 //      dd($content);
 
-        $this->assertArrayHasKey('error', $content);
-        $this->assertContains('not logged in', $content['error']);
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $content['status']);
+        //Check no data is shown
+        $this->assertNull($content);
+        $this->assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
+        $this->assertTrue($response->isRedirection());
+        $this->assertEquals("http://localhost/login", $response->headers->get('Location'));
 
-        $this->assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
     }
 
     /**
