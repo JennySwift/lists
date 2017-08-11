@@ -1,6 +1,3 @@
-var Vue = require('vue');
-var VueResource = require('vue-resource');
-Vue.use(VueResource);
 var helpers = require('./Helpers');
 var ItemsRepository = require('./ItemsRepository');
 var object = require('lodash/object');
