@@ -69,7 +69,7 @@
 
 <script>
     var DateTimeRepository = require('../../../repositories/DateTimeRepository');
-    var ItemsRepository = require('../../../repositories/ItemsRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
 
     module.exports = {
         template: '#item-popup-template',

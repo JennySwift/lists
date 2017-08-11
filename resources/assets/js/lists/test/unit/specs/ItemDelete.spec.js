@@ -2,6 +2,8 @@ import Vue from 'vue'
 // import Hello from '@/components/Hello'
 import ItemsRepository from '@/repositories/ItemsRepository'
 import ItemPopupComponent from '@/components/ItemPopupComponent'
+// var expect = require('chai').expect;
+// var assert = require('chai').assert;
 
 global.store = require('../../../src/repositories/Store');
 
@@ -20,46 +22,41 @@ describe('deleting item', () => {
 
         // expect(vm.$el.querySelector('.hello h1').textContent)
         //     .to.equal('Welcome to Your Vue.js App')
-        expect(1).to.equal(1);
+
+
+        // store.state.items = [
+        //     {
+        //         title: '1',
+        //         id: 1,
+        //         deletedAt: false
+        //     },
+        //     {
+        //         title: '2',
+        //         id: 2,
+        //         deletedAt: false
+        //     }
+        // ];
+        var item = {
+            title: '1',
+            id: 1,
+            deletedAt: false
+        };
+
+        item = ItemsRepository.deleteJsItem(item);
+        // item.deletedAt = true;
+
+        // var expected = [
+        //     {
+        //         title: '2',
+        //         id: 2
+        //     }
+        // ];
+
+        // console.log('\n\n expected: ' + JSON.stringify(expected, null, 4) + '\n\n');
+        // console.log('\n\n result: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
+
+        // assert.deepEqual(expected, store.state.items);
+        //Todo: it wouldn't pass if I checked store.state.items[0]. Shouldn't it?
+        assert.equal(true, item.deletedAt);
     })
 })
-
-
-
-
-// var expect = require('chai').expect;
-// var assert = require('chai').assert;
-// var Vue = require('vue');
-// global.ItemsRepository = require('../../../../repositories/ItemsRepository');
-//
-describe('deleting item', function () {
-
-//
-//     it('can delete an item', function () {
-//         store.state.items = [
-//             {
-//                 title: '1',
-//                 id: 1,
-//             },
-//             {
-//                 title: '2',
-//                 id: 2
-//             }
-//         ];
-//         var item = {
-//             title: '1',
-//             id: 1,
-//         };
-//
-//         ItemsRepository.deleteJsItem(item);
-//
-//         var expected = [
-//             {
-//                 title: '2',
-//                 id: 2
-//             }
-//         ];
-//
-//         assert.deepEqual(expected, store.state.items);
-//     });
-});
