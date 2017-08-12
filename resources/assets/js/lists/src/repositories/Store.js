@@ -1,5 +1,5 @@
 import helpers from './Helpers'
-var ItemsRepository = require('./ItemsRepository');
+import ItemsRepository from './ItemsRepository'
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');

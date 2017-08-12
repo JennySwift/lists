@@ -8,7 +8,7 @@
 require('./config');
 window.Vue = require('vue');
 
-var Vue = require('vue');
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
@@ -68,14 +68,14 @@ require('sugar');
 Date.setLocale('en-AU');
 console.log('\n\n store: ' + JSON.stringify(store, null, 4) + '\n\n');
 store.getCategories();
-// store.getFavouriteItems();
+store.getFavouriteItems();
 setTimeout(function () {
-    // store.getItems('zoom');
+    store.getItems('zoom');
 }, 500);
 
-// var app = new Vue({
-//     router: router
-// }).$mount('#app');
+var app = new Vue({
+    router: router
+}).$mount('#app');
 
 
 
