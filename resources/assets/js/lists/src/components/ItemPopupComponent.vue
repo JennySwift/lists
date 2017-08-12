@@ -63,9 +63,9 @@
 </template>
 
 <script>
-    var DateTimeRepository = require('../repositories/DateTimeRepository');
-    var ItemsRepository = require('../repositories/ItemsRepository');
-    
+    import DateTimeRepository from '../repositories/DateTimeRepository'
+    import ItemsRepository from '../repositories/ItemsRepository'
+
     export default {
         template: '#item-popup-template',
         data: function () {
