@@ -1,5 +1,5 @@
-var TimeRepository = require('./TimeRepository');
-var DateTimeRepository = require('./DateTimeRepository');
+import TimeRepository from './TimeRepository'
+import DateTimeRepository from './DateTimeRepository'
 var moment = require('moment');
 require('sugar');
 
@@ -62,75 +62,76 @@ export default {
     },
 
     filter: function (items, that) {
-        //var that = this;
-
-        //Sort
-        //items = _.chain(items).sortBy('id').sortBy('priority').sortBy('urgency').partition('urgency').flatten().value();
-        items = filters.order(items);
-
-        //Filter
-        return items.filter(function (item) {
-            //Title filter
-            var filteredIn = item.title.toLowerCase().indexOf(that.shared.filters.title.toLowerCase()) !== -1;
-
-            //Body filter
-            if (that.shared.filters.body) {
-                if (item.body && item.body.toLowerCase().indexOf(that.shared.filters.body.toLowerCase()) === -1) {
-                    filteredIn = false;
-                }
-                else if (!item.body) {
-                    filteredIn = false;
-                }
-
-            }
-
-            //Priority filter-at or higher than priority specified
-            if (that.shared.filters.minimumPriority && item.priority > that.shared.filters.minimumPriority) {
-                filteredIn = false;
-            }
-
-            //Priority filter
-            if (that.shared.filters.priority && item.priority != that.shared.filters.priority) {
-                filteredIn = false;
-            }
-            //Urgency filter
-            else if (that.shared.filters.urgency && item.urgency != that.shared.filters.urgency) {
-                filteredIn = false;
-            }
-            //Urgency out filter
-            else if (that.shared.filters.urgencyOut && item.urgency >= that.shared.filters.urgencyOut) {
-                filteredIn = false;
-            }
-            //Category filter
-            else if (that.shared.filters.category.id && item.category_id !== that.shared.filters.category.id) {
-                filteredIn = false;
-            }
-            //Not before filter (if checked, do not show items with a not before value after the current time)
-            else if (that.shared.filters.notBefore && filters.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
-                filteredIn = false;
-            }
-            //Not before date filter
-            else if (that.shared.filters.notBeforeDate) {
-                //Only show items with a not before date on the specified date
-                if (!item.notBefore) {
-                    filteredIn = false;
-                }
-                else {
-                    var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.shared.filters.notBeforeDate));
-                    var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore);
-                    if (filterDate !== itemDate) {
-                        filteredIn = false;
-                    }
-                }
-            }
-
-            //Show trashed items filter
-            else if (!that.shared.filters.showTrashed && item.deletedAt) {
-                filteredIn = false;
-            }
-
-            return filteredIn;
-        });
+        return true;
+        // //var that = this;
+        //
+        // //Sort
+        // //items = _.chain(items).sortBy('id').sortBy('priority').sortBy('urgency').partition('urgency').flatten().value();
+        // items = this.order(items);
+        //
+        // //Filter
+        // return items.filter(function (item) {
+        //     //Title filter
+        //     var filteredIn = item.title.toLowerCase().indexOf(that.shared.filters.title.toLowerCase()) !== -1;
+        //
+        //     //Body filter
+        //     if (that.shared.filters.body) {
+        //         if (item.body && item.body.toLowerCase().indexOf(that.shared.filters.body.toLowerCase()) === -1) {
+        //             filteredIn = false;
+        //         }
+        //         else if (!item.body) {
+        //             filteredIn = false;
+        //         }
+        //
+        //     }
+        //
+        //     //Priority filter-at or higher than priority specified
+        //     if (that.shared.filters.minimumPriority && item.priority > that.shared.filters.minimumPriority) {
+        //         filteredIn = false;
+        //     }
+        //
+        //     //Priority filter
+        //     if (that.shared.filters.priority && item.priority != that.shared.filters.priority) {
+        //         filteredIn = false;
+        //     }
+        //     //Urgency filter
+        //     else if (that.shared.filters.urgency && item.urgency != that.shared.filters.urgency) {
+        //         filteredIn = false;
+        //     }
+        //     //Urgency out filter
+        //     else if (that.shared.filters.urgencyOut && item.urgency >= that.shared.filters.urgencyOut) {
+        //         filteredIn = false;
+        //     }
+        //     //Category filter
+        //     else if (that.shared.filters.category.id && item.category_id !== that.shared.filters.category.id) {
+        //         filteredIn = false;
+        //     }
+        //     //Not before filter (if checked, do not show items with a not before value after the current time)
+        //     else if (that.shared.filters.notBefore && filters.notBeforeTimeIsAfterCurrentTime(item.notBefore, that.currentTime)) {
+        //         filteredIn = false;
+        //     }
+        //     //Not before date filter
+        //     else if (that.shared.filters.notBeforeDate) {
+        //         //Only show items with a not before date on the specified date
+        //         if (!item.notBefore) {
+        //             filteredIn = false;
+        //         }
+        //         else {
+        //             var filterDate = DateTimeRepository.convertFromDateTime(DateTimeRepository.convertToDateTime(that.shared.filters.notBeforeDate));
+        //             var itemDate = DateTimeRepository.convertFromDateTime(item.notBefore);
+        //             if (filterDate !== itemDate) {
+        //                 filteredIn = false;
+        //             }
+        //         }
+        //     }
+        //
+        //     //Show trashed items filter
+        //     else if (!that.shared.filters.showTrashed && item.deletedAt) {
+        //         filteredIn = false;
+        //     }
+        //
+        //     return filteredIn;
+        // });
     },
 
     /**

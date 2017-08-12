@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import store from '../repositories/Store'
+    import helpers from '../repositories/Helpers'
     export default {
         data: function () {
             return {

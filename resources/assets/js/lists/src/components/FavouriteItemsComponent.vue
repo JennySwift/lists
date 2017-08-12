@@ -15,6 +15,7 @@
 </template>
 
 <script>
+    import store from '../repositories/Store'
     export default {
         template: '#favourite-items-template',
         data: function () {

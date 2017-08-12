@@ -65,6 +65,8 @@
 <script>
     import DateTimeRepository from '../repositories/DateTimeRepository'
     import ItemsRepository from '../repositories/ItemsRepository'
+    import store from '../repositories/Store'
+    import helpers from '../repositories/Helpers'
 
     export default {
         template: '#item-popup-template',
@@ -265,7 +267,8 @@
         },
         mounted: function () {
             setTimeout(function () {
-                helpers.tooltips();
+                //Commenting out for now because it was erroring
+//                helpers.tooltips();
             }, 1000);
 
             this.listen();

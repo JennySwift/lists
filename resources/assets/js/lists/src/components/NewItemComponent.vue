@@ -32,6 +32,8 @@
 <script>
     import DateTimeRepository from '../repositories/DateTimeRepository'
     import ItemsRepository from '../repositories/ItemsRepository'
+    import store from '../repositories/Store'
+    import helpers from '../repositories/Helpers'
     var $ = require('jquery');
 
     export default {

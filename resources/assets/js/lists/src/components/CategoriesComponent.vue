@@ -20,6 +20,7 @@
 </template>
 
 <script>
+    import store from '../repositories/Store'
     export default {
         template: '#categories-template',
         data: function () {

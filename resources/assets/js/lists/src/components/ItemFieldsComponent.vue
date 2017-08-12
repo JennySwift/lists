@@ -190,6 +190,7 @@
 </template>
 
 <script>
+    import store from '../repositories/Store'
     var $ = require('jquery');
     export default {
         data: function () {

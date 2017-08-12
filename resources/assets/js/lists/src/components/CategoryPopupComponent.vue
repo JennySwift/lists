@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import store from '../repositories/Store'
+    import helpers from '../repositories/Helpers'
     export default {
         template: '#category-popup-template',
         data: function () {

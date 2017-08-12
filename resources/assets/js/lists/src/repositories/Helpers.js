@@ -1,5 +1,3 @@
-var Vue = require('vue');
-var $ = require('jquery');
 require('sugar');
 var moment = require('moment');
 require('sweetalert2');
@@ -93,35 +91,35 @@ export default {
     },
 
     /**
-     *
+     * commenting out for now because it was erroring saying .tooltipster is not a function
      */
-    tooltips: function () {
-        var width = $(window).width();
-        // Trigger on click rather than hover for small screens
-        var trigger = width < 800 ? 'click' : 'hover';
-
-        $('.tooltipster').tooltipster({
-            theme: 'tooltipster-punk',
-            //Animation duration for in and out
-            animationDuration: [1000, 500],
-            trigger: trigger,
-            side: 'right',
-            functionInit: function(instance, helper){
-
-                var $origin = $(helper.origin),
-                    dataOptions = $origin.attr('data-tooltipster');
-
-                if(dataOptions){
-
-                    dataOptions = JSON.parse(dataOptions);
-
-                    $.each(dataOptions, function(name, option){
-                        instance.option(name, option);
-                    });
-                }
-            }
-        });
-    },
+    // tooltips: function () {
+    //     var width = $(window).width();
+    //     // Trigger on click rather than hover for small screens
+    //     var trigger = width < 800 ? 'click' : 'hover';
+    //
+    //     $('.tooltipster').tooltipster({
+    //         theme: 'tooltipster-punk',
+    //         //Animation duration for in and out
+    //         animationDuration: [1000, 500],
+    //         trigger: trigger,
+    //         side: 'right',
+    //         functionInit: function(instance, helper){
+    //
+    //             var $origin = $(helper.origin),
+    //                 dataOptions = $origin.attr('data-tooltipster');
+    //
+    //             if(dataOptions){
+    //
+    //                 dataOptions = JSON.parse(dataOptions);
+    //
+    //                 $.each(dataOptions, function(name, option){
+    //                     instance.option(name, option);
+    //                 });
+    //             }
+    //         }
+    //     });
+    // },
 
     /**
      *

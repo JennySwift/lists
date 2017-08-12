@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import FeedbackComponent from '@jennyswift/feedback'
+import AutocompleteComponent from '@jennyswift/vue-autocomplete'
 
 import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import ToolbarComponent from './lists/src/components/shared/ToolbarComponent.vue'
@@ -26,7 +27,7 @@ Vue.component('toolbar', ToolbarComponent);
 Vue.component('feedback', FeedbackComponent);
 Vue.component('loading', LoadingComponent);
 Vue.component('popup', PopupComponent);
-// Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
+Vue.component('autocomplete', AutocompleteComponent);
 
 Vue.component('buttons', ButtonsComponent);
 Vue.component('input-group', InputGroupComponent);

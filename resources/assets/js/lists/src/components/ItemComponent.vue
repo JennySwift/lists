@@ -173,6 +173,7 @@
 <script>
     var DateTimeRepository = require('../repositories/DateTimeRepository');
     var ItemsRepository = require('../repositories/ItemsRepository');
+    import filters from '../repositories/Filters'
 
     export default {
         template: '#item-template',

@@ -68,6 +68,7 @@
 //    import jQuery from 'jquery'
 //    import bootstrap from 'bootstrap'
 require('bootstrap');
+import store from '../../repositories/Store'
 
     export default {
         data: function () {
