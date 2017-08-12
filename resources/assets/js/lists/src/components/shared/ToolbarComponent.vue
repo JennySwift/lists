@@ -13,6 +13,7 @@
 <script>
 //    import jQuery from 'jquery'
 //    import bootstrap from 'bootstrap'
+import store from '../../repositories/Store'
 require('bootstrap');
 
     export default {

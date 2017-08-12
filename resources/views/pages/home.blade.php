@@ -9,11 +9,11 @@
 
 <div id="app">
     <navbar></navbar>
-    {{--<toolbar></toolbar>--}}
+    <toolbar></toolbar>
 
     <div class="main">
-        {{--<feedback></feedback>--}}
-        {{--<loading></loading>--}}
+        <feedback></feedback>
+        <loading></loading>
 
         <router-view></router-view>
     </div>

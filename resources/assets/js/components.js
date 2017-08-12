@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import FeedbackComponent from '@jennyswift/feedback'
 
 import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import ToolbarComponent from './lists/src/components/shared/ToolbarComponent.vue'
@@ -22,7 +23,7 @@ import ItemFieldsComponent from './lists/src/components/ItemFieldsComponent.vue'
 //Shared components
 Vue.component('navbar', NavbarComponent);
 Vue.component('toolbar', ToolbarComponent);
-// Vue.component('feedback', require('@jennyswift/feedback'));
+Vue.component('feedback', FeedbackComponent);
 Vue.component('loading', LoadingComponent);
 Vue.component('popup', PopupComponent);
 // Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));

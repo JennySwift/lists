@@ -11,6 +11,7 @@
 </template>
 
 <script>
+    import store from '../../repositories/Store'
     export default {
         data: function () {
             return {
