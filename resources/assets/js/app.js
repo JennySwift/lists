@@ -19,14 +19,16 @@ setTimeout(function () {
     store.getItems('zoom');
 }, 500);
 
-window.router = new VueRouter({
-    routes: require('./routes')
-});
 
-var app = new Vue({
-    router: router,
-    el: '#app',
-});
+import routes from './routes'
+
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
+const app = new Vue({
+    router
+}).$mount('#app')
 
 
 

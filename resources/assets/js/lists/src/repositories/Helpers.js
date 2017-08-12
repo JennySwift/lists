@@ -176,11 +176,13 @@ export default {
         //}
         // var path = that.$route.path;
         // if (!VueRouter.app) return false;
-        var path = router.app._route.path;
-        var index = path.indexOf(':');
-        if (index != -1) {
-            return path.slice(index+1);
-        }
+
+        //commenting this for now because router is undefined. Fix later.
+        // var path = router.app._route.path;
+        // var index = path.indexOf(':');
+        // if (index != -1) {
+        //     return path.slice(index+1);
+        // }
         return false;
     }
 }

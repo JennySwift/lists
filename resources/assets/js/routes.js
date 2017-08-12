@@ -1,41 +1,35 @@
-module.exports = [
+import ItemsPageComponent from './lists/src/components/ItemsPageComponent.vue'
+import CategoriesPageComponent from './lists/src/components/CategoriesComponent.vue'
+import HelpPageComponent from './lists/src/components/HelpPageComponent.vue'
+
+export default [
     {
         path: '/',
-        component: require('./lists/src/components/ItemsPageComponent.vue')
+        component: ItemsPageComponent
     },
     {
         path: '/items',
-        component: require('./lists/src/components/ItemsPageComponent.vue'),
-        // children: [
-        //     {
-        //         path: '/',
-        //         component: require('./components/ItemComponent.vue')
-        //     },
-        //     {
-        //         path: '/:id',
-        //         component: require('./components/ItemComponent.vue')
-        //     }
-        // ]
+        component: ItemsPageComponent
     },
     {
         path: '/items/:id',
-        component: require('./lists/src/components/ItemsPageComponent.vue')
+        component: ItemsPageComponent
     },
     {
         path: '/categories',
-        component: require('./lists/src/components/CategoriesComponent.vue')
+        component: CategoriesPageComponent
     },
-    {
-        path: '/trash',
-        component: require('./lists/src/components/TrashComponent.vue')
-    },
-    {
-        path: '/feedback',
-        component: require('./lists/src/components/FeedbackPageComponent.vue')
-    },
+    // {
+    //     path: '/trash',
+    //     component: require('./lists/src/components/TrashComponent.vue')
+    // },
+    // {
+    //     path: '/feedback',
+    //     component: require('./lists/src/components/FeedbackPageComponent.vue')
+    // },
     {
         path: '/help',
-        component: require('./lists/src/components/HelpPageComponent.vue')
+        component: HelpPageComponent
     }
 
-];
+]

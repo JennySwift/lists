@@ -1,174 +1,164 @@
 <template>
     <div>
-        <item-popup></item-popup>
+        <!--<item-popup></item-popup>-->
 
-        <!--<alarms-->
-            <!--:show-item-popup.sync="showItemPopup"-->
-            <!--:selected-item.sync="selectedItem"-->
-            <!--:close-popup="closePopup"-->
-        <!--&gt;-->
-        <!--</alarms>-->
+        <!--<div id="lists" class="">-->
 
-        <!--<urgent-items-->
-            <!--:item="item"-->
-        <!--&gt;-->
-        <!--</urgent-items>-->
+            <!--<button-->
+                <!--v-on:click="toggleNewItemFields()"-->
+                <!--id="new-item-btn"-->
+                <!--class="btn btn-default btn-sm"-->
+            <!--&gt;-->
+                <!--New Item-->
+                <!--<span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>-->
+                <!--<span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>-->
+            <!--</button>-->
 
-        <div id="lists" class="">
+            <!--<breadcrumb></breadcrumb>-->
 
-            <button
-                v-on:click="toggleNewItemFields()"
-                id="new-item-btn"
-                class="btn btn-default btn-sm"
-            >
-                New Item
-                <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
-                <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
-            </button>
+            <!--<favourite-items></favourite-items>-->
 
-            <breadcrumb></breadcrumb>
+            <!--<items-filter></items-filter>-->
 
-            <favourite-items></favourite-items>
+            <!--<new-item></new-item>-->
 
-            <items-filter></items-filter>
+            <!--&lt;!&ndash;Items&ndash;&gt;-->
+            <!--<ul id="items">-->
 
-            <new-item></new-item>
+                <!--<item-->
+                    <!--v-for="item in filteredItems"-->
+                    <!--:key="item.id"-->
+                    <!--:item="item"-->
+                    <!--class="item-with-children"-->
+                <!--&gt;-->
+                <!--</item>-->
 
-            <!--Items-->
-            <ul id="items">
+                <!--<div v-if="shared.items.length === 0">No items here</div>-->
+            <!--</ul>-->
 
-                <item
-                    v-for="item in filteredItems"
-                    :key="item.id"
-                    :item="item"
-                    class="item-with-children"
-                >
-                </item>
-
-                <div v-if="shared.items.length === 0">No items here</div>
-            </ul>
-
-        </div>
+        <!--</div>-->
 
     </div>
 </template>
 
 <script>
-    var moment = require('moment');
-    var ItemsRepository = require('../repositories/ItemsRepository');
-
-    export default {
-        data: function () {
-            return {
-                shared: store.state,
-                editingItems: false,
-                newIndex: -1,
-                currentTime: moment()
-            }
-        },
-        computed: {
-            filteredItems: function () {
-                return filters.filter(this.shared.items, this);
-            },
-            path: function () {
-                console.log(this.$route.path);
-                return this.$route.path;
-            }
-        },
-        watch: {
-            /**
-             * This is so that if the item id in the URL is changed without
-             * reloading the page, the zoomedItem changes
-             * @param val
-             * @param oldVal
-             */
-            'path': function (val, oldVal) {
-                //So this doesn't run on page load before the companies are loaded
-                if (oldVal) {
-                    store.getItems('zoom');
-                }
-            }
-        },
-        components: {},
-        filters: {
-//            itemsFilter: function (items) {
-//                return filters.filter(items, this);
+    export default {}
+//    var moment = require('moment');
+//    import ItemsRepository from '../repositories/ItemsRepository'
+//    import store from '../repositories/Store'
+//    import filters from '../repositories/Filters'
+//
+//    export default {
+//        data: function () {
+//            return {
+//                shared: store.state,
+//                editingItems: false,
+//                newIndex: -1,
+//                currentTime: moment()
 //            }
-        },
-        methods: {
-
-            toggleNewItemFields: function () {
-                store.toggle('showNewItemFields');
-            },
-
-            /**
-             * Update the currentTime every minute so the not-before filter stays up to date
-             */
-            keepCurrentTimeUpToDate: function () {
-                var that = this;
-                var interval = setInterval(function () {
-                    that.currentTime = moment();
-                }, 60000);
-            },
-
-            /**
-             * If the url specifies an item, zoom on that item
-             */
-//            zoomItemThatMatchesRoute: function () {
-//                this.zoomedItem = this.findItemThatMatchesRoute();
-//                if (!this.zoomedItem) {
-//                    $.event.trigger('provide-feedback', ['There is no item with an id of ' + this.$route.params.id.slice(1), 'error']);
-//                    //this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
-//                }
+//        },
+//        computed: {
+//            filteredItems: function () {
+//                return filters.filter(this.shared.items, this);
 //            },
-
-            /**
-             * Called on on page load (from getItemsSuccess-todo), and when the url is changed
-             * @returns {*}
-             */
-            findItemThatMatchesRoute: function () {
-                return ItemsRepository.findModelThatMatchesRoute(this, this.items);
-            },
-
-            /**
-             *
-             * @param $item
-             * @param $index
-             */
-            moveUp: function ($item, $index) {
-                items.splice($index, 1);
-                items.splice($index - 1, 0, $item);
-            },
-
-            /**
-             * After undoing delete item, restored item is returned in the response.
-             * Add this item to the items with the JS.
-             * @param $item
-             */
-            jsRestoreItem: function ($item) {
-                if (!$item.parent_id) {
-                    //Restore the item back home.
-                    if (!breadcrumb || breadcrumb.length < 1) {
-                        //We are home
-                        items.push($item);
-                    }
-
-                }
-                else {
-                    var $parent = SortableFactory.findParentById($item, items);
-                    if ($parent) {
-                        //Todo: put it in the right spot, not just at the end
-                        $parent.children.push($item);
-                    }
-                }
-            }
-
-        },
-        props: [
-            //data to be received from parent
-        ],
-        mounted: function () {
-            this.keepCurrentTimeUpToDate();
-        }
-    }
+//            path: function () {
+//                return this.$route.path;
+//            }
+//        },
+//        watch: {
+//            /**
+//             * This is so that if the item id in the URL is changed without
+//             * reloading the page, the zoomedItem changes
+//             * @param val
+//             * @param oldVal
+//             */
+//            'path': function (val, oldVal) {
+//                //So this doesn't run on page load before the companies are loaded
+//                if (oldVal) {
+//                    store.getItems('zoom');
+//                }
+//            }
+//        },
+//        components: {},
+//        filters: {
+////            itemsFilter: function (items) {
+////                return filters.filter(items, this);
+////            }
+//        },
+//        methods: {
+//
+//            toggleNewItemFields: function () {
+//                store.toggle('showNewItemFields');
+//            },
+//
+//            /**
+//             * Update the currentTime every minute so the not-before filter stays up to date
+//             */
+//            keepCurrentTimeUpToDate: function () {
+//                var that = this;
+//                var interval = setInterval(function () {
+//                    that.currentTime = moment();
+//                }, 60000);
+//            },
+//
+//            /**
+//             * If the url specifies an item, zoom on that item
+//             */
+////            zoomItemThatMatchesRoute: function () {
+////                this.zoomedItem = this.findItemThatMatchesRoute();
+////                if (!this.zoomedItem) {
+////                    $.event.trigger('provide-feedback', ['There is no item with an id of ' + this.$route.params.id.slice(1), 'error']);
+////                    //this.$broadcast('provide-feedback', 'There is no item with an id of ' + this.$route.params.id.slice(1), 'error');
+////                }
+////            },
+//
+//            /**
+//             * Called on on page load (from getItemsSuccess-todo), and when the url is changed
+//             * @returns {*}
+//             */
+//            findItemThatMatchesRoute: function () {
+//                return ItemsRepository.findModelThatMatchesRoute(this, this.items);
+//            },
+//
+//            /**
+//             *
+//             * @param $item
+//             * @param $index
+//             */
+//            moveUp: function ($item, $index) {
+//                items.splice($index, 1);
+//                items.splice($index - 1, 0, $item);
+//            },
+//
+//            /**
+//             * After undoing delete item, restored item is returned in the response.
+//             * Add this item to the items with the JS.
+//             * @param $item
+//             */
+//            jsRestoreItem: function ($item) {
+//                if (!$item.parent_id) {
+//                    //Restore the item back home.
+//                    if (!breadcrumb || breadcrumb.length < 1) {
+//                        //We are home
+//                        items.push($item);
+//                    }
+//
+//                }
+//                else {
+//                    var $parent = SortableFactory.findParentById($item, items);
+//                    if ($parent) {
+//                        //Todo: put it in the right spot, not just at the end
+//                        $parent.children.push($item);
+//                    }
+//                }
+//            }
+//
+//        },
+//        props: [
+//            //data to be received from parent
+//        ],
+//        mounted: function () {
+//            this.keepCurrentTimeUpToDate();
+//        }
+//    }
 </script>
