@@ -55,7 +55,7 @@
 
 <script>
     var moment = require('moment');
-    var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
 
     export default {
         data: function () {

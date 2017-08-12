@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
     var moment = require('moment');
 
     export default {

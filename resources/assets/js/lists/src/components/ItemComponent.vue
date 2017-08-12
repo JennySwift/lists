@@ -171,8 +171,8 @@
 </template>
 
 <script>
-    var DateTimeRepository = require('../lists/src/repositories/DateTimeRepository');
-    var ItemsRepository = require('../lists/src/repositories/ItemsRepository');
+    var DateTimeRepository = require('../repositories/DateTimeRepository');
+    var ItemsRepository = require('../repositories/ItemsRepository');
 
     export default {
         template: '#item-template',

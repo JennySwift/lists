@@ -1,11 +1,11 @@
 module.exports = [
     {
         path: '/',
-        component: require('./components/ItemsPageComponent.vue')
+        component: require('./lists/src/components/ItemsPageComponent.vue')
     },
     {
         path: '/items',
-        component: require('./components/ItemsPageComponent.vue'),
+        component: require('./lists/src/components/ItemsPageComponent.vue'),
         // children: [
         //     {
         //         path: '/',
@@ -19,23 +19,23 @@ module.exports = [
     },
     {
         path: '/items/:id',
-        component: require('./components/ItemsPageComponent.vue')
+        component: require('./lists/src/components/ItemsPageComponent.vue')
     },
     {
         path: '/categories',
-        component: require('./components/CategoriesComponent.vue')
+        component: require('./lists/src/components/CategoriesComponent.vue')
     },
     {
         path: '/trash',
-        component: require('./components/TrashComponent.vue')
+        component: require('./lists/src/components/TrashComponent.vue')
     },
     {
         path: '/feedback',
-        component: require('./components/FeedbackPageComponent.vue')
+        component: require('./lists/src/components/FeedbackPageComponent.vue')
     },
     {
         path: '/help',
-        component: require('./components/HelpPageComponent.vue')
+        component: require('./lists/src/components/HelpPageComponent.vue')
     }
 
 ];
