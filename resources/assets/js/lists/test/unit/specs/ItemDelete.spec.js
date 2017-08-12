@@ -4,6 +4,9 @@ import ItemsRepository from '@/repositories/ItemsRepository'
 // var expect = require('chai').expect;
 // var assert = require('chai').assert;
 
+global.$ = require('jquery');
+global.jQuery = require('jquery');
+
 global.store = require('../../../src/repositories/Store');
 
 describe('deleting item', () => {

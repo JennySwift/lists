@@ -6,6 +6,8 @@ Vue.use(VueRouter);
 
 global.$ = require('jquery');
 global.jQuery = require('jquery');
+
+// import jQuery from 'jquery'
 global._ = require('underscore');
 import store from './lists/src/repositories/Store'
 

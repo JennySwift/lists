@@ -65,7 +65,9 @@
 </template>
 
 <script>
-    require('bootstrap');
+//    import jQuery from 'jquery'
+//    import bootstrap from 'bootstrap'
+require('bootstrap');
 
     export default {
         data: function () {
