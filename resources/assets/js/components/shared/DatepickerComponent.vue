@@ -77,7 +77,7 @@
     var moment = require('moment');
     var $ = require('jquery');
 
-    module.exports = {
+    export default {
         template: '#date-picker-template',
         data: function () {
             return {
@@ -260,7 +260,7 @@
         mounted: function () {
 
         }
-    };
+    }
 
 </script>
 

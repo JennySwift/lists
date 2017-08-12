@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         props: [
             'save',
             'destroy',
@@ -44,5 +44,5 @@
             //For if it's a popup without a redirect path
             'showPopup'
         ]
-    };
+    }
 </script>

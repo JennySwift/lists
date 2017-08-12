@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         template: '#popup-template',
         data: function () {
             return {
@@ -72,7 +72,7 @@
             //this.listen();
             // helpers.scrollbars();
         }
-    };
+    }
 
 </script>
 

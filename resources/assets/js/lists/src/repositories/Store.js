@@ -1,8 +1,9 @@
-var helpers = require('./Helpers');
+import helpers from './Helpers'
 var ItemsRepository = require('./ItemsRepository');
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
+
 
 export default {
 
@@ -36,6 +37,15 @@ export default {
         favourteItemsLoaded: false
     },
 
+    getCategories() {
+        console.log("get categories here!");
+        helpers.get({
+            url: '/api/categories',
+            storeProperty: 'categories',
+            loadedProperty: 'categoriesLoaded'
+        });
+    },
+
     /**
      *
      */
@@ -50,16 +60,9 @@ export default {
         this.state.loading = false;
     },
 
-    /**
-     *
-     */
-    getCategories: function () {
-        helpers.get({
-            url: '/api/categories',
-            storeProperty: 'categories',
-            loadedProperty: 'categoriesLoaded'
-        });
-    },
+
+
+
 
     /**
      *

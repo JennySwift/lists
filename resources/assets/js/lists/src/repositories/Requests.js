@@ -1,5 +1,10 @@
-var Vue = require('vue');
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
 const swal = require('sweetalert2');
+// var store = require('./Store');
+import store from './Store'
+
 
 export default {
     /**

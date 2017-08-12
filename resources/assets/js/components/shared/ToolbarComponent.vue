@@ -13,7 +13,7 @@
 <script>
     require('bootstrap');
 
-    module.exports = {
+    export default {
         data: function () {
             return {
                 shared: store.state
@@ -34,5 +34,5 @@
         mounted: function () {
 
         }
-    };
+    }
 </script>

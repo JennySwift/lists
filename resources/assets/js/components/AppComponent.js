@@ -1,6 +1,6 @@
 // require('sugar');
 //
-// module.exports = {
+// export default {
 //     mounted: function () {
 //         //Set Sugar to use Australian date formatting
 //         Date.setLocale('en-AU');
@@ -10,4 +10,4 @@
 //             store.getItems('zoom');
 //         }, 500);
 //     }
-// };
+// }

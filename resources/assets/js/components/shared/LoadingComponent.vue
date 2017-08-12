@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    module.exports = {
+    export default {
         data: function () {
             return {
                 shared: store.state
@@ -23,6 +23,6 @@
                 return this.shared.loading;
             }
         }
-    };
+    }
 </script>
 

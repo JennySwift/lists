@@ -40,6 +40,8 @@ describe('deleting item', () => {
             id: 1,
             deletedAt: false
         };
+        
+        // console.log('\n\n ItemsRepository: ' + JSON.stringify(ItemsRepository, null, 4) + '\n\n');
 
         item = ItemsRepository.deleteJsItem(item);
         // item.deletedAt = true;

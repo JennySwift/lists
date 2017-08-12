@@ -4,8 +4,8 @@ require('sugar');
 var moment = require('moment');
 require('sweetalert2');
 // require('tooltipster');
-var requests = require('./Requests');
-var arrays = require('./Arrays');
+import requests from './Requests'
+import arrays from './Arrays'
 
 export default {
 
