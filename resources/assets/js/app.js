@@ -23,7 +23,6 @@ Vue.use(VueRouter);
 global.$ = require('jquery');
 global.jQuery = require('jquery');
 global._ = require('underscore');
-// global.store = require('./lists/src/repositories/Store');
 import store from './lists/src/repositories/Store'
 
 require('./config.js');
@@ -31,33 +30,33 @@ Date.setLocale('en-AU');
 
 // window.Event = new Vue();
 
-// //Shared components
-// Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
-// Vue.component('toolbar', require('./components/shared/ToolbarComponent.vue'));
-// Vue.component('feedback', require('@jennyswift/feedback'));
-// Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
-// Vue.component('popup', require('./components/shared/PopupComponent.vue'));
+//Shared components
+Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
+Vue.component('toolbar', require('./components/shared/ToolbarComponent.vue'));
+Vue.component('feedback', require('@jennyswift/feedback'));
+Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
+Vue.component('popup', require('./components/shared/PopupComponent.vue'));
 // Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
-//
-// Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
-// Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
-// Vue.component('date-picker', require('./components/shared/DatepickerComponent.vue'));
-//
-// // //Components
-// Vue.component('item-popup', require('./lists/src/components/ItemPopupComponent.vue'));
-// Vue.component('breadcrumb', require('./components/BreadcrumbComponent.vue'));
-// Vue.component('category-popup', require('./components/CategoryPopupComponent.vue'));
-// Vue.component('alarms', require('./components/AlarmsComponent.vue'));
-// Vue.component('urgent-items', require('./components/UrgentItemsComponent.vue'));
-// Vue.component('favourite-items', require('./components/FavouriteItemsComponent.vue'));
-// Vue.component('items-filter', require('./components/FilterComponent.vue'));
-// Vue.component('new-item', require('./components/NewItemComponent.vue'));
-// Vue.component('new-category', require('./components/NewCategoryComponent.vue'));
-// Vue.component('item', require('./components/ItemComponent.vue'));
-// Vue.component('category', require('./components/CategoryComponent.vue'));
-// Vue.component('item-fields', require('./components/ItemFieldsComponent.vue'));
-//
-// Vue.component('app', require('./components/AppComponent.js'));
+
+Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
+Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
+Vue.component('date-picker', require('./components/shared/DatepickerComponent.vue'));
+
+// Components
+Vue.component('item-popup', require('./lists/src/components/ItemPopupComponent.vue'));
+Vue.component('breadcrumb', require('./components/BreadcrumbComponent.vue'));
+Vue.component('category-popup', require('./components/CategoryPopupComponent.vue'));
+Vue.component('alarms', require('./components/AlarmsComponent.vue'));
+Vue.component('urgent-items', require('./components/UrgentItemsComponent.vue'));
+Vue.component('favourite-items', require('./components/FavouriteItemsComponent.vue'));
+Vue.component('items-filter', require('./components/FilterComponent.vue'));
+Vue.component('new-item', require('./components/NewItemComponent.vue'));
+Vue.component('new-category', require('./components/NewCategoryComponent.vue'));
+Vue.component('item', require('./components/ItemComponent.vue'));
+Vue.component('category', require('./components/CategoryComponent.vue'));
+Vue.component('item-fields', require('./components/ItemFieldsComponent.vue'));
+
+Vue.component('app', require('./components/AppComponent.js'));
 
 window.router = new VueRouter({
     routes: require('./routes')
