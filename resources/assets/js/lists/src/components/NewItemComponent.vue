@@ -235,6 +235,8 @@
             },
 
             optionChosen: function (option, inputId) {
+                console.log('\n\n option: ' + option + '\n\n');
+                console.log('\n\n inputId: ' + inputId + '\n\n');
                 if (inputId === 'new-item-parent') {
                     this.newItem.parent_id = option.id;
                 }

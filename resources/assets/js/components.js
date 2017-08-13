@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import FeedbackComponent from '@jennyswift/feedback'
+// import FeedbackComponent from '@jennyswift/feedback'
 // import AutocompleteComponent from '@jennyswift/vue-autocomplete'
 
 import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
@@ -10,6 +10,7 @@ import ButtonsComponent from './lists/src/components/shared/ButtonsComponent.vue
 import InputGroupComponent from './lists/src/components/shared/InputGroupComponent.vue'
 import DatePickerComponent from './lists/src/components/shared/DatePickerComponent.vue'
 import AutocompleteComponent from './lists/src/components/shared/AutocompleteComponent.vue'
+import FeedbackComponent from './lists/src/components/shared/FeedbackComponent.vue'
 
 import ItemPopupComponent from './lists/src/components/ItemPopupComponent.vue'
 import BreadcrumbComponent from './lists/src/components/BreadcrumbComponent.vue'

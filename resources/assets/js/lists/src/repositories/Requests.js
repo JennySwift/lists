@@ -59,7 +59,7 @@ export default {
             store.hideLoading();
 
             if (options.message) {
-                $.event.trigger('provide-feedback', [options.message, 'success']);
+                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
             }
 
             if (options.array) {
@@ -92,7 +92,7 @@ export default {
             store.hideLoading();
 
             if (options.message) {
-                $.event.trigger('provide-feedback', [options.message, 'success']);
+                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
             }
 
             if (options.property) {
@@ -133,7 +133,7 @@ export default {
                 store.hideLoading();
 
                 if (options.message) {
-                    $.event.trigger('provide-feedback', [options.message, 'success']);
+                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
                 }
 
                 if (options.array) {
