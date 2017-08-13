@@ -1,9 +1,6 @@
 <template>
     <div>
-        <!--<item-popup></item-popup>-->
-        
-        <!--<pre>@{{shared.items | json}}</pre>-->
-        <!--<pre>@{{filteredItems | json}}</pre>-->
+        <item-popup></item-popup>
 
         <div id="lists" class="">
 

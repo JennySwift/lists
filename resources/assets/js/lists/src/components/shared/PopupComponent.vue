@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import helpers from '../../repositories/Helpers'
     export default {
         template: '#popup-template',
         data: function () {
