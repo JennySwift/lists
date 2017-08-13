@@ -25,9 +25,10 @@ export default {
      * @param status
      * @param response
      */
-    handleResponseError: function (data, status, response) {
+    handleResponseError: function (response) {
         store.hideLoading();
-        $.event.trigger('response-error', [data, status, response]);
+        app.__vue__.$bus.$emit('response-error', response);
+        // $.event.trigger('response-error', [data, status, response]);
         $.event.trigger('hide-loading');
     },
 

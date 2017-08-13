@@ -60,15 +60,11 @@
              * @param status
              * @returns {*}
              */
-            handleResponseError: function (data, status, response) {
+            handleResponseError: function (response) {
                 var messages = [];
                 var defaultMessage = 'There was an error';
 
-                if (!status && data && data.status) {
-                    status = data.status;
-                }
-
-                switch(status) {
+                switch(response.status) {
                     case 503:
                         messages.push('Sorry, application under construction. Please try again later.');
                         break;
@@ -79,7 +75,7 @@
                         messages = this.setMessagesFrom422Status(data);
                         break;
                     default:
-                        data && data.error ? messages.push(data.error) : messages.push(defaultMessage);
+                        response && response.error ? messages.push(response.error) : messages.push(defaultMessage);
                         break;
                 }
 
@@ -107,8 +103,11 @@
             }
         },
         created: function () {
+            var that = this;
             this.$bus.$on('provide-feedback', this.provideFeedback);
-//            this.$bus.$on('response-error', this.provideFeedback);
+            this.$bus.$on('response-error', function (response) {
+                that.provideFeedback(that.handleResponseError(response), 'error')
+            });
         },
         ready: function () {
 
