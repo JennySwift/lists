@@ -235,9 +235,11 @@
             },
 
             optionChosen: function (option, inputId) {
-                console.log("Detected");
                 if (inputId === 'new-item-parent') {
                     this.newItem.parent_id = option.id;
+                }
+                else if (inputId === 'new-item-category') {
+                    this.newItem.category = option;
                 }
             },
 

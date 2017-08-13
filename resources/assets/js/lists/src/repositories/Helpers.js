@@ -4,6 +4,7 @@ require('sweetalert2');
 // require('tooltipster');
 import requests from './Requests'
 import arrays from './Arrays'
+import store from './Store'
 
 export default {
 
