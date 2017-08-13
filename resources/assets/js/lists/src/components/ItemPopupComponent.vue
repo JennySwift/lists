@@ -80,6 +80,7 @@
         },
         computed: {
             redirectTo: function () {
+                console.log("redirect to is: " + this.$route.path);
                 return this.$route.path;
             }
         },
@@ -116,6 +117,12 @@
                         this.showPopup = false;
                     }.bind(this)
                 });
+            },
+
+            hidePopup: function () {
+                console.log("should be hiding now");
+//                this.$emit('update:showPopup', false);
+                this.showPopup = false;
             },
 
             updateFavourites: function (item) {

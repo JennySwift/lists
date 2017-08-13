@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
 Vue.use(VueResource);
+Vue.use(VueRouter);
 const swal = require('sweetalert2');
 // var store = require('./Store');
 import store from './Store'
+import helpers from './Helpers'
+
+
 
 
 export default {
@@ -77,6 +82,7 @@ export default {
      */
     put: function (options) {
         store.showLoading();
+        var that = this;
         Vue.http.put(options.url, options.data).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
@@ -93,7 +99,7 @@ export default {
             }
 
             if (options.redirectTo) {
-                router.push(options.redirectTo);
+                that.getRouter().push(options.redirectTo);
             }
 
         }, function (response) {

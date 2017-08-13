@@ -3,6 +3,7 @@
         <router-link
             v-if=redirectTo
             :to="redirectTo"
+            v-on:click="hidePopup()"
             tag="button"
             class="btn btn-default"
         >
@@ -10,8 +11,8 @@
         </router-link>
 
         <button
-            v-if="showPopup"
-            v-on:click="showPopup = false"
+            v-if="showPopup && !redirectTo"
+            v-on:click="hidePopup()"
             class="btn btn-default"
         >
             Cancel
@@ -37,12 +38,17 @@
 
 <script>
     export default {
+        methods: {
+
+        },
         props: [
             'save',
             'destroy',
             'redirectTo',
             //For if it's a popup without a redirect path
-            'showPopup'
+            'showPopup',
+            //Method not a property
+            'hidePopup'
         ]
     }
 </script>

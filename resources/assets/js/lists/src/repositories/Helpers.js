@@ -30,6 +30,10 @@ export default {
         $.event.trigger('hide-loading');
     },
 
+    getRouter: function () {
+        return app.__vue__.$router;
+    },
+
     /**
      *
      */

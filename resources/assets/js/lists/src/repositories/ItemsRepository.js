@@ -1,5 +1,6 @@
 import DateTimeRepository from './DateTimeRepository'
 import helpers from './Helpers'
+import store from './Store'
 
 export default {
 
