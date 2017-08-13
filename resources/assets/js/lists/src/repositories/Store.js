@@ -3,6 +3,7 @@ import ItemsRepository from './ItemsRepository'
 var object = require('lodash/object');
 require('sugar');
 Date.setLocale('en-AU');
+import Vue from 'vue'
 
 
 export default {
@@ -139,7 +140,7 @@ export default {
     update: function (item, path) {
         var index = helpers.findIndexById(object.get(this.state, path), item.id);
 
-        object.get(this.state, path).$set(index, item);
+        Vue.set(object.get(this.state, path), index, item);
     },
 
     /**

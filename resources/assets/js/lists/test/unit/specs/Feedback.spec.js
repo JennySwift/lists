@@ -3,7 +3,7 @@ import Vue from 'vue'
 import FeedbackComponent from '../../../../lists/src/components/shared/FeedbackComponent.vue'
 
 
-describe.only('feedback component', function () {
+describe('feedback component', function () {
     var vm;
 
     beforeEach(function () {
