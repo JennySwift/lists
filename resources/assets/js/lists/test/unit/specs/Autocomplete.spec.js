@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
-var Vue = require('vue');
-var helpers = require('../helpers');
-
+import Vue from 'vue'
+import AutocompleteComponent from '../../../../lists/src/components/shared/AutocompleteComponent.vue'
+import helpers from '../../../../lists/src/repositories/Helpers'
 
 describe('autocomplete component', function () {
     var vm;
@@ -13,7 +13,9 @@ describe('autocomplete component', function () {
     ];
 
     beforeEach(function () {
-        vm = new Vue(require('../AutocompleteComponent.vue'));
+        const bus = new Vue();
+        Vue.prototype.$bus = bus;
+        vm = new Vue(AutocompleteComponent);
 
         vm.unfilteredOptions = [
             {name: 'one'},
@@ -45,7 +47,7 @@ describe('autocomplete component', function () {
     });
     
     describe('currentIndex', function () {
-        vm = new Vue(require('../AutocompleteComponent.vue'));
+        vm = new Vue(AutocompleteComponent);
 
         beforeEach(function () {
             vm.options = options;
@@ -92,12 +94,12 @@ describe('autocomplete component', function () {
         });
 
         it('can choose an option by clicking on it', function () {
-            assert.isUndefined(vm.selected);
+            assert.isUndefined(vm.mutableSelected);
             vm.currentIndex = 0;
             assert.equal(0, vm.currentIndex);
             vm.selectOption(2);
             assert.equal(2, vm.currentIndex);
-            assert.deepEqual({name: 'three'}, vm.selected);
+            assert.deepEqual({name: 'three'}, vm.mutableSelected);
             assert.equal('three', vm.inputValue);
         });
 
@@ -105,14 +107,14 @@ describe('autocomplete component', function () {
             vm.currentIndex = 1;
             assert.equal(1, vm.currentIndex);
             vm.selectOption();
-            assert.deepEqual({name: 'two'}, vm.selected);
+            assert.deepEqual({name: 'two'}, vm.mutableSelected);
             assert.isFalse(vm.dropdown);
             //Todo: test next field is focused and event is dispatched
         });
 
         it('can choose an option when the options are strings not objects', function () {
             vm.prop = undefined;
-            assert.isUndefined(vm.selected);
+            assert.isUndefined(vm.mutableSelected);
             assert.isUndefined(vm.prop);
             vm.options = ['one', 'two', 'three'];
             vm.currentIndex = 0;
@@ -120,7 +122,7 @@ describe('autocomplete component', function () {
 
             vm.selectOption(2);
             assert.equal(2, vm.currentIndex);
-            assert.equal('three', vm.selected);
+            assert.equal('three', vm.mutableSelected);
             assert.equal('three', vm.inputValue);
         });
     });
@@ -194,7 +196,7 @@ describe('autocomplete component', function () {
         });
 
         it('can set the input value according to the property of the selected option', function () {
-            vm.selected = {name: 'two'};
+            vm.mutableSelected = {name: 'two'};
             vm.clearInputValue();
             assert.equal('', vm.inputValue);
             vm.setInputValue();
@@ -203,7 +205,7 @@ describe('autocomplete component', function () {
 
         it('can set the input value as the selected option if the option is a string', function () {
             vm.prop = undefined;
-            vm.selected = 'two';
+            vm.mutableSelected = 'two';
             vm.clearInputValue();
             assert.equal('', vm.inputValue);
             vm.setInputValue();
@@ -211,7 +213,7 @@ describe('autocomplete component', function () {
         });
 
         it('can respond to the input blur', function () {
-            vm.selected = {name: 'two'};
+            vm.mutableSelected = {name: 'two'};
             vm.dropdown = true;
             assert.isTrue(vm.dropdown);
             vm.respondToBlur();
@@ -220,7 +222,7 @@ describe('autocomplete component', function () {
         });
 
         it('returns false if there is nothing selected', function () {
-            vm.selected = undefined;
+            vm.mutableSelected = undefined;
             var result = vm.setInputValue();
             assert.isFalse(result);
         });
