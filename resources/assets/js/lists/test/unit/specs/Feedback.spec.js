@@ -1,12 +1,13 @@
 var expect = require('chai').expect;
-var Vue = require('vue');
+import Vue from 'vue'
+import FeedbackComponent from '../../../../lists/src/components/shared/FeedbackComponent.vue'
 
 
-describe('feedback component', function () {
+describe.only('feedback component', function () {
     var vm;
 
     beforeEach(function () {
-        vm = new Vue(require('../index'));
+        vm = new Vue(FeedbackComponent);
         expect(vm.feedbackMessages).to.eql([]);
     });
 
@@ -51,7 +52,7 @@ describe('feedback component', function () {
     });
 
     it('can handle an error if given the response status', function () {
-        var messages = vm.handleResponseError(undefined, 503);
+        var messages = vm.handleResponseError({status: 503});
 
         expect(messages).to.eql([
             'Sorry, application under construction. Please try again later.'
@@ -59,7 +60,7 @@ describe('feedback component', function () {
     });
 
     it('can handle a 401 status', function () {
-        var messages = vm.handleResponseError(undefined, 401);
+        var messages = vm.handleResponseError({status: 401});
 
         expect(messages).to.eql([
             'You are not logged in'
@@ -72,7 +73,9 @@ describe('feedback component', function () {
             type: ["The type field is required."]
         };
 
-        var messages = vm.handleResponseError(errors, 422);
+        var messages = vm.handleResponseError({data: errors, status: 422});
+
+        console.log('messages from spec: ' + messages);
 
         expect(messages).to.eql([
             'The name field is required.',

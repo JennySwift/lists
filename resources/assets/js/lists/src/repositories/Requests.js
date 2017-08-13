@@ -40,7 +40,7 @@ export default {
 
             store.hideLoading();
         }, function (response) {
-            helpers.handleResponseError(response.data, response.status);
+            helpers.handleResponseError(response);
         });
     },
 
@@ -74,7 +74,7 @@ export default {
                 that.getRouter().push(options.redirectTo);
             }
         }, function (response) {
-            helpers.handleResponseError(response.data, response.status);
+            helpers.handleResponseError(response);
         });
     },
 
@@ -104,7 +104,7 @@ export default {
             }
 
         }, function (response) {
-            helpers.handleResponseError(response.data, response.status);
+            helpers.handleResponseError(response);
         });
     },
 
@@ -144,7 +144,7 @@ export default {
                     that.getRouter().push(options.redirectTo);
                 }
             }, function (response) {
-                helpers.handleResponseError(response.data, response.status);
+                helpers.handleResponseError(response);
             });
         }, function(dismiss) {
 

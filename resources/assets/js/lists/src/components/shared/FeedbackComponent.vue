@@ -34,8 +34,6 @@
              * @param type
              */
             provideFeedback: function (messages, type) {
-                console.log('\n\n messages: ' + messages + '\n\n');
-                console.log('\n\n type: ' + type + '\n\n');
                 if (typeof messages === 'string') {
                     messages = [messages];
                 }
@@ -62,7 +60,11 @@
              */
             handleResponseError: function (response) {
                 var messages = [];
-                var defaultMessage = 'There was an error';
+
+                if (!response || !response.status) {
+                    messages.push('There was an error');
+                    return messages;
+                }
 
                 switch(response.status) {
                     case 503:
@@ -72,15 +74,11 @@
                         messages.push('You are not logged in');
                         break;
                     case 422:
-                        messages = this.setMessagesFrom422Status(data);
+                        messages = this.setMessagesFrom422Status(response.data);
                         break;
                     default:
                         response && response.error ? messages.push(response.error) : messages.push(defaultMessage);
                         break;
-                }
-
-                if (messages.length < 1) {
-                    messages.push(defaultMessage);
                 }
 
                 return messages;
@@ -88,14 +86,16 @@
 
             /**
              *
-             * @returns {string}
+             * @param errors
+             * @returns {Array}
              */
-            setMessagesFrom422Status: function (data) {
+            setMessagesFrom422Status: function (errors) {
                 var messages = [];
+                var i;
 
-                for (errors in data) {
-                    for (var i = 0; i < data[errors].length; i++) {
-                        messages.push(data[errors][i]);
+                for (i in errors) {
+                    for (var j = 0; j < errors[i].length; j++) {
+                        messages.push(errors[i][j]);
                     }
                 }
 

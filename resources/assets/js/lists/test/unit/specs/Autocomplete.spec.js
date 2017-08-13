@@ -3,6 +3,9 @@ import Vue from 'vue'
 import AutocompleteComponent from '../../../../lists/src/components/shared/AutocompleteComponent.vue'
 import helpers from '../../../../lists/src/repositories/Helpers'
 
+const bus = new Vue();
+Vue.prototype.$bus = bus;
+
 describe('autocomplete component', function () {
     var vm;
 
@@ -13,8 +16,6 @@ describe('autocomplete component', function () {
     ];
 
     beforeEach(function () {
-        const bus = new Vue();
-        Vue.prototype.$bus = bus;
         vm = new Vue(AutocompleteComponent);
 
         vm.unfilteredOptions = [
