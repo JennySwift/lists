@@ -270,7 +270,7 @@ describe('update methods', function () {
     });
 });
 
-describe.only('property setting', function () {
+describe('property setting', function () {
     it('can set a store property', function () {
         var exercises = [
             {name: 'pushup', id: 1},
