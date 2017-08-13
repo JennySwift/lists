@@ -28,6 +28,9 @@ const router = new VueRouter({
     routes // short for `routes: routes`
 })
 
+const bus = new Vue()
+Vue.prototype.$bus = bus
+
 const app = new Vue({
     router
 }).$mount('#app')

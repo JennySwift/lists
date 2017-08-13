@@ -26,17 +26,18 @@
             class="autocomplete-dropdown scrollbar-container"
         >
             <div
-                v-for="option in options"
+                v-for="(option, index) in options"
                 v-show="options.length > 0"
-                v-bind:class="{'selected': currentIndex === $index}"
-                v-on:mouseover="hoverItem($index)"
-                v-on:mousedown="selectOption($index)"
+                v-bind:class="{'selected': currentIndex === index}"
+                v-on:mouseover="hoverItem(index)"
+                v-on:mousedown="selectOption(index)"
                 class="autocomplete-option"
             >
                 <div v-if="prop">{{ option[prop] }}</div>
                 <div v-if="!prop">{{ option }}</div>
 
-                <partial :name="optionPartial"></partial>
+                <!--No longer works with Vue-->
+                <!--<partial :name="optionPartial"></partial>-->
             </div>
             <div v-if="options.length === 0" class="no-results">No results</div>
         </div>
@@ -57,7 +58,8 @@
                 timeSinceKeyPress: 0,
                 interval: '',
                 startedCounting: false,
-                inputValue: ''
+                inputValue: '',
+                mutableSelected: this.selected
             };
         },
         components: {},
@@ -66,11 +68,11 @@
         },
         watch: {
             'unfilteredOptions': function (val, oldVal) {
-                if (this.selected) {
+                if (this.mutableSelected) {
                     this.setInputValue();
                 }
             },
-            'selected': function (val, oldVal) {
+            'mutableSelected': function (val, oldVal) {
                 this.setInputValue();
             }
         },
@@ -126,11 +128,11 @@
                     //Item was chosen by clicking
                     this.currentIndex = index;
                 }
-                this.selected = helpers.clone(this.options[this.currentIndex]);
+                this.mutableSelected = helpers.clone(this.options[this.currentIndex]);
                 this.setInputValue();
                 this.hideDropdown();
                 this.focusNextField();
-                this.$dispatch('option-chosen', this.selected, this.inputId);
+                this.$bus.$emit('autocomplete-option-chosen', this.mutableSelected, this.inputId);
             },
 
             /**
@@ -219,7 +221,7 @@
              * @param keycode
              */
             respondToKeyup: function (keycode) {
-                if (!helpers.keyIsCharacter(keycode)) return false;
+                if (!this.keyIsCharacter(keycode)) return false;
 
                 if (!this.unfilteredOptions) {
                     //We'll be searching the database, so create a delay before searching
@@ -302,13 +304,13 @@
              *
              */
             setInputValue: function () {
-                if (!this.selected) return false;
+                if (!this.mutableSelected) return false;
 
                 if (this.prop) {
-                    this.inputValue = this.selected[this.prop];
+                    this.inputValue = this.mutableSelected[this.prop];
                 }
                 else {
-                    this.inputValue = this.selected;
+                    this.inputValue = this.mutableSelected;
                 }
 
             },

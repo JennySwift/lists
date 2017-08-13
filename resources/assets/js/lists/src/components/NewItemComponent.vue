@@ -34,6 +34,7 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import store from '../repositories/Store'
     import helpers from '../repositories/Helpers'
+//    import eventHub from '../EventHub'
     var $ = require('jquery');
 
     export default {
@@ -233,6 +234,13 @@
                 });
             },
 
+            optionChosen: function (option, inputId) {
+                console.log("Detected");
+                if (inputId === 'new-item-parent') {
+                    this.newItem.parent_id = option.id;
+                }
+            },
+
             /**
              *
              */
@@ -252,12 +260,8 @@
             'items',
             'zoomedItem'
         ],
-        events: {
-            'option-chosen': function (option, inputId) {
-                if (inputId === 'new-item-parent') {
-                    this.newItem.parent_id = option.id;
-                }
-            }
+        created: function () {
+            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.getUser();
