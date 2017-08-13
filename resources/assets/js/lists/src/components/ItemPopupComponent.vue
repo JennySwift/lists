@@ -9,52 +9,52 @@
         <div slot="content">
             <div id="item-popup" class="popup-inner">
 
-                <!--<div class="top-btns">-->
+                <div class="top-btns">
 
-                    <!--<div>-->
-                        <!--<button-->
-                            <!--v-if="!selectedItem.favourite"-->
-                            <!--v-on:click="selectedItem.favourite = !selectedItem.favourite"-->
-                            <!--class="favourite fa fa-star-o">-->
-                        <!--</button>-->
+                    <div>
+                        <button
+                            v-if="!selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star-o">
+                        </button>
 
-                        <!--<button-->
-                            <!--v-if="selectedItem.favourite"-->
-                            <!--v-on:click="selectedItem.favourite = !selectedItem.favourite"-->
-                            <!--class="favourite fa fa-star">-->
-                        <!--</button>-->
+                        <button
+                            v-if="selectedItem.favourite"
+                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
+                            class="favourite fa fa-star">
+                        </button>
 
-                    <!--</div>-->
+                    </div>
 
-                <!--</div>-->
+                </div>
 
-                <!--<div>-->
-                    <!--<item-fields-->
-                        <!--:item="selectedItem"-->
-                        <!--action="update"-->
-                        <!--:show="true"-->
-                        <!--:enter="updateItem"-->
-                    <!--&gt;-->
-                    <!--</item-fields>-->
-                <!--</div>-->
+                <div>
+                    <item-fields
+                        :item="selectedItem"
+                        action="update"
+                        :show="true"
+                        :enter="updateItem"
+                    >
+                    </item-fields>
+                </div>
 
-                <!--<buttons-->
-                    <!--v-if="!selectedItem.deletedAt"-->
-                    <!--:save="updateItem"-->
-                    <!--:destroy="deleteItem"-->
-                    <!--:redirect-to="redirectTo"-->
-                    <!--:show-popup.sync="showPopup"-->
+                <buttons
+                    v-if="!selectedItem.deletedAt"
+                    :save="updateItem"
+                    :destroy="deleteItem"
+                    :redirect-to="redirectTo"
+                    :show-popup.sync="showPopup"
 
-                <!--&gt;-->
-                <!--</buttons>-->
+                >
+                </buttons>
 
-                <!--<button-->
-                    <!--v-else-->
-                    <!--v-on:click="restore()"-->
-                    <!--class="btn btn-success"-->
-                <!--&gt;-->
-                    <!--Restore-->
-                <!--</button>-->
+                <button
+                    v-else
+                    v-on:click="restore()"
+                    class="btn btn-success"
+                >
+                    Restore
+                </button>
 
             </div>
         </div>
