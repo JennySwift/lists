@@ -56,7 +56,7 @@
                 helpers.put({
                     url: '/api/categories/' + this.selectedCategory.id,
                     data: data,
-                    property: 'categorys',
+                    property: 'categories',
                     message: 'Category updated',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
