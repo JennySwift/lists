@@ -40,7 +40,6 @@
             :function-on-enter="enter"
             :selected.sync="mutableModel"
             :option-partial="optionPartial"
-            @option-chosen="optionChosen"
         >
         </autocomplete>
 
@@ -56,13 +55,13 @@
     export default {
         data: function () {
             return {
-//                mutableModel: this.model
+                mutableModel: this.model
             };
         },
         computed: {
-            mutableModel: function () {
-              return this.model;
-            }
+//            mutableModel: function () {
+//              return this.model;
+//            }
         },
         methods: {
             /**
@@ -73,9 +72,9 @@
                     this.focus();
                 }
             },
-            optionChosen: function (args) {
-                this.$emit('update:model', args[0]);
-            },
+//            optionChosen: function (args) {
+//                this.$emit('update:model', args[0]);
+//            },
             sync: function () {
                 this.$emit('update:model', this.mutableModel);
             }
