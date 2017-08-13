@@ -44,6 +44,7 @@
                     :destroy="deleteItem"
                     :redirect-to="redirectTo"
                     :show-popup.sync="showPopup"
+                    :hide-popup="hidePopup"
 
                 >
                 </buttons>
@@ -143,6 +144,7 @@
              *
              */
             updateItem: function () {
+                console.log("updating...");
                 var data = ItemsRepository.setData(this.selectedItem);
 
                 helpers.put({

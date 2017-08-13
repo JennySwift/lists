@@ -50,6 +50,7 @@ export default {
      */
     post: function (options) {
         store.showLoading();
+        var that = this;
         Vue.http.post(options.url, options.data).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
@@ -70,7 +71,7 @@ export default {
             }
 
             if (options.redirectTo) {
-                router.push(options.redirectTo);
+                that.getRouter().push(options.redirectTo);
             }
         }, function (response) {
             helpers.handleResponseError(response.data, response.status);
@@ -111,6 +112,7 @@ export default {
      *
      */
     delete: function (options) {
+        var that = this;
         swal({
             title: 'Are you sure?',
             showCancelButton: true,
@@ -139,7 +141,7 @@ export default {
                 }
 
                 if (options.redirectTo) {
-                    router.push(options.redirectTo);
+                    that.getRouter().push(options.redirectTo);
                 }
             }, function (response) {
                 helpers.handleResponseError(response.data, response.status);

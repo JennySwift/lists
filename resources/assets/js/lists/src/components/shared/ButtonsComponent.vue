@@ -2,12 +2,12 @@
     <div>
         <router-link
             v-if=redirectTo
+            v-on:click.native="hidePopup"
             :to="redirectTo"
-            v-on:click="hidePopup()"
             tag="button"
             class="btn btn-default"
         >
-            Cancel
+            Cancelsdfsdfkj
         </router-link>
 
         <button
