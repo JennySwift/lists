@@ -9,7 +9,7 @@ import store from '@/repositories/Store'
 // Vue.use(VueRouter);
 // global.router = new VueRouter({hashbang: false});
 
-describe.only('filters', function () {
+describe('filters', function () {
     it('can show and hide the loading symbol', function () {
         store.hideLoading();
         assert.isFalse(store.state.loading);
@@ -270,7 +270,7 @@ describe('update methods', function () {
     });
 });
 
-describe('property setting', function () {
+describe.only('property setting', function () {
     it('can set a store property', function () {
         var exercises = [
             {name: 'pushup', id: 1},
