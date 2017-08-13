@@ -15,7 +15,7 @@
                         <button
                             v-if="!selectedItem.favourite"
                             v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                            class="favourite fa fa-star-o">
+                            class="favourite fa fa-star-o btn btn-sm btn-default">
                         </button>
 
                         <button

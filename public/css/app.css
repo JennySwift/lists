@@ -12762,6 +12762,11 @@ textarea {
   min-height: 300px;
 }
 
+#item-popup button.favourite {
+  margin-left: 1px;
+  padding: 2px 9px;
+}
+
 #search-container {
   position: fixed;
   z-index: 99;
