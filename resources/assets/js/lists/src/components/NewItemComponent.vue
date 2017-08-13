@@ -42,7 +42,6 @@
             return {
                 me: {},
                 shared: store.state,
-                showNewItemFields: false,
                 addingNewItems: false,
                 newItem: {
                     title: '',
@@ -72,7 +71,7 @@
              *
              */
             showFields: function () {
-                this.showNewItemFields = true;
+                store.set(true, 'showNewItemFields');
             },
 
             /**
@@ -129,15 +128,6 @@
                 this.newItem.body = '';
                 this.newItem.parent = false;
             },
-
-            /**
-             *
-             */
-            showNewItemFields: function () {
-                this.addingNewItem = true;
-                this.editingItem = false;
-            },
-
 
             /**
              * For inserting an item into my lists app.

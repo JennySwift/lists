@@ -23,7 +23,7 @@
 
             <items-filter></items-filter>
 
-            <!--<new-item></new-item>-->
+            <new-item></new-item>
 
             <!--Items-->
             <ul id="items">
