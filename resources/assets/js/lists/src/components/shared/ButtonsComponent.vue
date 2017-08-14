@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="btns">
         <router-link
             v-if=redirectTo
             v-on:click.native="hidePopup"
@@ -7,7 +7,7 @@
             tag="button"
             class="btn btn-default"
         >
-            Cancelsdfsdfkj
+            Cancels
         </router-link>
 
         <button

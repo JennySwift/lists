@@ -1,22 +1,30 @@
 <template>
     <div id="categories">
 
-        <modal name="category-popup" @before-open="beforeOpen">
-            <div class="input-group-container">
-                <input-group
-                    label="Name:"
-                    :model.sync="selectedCategory.name"
-                    :enter="updateCategory"
-                    id="selected-category-name"
-                >
-                </input-group>
+        <modal name="category-popup">
+            <!--<div class="input-group-container">-->
+                <!--<input-group-->
+                    <!--label="Name:"-->
+                    <!--:model.sync="selectedCategory.name"-->
+                    <!--:enter="updateCategory"-->
+                    <!--id="selected-category-name"-->
+                <!--&gt;-->
+                <!--</input-group>-->
+
+            <input
+                type="text"
+                v-model="selectedCategory.name"
+                v-on:keyup.13 = "updateCategory"
+                placeholder="Name"
+                class="line"
+            />
 
                 <buttons
                     :save="updateCategory"
                     :destroy="deleteCategory"
                 >
                 </buttons>
-            </div>
+            <!--</div>-->
         </modal>
 
         <h1>Categories</h1>
@@ -87,17 +95,13 @@
                 });
             },
 
-            showModal () {
-                this.$modal.show('hello-world', { foo: 'bar' });
-            },
-
             /**
              *
              */
             showCategoryPopup: function (category) {
 //                $.event.trigger('show-category-popup', [this.category]);
                 this.selectedCategory = helpers.clone(category);
-                this.$modal.show('category-popup', { foo: 'bar' });
+                this.$modal.show('category-popup', { adaptive: true });
             }
         }
     }

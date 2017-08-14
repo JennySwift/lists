@@ -12482,6 +12482,16 @@ textarea {
   width: 100%;
 }
 
+input[type="text"].line {
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 .swal2-modal button {
   margin-right: 5px;
   margin-left: 5px;
@@ -12658,6 +12668,30 @@ textarea {
 
 #register #remember-me-container label {
   margin-bottom: 0;
+}
+
+.v--modal-box.v--modal {
+  padding: 20px;
+}
+
+.v--modal-box.v--modal .btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 30px;
+}
+
+.v--modal-box.v--modal .btns button {
+  margin: 0 5px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
 }
 
 .popup-outer {

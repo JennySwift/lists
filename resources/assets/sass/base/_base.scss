@@ -156,3 +156,13 @@ textarea {
 	width: 100%;
 }
 
+input[type="text"].line {
+	border: 0;
+	box-shadow: none;
+	outline: none;
+	border-bottom: 1px solid #ccc;
+	border-radius: 0;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
