@@ -8,6 +8,11 @@
 
 		.content {
 			flex: 1;
+
+			//To center things vertically
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 		}
 
 		.btns {

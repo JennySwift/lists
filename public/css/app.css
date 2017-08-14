@@ -12490,6 +12490,7 @@ input[type="text"].line {
   border-radius: 0;
   margin-bottom: 10px;
   width: 100%;
+  text-align: center;
 }
 
 .swal2-modal button {
@@ -12689,6 +12690,16 @@ input[type="text"].line {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .v--modal-box.v--modal .flex-container .btns {
