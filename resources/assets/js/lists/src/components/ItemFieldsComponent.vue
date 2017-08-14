@@ -82,7 +82,7 @@
                 <date-picker
                     :function-on-enter="enter"
                     :chosen-date="item.notBefore"
-                    input-id="new-item-not-before"
+                    :input-id="type + '-item-not-before'"
                     label="Not Before"
                     input-placeholder=""
                     property="notBefore"
@@ -181,6 +181,14 @@
                     return 'new-item-title';
                 }
                 return 'selected-item-title';
+            },
+            type () {
+                if (this.action === 'insert') {
+                    return 'new';
+                }
+                else if (this.action === 'update') {
+                    return 'selected'
+                }
             }
         },
         methods: {

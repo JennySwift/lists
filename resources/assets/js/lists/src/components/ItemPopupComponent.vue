@@ -265,14 +265,22 @@
                     that.showPopup = true;
 //                    store.set(true, 'showItemPopup');
                 });
-            }
-        },
-        events: {
-            'option-chosen': function (option, inputId) {
+            },
+
+            optionChosen (option, inputId) {
                 if (inputId === 'selected-item-new-parent') {
                     this.selectedItem.parent_id = option.id;
                 }
+            },
+            dateChosen (date, inputId) {
+                if (inputId === 'selected-item-not-before') {
+                    this.selectedItem.notBefore = date;
+                }
             }
+        },
+        created: function () {
+            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+            this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
             setTimeout(function () {
