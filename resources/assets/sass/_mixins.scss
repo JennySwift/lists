@@ -8,6 +8,15 @@
     margin: auto;
 }
 
+@mixin inputPlaceholder {
+    &:-ms-input-placeholder {
+        font-style: italic;
+    }
+    &::placeholder {
+        font-style: italic;
+    }
+}
+
 @mixin inputGroupLabel {
     //background: $base3;
     background: lighten($base1, 10%);

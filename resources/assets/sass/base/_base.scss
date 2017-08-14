@@ -164,10 +164,23 @@ input[type="text"].line {
 	border: 0;
 	box-shadow: none;
 	outline: none;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #efefef;
 	border-radius: 0;
 	margin-bottom: 10px;
 	width: 100%;
 	text-align: center;
+
+	@include inputPlaceholder;
+
+	//&::-webkit-input-placeholder {
+	//	font-style: italic;
+	//}
+	//&::-moz-placeholder {
+	//	font-style: italic;
+	//}
+
+	//&:-moz-placeholder {
+	//	font-style: italic;
+	//}
 }
 

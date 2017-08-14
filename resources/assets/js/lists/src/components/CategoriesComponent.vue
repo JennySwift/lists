@@ -26,8 +26,6 @@
             <!--</div>-->
         </modal>
 
-        <h1>Categories</h1>
-
         <new-category></new-category>
 
         <ul class="list-group">

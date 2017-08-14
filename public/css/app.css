@@ -12490,11 +12490,23 @@ input[type="text"].line {
   border: 0;
   box-shadow: none;
   outline: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #efefef;
   border-radius: 0;
   margin-bottom: 10px;
   width: 100%;
   text-align: center;
+}
+
+input[type="text"].line:-ms-input-placeholder {
+  font-style: italic;
+}
+
+input[type="text"].line::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+input[type="text"].line::placeholder {
+  font-style: italic;
 }
 
 .swal2-modal button {

@@ -1,16 +1,15 @@
 <template>
     <div id="new-category">
         <div class="input-group-container">
-            <input-group
-                label="New Category:"
-                :model.sync="newCategory.name"
-                :enter="insertCategory"
-                id="new-category-name"
-            >
-            </input-group>
+            <input
+                v-model="newCategory.name"
+                v-on:keyup.13="insertCategory"
+                type="text"
+                placeholder="Enter a new category"
+                class="line"/>
+
         </div>
 
-        <button v-on:click="insertCategory()" class="btn btn-success">Create</button>
     </div>
 </template>
 
