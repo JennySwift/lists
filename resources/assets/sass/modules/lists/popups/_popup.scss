@@ -1,17 +1,29 @@
 .v--modal-box.v--modal {
 	padding: 20px;
 
-	.btns {
+	.flex-container {
 		display: flex;
-		width: 100%;
-		justify-content: space-between;
-		margin-top: 30px;
-		button {
-			margin: 0 5px;
-			flex-grow: 1;
-			flex-basis: 0;
+		flex-direction: column;
+		height: 100%;
+
+		.content {
+			flex: 1;
+		}
+
+		.btns {
+			display: flex;
+			width: 100%;
+			justify-content: space-between;
+			margin-top: 30px;
+			button {
+				margin: 0 5px;
+				flex-grow: 1;
+				flex-basis: 0;
+			}
 		}
 	}
+
+
 }
 
 

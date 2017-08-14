@@ -2,28 +2,27 @@
     <div id="categories">
 
         <modal name="category-popup">
-            <!--<div class="input-group-container">-->
-                <!--<input-group-->
-                    <!--label="Name:"-->
-                    <!--:model.sync="selectedCategory.name"-->
-                    <!--:enter="updateCategory"-->
-                    <!--id="selected-category-name"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-            <input
-                type="text"
-                v-model="selectedCategory.name"
-                v-on:keyup.13 = "updateCategory"
-                placeholder="Name"
-                class="line"
-            />
+            <div class="flex-container">
+                <div class="content">
+                    <input
+                        type="text"
+                        v-model="selectedCategory.name"
+                        v-on:keyup.13 = "updateCategory"
+                        placeholder="Name"
+                        class="line"
+                    />
+                </div>
 
                 <buttons
                     :save="updateCategory"
                     :destroy="deleteCategory"
                 >
                 </buttons>
+            </div>
+
+
+
+
             <!--</div>-->
         </modal>
 
