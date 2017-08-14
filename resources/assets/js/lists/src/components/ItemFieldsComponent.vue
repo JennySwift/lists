@@ -96,7 +96,7 @@
                     :enter="enter"
                     id="new-item-recurring-unit"
                     :options="shared.recurringUnits"
-                    tooltip-id="selected-item-recurring-unit-tooltip"
+                    tooltip-message="Recurring Unit"
                 >
                 </input-group>
 
@@ -106,21 +106,9 @@
                     :model.sync="item.recurringFrequency"
                     :enter="enter"
                     id="new-item-recurring-frequency"
-                    tooltip-id="selected-item-recurring-frequency-tooltip"
+                    tooltip-message="Recurring Frequency"
                 >
                 </input-group>
-
-                <div class="tooltip_templates">
-                    <div id="selected-item-recurring-unit-tooltip">
-                        Recurring Unit
-                    </div>
-                </div>
-
-                <div class="tooltip_templates">
-                    <div id="selected-item-recurring-frequency-tooltip">
-                        Recurring Frequency
-                    </div>
-                </div>
             </div>
 
             <div v-show="tab === 4" class="input-group-container">
@@ -142,7 +130,7 @@
                     :model.sync="item.parent_id"
                     :enter="enter"
                     id="new-item-parent-id"
-                    tooltip-id="new-item-parent-id-tooltip"
+                    tooltip-message="To make a new item in the current location, leave this field empty."
                 >
                 </input-group>
 
@@ -164,21 +152,9 @@
                     :model.sync="item.parent_id"
                     :enter="enter"
                     id="selected-item-parent-id"
-                    tooltip-id="selected-item-parent-id-tooltip"
+                    tooltip-message="To move home, make field empty"
                 >
                 </input-group>
-
-                <div class="tooltip_templates" v-show="action === 'update'">
-                    <div id="selected-item-parent-id-tooltip">
-                        To move home, make field empty
-                    </div>
-                </div>
-
-                <div class="tooltip_templates" v-show="action === 'update'">
-                    <div id="new-item-parent-id-tooltip">
-                        To make a new item in the current location, leave this field empty.
-                    </div>
-                </div>
             </div>
         </div>
 

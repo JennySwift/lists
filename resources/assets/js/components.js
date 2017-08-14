@@ -5,6 +5,9 @@ import Vue from 'vue'
 import VModal from 'vue-js-modal'
 Vue.use(VModal, { dialog: true })
 
+var vueTippy = require('vue-tippy');
+Vue.use(vueTippy);
+
 import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import ToolbarComponent from './lists/src/components/shared/ToolbarComponent.vue'
 import LoadingComponent from './lists/src/components/shared/LoadingComponent.vue'

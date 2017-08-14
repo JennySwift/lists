@@ -277,7 +277,7 @@
         mounted: function () {
             setTimeout(function () {
                 //Commenting out for now because it was erroring
-                helpers.tooltips();
+//                helpers.tooltips();
             }, 1000);
 
             this.listen();

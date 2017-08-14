@@ -66,7 +66,8 @@
     "underscore": "^1.8.3",
     "vue": "^2.4.2",
     "vue-js-modal": "^1.2.8",
-    "vue-router": "^2.7.0"
+    "vue-router": "^2.7.0",
+    "vue-tippy": "^0.2.2"
   },
   "ava": {
     "require": [

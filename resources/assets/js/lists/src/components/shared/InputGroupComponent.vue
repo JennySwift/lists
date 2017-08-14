@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
     <div class="input-group" v-bind:class="{'top-border': topBorder}">
         <!--Label-->
         <label :for="id" class="input-group-addon">
@@ -9,10 +9,10 @@
 
             <!--Tooltip-->
             <span
-                v-if="tooltipId"
-                class="tooltipster fa fa-question-circle"
-                data-tooltipster='{"side":"bottom"}'
-                :data-tooltip-content="tooltipId"
+                v-if="tooltipMessage"
+                v-tippy
+                :title="tooltipMessage"
+                class="fa fa-question-circle"
             >
             </span>
         </label>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+//    import Vue from 'vue'
 
     export default {
         data: function () {
@@ -89,6 +90,7 @@
             //Text to add after each option
             optionsAdditionalText: {},
             tooltipId: {},
+            tooltipMessage: "",
             //Method to run on enter
             enter: {},
             //Method to run on focus
