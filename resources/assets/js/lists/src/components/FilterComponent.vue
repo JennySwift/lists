@@ -30,19 +30,19 @@
             >
             </input-group>
 
-            <input-group
-                label="Urgency (in):"
-                :model.sync="shared.filters.urgency"
-                id="urgency-filter"
-            >
-            </input-group>
+            <!--<input-group-->
+                <!--label="Urgency (in):"-->
+                <!--:model.sync="shared.filters.urgency"-->
+                <!--id="urgency-filter"-->
+            <!--&gt;-->
+            <!--</input-group>-->
 
-            <input-group
-                label="Urgency (out >=):"
-                :model.sync="shared.filters.urgencyOut"
-                id="urgency-out-filter"
-            >
-            </input-group>
+            <!--<input-group-->
+                <!--label="Urgency (out >=):"-->
+                <!--:model.sync="shared.filters.urgencyOut"-->
+                <!--id="urgency-out-filter"-->
+            <!--&gt;-->
+            <!--</input-group>-->
 
             <date-picker
                 :chosen-date.sync="shared.filters.notBeforeDate"

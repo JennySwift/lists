@@ -59,24 +59,24 @@
 
             <div v-show="tab === 3" class="input-group-container">
                 <!--Urgency-->
-                <input-group
-                    label="Urgency:"
-                    :model.sync="item.urgency"
-                    :enter="enter"
-                    id="new-item-urgency"
-                >
-                </input-group>
+                <!--<input-group-->
+                    <!--label="Urgency:"-->
+                    <!--:model.sync="item.urgency"-->
+                    <!--:enter="enter"-->
+                    <!--id="new-item-urgency"-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-                <!--Alarm-->
-                <date-picker
-                    :function-on-enter="enter"
-                    :chosen-date.sync="item.alarm"
-                    input-id="new-item-alarm"
-                    label="Alarm"
-                    input-placeholder=""
-                    property="alarm"
-                >
-                </date-picker>
+                <!--&lt;!&ndash;Alarm&ndash;&gt;-->
+                <!--<date-picker-->
+                    <!--:function-on-enter="enter"-->
+                    <!--:chosen-date.sync="item.alarm"-->
+                    <!--input-id="new-item-alarm"-->
+                    <!--label="Alarm"-->
+                    <!--input-placeholder=""-->
+                    <!--property="alarm"-->
+                <!--&gt;-->
+                <!--</date-picker>-->
 
                 <!--Not before-->
                 <date-picker
