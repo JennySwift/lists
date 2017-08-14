@@ -191,10 +191,14 @@ export default {
 
         //commenting this for now because router is undefined. Fix later.
         // var path = router.app._route.path;
-        // var index = path.indexOf(':');
-        // if (index != -1) {
-        //     return path.slice(index+1);
-        // }
-        return false;
+        var idWithColon =  this.getRouter().currentRoute.params.id;
+        var index = idWithColon.indexOf(':');
+        if (index != -1) {
+            var id = idWithColon.slice(index+1);
+        }
+        
+        console.log("id: " + id);
+        return id;
+        // return false;
     }
 }
