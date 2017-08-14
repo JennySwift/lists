@@ -5,13 +5,14 @@
             tag="li"
             v-for="item in shared.favouriteItems"
             :key="item.id"
-            v-on:click="toggleFavourites()"
+            v-on:click.native="toggleFavourites()"
             class="list-group-item"
         >
             <div class="title">{{ item.title }}</div>
             <div><span class="badge">{{ item.id }}</span></div>
         </router-link>
     </ul>
+    
 </template>
 
 <script>
