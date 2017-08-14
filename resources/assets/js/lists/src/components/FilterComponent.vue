@@ -164,6 +164,15 @@
                 });
             },
 
+            optionChosen: function (option, inputId) {
+                if (inputId === 'new-item-parent') {
+                    this.newItem.parent_id = option.id;
+                }
+                else if (inputId === 'filter-category') {
+                    store.set(option, 'filters.category');
+                }
+            },
+
             /**
              *
              */
@@ -173,6 +182,9 @@
                     that.showFilter = !that.showFilter;
                 });
             }
+        },
+        created: function () {
+            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
         },
         mounted: function () {
             this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
