@@ -276,6 +276,9 @@
                 if (inputId === 'selected-item-not-before') {
                     this.selectedItem.notBefore = date;
                 }
+                else if (inputId === 'selected-item-recurring-unit') {
+                    this.selectedItem.recurringUnit = option;
+                }
             }
         },
         created: function () {

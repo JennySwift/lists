@@ -94,7 +94,7 @@
                     label="RU:"
                     :model.sync="item.recurringUnit"
                     :enter="enter"
-                    id="new-item-recurring-unit"
+                    :id="type + '-item-recurring-unit'"
                     :options="shared.recurringUnits"
                     tooltip-message="Recurring Unit"
                 >

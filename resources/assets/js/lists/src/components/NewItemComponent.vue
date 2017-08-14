@@ -241,6 +241,9 @@
                 else if (inputId === 'new-item-category') {
                     this.newItem.category = option;
                 }
+                else if (inputId === 'new-item-recurring-unit') {
+                    this.newItem.recurringUnit = option;
+                }
             },
 
             dateChosen: function (date, inputId) {
