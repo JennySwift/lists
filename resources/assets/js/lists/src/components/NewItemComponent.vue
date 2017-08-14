@@ -51,7 +51,10 @@
                     pinned: false,
                     category: {},
                     priority: 1,
-                    parent_id: null
+                    parent_id: null,
+                    notBefore: '',
+                    recurringUnit: '',
+                    recurringFrequency: ''
                 }
             };
         },
@@ -123,13 +126,6 @@
                 });
             },
 
-            clearFields: function () {
-                this.newItem.parent_id = null;
-                this.newItem.title = '';
-                this.newItem.body = '';
-                this.newItem.parent = false;
-            },
-
             /**
              * For inserting an item into my lists app.
              * The item has been received from one of my apps, using Pusher.
@@ -166,12 +162,14 @@
                 });
             },
 
-            /**
-             *
-             */
-            clearNewItemFields: function () {
+            clearFields: function () {
+                this.newItem.parent_id = null;
                 this.newItem.title = '';
                 this.newItem.body = '';
+                this.newItem.parent = false;
+                this.newItem.notBefore = '';
+                this.newItem.recurringUnit = '';
+                this.newItem.recurringFrequency = '';
             },
 
             /**
