@@ -182,23 +182,12 @@ export default {
      * @returns {*}
      */
     getIdFromUrl: function () {
-        //For some reason $route.params was undefined.
-        //if (that.$route.params.id) {
-        //    return that.$route.params.id.slice(1);
-        //}
-        // var path = that.$route.path;
-        // if (!VueRouter.app) return false;
-
-        //commenting this for now because router is undefined. Fix later.
-        // var path = router.app._route.path;
         var idWithColon =  this.getRouter().currentRoute.params.id;
         var index = idWithColon.indexOf(':');
         if (index != -1) {
             var id = idWithColon.slice(index+1);
         }
-        
-        console.log("id: " + id);
+
         return id;
-        // return false;
     }
 }
