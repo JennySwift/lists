@@ -1,5 +1,9 @@
 <template>
     <div class="datepicker">
+        
+        <pre>initial: @{{initialDateValue}}</pre>
+        <pre>mutable: @{{mutableDate}}</pre>
+        <pre>dateInput: @{{dateInput}}</pre>
 
         <div class="datepicker-input-label-container">
 
@@ -12,7 +16,7 @@
                     <input
                         v-on:keyup="keyup"
                         v-on:keyup.13="functionOnEnter()"
-                        v-model="mutableChosenDate"
+                        v-model="dateInput"
                         type="text"
                         :id="inputId"
                         :name="inputId"
@@ -27,7 +31,7 @@
                 </div>
             </div>
 
-            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableChosenDate | dateAndTimeFilter }}</div>
+            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableDate | dateAndTimeFilter }}</div>
         </div>
 
 
@@ -51,13 +55,13 @@
                     <th>Sa</th>
                 </tr>
                 <tr v-for="week in weeks">
-                    <td v-on:click="chooseDate(week.Sunday)" class="date">{{ week.Sunday }}</td>
-                    <td v-on:click="chooseDate(week.Monday)" class="date">{{ week.Monday }}</td>
-                    <td v-on:click="chooseDate(week.Tuesday)" class="date">{{ week.Tuesday }}</td>
-                    <td v-on:click="chooseDate(week.Wednesday)" class="date">{{ week.Wednesday }}</td>
-                    <td v-on:click="chooseDate(week.Thursday)" class="date">{{ week.Thursday }}</td>
-                    <td v-on:click="chooseDate(week.Friday)" class="date">{{ week.Friday }}</td>
-                    <td v-on:click="chooseDate(week.Saturday)" class="date">{{ week.Saturday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Sunday)" class="date">{{ week.Sunday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Monday)" class="date">{{ week.Monday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Tuesday)" class="date">{{ week.Tuesday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Wednesday)" class="date">{{ week.Wednesday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Thursday)" class="date">{{ week.Thursday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Friday)" class="date">{{ week.Friday }}</td>
+                    <td v-on:click="chooseDateWithDatePicker(week.Saturday)" class="date">{{ week.Saturday }}</td>
                 </tr>
             </table>
         </div>
@@ -76,11 +80,27 @@
                 year: this.setYear(),
                 monthNumber: this.setMonthNumber(),
                 showCalendar: false,
-                mutableChosenDate: this.chosenDate
+//                mutableDate: this.chosenDate
+                dateInput: this.initialDateValue,
+                datePickerChosenDate: ''
             };
         },
         components: {},
         computed: {
+            mutableDate: {
+                get () {
+//                    console.log("Getter...this.chosen date is: " + this.chosenDate);
+                    this.dateInput = this.initialDateValue;
+                    return this.initialDateValue;
+                },
+                set (newValue) {
+//                    console.log("Setter...")
+//                    console.log("new val: " + newValue);
+//                    //Putting this here to stop the console warning about having no setter
+//                    this.dateInput = newValue;
+//                    console.log("date input: " + this.dateInput);
+                }
+            },
             monthName: function () {
                 return moment().month(this.monthNumber - 1).format('MMMM');
             },
@@ -123,7 +143,8 @@
         methods: {
 
             keyup: function () {
-                this.$emit('update:chosenDate', this.mutableChosenDate);
+//                this.$emit('update:chosenDate', this.datePickerChosenDate);
+                this.syncDateFromInput();
             },
 
             /**
@@ -149,10 +170,18 @@
              *
              * @param dayOfMonth
              */
-            chooseDate: function (dayOfMonth) {
-                this.mutableChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
+            chooseDateWithDatePicker: function (dayOfMonth) {
+                this.datePickerChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
                 this.hideCalendar();
-                this.$bus.$emit('date-chosen', this.mutableChosenDate, this.inputId);
+                this.syncDateFromDatePicker();
+            },
+
+            syncDateFromDatePicker () {
+                this.$bus.$emit('date-chosen', this.datePickerChosenDate, this.inputId);
+            },
+
+            syncDateFromInput () {
+                this.$bus.$emit('date-chosen', this.dateInput, this.inputId);
             },
 
             /**
@@ -240,7 +269,7 @@
                     return true;
                 }
             },
-            chosenDate: {},
+            initialDateValue: {},
             inputId: {},
             inputPlaceholder: {},
             label: {},

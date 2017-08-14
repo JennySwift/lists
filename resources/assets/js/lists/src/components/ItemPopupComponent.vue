@@ -240,13 +240,14 @@
                 if (inputId === 'selected-item-new-parent') {
                     this.selectedItem.parent_id = option.id;
                 }
+                else if (inputId === 'selected-item-recurring-unit') {
+                    this.selectedItem.recurringUnit = option;
+                }
             },
+
             dateChosen (date, inputId) {
                 if (inputId === 'selected-item-not-before') {
                     this.selectedItem.notBefore = date;
-                }
-                else if (inputId === 'selected-item-recurring-unit') {
-                    this.selectedItem.recurringUnit = option;
                 }
             }
         },

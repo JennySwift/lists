@@ -45,7 +45,7 @@
             <!--</input-group>-->
 
             <date-picker
-                :chosen-date.sync="shared.filters.notBeforeDate"
+                :initial-date-value.sync="shared.filters.notBeforeDate"
                 input-id="filter-not-before-date"
                 label="Not Before"
                 property="notBeforeDate"
@@ -126,10 +126,10 @@
                 $.event.trigger('toggle-favourite-items');
             },
 
-            dateChosen: function (args) {
-//                this.$emit('update:model', args[0]);
-                store.set(args[0], 'filters.notBeforeDate');
-            },
+//            dateChosen: function (args) {
+////                this.$emit('update:model', args[0]);
+//                store.set(args[0], 'filters.notBeforeDate');
+//            },
 
             /**
              * For when the 'favourite' button in the item popup is toggled,

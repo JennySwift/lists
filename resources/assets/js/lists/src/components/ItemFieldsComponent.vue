@@ -70,7 +70,7 @@
                 <!--&lt;!&ndash;Alarm&ndash;&gt;-->
                 <!--<date-picker-->
                     <!--:function-on-enter="enter"-->
-                    <!--:chosen-date.sync="item.alarm"-->
+                    <!--:initial-date-value.sync="item.alarm"-->
                     <!--input-id="new-item-alarm"-->
                     <!--label="Alarm"-->
                     <!--input-placeholder=""-->
@@ -81,7 +81,7 @@
                 <!--Not before-->
                 <date-picker
                     :function-on-enter="enter"
-                    :chosen-date="item.notBefore"
+                    :initial-date-value="item.notBefore"
                     :input-id="type + '-item-not-before'"
                     label="Not Before"
                     input-placeholder=""
