@@ -107,13 +107,10 @@
                 helpers.put({
                     url: '/api/items/' + this.selectedItem.id,
                     data: data,
-//                    property: ItemsRepository.getPathAsString(this.selectedItem),
                     message: 'Item restored',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
                         this.selectedItemInItemsArray.deletedAt = null;
-//                        this.selectedItemInItemsArray = response;
-//                        ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
                         this.updateFavourites(response);
                         this.showPopup = false;
                     }.bind(this)
@@ -122,13 +119,11 @@
 
             hidePopup: function () {
                 console.log("should be hiding now");
-//                this.$emit('update:showPopup', false);
                 this.showPopup = false;
             },
 
             updateFavourites: function (item) {
                 var itemInFavourites = helpers.findById(this.shared.favouriteItems, item.id);
-//                    var indexOfItemInFavourites = _.indexOf(that.favouriteItems, _.findWhere(that.favouriteItems, {id: item.id}));
                 if (item.favourite && !itemInFavourites) {
                     //Add the item to the favourites
                     store.add(item, 'favouriteItems');
@@ -136,7 +131,6 @@
                 else if (!item.favourite && itemInFavourites) {
                     //Remove the item from the favourites
                     store.delete(itemInFavourites, 'favouriteItems');
-//                        that.favouriteItems = _.without(that.favouriteItems, that.favouriteItems[indexOfItemInFavourites]);
                 }
             },
 
@@ -144,13 +138,11 @@
              *
              */
             updateItem: function () {
-                console.log("updating...");
                 var data = ItemsRepository.setData(this.selectedItem);
 
                 helpers.put({
                     url: '/api/items/' + this.selectedItem.id,
                     data: data,
-//                    property: ItemsRepository.getPathAsString(this.selectedItem),
                     message: 'Item updated',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
@@ -182,14 +174,6 @@
              */
             jsMoveToNewParent: function (response) {
                 var newParent = ItemsRepository.findParent(this.shared.items, response);
-//                if (parent && !parent.children) {
-//                    this.getItems('expand', parent);
-//                    //parent.children.push(response);
-//                }
-                //Add the item to the new parent if it is already expanded
-
-//                console.log('\n\n new parent: ' + JSON.stringify(newParent, null, 4) + '\n\n');
-//                console.log('new parent: ' + newParent);
                 if (newParent && newParent.children) {
                     newParent.children.push(response);
                 }
@@ -207,19 +191,12 @@
              */
             removeFromOldParent: function (response) {
                 var oldParent = ItemsRepository.findParent(this.shared.items, this.selectedItem, this.selectedItem.oldParentId);
-//                console.log('\n\n old parent: ' + JSON.stringify(oldParent, null, 4) + '\n\n');
-                console.log('\n\n selected item: ' + JSON.stringify(this.selectedItem, null, 4) + '\n\n');
                 if (oldParent) {
                     var ancestorIds = ItemsRepository.getAncestorIds(this.selectedItem, []);
 
-                    console.log('ancestor ids: ' + ancestorIds);
 
                     var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
 
-                    console.log('path: ' + path);
-
-//                    var stringPath = 'items[' + path + '].children';
-//                    var stringPath = 'items[0].children[0].children[1].children[3].children';
                     var stringPath = ItemsRepository.createPathAsString(path);
                     console.log('stringPath: ' + stringPath);
 
@@ -230,9 +207,6 @@
                         console.log('huh');
                         oldParent.has_children = false;
                     }
-                    console.log('children: ' + oldParent.children.length);
-//                    helpers.deleteById(oldParent.children, response.id);
-//                    oldParent.children = _.without(oldParent.children, response);
                 }
                 else {
                     store.delete(this.selectedItem, 'items');
@@ -254,16 +228,11 @@
             listen: function () {
                 var that = this;
                 $(document).on('show-item-popup', function (event, item) {
-//                    store.set(item, 'selectedItem');
-
                     that.selectedItem = helpers.clone(item);
                     that.selectedItem.oldParentId = item.parent_id;
                     that.selectedItem.oldAlarm = item.alarm;
-
                     that.selectedItemInItemsArray = item;
-
                     that.showPopup = true;
-//                    store.set(true, 'showItemPopup');
                 });
             },
 
@@ -286,11 +255,6 @@
             this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
-            setTimeout(function () {
-                //Commenting out for now because it was erroring
-//                helpers.tooltips();
-            }, 1000);
-
             this.listen();
         }
     }
