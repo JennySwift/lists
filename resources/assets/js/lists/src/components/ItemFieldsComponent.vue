@@ -81,7 +81,7 @@
                 <!--Not before-->
                 <date-picker
                     :function-on-enter="enter"
-                    :chosen-date.sync="item.notBefore"
+                    :chosen-date="item.notBefore"
                     input-id="new-item-not-before"
                     label="Not Before"
                     input-placeholder=""

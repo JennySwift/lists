@@ -243,6 +243,12 @@
                 }
             },
 
+            dateChosen: function (date, inputId) {
+                if (inputId === 'new-item-not-before') {
+                    this.newItem.notBefore = date;
+                }
+            },
+
             /**
              *
              */
@@ -264,6 +270,7 @@
         ],
         created: function () {
             this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+            this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
             this.getUser();

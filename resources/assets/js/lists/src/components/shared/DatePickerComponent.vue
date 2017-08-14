@@ -163,8 +163,14 @@
                 this.mutableChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
                 this.hideCalendar();
                 // this.$dispatch('date-chosen', this.mutableChosenDate, this.property);
-                this.$emit('date-chosen', [this.mutableChosenDate]);
+//                this.$emit('date-chosen', [this.mutableChosenDate]);
+//                this.sync();
+                this.$bus.$emit('date-chosen', this.mutableChosenDate, this.inputId);
             },
+
+//            sync: function () {
+//                this.$emit('update:chosenDate', this.mutableChosenDate);
+//            },
 
             /**
              *
