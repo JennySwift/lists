@@ -37,6 +37,14 @@ export default {
     },
 
     /**
+     * for vue-js-modal
+     * @param popupName
+     */
+    hidePopup: function (popupName) {
+        app.__vue__.$modal.hide(popupName);
+    },
+
+    /**
      *
      */
     closePopup: function ($event, that, routeToGoTo) {

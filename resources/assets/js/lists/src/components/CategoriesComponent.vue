@@ -66,7 +66,7 @@
                     message: 'Category updated',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
-                        this.$modal.hide('category-popup');
+                        helpers.hidePopup('category-popup');
                     }.bind(this)
                 });
             },
@@ -82,7 +82,7 @@
                     message: 'Category deleted',
                     redirectTo: this.redirectTo,
                     callback: function () {
-                        this.$modal.hide('category-popup');
+                        helpers.hidePopup('category-popup');
                     }.bind(this)
                 });
             },
