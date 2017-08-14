@@ -165,11 +165,14 @@
             },
 
             optionChosen: function (option, inputId) {
-                if (inputId === 'new-item-parent') {
-                    this.newItem.parent_id = option.id;
-                }
-                else if (inputId === 'filter-category') {
+                if (inputId === 'filter-category') {
                     store.set(option, 'filters.category');
+                }
+            },
+
+            dateChosen: function (date, inputId) {
+                if (inputId === 'filter-not-before-date') {
+                    store.set(date, 'filters.notBeforeDate');
                 }
             },
 
@@ -185,6 +188,7 @@
         },
         created: function () {
             this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+            this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
             this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
