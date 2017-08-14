@@ -4,15 +4,7 @@
         <div class="datepicker-input-label-container">
 
             <div class="datepicker-label-container">
-                <!--<div class="tooltip_templates">-->
-                    <!--<div id="{{inputId}}-datepicker-help">-->
-                        <!--<date-picker-help></date-picker-help>-->
-                    <!--</div>-->
-                <!--</div>-->
-
                 <label :for="inputId" class="">{{label}}:</label>
-                <!--<span class="tooltipster fa fa-question-circle" data-tooltip-content="{{dataTooltipContent}}"></span>-->
-
             </div>
 
             <div>
@@ -140,7 +132,6 @@
             toggleCalendar: function () {
                 if (!this.showCalendar) {
                     this.showCalendar = true;
-//                    $(this.$el).find('datepicker-calendar-container').animate({height: 300}, 500);
                 }
                 else {
                     this.hideCalendar();
@@ -151,7 +142,6 @@
              *
              */
             hideCalendar: function () {
-//                $(this.$el).animate({height: 34}, 500);
                 this.showCalendar = false;
             },
 
@@ -162,15 +152,8 @@
             chooseDate: function (dayOfMonth) {
                 this.mutableChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
                 this.hideCalendar();
-                // this.$dispatch('date-chosen', this.mutableChosenDate, this.property);
-//                this.$emit('date-chosen', [this.mutableChosenDate]);
-//                this.sync();
                 this.$bus.$emit('date-chosen', this.mutableChosenDate, this.inputId);
             },
-
-//            sync: function () {
-//                this.$emit('update:chosenDate', this.mutableChosenDate);
-//            },
 
             /**
              *
