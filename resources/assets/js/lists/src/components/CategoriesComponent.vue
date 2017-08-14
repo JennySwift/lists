@@ -45,7 +45,7 @@
         data: function () {
             return {
                 shared: store.state,
-                selectedCategory: {name: "Wee"}
+                selectedCategory: {}
             };
         },
         components: {},
@@ -91,10 +91,6 @@
                 this.$modal.show('hello-world', { foo: 'bar' });
             },
 
-            beforeOpen (event) {
-                console.log(event.params.foo);
-            },
-
             /**
              *
              */
@@ -102,14 +98,6 @@
 //                $.event.trigger('show-category-popup', [this.category]);
                 this.selectedCategory = helpers.clone(category);
                 this.$modal.show('category-popup', { foo: 'bar' });
-            },
-
-            /**
-             *
-             */
-            showNewCategoryFields: function () {
-                this.addingNewCategory = true;
-                this.editingCategory = false;
             }
         }
     }
