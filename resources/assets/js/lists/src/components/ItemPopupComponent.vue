@@ -16,7 +16,7 @@
                     <button
                         v-if="shared.selectedItemClone.favourite"
                         v-on:click="toggleFavourite"
-                        class="favourite fa fa-star">
+                        class="favourite fa fa-star btn btn-sm btn-default">
                     </button>
 
                     <button
