@@ -1,7 +1,7 @@
 <template>
     <div class="datepicker">
         
-        <pre>initial: @{{initialDateValue}}</pre>
+        <!--<pre>initial: @{{initialDateValue}}</pre>-->
         <!--<pre>mutable: @{{mutableDate}}</pre>-->
         <!--<pre>dateInput: @{{dateInput}}</pre>-->
 

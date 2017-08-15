@@ -134,7 +134,7 @@
                     :model.sync="item.parent_id"
                     :enter="enter"
                     id="selected-item-parent-id"
-                    tooltip-message="To move home, make field empty"
+                    tooltip-message="To move or leave item at the top level, this field should be empty"
                 >
                 </input-group>
             </div>
