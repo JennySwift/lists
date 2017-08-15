@@ -60,26 +60,6 @@
             </div>
 
             <div v-show="tab === 3" class="input-group-container">
-                <!--Urgency-->
-                <!--<input-group-->
-                    <!--label="Urgency:"-->
-                    <!--:model.sync="item.urgency"-->
-                    <!--:enter="enter"-->
-                    <!--id="new-item-urgency"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--&lt;!&ndash;Alarm&ndash;&gt;-->
-                <!--<date-picker-->
-                    <!--:function-on-enter="enter"-->
-                    <!--:initial-date-value.sync="item.alarm"-->
-                    <!--input-id="new-item-alarm"-->
-                    <!--label="Alarm"-->
-                    <!--input-placeholder=""-->
-                    <!--property="alarm"-->
-                <!--&gt;-->
-                <!--</date-picker>-->
-
                 <!--Not before-->
                 <date-picker
                     :function-on-enter="enter"
