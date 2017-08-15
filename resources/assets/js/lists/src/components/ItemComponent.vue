@@ -211,6 +211,7 @@
                 store.set(helpers.clone(item), 'selectedItem');
                 store.set(item.parent_id, 'selectedItem.oldParentId');
                 helpers.showPopup('item-popup');
+                console.log("selectedItem: ", this.shared.selectedItem);
             },
 
             /**

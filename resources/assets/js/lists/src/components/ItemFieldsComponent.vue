@@ -34,10 +34,13 @@
                     top-border="true"
                 >
                 </input-group>
+                
+                <!--<pre>Item from item fields: @{{item}}</pre>-->
 
                 <!--Priority-->
                 <input-group
                     label="Priority:"
+                    path-to-store-property="selectedItem.priority"
                     :model.sync="item.priority"
                     :enter="enter"
                     id="new-item-priority"
