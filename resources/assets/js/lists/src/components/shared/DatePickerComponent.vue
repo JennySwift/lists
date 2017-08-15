@@ -1,6 +1,10 @@
 <template>
     <div class="datepicker">
 
+        <pre>dateInput: {{$data.dateInput}}</pre>
+        <pre>initialDateValue: {{$data.initialDateValue}}</pre>
+        <pre>mutableDate: {{$data.mutableDate}}</pre>
+
         <div class="datepicker-input-label-container">
 
             <div class="datepicker-label-container">
