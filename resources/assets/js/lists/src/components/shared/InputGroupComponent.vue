@@ -19,10 +19,9 @@
 
         <!--Text input-->
 
-        <pre>mutableModel from input group: {{mutableModel}}</pre>
-        <pre>mutableModel (from data) from input group: {{$data.mutableModel}}</pre>
-        <pre>model from input group: {{model}}</pre>
-        <!--<pre>vmodel from input group: {{vModel}}</pre>-->
+        <!--<pre>mutableModel from input group: {{mutableModel}}</pre>-->
+        <!--<pre>mutableModel (from data) from input group: {{$data.mutableModel}}</pre>-->
+        <!--<pre>model from input group: {{model}}</pre>-->
 
         <input
             v-if="!options && !url"
@@ -56,7 +55,6 @@
 </template>
 
 <script>
-//    import Vue from 'vue'
 import store from '../../repositories/Store'
 var object = require('lodash/object');
 
@@ -65,32 +63,23 @@ var object = require('lodash/object');
             return {
                 mutableModel: '',
                 shared: store.state,
-//                vModel: this.getVModel()
 
             };
         },
         watch: {
             model (val) {
-                console.log("watch here...");
-                console.log("val: ", val);
+//                console.log("watch here...");
+//                console.log("val: ", val);
 
                 this.mutableModel = this.model;
-                console.log("model: " + this.model);
-                console.log("mutableModel: " + this.mutableModel);
+//                console.log("model: " + this.model);
+//                console.log("mutableModel: " + this.mutableModel);
             }
         },
         computed: {
-//            mutableModel: function () {
-//              return this.model;
-//            }
+
         },
         methods: {
-//            getVModel () {
-//                console.log('object method returns: ', object.get(this.shared, 'selectedItem.priority'));
-//                return this.shared.selectedItem.priority;s
-//            },
-
-
             /**
              * So it doesn't error if a method isn't given to be run when the input is focused
              */
@@ -103,12 +92,7 @@ var object = require('lodash/object');
 //                this.$emit('update:model', args[0]);
 //            },
             sync: function () {
-//                store.set(this.vModel, this.pathToStoreProperty);
-                console.log("priority should be set. it is: ", store.state.selectedItem.priority);
-//                console.log("mutable before sync: ", this.mutableModel);
                 this.$emit('update:model', this.mutableModel);
-//                console.log("mutable after sync: ", this.mutableModel);
-//                store.set(this.mutableModel, 'selectedItem.priority');
             }
         },
         props: {

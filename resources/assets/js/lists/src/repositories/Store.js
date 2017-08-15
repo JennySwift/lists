@@ -32,9 +32,16 @@ export default {
             notBeforeDate: '',
             showTrashed: false
         },
+        //For editing fields in item popup before the item is saved
+        selectedItemClone: {
+            oldParentId: null,
+            favourite: '',
+            deletedAt: ''
+        },
         selectedItem: {
             oldParentId: null,
-            favourite: ''
+            favourite: '',
+            deletedAt: ''
         },
         showFavourites: false,
         showPopup: false,
@@ -44,7 +51,6 @@ export default {
     },
 
     getCategories() {
-        console.log("get categories here!");
         helpers.get({
             url: '/api/categories',
             storeProperty: 'categories',

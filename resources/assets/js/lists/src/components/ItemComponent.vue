@@ -208,10 +208,11 @@
             },
 
             selectItem: function (item) {
-                store.set(helpers.clone(item), 'selectedItem');
-                store.set(item.parent_id, 'selectedItem.oldParentId');
+                store.set(helpers.clone(item), 'selectedItemClone');
+                store.set(item.parent_id, 'selectedItemClone.oldParentId');
+
+                store.set(item, 'selectedItem');
                 helpers.showPopup('item-popup');
-                console.log("selectedItem: ", this.shared.selectedItem);
             },
 
             /**

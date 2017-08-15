@@ -8,19 +8,19 @@
             <div class="top-btns">
                 <div>
                     <button
-                        v-if="!shared.selectedItem.favourite"
+                        v-if="!shared.selectedItemClone.favourite"
                         v-on:click="toggleFavourite"
                         class="favourite fa fa-star-o btn btn-sm btn-default">
                     </button>
 
                     <button
-                        v-if="shared.selectedItem.favourite"
+                        v-if="shared.selectedItemClone.favourite"
                         v-on:click="toggleFavourite"
                         class="favourite fa fa-star">
                     </button>
 
                     <button
-                        v-if="shared.selectedItem.deletedAt"
+                        v-if="shared.selectedItemClone.deletedAt"
                         v-on:click="restore()"
                         class="btn btn-success"
                     >
@@ -31,7 +31,7 @@
 
             <div>
                 <item-fields
-                    :item="shared.selectedItem"
+                    :item="shared.selectedItemClone"
                     action="update"
                     :show="true"
                     :enter="updateItem"
@@ -42,7 +42,7 @@
         </div>
 
         <buttons slot="buttons"
-                 v-if="!shared.selectedItem.deletedAt"
+                 v-if="!shared.selectedItemClone.deletedAt"
                  :save="updateItem"
                  :destroy="deleteItem"
                  :redirect-to="redirectTo"
@@ -64,7 +64,6 @@
         template: '#item-popup-template',
         data: function () {
             return {
-                selectedItemInItemsArray: {},
                 shared: store.state,
                 modalProps: true
             };
@@ -91,7 +90,7 @@
              * Make the selected item a favourite item if it wasn't already, and vice versa
              */
             toggleFavourite () {
-                store.update(!this.shared.selectedItem.favourite, 'selectedItem.favourite');
+                store.update(!this.shared.selectedItemClone.favourite, 'selectedItemClone.favourite');
             },
 
             /**
@@ -101,12 +100,12 @@
                 var data = {deleted_at: null};
 
                 helpers.put({
-                    url: '/api/items/' + this.selectedItem.id,
+                    url: '/api/items/' + this.shared.selectedItemClone.id,
                     data: data,
                     message: 'Item restored',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
-                        this.selectedItemInItemsArray.deletedAt = null;
+                        store.set(null, 'selectedItem.deletedAt');
                         this.updateFavourites(response);
                         this.showPopup = false;
                     }.bind(this)
@@ -129,28 +128,20 @@
              *
              */
             updateItem: function () {
-                var data = ItemsRepository.setData(this.shared.selectedItem);
+                var data = ItemsRepository.setData(this.shared.selectedItemClone);
 
                 helpers.put({
-                    url: '/api/items/' + this.shared.selectedItem.id,
+                    url: '/api/items/' + this.shared.selectedItemClone.id,
                     data: data,
                     message: 'Item updated',
                     redirectTo: this.redirectTo,
                     callback: function (response) {
-                        ItemsRepository.updateProperties(this.selectedItemInItemsArray, response);
+                        store.update(response, 'items');
 
-                        this.updateFavourites(response);
-
-                        if (this.shared.selectedItem.oldParentId != response.parent_id) {
-                            this.jsMoveToNewParent(response);
-                        }
-//                        if (this.shared.selectedItem.oldAlarm === null && this.shared.selectedItem.alarm) {
-//                            //the alarm has been created
-//                            $.event.trigger('alarm-created', [response]);
-//                        }
-//                        else if (this.shared.selectedItem.oldAlarm && this.shared.selectedItem.oldAlarm != this.shared.selectedItem.alarm) {
-//                            //the alarm has been changed
-//                            $.event.trigger('alarm-updated', [response]);
+//                        this.updateFavourites(response);
+//
+//                        if (this.shared.selectedItemClone.oldParentId != response.parent_id) {
+//                            this.jsMoveToNewParent(response);
 //                        }
                     }.bind(this)
                 });
@@ -179,9 +170,9 @@
              *
              */
             removeFromOldParent: function (response) {
-                var oldParent = ItemsRepository.findParent(this.shared.items, this.shared.selectedItem, this.shared.selectedItem.oldParentId);
+                var oldParent = ItemsRepository.findParent(this.shared.items, this.shared.selectedItemClone, this.shared.selectedItemClone.oldParentId);
                 if (oldParent) {
-                    var ancestorIds = ItemsRepository.getAncestorIds(this.shared.selectedItem, []);
+                    var ancestorIds = ItemsRepository.getAncestorIds(this.shared.selectedItemClone, []);
 
 
                     var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
@@ -198,7 +189,7 @@
                     }
                 }
                 else {
-                    store.delete(this.shared.selectedItem, 'items');
+                    store.delete(this.shared.selectedItemClone, 'items');
                 }
             },
 
@@ -208,7 +199,7 @@
              * @param item
              */
             deleteItem: function () {
-                ItemsRepository.deleteItem(this.selectedItemInItemsArray, this);
+                ItemsRepository.deleteItem(this.shared.selectedItem, this);
             },
 
             /**
@@ -217,26 +208,26 @@
 //            listen: function () {
 //                var that = this;
 //                $(document).on('show-item-popup', function (event, item) {
-//                    that.selectedItem = helpers.clone(item);
-//                    that.selectedItem.oldParentId = item.parent_id;
-//                    that.selectedItem.oldAlarm = item.alarm;
-//                    that.selectedItemInItemsArray = item;
+//                    that.selectedItemClone = helpers.clone(item);
+//                    that.selectedItemClone.oldParentId = item.parent_id;
+//                    that.selectedItemClone.oldAlarm = item.alarm;
+//                    that.selectedItemCloneInItemsArray = item;
 //                    that.showPopup = true;
 //                });
 //            },
 
             optionChosen (option, inputId) {
                 if (inputId === 'selected-item-new-parent') {
-                    this.shared.selectedItem.parent_id = option.id;
+                    this.shared.selectedItemClone.parent_id = option.id;
                 }
                 else if (inputId === 'selected-item-recurring-unit') {
-                    this.shared.selectedItem.recurringUnit = option;
+                    this.shared.selectedItemClone.recurringUnit = option;
                 }
             },
 
             dateChosen (date, inputId) {
                 if (inputId === 'selected-item-not-before') {
-                    this.shared.selectedItem.notBefore = date;
+                    this.shared.selectedItemClone.notBefore = date;
                 }
             }
         },
