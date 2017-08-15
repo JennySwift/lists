@@ -102,6 +102,7 @@ export default {
             if (options.redirectTo) {
                 that.getRouter().push(options.redirectTo);
             }
+            helpers.hidePopup();
 
         }, function (response) {
             helpers.handleResponseError(response);

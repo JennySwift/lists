@@ -144,16 +144,14 @@
                         if (this.shared.selectedItem.oldParentId != response.parent_id) {
                             this.jsMoveToNewParent(response);
                         }
-                        if (this.shared.selectedItem.oldAlarm === null && this.shared.selectedItem.alarm) {
-                            //the alarm has been created
-                            $.event.trigger('alarm-created', [response]);
-                        }
-                        else if (this.shared.selectedItem.oldAlarm && this.shared.selectedItem.oldAlarm != this.shared.selectedItem.alarm) {
-                            //the alarm has been changed
-                            $.event.trigger('alarm-updated', [response]);
-                        }
-
-                        this.showPopup = false;
+//                        if (this.shared.selectedItem.oldAlarm === null && this.shared.selectedItem.alarm) {
+//                            //the alarm has been created
+//                            $.event.trigger('alarm-created', [response]);
+//                        }
+//                        else if (this.shared.selectedItem.oldAlarm && this.shared.selectedItem.oldAlarm != this.shared.selectedItem.alarm) {
+//                            //the alarm has been changed
+//                            $.event.trigger('alarm-updated', [response]);
+//                        }
                     }.bind(this)
                 });
             },

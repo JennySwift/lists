@@ -42,16 +42,20 @@ export default {
      * for vue-js-modal
      * @param popupName
      */
-    hidePopup: function (popupName) {
-        app.__vue__.$modal.hide(popupName);
-    },
+    // hidePopup: function (popupName) {
+    //     app.__vue__.$modal.hide(popupName);
+    // },
 
-    openPopup: function (popupName) {
-        app.__vue__.$modal.show(popupName);
-    },
+    // openPopup: function (popupName) {
+    //     app.__vue__.$modal.show(popupName);
+    // },
 
     showPopup: function (popupName) {
         store.set(true, 'showPopup')
+    },
+
+    hidePopup: function () {
+        store.set(false, 'showPopup');
     },
 
     /**
