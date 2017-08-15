@@ -90,7 +90,7 @@
              * Make the selected item a favourite item if it wasn't already, and vice versa
              */
             toggleFavourite () {
-                store.update(!this.shared.selectedItemClone.favourite, 'selectedItemClone.favourite');
+                store.set(!this.shared.selectedItemClone.favourite, 'selectedItemClone.favourite');
             },
 
             /**
@@ -194,7 +194,7 @@
             },
 
             /**
-             * 
+             *
              * @param item
              */
             deleteItem: function () {

@@ -144,7 +144,7 @@ export default {
     },
 
     /**
-     * Update an item that is in an array
+     * Update an item that is in an array that is in the store
      * @param item
      * @param path
      */
@@ -155,7 +155,7 @@ export default {
     },
 
     /**
-     * Set a property (can be nested)
+     * Set a property that is in the store (can be nested)
      * @param data
      * @param path
      */
@@ -164,7 +164,7 @@ export default {
     },
 
     /**
-     * Toggle a property (can be nested)
+     * Toggle a property that is in the store (can be nested)
      * @param path
      */
     toggle: function (path) {
@@ -172,7 +172,7 @@ export default {
     },
 
     /**
-     * Delete an item from an array
+     * Delete an item from an array in the store
      * To delete a nested property of store.state, for example a class in store.state.classes.data:
      * store.delete(itemToDelete, 'student.classes.data');
      * @param itemToDelete
