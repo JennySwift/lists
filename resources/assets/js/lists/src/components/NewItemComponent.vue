@@ -168,7 +168,7 @@
                 this.newItem.body = '';
                 this.newItem.parent = false;
                 this.newItem.notBefore = '';
-                this.newItem.recurringUnit = '';
+                this.newItem.recurringUnit = 'none';
                 this.newItem.recurringFrequency = '';
             },
 
