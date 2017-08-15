@@ -144,10 +144,16 @@ export default {
             this.state.zoomedItem = response;
             this.state.items = response.children;
             this.state.breadcrumb = response.breadcrumb;
+            this.setNewItemParent();
         }
         else {
             this.goHome(response);
         }
+    },
+
+    setNewItemParent () {
+        this.set(this.state.zoomedItem, 'newItem.parent');
+        this.set(this.state.zoomedItem.id, 'newItem.parent_id');
     },
 
     /**

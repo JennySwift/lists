@@ -85,20 +85,22 @@ export default {
      * @returns {*}
      */
     setParentId: function (item) {
-        var parentId = null;
+        // var parentId = null;
 
-        if (store.state.zoomedItem) {
-            parentId = store.state.zoomedItem.id;
-        }
+        // if (store.state.zoomedItem) {
+        //     parentId = store.state.zoomedItem.id;
+        // }
+        //
+        // if (item.parent) {
+        //     parentId = item.parent.id;
+        // }
+        // else if (item.parent_id) {
+        //     parentId = item.parent_id;
+        // }
 
-        if (item.parent) {
-            parentId = item.parent.id;
-        }
-        else if (item.parent_id) {
-            parentId = item.parent_id;
-        }
+        var parentId = item.parent_id;
 
-        if (item.oldParentId && item.parent_id === '') {
+        if (item.parent_id === '') {
             parentId = 'none';
         }
 

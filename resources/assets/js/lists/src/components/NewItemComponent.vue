@@ -2,7 +2,7 @@
     <div v-show="shared.showNewItemFields" id="new-item">
         
         <pre>@{{$data.shared.zoomedItem.id}}</pre>
-        <pre>@{{$data.shared.newItem}}</pre>
+        <pre>@{{$data.shared.newItem.parent_id}}</pre>
 
         <item-fields
             :item="shared.newItem"
