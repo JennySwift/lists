@@ -1,4 +1,4 @@
-require('./config');
+// require('./config');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -11,7 +11,7 @@ global.jQuery = require('jquery');
 global._ = require('underscore');
 import store from './lists/src/repositories/Store'
 
-// window.Event = new Vue();
+window.Event = new Vue();
 
 require('./components.js');
 

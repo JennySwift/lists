@@ -1,9 +1,13 @@
 <template>
     <div class="datepicker">
+        
+        <pre>initial: @{{initialDateValue}}</pre>
+        <pre>mutable: @{{mutableDate}}</pre>
+        <pre>dateInput: @{{dateInput}}</pre>
 
-        <pre>dateInput: {{$data.dateInput}}</pre>
-        <pre>initialDateValue: {{$data.initialDateValue}}</pre>
-        <pre>mutableDate: {{$data.mutableDate}}</pre>
+        <!--<pre>dateInput: {{$data.dateInput}}</pre>-->
+        <!--<pre>initialDateValue: {{$data.initialDateValue}}</pre>-->
+        <!--<pre>mutableDate: {{$data.mutableDate}}</pre>-->
 
         <div class="datepicker-input-label-container">
 
@@ -80,21 +84,25 @@
                 year: this.setYear(),
                 monthNumber: this.setMonthNumber(),
                 showCalendar: false,
+//                mutableDate: this.chosenDate
                 dateInput: this.initialDateValue,
                 datePickerChosenDate: ''
             };
         },
         components: {},
         computed: {
-            //This is pretty much so that I can show the date in the input field, because if I don't have a
-            // computed property, the input field is blank
             mutableDate: {
                 get () {
+//                    console.log("Getter...this.chosen date is: " + this.chosenDate);
                     this.dateInput = this.initialDateValue;
                     return this.initialDateValue;
                 },
                 set (newValue) {
-                    //Putting this here to stop the console warning about having no setter
+//                    console.log("Setter...")
+//                    console.log("new val: " + newValue);
+//                    //Putting this here to stop the console warning about having no setter
+//                    this.dateInput = newValue;
+//                    console.log("date input: " + this.dateInput);
                 }
             },
             monthName: function () {
@@ -139,6 +147,7 @@
         methods: {
 
             keyup: function () {
+//                this.$emit('update:chosenDate', this.datePickerChosenDate);
                 this.syncDateFromInput();
             },
 
