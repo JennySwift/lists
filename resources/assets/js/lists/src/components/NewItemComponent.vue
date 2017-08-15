@@ -1,8 +1,11 @@
 <template>
     <div v-show="shared.showNewItemFields" id="new-item">
+        
+        <pre>@{{$data.shared.zoomedItem.id}}</pre>
+        <pre>@{{$data.shared.newItem}}</pre>
 
         <item-fields
-            :item="newItem"
+            :item="shared.newItem"
             action="insert"
             :enter="insertItem"
             :focus="showFields"
@@ -18,7 +21,7 @@
             <!--</button>-->
             <button
                 v-on:click="insertItem(13)"
-                :disabled="!newItem.title || !newItem.category || !newItem.priority"
+                :disabled="!shared.newItem.title || !shared.newItem.category || !shared.newItem.priority"
                 class="btn btn-success"
             >
                 Add
@@ -43,19 +46,7 @@
             return {
                 me: {},
                 shared: store.state,
-                addingNewItems: false,
-                newItem: {
-                    title: '',
-                    body: '',
-                    favourite: false,
-                    pinned: false,
-                    category: {},
-                    priority: 1,
-                    parent_id: null,
-                    notBefore: '',
-                    recurringUnit: '',
-                    recurringFrequency: ''
-                }
+                addingNewItems: false
             };
         },
         filters: {
@@ -96,7 +87,7 @@
             *
             */
             insertItem: function () {
-                var data = ItemsRepository.setData(this.newItem, this.zoomedItem);
+                var data = ItemsRepository.setData(this.shared.newItem, this.shared.zoomedItem);
 
                 var array = 'items';
                 //Only add item to the array with JS if the new item is added to the current location
@@ -163,13 +154,7 @@
             },
 
             clearFields: function () {
-                this.newItem.parent_id = null;
-                this.newItem.title = '';
-                this.newItem.body = '';
-                this.newItem.parent = false;
-                this.newItem.notBefore = '';
-                this.newItem.recurringUnit = 'none';
-                this.newItem.recurringFrequency = '';
+                store.clearNewItemFields();
             },
 
             /**
@@ -234,19 +219,19 @@
 
             optionChosen: function (option, inputId) {
                 if (inputId === 'new-item-parent') {
-                    this.newItem.parent_id = option.id;
+                    store.set(option.id, 'newItem.parent_id');
                 }
                 else if (inputId === 'new-item-category') {
-                    this.newItem.category = option;
+                    store.set(option, 'newItem.category');
                 }
                 else if (inputId === 'new-item-recurring-unit') {
-                    this.newItem.recurringUnit = option;
+                    store.set(option, 'newItem.recurringUnit');
                 }
             },
 
             dateChosen: function (date, inputId) {
                 if (inputId === 'new-item-not-before') {
-                    this.newItem.notBefore = date;
+                    store.set(date, 'newItem.notBefore');
                 }
             },
 
@@ -258,17 +243,13 @@
                 $(document).on('categories-loaded', function (event) {
                     //Set the default category to the first one
                     setTimeout(function () {
-                        that.newItem.category = that.categories[0];
+                        store.set(that.categories[0], 'newItem.category');
                     }, 1000);
                 });
             }
 
 
         },
-        props: [
-            'items',
-            'zoomedItem'
-        ],
         created: function () {
             this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
             this.$bus.$on('date-chosen', this.dateChosen);
@@ -276,6 +257,12 @@
         mounted: function () {
             this.getUser();
             this.listen();
+            var that = this;
+            setTimeout(function () {
+                console.log("zoomedItem.id: " + that.shared.zoomedItem.id);
+//                that.newItem.parent_id = that.shared.zoomedItem.id;
+            }, 3000);
+
         }
     }
 </script>

@@ -43,11 +43,37 @@ export default {
             favourite: '',
             deletedAt: ''
         },
+        newItem: {
+            title: '',
+            body: '',
+            favourite: false,
+            pinned: false,
+            category: {},
+            priority: 1,
+            parent_id: '',
+            notBefore: '',
+            recurringUnit: '',
+            recurringFrequency: ''
+        },
         showFavourites: false,
         showPopup: false,
         showNewItemFields: false,
         favouriteItems: [],
         favourteItemsLoaded: false
+    },
+
+    /**
+     *
+     */
+    clearNewItemFields () {
+        this.set('', 'newItem.title');
+        this.set('', 'newItem.body');
+        this.set(false, 'newItem.favourite');
+        this.set(this.state.zoomedItem.id, 'newItem.parent_id');
+        this.set(this.state.zoomedItem, 'newItem.parent');
+        this.set('', 'newItem.notBefore');
+        this.set('none', 'newItem.recurringUnit');
+        this.set('', 'newItem.recurringFrequency');
     },
 
     getCategories() {
