@@ -194,27 +194,12 @@
             },
 
             /**
-             * Todo: If the item is an alarm,
-             * delete it from the alarm with the JS, too
+             * 
              * @param item
              */
             deleteItem: function () {
                 ItemsRepository.deleteItem(this.shared.selectedItem, this);
             },
-
-            /**
-             * to do: rewrite
-             */
-//            listen: function () {
-//                var that = this;
-//                $(document).on('show-item-popup', function (event, item) {
-//                    that.selectedItemClone = helpers.clone(item);
-//                    that.selectedItemClone.oldParentId = item.parent_id;
-//                    that.selectedItemClone.oldAlarm = item.alarm;
-//                    that.selectedItemCloneInItemsArray = item;
-//                    that.showPopup = true;
-//                });
-//            },
 
             optionChosen (option, inputId) {
                 if (inputId === 'selected-item-new-parent') {
@@ -239,7 +224,7 @@
             this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
-//            this.listen();
+
         }
     }
 </script>
