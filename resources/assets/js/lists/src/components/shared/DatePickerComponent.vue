@@ -1,7 +1,7 @@
 <template>
     <div class="datepicker">
         
-        <!--<pre>initial: @{{initialDateValue}}</pre>-->
+        <pre>initial: @{{initialDateValue}}</pre>
         <!--<pre>mutable: @{{mutableDate}}</pre>-->
         <!--<pre>dateInput: @{{dateInput}}</pre>-->
 
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableDate | dateAndTimeFilter }}</div>
+            <!--<div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableDate | dateAndTimeFilter }}</div>-->
         </div>
 
 
@@ -80,27 +80,17 @@
                 year: this.setYear(),
                 monthNumber: this.setMonthNumber(),
                 showCalendar: false,
-//                mutableDate: this.chosenDate
                 dateInput: this.initialDateValue,
                 datePickerChosenDate: ''
             };
         },
         components: {},
+        watch: {
+            initialDateValue () {
+                this.dateInput = this.initialDateValue;
+            }
+        },
         computed: {
-            mutableDate: {
-                get () {
-                    console.log("Getter...");
-                    this.dateInput = this.initialDateValue;
-                    return this.initialDateValue;
-                },
-                set (newValue) {
-                    console.log("Setter...")
-//                    console.log("new val: " + newValue);
-//                    //Putting this here to stop the console warning about having no setter
-//                    this.dateInput = newValue;
-//                    console.log("date input: " + this.dateInput);
-                }
-            },
             monthName: function () {
                 return moment().month(this.monthNumber - 1).format('MMMM');
             },
