@@ -1,5 +1,9 @@
 <template>
     <div class="autocomplete">
+
+        <!--<pre>inputValue: {{$data.inputValue}}</pre>-->
+        <!--<pre>selected: {{$data.selected}}</pre>-->
+
         <div class="form-group autocomplete-field">
             <label v-if="inputLabel" :for="inputId">{{ inputLabel | capitalize }}</label>
             <input
@@ -67,12 +71,15 @@
 
         },
         watch: {
-            'unfilteredOptions': function (val, oldVal) {
+            selected () {
+                this.mutableSelected = this.selected;
+            },
+            unfilteredOptions () {
                 if (this.mutableSelected) {
                     this.setInputValue();
                 }
             },
-            'mutableSelected': function (val, oldVal) {
+            mutableSelected () {
                 this.setInputValue();
             }
         },

@@ -27,7 +27,7 @@
                     label="Category:"
                     :model.sync="item.category"
                     :enter="enter"
-                    id="new-item-category"
+                    :id="type + '-item-category'"
                     :options="shared.categories"
                     options-prop="name"
                     required="true"
@@ -40,7 +40,6 @@
                 <!--Priority-->
                 <input-group
                     label="Priority:"
-                    path-to-store-property="selectedItem.priority"
                     :model.sync="item.priority"
                     :enter="enter"
                     id="new-item-priority"

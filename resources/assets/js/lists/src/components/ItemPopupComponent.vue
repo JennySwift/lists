@@ -220,6 +220,9 @@
                 if (inputId === 'selected-item-new-parent') {
                     this.shared.selectedItemClone.parent_id = option.id;
                 }
+                if (inputId === 'selected-item-category') {
+                    this.shared.selectedItemClone.category = option;
+                }
                 else if (inputId === 'selected-item-recurring-unit') {
                     this.shared.selectedItemClone.recurringUnit = option;
                 }
