@@ -138,11 +138,11 @@
                     callback: function (response) {
                         store.update(response, 'items');
 
-//                        this.updateFavourites(response);
-//
-//                        if (this.shared.selectedItemClone.oldParentId != response.parent_id) {
-//                            this.jsMoveToNewParent(response);
-//                        }
+                        this.updateFavourites(response);
+
+                        if (this.shared.selectedItemClone.oldParentId != response.parent_id) {
+                            this.jsMoveToNewParent(response);
+                        }
                     }.bind(this)
                 });
             },
