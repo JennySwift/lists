@@ -1,30 +1,22 @@
 <template>
     <div id="categories">
 
-        <modal name="category-popup">
-            <div class="flex-container">
-                <div class="content">
-                    <input
-                        type="text"
-                        v-model="selectedCategory.name"
-                        v-on:keyup.13 = "updateCategory"
-                        placeholder="Name"
-                        class="line"
-                    />
-                </div>
-
-                <buttons
-                    :save="updateCategory"
-                    :destroy="deleteCategory"
-                >
-                </buttons>
+        <new-popup id="category-popup">
+            <div slot="content">
+                <input
+                    type="text"
+                    v-model="selectedCategory.name"
+                    v-on:keyup.13 = "updateCategory"
+                    placeholder="Name"
+                    class="line"
+                />
             </div>
-
-
-
-
-            <!--</div>-->
-        </modal>
+            <buttons slot="buttons"
+                :save="updateCategory"
+                :destroy="deleteCategory"
+            >
+            </buttons>
+        </new-popup>
 
         <new-category></new-category>
 
@@ -96,9 +88,8 @@
              *
              */
             showCategoryPopup: function (category) {
-//                $.event.trigger('show-category-popup', [this.category]);
                 this.selectedCategory = helpers.clone(category);
-                this.$modal.show('category-popup', { adaptive: true });
+                helpers.showPopup('category-popup');
             }
         }
     }

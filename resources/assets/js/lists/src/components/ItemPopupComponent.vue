@@ -1,65 +1,56 @@
 <template>
-    <popup
-        :show-popup.sync="showPopup"
+
+    <new-popup
         id="item-popup"
         :redirect-to="redirectTo"
-        :update="updateItem"
-        :destroy="deleteItem"
     >
         <div slot="content">
-            <div id="item-popup" class="popup-inner">
-
-                <div class="top-btns">
-
-                    <div>
-                        <button
-                            v-if="!selectedItem.favourite"
-                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                            class="favourite fa fa-star-o btn btn-sm btn-default">
-                        </button>
-
-                        <button
-                            v-if="selectedItem.favourite"
-                            v-on:click="selectedItem.favourite = !selectedItem.favourite"
-                            class="favourite fa fa-star">
-                        </button>
-
-                    </div>
-
-                </div>
-
+            <div class="top-btns">
                 <div>
-                    <item-fields
-                        :item="selectedItem"
-                        action="update"
-                        :show="true"
-                        :enter="updateItem"
+                    <button
+                        v-if="!shared.selectedItem.favourite"
+                        v-on:click="toggleFavourite"
+                        class="favourite fa fa-star-o btn btn-sm btn-default">
+                    </button>
+
+                    <button
+                        v-if="shared.selectedItem.favourite"
+                        v-on:click="toggleFavourite"
+                        class="favourite fa fa-star">
+                    </button>
+
+                    <button
+                        v-if="shared.selectedItem.deletedAt"
+                        v-on:click="restore()"
+                        class="btn btn-success"
                     >
-                    </item-fields>
+                        Restore
+                    </button>
                 </div>
-
-                <buttons
-                    v-if="!selectedItem.deletedAt"
-                    :save="updateItem"
-                    :destroy="deleteItem"
-                    :redirect-to="redirectTo"
-                    :show-popup.sync="showPopup"
-                    :hide-popup="hidePopup"
-
-                >
-                </buttons>
-
-                <button
-                    v-else
-                    v-on:click="restore()"
-                    class="btn btn-success"
-                >
-                    Restore
-                </button>
-
             </div>
+
+            <div>
+                <item-fields
+                    :item="shared.selectedItem"
+                    action="update"
+                    :show="true"
+                    :enter="updateItem"
+                >
+                </item-fields>
+            </div>
+
         </div>
-    </popup>
+
+        <buttons slot="buttons"
+                 v-if="!shared.selectedItem.deletedAt"
+                 :save="updateItem"
+                 :destroy="deleteItem"
+                 :redirect-to="redirectTo"
+
+        >
+        </buttons>
+
+    </new-popup>
 
 </template>
 
@@ -73,15 +64,13 @@
         template: '#item-popup-template',
         data: function () {
             return {
-                selectedItem: {},
                 selectedItemInItemsArray: {},
-                showPopup: false,
                 shared: store.state,
+                modalProps: true
             };
         },
         computed: {
             redirectTo: function () {
-                console.log("redirect to is: " + this.$route.path);
                 return this.$route.path;
             }
         },
@@ -97,6 +86,13 @@
         },
         components: {},
         methods: {
+
+            /**
+             * Make the selected item a favourite item if it wasn't already, and vice versa
+             */
+            toggleFavourite () {
+                store.update(!this.shared.selectedItem.favourite, 'selectedItem.favourite');
+            },
 
             /**
              * Restore a deleted item
@@ -117,11 +113,6 @@
                 });
             },
 
-            hidePopup: function () {
-                console.log("should be hiding now");
-                this.showPopup = false;
-            },
-
             updateFavourites: function (item) {
                 var itemInFavourites = helpers.findById(this.shared.favouriteItems, item.id);
                 if (item.favourite && !itemInFavourites) {
@@ -138,10 +129,10 @@
              *
              */
             updateItem: function () {
-                var data = ItemsRepository.setData(this.selectedItem);
+                var data = ItemsRepository.setData(this.shared.selectedItem);
 
                 helpers.put({
-                    url: '/api/items/' + this.selectedItem.id,
+                    url: '/api/items/' + this.shared.selectedItem.id,
                     data: data,
                     message: 'Item updated',
                     redirectTo: this.redirectTo,
@@ -150,14 +141,14 @@
 
                         this.updateFavourites(response);
 
-                        if (this.selectedItem.oldParentId != response.parent_id) {
+                        if (this.shared.selectedItem.oldParentId != response.parent_id) {
                             this.jsMoveToNewParent(response);
                         }
-                        if (this.selectedItem.oldAlarm === null && this.selectedItem.alarm) {
+                        if (this.shared.selectedItem.oldAlarm === null && this.shared.selectedItem.alarm) {
                             //the alarm has been created
                             $.event.trigger('alarm-created', [response]);
                         }
-                        else if (this.selectedItem.oldAlarm && this.selectedItem.oldAlarm != this.selectedItem.alarm) {
+                        else if (this.shared.selectedItem.oldAlarm && this.shared.selectedItem.oldAlarm != this.shared.selectedItem.alarm) {
                             //the alarm has been changed
                             $.event.trigger('alarm-updated', [response]);
                         }
@@ -190,9 +181,9 @@
              *
              */
             removeFromOldParent: function (response) {
-                var oldParent = ItemsRepository.findParent(this.shared.items, this.selectedItem, this.selectedItem.oldParentId);
+                var oldParent = ItemsRepository.findParent(this.shared.items, this.shared.selectedItem, this.shared.selectedItem.oldParentId);
                 if (oldParent) {
-                    var ancestorIds = ItemsRepository.getAncestorIds(this.selectedItem, []);
+                    var ancestorIds = ItemsRepository.getAncestorIds(this.shared.selectedItem, []);
 
 
                     var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
@@ -209,7 +200,7 @@
                     }
                 }
                 else {
-                    store.delete(this.selectedItem, 'items');
+                    store.delete(this.shared.selectedItem, 'items');
                 }
             },
 
@@ -223,31 +214,31 @@
             },
 
             /**
-             *
+             * to do: rewrite
              */
-            listen: function () {
-                var that = this;
-                $(document).on('show-item-popup', function (event, item) {
-                    that.selectedItem = helpers.clone(item);
-                    that.selectedItem.oldParentId = item.parent_id;
-                    that.selectedItem.oldAlarm = item.alarm;
-                    that.selectedItemInItemsArray = item;
-                    that.showPopup = true;
-                });
-            },
+//            listen: function () {
+//                var that = this;
+//                $(document).on('show-item-popup', function (event, item) {
+//                    that.selectedItem = helpers.clone(item);
+//                    that.selectedItem.oldParentId = item.parent_id;
+//                    that.selectedItem.oldAlarm = item.alarm;
+//                    that.selectedItemInItemsArray = item;
+//                    that.showPopup = true;
+//                });
+//            },
 
             optionChosen (option, inputId) {
                 if (inputId === 'selected-item-new-parent') {
-                    this.selectedItem.parent_id = option.id;
+                    this.shared.selectedItem.parent_id = option.id;
                 }
                 else if (inputId === 'selected-item-recurring-unit') {
-                    this.selectedItem.recurringUnit = option;
+                    this.shared.selectedItem.recurringUnit = option;
                 }
             },
 
             dateChosen (date, inputId) {
                 if (inputId === 'selected-item-not-before') {
-                    this.selectedItem.notBefore = date;
+                    this.shared.selectedItem.notBefore = date;
                 }
             }
         },
@@ -256,7 +247,7 @@
             this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
-            this.listen();
+//            this.listen();
         }
     }
 </script>

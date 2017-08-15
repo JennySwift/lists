@@ -1,26 +1,28 @@
 <template>
     <div
-        v-show="mutableShowPopup"
+        v-show="shared.showPopup"
         transition="popup-outer"
         v-on:click="closePopup($event)"
         class="popup-outer animate"
     >
 
         <div
-            v-show="mutableShowPopup"
+            v-show="shared.showPopup"
             transition="popup-inner"
             :id="id"
             class="popup-inner animate"
         >
 
-            <div class="content">
-                <slot name="content"></slot>
-            </div>
+            <div class="flex-container">
+                <div class="content">
+                    <slot name="content"></slot>
+                </div>
 
-            <div class="buttons">
-                <slot name="buttons">
+                <div class="buttons">
+                    <slot name="buttons">
 
-                </slot>
+                    </slot>
+                </div>
             </div>
 
         </div>
@@ -29,16 +31,15 @@
 
 <script>
     import helpers from '../../repositories/Helpers'
+    import store from '../../repositories/Store'
     export default {
         data: function () {
             return {
-
+                shared: store.state
             };
         },
         computed: {
-            mutableShowPopup: function () {
-              return this.showPopup;
-            }
+
         },
         components: {},
         methods: {

@@ -46,15 +46,22 @@ export default {
         app.__vue__.$modal.hide(popupName);
     },
 
+    openPopup: function (popupName) {
+        app.__vue__.$modal.show(popupName);
+    },
+
+    showPopup: function (popupName) {
+        store.set(true, 'showPopup')
+    },
+
     /**
      *
      */
     closePopup: function ($event, that, routeToGoTo) {
         if ($($event.target).hasClass('popup-outer')) {
-            // that.mutableShowPopup = false;
-            that.$emit('update:showPopup', false);
-            // store.set(false, 'showItemPopup');
-            that.$router.push(routeToGoTo);
+            // that.$emit('update:showPopup', false);
+            // that.$router.push(routeToGoTo);
+            store.set(false, 'showPopup');
         }
     },
 

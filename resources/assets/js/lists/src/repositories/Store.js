@@ -32,7 +32,12 @@ export default {
             notBeforeDate: '',
             showTrashed: false
         },
+        selectedItem: {
+            oldParentId: null,
+            favourite: ''
+        },
         showFavourites: false,
+        showPopup: false,
         showNewItemFields: false,
         favouriteItems: [],
         favourteItemsLoaded: false

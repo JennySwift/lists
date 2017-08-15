@@ -1,13 +1,9 @@
 <template>
     <div class="datepicker">
         
-        <pre>initial: @{{initialDateValue}}</pre>
-        <pre>mutable: @{{mutableDate}}</pre>
-        <pre>dateInput: @{{dateInput}}</pre>
-
-        <!--<pre>dateInput: {{$data.dateInput}}</pre>-->
-        <!--<pre>initialDateValue: {{$data.initialDateValue}}</pre>-->
-        <!--<pre>mutableDate: {{$data.mutableDate}}</pre>-->
+        <!--<pre>initial: @{{initialDateValue}}</pre>-->
+        <!--<pre>mutable: @{{mutableDate}}</pre>-->
+        <!--<pre>dateInput: @{{dateInput}}</pre>-->
 
         <div class="datepicker-input-label-container">
 
@@ -93,12 +89,12 @@
         computed: {
             mutableDate: {
                 get () {
-//                    console.log("Getter...this.chosen date is: " + this.chosenDate);
+                    console.log("Getter...");
                     this.dateInput = this.initialDateValue;
                     return this.initialDateValue;
                 },
                 set (newValue) {
-//                    console.log("Setter...")
+                    console.log("Setter...")
 //                    console.log("new val: " + newValue);
 //                    //Putting this here to stop the console warning about having no setter
 //                    this.dateInput = newValue;

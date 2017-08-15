@@ -1,35 +1,48 @@
-.v--modal-box.v--modal {
-	padding: 20px;
-
-	.flex-container {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-
-		.content {
-			flex: 1;
-
-			//To center things vertically
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-		}
-
-		.btns {
-			display: flex;
-			width: 100%;
-			justify-content: space-between;
-			margin-top: 30px;
-			button {
-				margin: 0 5px;
-				flex-grow: 1;
-				flex-basis: 0;
-			}
-		}
-	}
-
-
-}
+//.v--modal-box.v--modal {
+//	padding: 20px;
+//
+//	top: 0;
+//	bottom: 0;
+//	max-height: 447px;
+//	position: absolute;
+//	margin: auto;
+//	overflow: scroll;
+//
+//	.flex-container {
+//		display: flex;
+//		flex-direction: column;
+//		height: 100%;
+//
+//		.content {
+//			flex: 1;
+//
+//			//To center things vertically
+//			display: flex;
+//			flex-direction: column;
+//			justify-content: center;
+//		}
+//
+//		.btns {
+//			display: flex;
+//			width: 100%;
+//			justify-content: space-between;
+//			margin-top: 30px;
+//			button {
+//				margin: 0 5px;
+//				flex-grow: 1;
+//				flex-basis: 0;
+//				&:first-child {
+//					margin-left: 0;
+//				}
+//				&:last-child {
+//					margin-right: 0;
+//				}
+//			}
+//		}
+//	}
+//
+//
+//}
 
 
 .popup-outer {
@@ -51,30 +64,48 @@
 		&:not(.scrollbar-container) {
 			overflow: scroll;
 		}
-		height: calc(100% - 67px);
 		max-height: calc(100% - 67px);
 		max-width: 98%;
-		padding: 0px;
+		padding: 20px;
 		margin: 5px;
-		.popup-title {
-			margin-bottom: 30px;
-			margin-top: 0;
-		}
-		.buttons {
-			> div {
+		.flex-container {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			.popup-title {
+				margin-bottom: 30px;
+				margin-top: 0;
+			}
+			.top-btns {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 30px;
+			}
+			.content {
+				flex: 1;
+
+				//To center things vertically
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.btns {
 				display: flex;
 				width: 100%;
 				justify-content: space-between;
 				margin-top: 30px;
 				button {
 					margin: 0 5px;
+					flex-grow: 1;
+					flex-basis: 0;
+					&:first-child {
+						margin-left: 0;
+					}
+					&:last-child {
+						margin-right: 0;
+					}
 				}
 			}
-		}
-		.top-btns {
-			display: flex;
-			justify-content: space-between;
-			margin-bottom: 30px;
 		}
 	}
 }

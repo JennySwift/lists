@@ -7,11 +7,11 @@
             tag="button"
             class="btn btn-default"
         >
-            Cancels
+            Cancel
         </router-link>
 
         <button
-            v-if="showPopup && !redirectTo"
+            v-if="!redirectTo"
             v-on:click="hidePopup()"
             class="btn btn-default"
         >
@@ -37,18 +37,17 @@
 </template>
 
 <script>
+    import store from '../../repositories/Store'
     export default {
         methods: {
-
+            hidePopup () {
+                store.set(false, 'showPopup');
+            }
         },
         props: [
             'save',
             'destroy',
-            'redirectTo',
-            //For if it's a popup without a redirect path
-            'showPopup',
-            //Method not a property
-            'hidePopup'
+            'redirectTo'
         ]
     }
 </script>

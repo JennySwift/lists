@@ -2,8 +2,8 @@ import Vue from 'vue'
 // import FeedbackComponent from '@jennyswift/feedback'
 // import AutocompleteComponent from '@jennyswift/vue-autocomplete'
 
-import VModal from 'vue-js-modal'
-Vue.use(VModal, { dialog: true })
+// import VModal from 'vue-js-modal'
+// Vue.use(VModal, { dialog: true })
 
 var vueTippy = require('vue-tippy');
 Vue.use(vueTippy);
@@ -12,6 +12,7 @@ import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import ToolbarComponent from './lists/src/components/shared/ToolbarComponent.vue'
 import LoadingComponent from './lists/src/components/shared/LoadingComponent.vue'
 import PopupComponent from './lists/src/components/shared/PopupComponent.vue'
+import NewPopupComponent from './lists/src/components/shared/NewPopupComponent.vue'
 import ButtonsComponent from './lists/src/components/shared/ButtonsComponent.vue'
 import InputGroupComponent from './lists/src/components/shared/InputGroupComponent.vue'
 import DatePickerComponent from './lists/src/components/shared/DatePickerComponent.vue'
@@ -35,6 +36,7 @@ Vue.component('toolbar', ToolbarComponent);
 Vue.component('feedback', FeedbackComponent);
 Vue.component('loading', LoadingComponent);
 Vue.component('popup', PopupComponent);
+Vue.component('new-popup', NewPopupComponent);
 Vue.component('autocomplete', AutocompleteComponent);
 
 Vue.component('buttons', ButtonsComponent);

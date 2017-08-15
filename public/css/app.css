@@ -12687,57 +12687,6 @@ input[type="text"].line::placeholder {
   margin-bottom: 0;
 }
 
-.v--modal-box.v--modal {
-  padding: 20px;
-}
-
-.v--modal-box.v--modal .flex-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100%;
-}
-
-.v--modal-box.v--modal .flex-container .content {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.v--modal-box.v--modal .flex-container .btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-top: 30px;
-}
-
-.v--modal-box.v--modal .flex-container .btns button {
-  margin: 0 5px;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -ms-flex-preferred-size: 0;
-      flex-basis: 0;
-}
-
 .popup-outer {
   position: fixed;
   left: 0;
@@ -12762,10 +12711,9 @@ input[type="text"].line::placeholder {
   border-radius: 5px;
   background: white;
   width: 100%;
-  height: calc(100% - 67px);
   max-height: calc(100% - 67px);
   max-width: 98%;
-  padding: 0px;
+  padding: 20px;
   margin: 5px;
 }
 
@@ -12773,12 +12721,49 @@ input[type="text"].line::placeholder {
   overflow: scroll;
 }
 
-.popup-outer .popup-inner .popup-title {
+.popup-outer .popup-inner .flex-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+.popup-outer .popup-inner .flex-container .popup-title {
   margin-bottom: 30px;
   margin-top: 0;
 }
 
-.popup-outer .popup-inner .buttons > div {
+.popup-outer .popup-inner .flex-container .top-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.popup-outer .popup-inner .flex-container .content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.popup-outer .popup-inner .flex-container .btns {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12789,18 +12774,21 @@ input[type="text"].line::placeholder {
   margin-top: 30px;
 }
 
-.popup-outer .popup-inner .buttons > div button {
+.popup-outer .popup-inner .flex-container .btns button {
   margin: 0 5px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
 }
 
-.popup-outer .popup-inner .top-btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  margin-bottom: 30px;
+.popup-outer .popup-inner .flex-container .btns button:first-child {
+  margin-left: 0;
+}
+
+.popup-outer .popup-inner .flex-container .btns button:last-child {
+  margin-right: 0;
 }
 
 @media all and (min-width: 680px) {

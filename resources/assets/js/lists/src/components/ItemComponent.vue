@@ -121,7 +121,7 @@
 
             <div
                 v-if="!item.html"
-                v-on:click="showItemPopup(item)"
+                v-on:click="selectItem(item)"
                 class="item-content"
             >
 
@@ -175,6 +175,7 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import filters from '../repositories/Filters'
     import store from '../repositories/Store'
+    import helpers from '../repositories/Helpers'
 
     export default {
         template: '#item-template',
@@ -202,16 +203,14 @@
                 $item.children = [];
             },
 
-            /**
-             *
-             * @param item
-             */
-            showItemPopup: function (item) {
-                $.event.trigger('show-item-popup', [item]);
-            },
-
             expand: function () {
                 store.getItemWithChildren(this.item);
+            },
+
+            selectItem: function (item) {
+                store.set(helpers.clone(item), 'selectedItem');
+                store.set(item.parent_id, 'selectedItem.oldParentId');
+                helpers.showPopup('item-popup');
             },
 
             /**
