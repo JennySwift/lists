@@ -6,7 +6,6 @@
             <autocomplete
                 input-id="title-search"
                 prop="title"
-                :selected.sync="chosenItemFromTitleSearch"
                 url="/api/items"
                 input-placeholder="Search all titles"
             >
@@ -175,8 +174,6 @@
         data: function () {
             return {
                 shared: store.state,
-                //Maybe I don't actually need this property
-                chosenItemFromTitleSearch: {}
             };
         },
         computed: {
@@ -248,7 +245,6 @@
                     store.set(option, 'filters.category');
                 }
                 if (inputId === 'title-search') {
-//                    this.chosenItemFromTitleSearch = option;
                     helpers.goToRoute("/items/:" + option.id);
                 }
             },
