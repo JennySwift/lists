@@ -16,7 +16,7 @@
                 :id="inputId"
                 :name="inputId"
                 :placeholder="inputPlaceholder"
-                class="form-control datepicker-input line"
+                class="form-control datepicker-input"
             >
 
             <button v-on:click="toggleCalendar()" class="btn btn-default">
