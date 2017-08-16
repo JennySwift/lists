@@ -78,7 +78,8 @@
     }
     .after-item {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
+        flex-grow: 1;
         align-items: center;
         > * {
             margin: 0 5px;

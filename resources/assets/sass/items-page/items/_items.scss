@@ -1,8 +1,10 @@
 #items-page {
     #items-page-container {
         display: flex;
+        justify-content: space-between;
         > :first-child {
             margin-right: 20px;
+            flex-grow: 1;
         }
         ul#items {
             padding-left: 0;
