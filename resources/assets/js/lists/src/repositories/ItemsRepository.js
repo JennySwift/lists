@@ -125,9 +125,7 @@ export default {
                 redirectTo: this.redirectTo,
                 callback: function (response) {
                     item.notBefore = response.notBefore;
-                    if (that) {
-                        that.showPopup = false;
-                    }
+                    helpers.hidePopup();
                 }
             });
         }
@@ -141,9 +139,7 @@ export default {
                 redirectTo: this.redirectTo,
                 callback: function () {
                     this.deleteJsItem(item);
-                    if (that) {
-                        that.showPopup = false;
-                    }
+                    helpers.hidePopup();
                 }.bind(this)
             });
         }
@@ -156,16 +152,6 @@ export default {
     deleteJsItem: function (item) {
         item.deletedAt = true;
         return item;
-        // console.log("after: " +  item.deletedAt);
-        // var parent = this.findParent(store.state.items, item, false, true);
-        // var index;
-        // if (parent) {
-        //     index = helpers.findIndexById(parent.children, item.id);
-        //     parent.children = _.without(parent.children, parent.children[index]);
-        // }
-        // else if (store.state.items) {
-        //     store.delete(item, 'items');
-        // }
     },
 
     /**
