@@ -60,9 +60,10 @@
              */
             handleResponseError: function (response) {
                 var messages = [];
+                var defaultMessage = 'There was an error';
 
                 if (!response || !response.status) {
-                    messages.push('There was an error');
+                    messages.push(defaultMessage);
                     return messages;
                 }
 
@@ -75,6 +76,9 @@
                         break;
                     case 422:
                         messages = this.setMessagesFrom422Status(response.data);
+                        break;
+                    case 400:
+                        messages.push(response.data.error);
                         break;
                     default:
                         response && response.error ? messages.push(response.error) : messages.push(defaultMessage);
