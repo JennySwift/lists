@@ -311,7 +311,6 @@ class ItemsStoreTest extends TestCase
      */
     public function it_throws_an_exception_when_a_user_tries_to_create_a_duplicate_item_with_the_same_parent()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         //First create an item
@@ -319,27 +318,19 @@ class ItemsStoreTest extends TestCase
             'title' => 'koala',
             'priority' => 1,
             'category_id' => 2,
-//            'parent_id' => 2,
             'favourite' => 0,
+            'parent_id' => ''
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
         $content = $this->getContent($response);
-//        dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals('koala', $content['title']);
-//        $this->assertEquals('koala', $content['body']);
-//        $this->assertEquals(2, $content['priority']);
-//        $this->assertEquals(1, $content['urgency']);
-//        $this->assertEquals(1, $content['favourite']);
-//        $this->assertEquals(5, $content['parent_id']);
-//        $this->assertEquals(2, $content['category_id']);
-//        $this->assertEquals($alarm, $content['alarm']);
-//        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
-//        $this->assertEquals('hour', $content['recurringUnit']);
-//        $this->assertEquals(6, $content['recurringFrequency']);
+        $this->assertEquals('1', $content['priority']);
+        $this->assertEquals('2', $content['category_id']);
+        $this->assertEquals('0', $content['favourite']);
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
 
@@ -348,8 +339,8 @@ class ItemsStoreTest extends TestCase
             'title' => 'koala',
             'priority' => 1,
             'category_id' => 2,
-//            'parent_id' => 1,
             'favourite' => 0,
+            'parent_id' => ''
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
@@ -360,8 +351,53 @@ class ItemsStoreTest extends TestCase
         $this->assertEquals(400, $content['status']);
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+    }
 
-        DB::rollBack();
+    /**
+     * @test
+     * @return void
+     */
+    public function it_throws_an_exception_when_a_user_tries_to_create_a_duplicate_item_with_the_same_parent_if_the_parent_id_is_none()
+    {
+        $this->logInUser();
+
+        //First create an item
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+            'favourite' => 0,
+            'parent_id' => ''
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = $this->getContent($response);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals('koala', $content['title']);
+        $this->assertEquals('1', $content['priority']);
+        $this->assertEquals('2', $content['category_id']);
+        $this->assertEquals('0', $content['favourite']);
+
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+
+        //Then try to enter the item again
+        $item = [
+            'title' => 'koala',
+            'priority' => 1,
+            'category_id' => 2,
+            'favourite' => 0,
+            'parent_id' => 'none'
+        ];
+
+        $response = $this->apiCall('POST', '/api/items', $item);
+        $content = $this->getContent($response);
+
+        $this->assertEquals('You already have this item here.', $content['error']);
+        $this->assertEquals(400, $content['status']);
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
     /**

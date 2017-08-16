@@ -76,11 +76,13 @@ class ItemsRepository {
      */
     public function itemAlreadyExists(Request $request)
     {
+        //Set the parent id to null if the value is 'none.'
+        $parentId = $request->get('parent_id') === 'none' ? null : $request->get('parent_id');
         $item = Item::forCurrentUser()
             ->where('title', $request->get('title'))
             ->where('body', $request->get('body'))
             ->where('category_id', $request->get('category_id'))
-            ->where('parent_id', $request->get('parent_id'))
+            ->where('parent_id', $parentId)
             ->first();
 
         return $item;

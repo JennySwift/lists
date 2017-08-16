@@ -113,6 +113,7 @@ class ItemsController extends Controller
             }
 
             $parent = false;
+
             if ($request->get('parent_id')) {
                 $parent = Item::find($request->get('parent_id'));
                 $item->parent()->associate($parent);
