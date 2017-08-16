@@ -148,8 +148,6 @@
 
                 <span v-if="item.category" class="label label-primary category">{{ item.category.name }}</span>
 
-                <span class="badge">ID: {{ item.id }}</span>
-
             </div>
 
         </div>

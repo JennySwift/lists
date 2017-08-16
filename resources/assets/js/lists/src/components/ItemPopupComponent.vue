@@ -6,27 +6,27 @@
     >
         <div slot="content">
             <div class="top-btns">
-                <div>
-                    <button
-                        v-if="!shared.selectedItemClone.favourite"
-                        v-on:click="toggleFavourite"
-                        class="favourite fa fa-star-o btn btn-sm btn-default">
-                    </button>
+                <button
+                    v-if="!shared.selectedItemClone.favourite"
+                    v-on:click="toggleFavourite"
+                    class="favourite fa fa-star-o btn btn-sm btn-default">
+                </button>
 
-                    <button
-                        v-if="shared.selectedItemClone.favourite"
-                        v-on:click="toggleFavourite"
-                        class="favourite fa fa-star btn btn-sm btn-default">
-                    </button>
+                <button
+                    v-if="shared.selectedItemClone.favourite"
+                    v-on:click="toggleFavourite"
+                    class="favourite fa fa-star btn btn-sm btn-default">
+                </button>
 
-                    <button
-                        v-if="shared.selectedItemClone.deletedAt"
-                        v-on:click="restore()"
-                        class="btn btn-success"
-                    >
-                        Restore
-                    </button>
-                </div>
+                <button
+                    v-if="shared.selectedItemClone.deletedAt"
+                    v-on:click="restore()"
+                    class="btn btn-success"
+                >
+                    Restore
+                </button>
+
+                <span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>
             </div>
 
             <div>

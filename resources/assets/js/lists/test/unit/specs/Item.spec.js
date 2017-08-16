@@ -6,7 +6,7 @@ import ItemPopupComponent from '@/components/ItemPopupComponent.vue'
 import store from '@/repositories/Store'
 
 
-describe('move item', function () {
+describe.only('move item', function () {
     var vm;
 
     describe('string path', function () {
@@ -102,6 +102,7 @@ describe('move item', function () {
             ];
         });
 
+        //Failing
         it('can remove an item from an old parent', function () {
             vm.selectedItem = {
                 oldParentId: 12,
@@ -292,6 +293,7 @@ describe('move item', function () {
             ];
         });
 
+        //Failing
         it('can remove an item from an old parent', function () {
             vm.selectedItem = {
                 oldParentId: 1,
@@ -330,6 +332,7 @@ describe('move item', function () {
             assert.deepEqual(expectedOldParent, store.state.items[0]);
         });
 
+        //Failing
         it('can remove the last item from an old parent and know that the parent no longer has children', function () {
             vm.selectedItem = {
                 oldParentId: 2,
@@ -369,6 +372,7 @@ describe('move item', function () {
             assert.deepEqual(expectedNewParent, store.state.items[2]);
         });
 
+        //Failing
         it('can move an item to a new parent', function () {
             // console.log('\n\n items before: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
             vm.selectedItem = {
