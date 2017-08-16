@@ -73,11 +73,13 @@
              * For determining whether or not to insert the item with the JS at the current location
              */
             insertItemAtCurrentLocation: function (data) {
-                if (!this.shared.zoomedItem && !data.parent_id) {
+                var parentId = data.parent_id === 'none' ? false : data.parent_id;
+
+                if (!this.shared.zoomedItem && !parentId) {
                     //At home level with no parent specified
                     return true;
                 }
-                else if (this.shared.zoomedItem && this.shared.zoomedItem.id === data.parent_id) {
+                else if (this.shared.zoomedItem && this.shared.zoomedItem.id === parentId) {
                     return true;
                 }
                 return false;

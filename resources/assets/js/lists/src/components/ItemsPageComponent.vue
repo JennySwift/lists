@@ -1,6 +1,8 @@
 <template>
     <div id="items-page">
         <item-popup></item-popup>
+        
+        <!--<pre>@{{$data.shared.items | json}}</pre>-->
 
         <div id="items-page-container">
             <div class="left-side">
