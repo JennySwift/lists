@@ -8,6 +8,7 @@
                 prop="title"
                 :selected.sync="chosenItemFromTitleSearch"
                 url="/api/items"
+                input-placeholder="Search all titles"
             >
             </autocomplete>
 
