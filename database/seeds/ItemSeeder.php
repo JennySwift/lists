@@ -171,6 +171,7 @@ class ItemSeeder extends Seeder
     }
 
     /**
+     * Todo: delete some items that don't have children
      * Delete some items
      * This broke my tests, because I then had children existing
      * whose parents were deleted, so when I tried to update the child,
