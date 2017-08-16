@@ -7,31 +7,49 @@
 
         <div class="datepicker-input-label-container">
 
-            <div class="datepicker-label-container">
-                <label :for="inputId" class="">{{label}}:</label>
-            </div>
 
-            <div>
-                <div class="input-group">
-                    <input
-                        v-on:keyup="keyup"
-                        v-on:keyup.13="functionOnEnter()"
-                        v-model="dateInput"
-                        type="text"
-                        :id="inputId"
-                        :name="inputId"
-                        :placeholder="inputPlaceholder"
-                        class="form-control datepicker-input"
-                    >
-                    <span class="input-group-btn">
-                        <button v-on:click="toggleCalendar()" class="btn btn-default">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </span>
-                </div>
-            </div>
+            <input
+                v-on:keyup="keyup"
+                v-on:keyup.13="functionOnEnter()"
+                v-model="dateInput"
+                type="text"
+                :id="inputId"
+                :name="inputId"
+                :placeholder="inputPlaceholder"
+                class="form-control datepicker-input line"
+            >
 
-            <!--<div v-if="showDateFeedback" class="date-feedback-for-user">{{ mutableDate | dateAndTimeFilter }}</div>-->
+            <button v-on:click="toggleCalendar()" class="btn btn-default">
+                <i class="fa fa-calendar"></i>
+            </button>
+
+
+
+
+            <!--<div class="datepicker-label-container">-->
+                <!--<label :for="inputId" class="">{{label}}:</label>-->
+            <!--</div>-->
+
+            <!--<div>-->
+                <!--<div class="input-group">-->
+                    <!--<input-->
+                        <!--v-on:keyup="keyup"-->
+                        <!--v-on:keyup.13="functionOnEnter()"-->
+                        <!--v-model="dateInput"-->
+                        <!--type="text"-->
+                        <!--:id="inputId"-->
+                        <!--:name="inputId"-->
+                        <!--:placeholder="inputPlaceholder"-->
+                        <!--class="form-control datepicker-input"-->
+                    <!--&gt;-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button v-on:click="toggleCalendar()" class="btn btn-default">-->
+                            <!--<i class="fa fa-calendar"></i>-->
+                        <!--</button>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
         </div>
 
 
