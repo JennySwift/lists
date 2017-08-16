@@ -20,12 +20,12 @@ class CategoriesTest extends TestCase
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/categories');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
     //  dd($content);
 
         $this->checkCategoryKeysExist($content[0]);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -42,7 +42,7 @@ class CategoriesTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/categories', $category);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkCategoryKeysExist($content);
@@ -68,7 +68,7 @@ class CategoriesTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/categories', $category);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //            dd($content);
 
         $this->assertArrayHasKey('name', $content);
@@ -93,14 +93,14 @@ class CategoriesTest extends TestCase
         $response = $this->call('PUT', '/api/categories/'.$category->id, [
             'name' => 'numbat'
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkCategoryKeysExist($content);
 
         $this->assertEquals('numbat', $content['name']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }

@@ -40,7 +40,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content);
@@ -91,7 +91,7 @@ class ItemsStoreTest extends TestCase
 //
 //        $response = $this->call('POST', '/api/items', $item);
 ////        dd($response);
-//        $content = json_decode($response->getContent(), true);
+//        $content = $this->getContent($response);
 ////      dd($content);
 //
 //        $this->checkItemKeysExist($content);
@@ -139,7 +139,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content);
@@ -184,7 +184,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 
         $duplicateItem = [
             'title' => 'koala',
@@ -195,7 +195,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $duplicateItem);
-//        $content = json_decode($response->getContent(), true);
+//        $content = $this->getContent($response);
 //      dd($content);
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
@@ -226,7 +226,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content);
@@ -259,7 +259,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->assertArrayHasKey('title', $content);
@@ -294,7 +294,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->assertArrayHasKey('title', $content);
@@ -324,7 +324,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
@@ -353,7 +353,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->assertEquals('You already have this item here.', $content['error']);
@@ -384,7 +384,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
@@ -413,7 +413,7 @@ class ItemsStoreTest extends TestCase
         ];
 
         $response = $this->apiCall('POST', '/api/items', $item);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->assertEquals('koala', $content['title']);

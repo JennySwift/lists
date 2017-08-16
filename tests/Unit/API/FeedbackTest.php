@@ -29,7 +29,7 @@ class FeedbackTest extends TestCase
 //        ];
 //
 //        $response = $this->call('POST', '/api/feedback', $feedback);
-//        $content = json_decode($response->getContent(), true);
+//        $content = $this->getContent($response);
 //        // dd($content);
 //
 //        $this->assertEquals('koala', $content['title']);

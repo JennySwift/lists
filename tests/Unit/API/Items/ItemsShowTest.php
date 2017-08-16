@@ -23,7 +23,7 @@ class ItemsShowTest extends TestCase
         $item = Item::forCurrentUser()->first();
 
         $response = $this->call('GET', '/api/items/' . $item->id);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
@@ -41,7 +41,7 @@ class ItemsShowTest extends TestCase
         $this->logInUser();
 
         $response = $this->call('GET', '/api/items/5000');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->assertEquals('Item not found.', $content['error']);

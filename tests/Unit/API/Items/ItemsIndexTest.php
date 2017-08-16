@@ -25,7 +25,7 @@ class ItemsIndexTest extends TestCase
         $this->deleteItem(Item::find(244));
 
         $response = $this->call('GET', '/api/items');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -39,7 +39,7 @@ class ItemsIndexTest extends TestCase
         }
         $this->assertEquals(2, $count);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -50,7 +50,7 @@ class ItemsIndexTest extends TestCase
     {
         $response = $this->call('GET', '/api/items');
 //        dd($response->getStatusCode());
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         //Check no data is shown
@@ -69,7 +69,7 @@ class ItemsIndexTest extends TestCase
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/items?filter=au');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -78,7 +78,7 @@ class ItemsIndexTest extends TestCase
             $this->assertContains('au', $item['title'], '', true);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -90,7 +90,7 @@ class ItemsIndexTest extends TestCase
         $this->logInUser();
         $this->createAlarms();
         $response = $this->call('GET', '/api/items?alarm=true');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -100,7 +100,7 @@ class ItemsIndexTest extends TestCase
             $this->assertNotNull($item['alarm']);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -111,7 +111,7 @@ class ItemsIndexTest extends TestCase
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/items?favourites=true');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -120,7 +120,7 @@ class ItemsIndexTest extends TestCase
             $this->assertEquals(1, $item['favourite']);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
 
@@ -133,7 +133,7 @@ class ItemsIndexTest extends TestCase
         $this->logInUser();
         $this->createUrgentItems();
         $response = $this->call('GET', '/api/items?urgent=true');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -144,7 +144,7 @@ class ItemsIndexTest extends TestCase
             $this->assertEquals(1, $item['urgency']);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -160,7 +160,7 @@ class ItemsIndexTest extends TestCase
 
 
         $response = $this->call('GET', '/api/items?trashed=true');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd(count($content));
 
         $this->checkItemKeysExist($content[0]);
@@ -170,7 +170,7 @@ class ItemsIndexTest extends TestCase
             $this->assertArrayHasKey('deleted_at', $item);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
 }

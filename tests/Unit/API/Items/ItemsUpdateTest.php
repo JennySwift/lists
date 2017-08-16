@@ -47,7 +47,7 @@ class ItemsUpdateTest extends TestCase
         ]);
 
 //        dd($response);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
@@ -62,7 +62,7 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals('hour', $content['recurringUnit']);
         $this->assertEquals(6, $content['recurringFrequency']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -89,7 +89,7 @@ class ItemsUpdateTest extends TestCase
         ]);
 
 //        dd($response);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
@@ -99,7 +99,7 @@ class ItemsUpdateTest extends TestCase
         //Check the children are restored, too
         $this->assertCount(3, $item->children);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -122,14 +122,14 @@ class ItemsUpdateTest extends TestCase
             'parent_id' => 'none',
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertNull($content['parent_id']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -151,14 +151,14 @@ class ItemsUpdateTest extends TestCase
             'not_before' => null
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //        dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertNull($content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -184,14 +184,14 @@ class ItemsUpdateTest extends TestCase
             'alarm' => false
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals(null, $content['alarm']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -214,14 +214,14 @@ class ItemsUpdateTest extends TestCase
             'recurring_frequency' => ''
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertNull($content['recurringFrequency']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -244,7 +244,7 @@ class ItemsUpdateTest extends TestCase
             'favourite' => 0
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
@@ -252,7 +252,7 @@ class ItemsUpdateTest extends TestCase
         $this->assertEquals(0, $content['favourite']);
         $this->assertEquals($item->title, $content['title']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -275,14 +275,14 @@ class ItemsUpdateTest extends TestCase
             'recurring_unit' => 'none'
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertNull($content['recurringUnit']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -307,14 +307,14 @@ class ItemsUpdateTest extends TestCase
             'urgency' => false
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals(null, $content['urgency']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }
@@ -337,14 +337,14 @@ class ItemsUpdateTest extends TestCase
             'body' => ''
         ]);
 
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
         $this->assertEquals(null, $content['body']);
 
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
 
         DB::rollBack();
     }

@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\Item;
 use App\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Http\Response;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -184,6 +185,21 @@ abstract class TestCase extends BaseTestCase
         $response = $this->call('DELETE', '/api/items/' . $item->id);
 
         return $response;
+    }
+
+    protected function assertResponseOk($response)
+    {
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $response
+     * @return mixed
+     */
+    protected function getContent($response)
+    {
+        return json_decode($response->getContent(), true);
     }
 }
 

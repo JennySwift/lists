@@ -20,7 +20,7 @@ class UsersTestTest extends TestCase
         $this->logInUser();
 
         $response = $this->call('GET', '/api/users/');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->assertEquals(1, $content['id']);

@@ -36,7 +36,7 @@ class ItemsDestroyTest extends TestCase
         $this->markTestIncomplete();
         $this->logInUser();
         $response = $this->call('GET', '/api/items?trashed=true');
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
 //      dd($content);
 
         $this->checkItemKeysExist($content[0]);
@@ -45,7 +45,7 @@ class ItemsDestroyTest extends TestCase
             $this->assertArrayHasKey('deleted_at', $item);
         }
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
 

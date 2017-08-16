@@ -3,6 +3,7 @@
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 /**
@@ -18,7 +19,6 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future()
     {
-        DB::beginTransaction();
         $this->logInUser();
     
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -30,7 +30,7 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
@@ -39,9 +39,7 @@ class ItemsRecurringTest extends TestCase
 
         $this->assertEquals($expectedNextTime, $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
-        
-        DB::rollBack();
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -50,7 +48,6 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future_and_a_recurring_frequency_of_5()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -63,7 +60,7 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'recurring_frequency' => 5
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
         $this->assertEquals(5, $content['recurringFrequency']);
 
@@ -71,7 +68,7 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
@@ -80,9 +77,7 @@ class ItemsRecurringTest extends TestCase
 
         $this->assertEquals($expectedNextTime, $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -91,7 +86,6 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future_and_a_recurring_frequency_of_5_and_a_recurring_unit_of_months()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -106,7 +100,7 @@ class ItemsRecurringTest extends TestCase
             'recurring_unit' => 'month',
             'recurring_frequency' => 5
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
         $this->assertEquals('2050-01-10 15:30:00', $content['notBefore']);
         $this->assertEquals('month', $content['recurringUnit']);
@@ -116,16 +110,14 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals('2050-06-10 15:30:00', $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertResponseOk($response);
     }
 
     /**
@@ -134,7 +126,6 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past_and_a_recurring_frequency_of_2_and_a_recurring_unit_of_years()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -149,7 +140,7 @@ class ItemsRecurringTest extends TestCase
             'recurring_unit' => 'year',
             'recurring_frequency' => 2
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
         $this->assertEquals('2016-01-10 15:30:00', $content['notBefore']);
         $this->assertEquals('year', $content['recurringUnit']);
@@ -159,16 +150,14 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals('2018-01-10 15:30:00', $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -177,7 +166,6 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_three_years_ago_and_a_recurring_frequency_of_2_and_a_recurring_unit_of_years()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -192,7 +180,7 @@ class ItemsRecurringTest extends TestCase
             'recurring_unit' => 'year',
             'recurring_frequency' => 2
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
         $this->assertEquals('2013-01-10 15:30:00', $content['notBefore']);
         $this->assertEquals('year', $content['recurringUnit']);
@@ -202,16 +190,14 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
 
         $this->assertEquals('2019-01-10 15:30:00', $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertResponseOk($response);
     }
 
 
@@ -223,7 +209,7 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past()
     {
         //Skipping because slow to run!
-        $this->markTestSkipped();
+//        $this->markTestSkipped();
         $this->logInUser();
 
         $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
@@ -236,7 +222,7 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'not_before' => '2016-03-01 13:30:05'
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
         $this->assertEquals('2016-03-01 13:30:05', $content['notBefore']);
 
@@ -245,7 +231,7 @@ class ItemsRecurringTest extends TestCase
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
-        $content = json_decode($response->getContent(), true);
+        $content = $this->getContent($response);
         //dd($content);
 
         $this->checkItemKeysExist($content);
@@ -264,7 +250,7 @@ class ItemsRecurringTest extends TestCase
 
         $this->assertEquals($expectedNextTime, $content['notBefore']);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertResponseOk($response);
     }
 
 
