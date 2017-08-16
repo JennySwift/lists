@@ -27,6 +27,7 @@
                 label="Not Before"
                 property="notBeforeDate"
                 @date-chosen="dateChosen"
+                input-placeholder="Not before"
             >
             </date-picker>
 
