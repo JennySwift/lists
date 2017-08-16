@@ -30,14 +30,22 @@
             >
             </date-picker>
 
-            <input-group
-                label="Category:"
-                :model.sync="shared.filters.category"
-                id="filter-category"
-                :options="categoryOptions"
-                options-prop="name"
+            <!--<input-group-->
+                <!--label="Category:"-->
+                <!--:model.sync="shared.filters.category"-->
+                <!--id="filter-category"-->
+                <!--:options="categoryOptions"-->
+                <!--options-prop="name"-->
+            <!--&gt;-->
+            <!--</input-group>-->
+
+            <autocomplete
+                input-id="filter-category"
+                prop="name"
+                :selected.sync="shared.filters.category"
+                :unfiltered-options="categoryOptions"
             >
-            </input-group>
+            </autocomplete>
 
             <div class="checkbox-container">
                 <label for="filter-not-before">Hide items not before future time:</label>
