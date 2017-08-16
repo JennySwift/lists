@@ -16231,6 +16231,7 @@ input[type="text"].line::placeholder {
   width: 400px;
   padding: 0;
   background: #b9efe1;
+  white-space: nowrap;
 }
 
 #search-container label.input-group-addon,
@@ -16545,6 +16546,19 @@ input[type="text"].line::placeholder {
   }
 }
 
+#items-page .v-enter-active {
+  transition: all .4s ease-out;
+}
+
+#items-page .v-leave-active {
+  transition: all .4s ease-in;
+}
+
+#items-page .v-enter,
+#items-page .v-leave-to {
+  width: 0;
+}
+
 #items-page #items-page-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16643,6 +16657,7 @@ textarea.note {
   width: 400px;
   padding: 0;
   background: #b9efe1;
+  white-space: nowrap;
 }
 
 #search-container label.input-group-addon,

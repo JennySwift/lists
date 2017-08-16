@@ -7,6 +7,8 @@
     //margin-bottom: 20px;
     padding: 0;
     background: $base1;
+    //So the animation is nicer
+    white-space: nowrap;
     //max-height: calc(100% - 114px);
     label.input-group-addon, .datepicker-label-container {
         min-width: 140px;

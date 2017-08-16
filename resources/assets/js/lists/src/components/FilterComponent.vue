@@ -1,87 +1,92 @@
 <template>
-    <div v-show="shared.showFilter" id="search-container">
 
-        <div class="input-group-container">
-            <input-group
-                label="Title:"
-                :model.sync="shared.filters.title"
-                id="title-filter"
-            >
-            </input-group>
+    <transition>
+        <div v-show="shared.showFilter" id="search-container">
 
-            <input-group
-                label="Note:"
-                :model.sync="shared.filters.body"
-                id="body-filter"
-            >
-            </input-group>
+            <div class="input-group-container">
+                <input-group
+                    label="Title:"
+                    :model.sync="shared.filters.title"
+                    id="title-filter"
+                >
+                </input-group>
 
-            <input-group
-                label="Min Priority:"
-                :model.sync="shared.filters.minimumPriority"
-                id="min-priority-filter"
-            >
-            </input-group>
+                <input-group
+                    label="Note:"
+                    :model.sync="shared.filters.body"
+                    id="body-filter"
+                >
+                </input-group>
 
-            <input-group
-                label="Priority:"
-                :model.sync="shared.filters.priority"
-                id="priority-filter"
-            >
-            </input-group>
+                <input-group
+                    label="Min Priority:"
+                    :model.sync="shared.filters.minimumPriority"
+                    id="min-priority-filter"
+                >
+                </input-group>
 
-            <!--<input-group-->
+                <input-group
+                    label="Priority:"
+                    :model.sync="shared.filters.priority"
+                    id="priority-filter"
+                >
+                </input-group>
+
+                <!--<input-group-->
                 <!--label="Urgency (in):"-->
                 <!--:model.sync="shared.filters.urgency"-->
                 <!--id="urgency-filter"-->
-            <!--&gt;-->
-            <!--</input-group>-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-            <!--<input-group-->
+                <!--<input-group-->
                 <!--label="Urgency (out >=):"-->
                 <!--:model.sync="shared.filters.urgencyOut"-->
                 <!--id="urgency-out-filter"-->
-            <!--&gt;-->
-            <!--</input-group>-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-            <date-picker
-                :initial-date-value.sync="shared.filters.notBeforeDate"
-                input-id="filter-not-before-date"
-                label="Not Before"
-                property="notBeforeDate"
-                @date-chosen="dateChosen"
-            >
-            </date-picker>
-
-            <input-group
-                label="Category:"
-                :model.sync="shared.filters.category"
-                id="filter-category"
-                :options="categoryOptions"
-                options-prop="name"
-            >
-            </input-group>
-
-            <div class="checkbox-container">
-                <label for="filter-not-before">Hide items not before future time:</label>
-                <input
-                    v-model="shared.filters.notBefore"
-                    id="filter-not-before"
-                    type="checkbox"
+                <date-picker
+                    :initial-date-value.sync="shared.filters.notBeforeDate"
+                    input-id="filter-not-before-date"
+                    label="Not Before"
+                    property="notBeforeDate"
+                    @date-chosen="dateChosen"
                 >
+                </date-picker>
+
+                <input-group
+                    label="Category:"
+                    :model.sync="shared.filters.category"
+                    id="filter-category"
+                    :options="categoryOptions"
+                    options-prop="name"
+                >
+                </input-group>
+
+                <div class="checkbox-container">
+                    <label for="filter-not-before">Hide items not before future time:</label>
+                    <input
+                        v-model="shared.filters.notBefore"
+                        id="filter-not-before"
+                        type="checkbox"
+                    >
+                </div>
+
+                <div class="checkbox-container">
+                    <label for="filter-not-before">Show trashed items:</label>
+                    <input
+                        v-model="shared.filters.showTrashed"
+                        id="filter-show-trashed"
+                        type="checkbox"
+                    >
+                </div>
             </div>
 
-            <div class="checkbox-container">
-                <label for="filter-not-before">Show trashed items:</label>
-                <input
-                    v-model="shared.filters.showTrashed"
-                    id="filter-show-trashed"
-                    type="checkbox"
-                >
-            </div>
         </div>
+    </transition>
 
-    </div>
+
 </template>
 
 <script>

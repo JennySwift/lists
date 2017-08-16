@@ -1,4 +1,21 @@
 #items-page {
+
+
+    .v-enter-active {
+        transition: all .4s ease-out;
+    }
+    .v-leave-active {
+        transition: all .4s ease-in;
+    }
+    .v-enter, .v-leave-to {
+        width: 0;
+    }
+
+
+
+
+
+
     #items-page-container {
         display: flex;
         justify-content: space-between;
