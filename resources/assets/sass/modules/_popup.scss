@@ -1,0 +1,118 @@
+//.v--modal-box.v--modal {
+//	padding: 20px;
+//
+//	top: 0;
+//	bottom: 0;
+//	max-height: 447px;
+//	position: absolute;
+//	margin: auto;
+//	overflow: scroll;
+//
+//	.flex-container {
+//		display: flex;
+//		flex-direction: column;
+//		height: 100%;
+//
+//		.content {
+//			flex: 1;
+//
+//			//To center things vertically
+//			display: flex;
+//			flex-direction: column;
+//			justify-content: center;
+//		}
+//
+//		.btns {
+//			display: flex;
+//			width: 100%;
+//			justify-content: space-between;
+//			margin-top: 30px;
+//			button {
+//				margin: 0 5px;
+//				flex-grow: 1;
+//				flex-basis: 0;
+//				&:first-child {
+//					margin-left: 0;
+//				}
+//				&:last-child {
+//					margin-right: 0;
+//				}
+//			}
+//		}
+//	}
+//
+//
+//}
+
+
+.popup-outer {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	z-index: $zIndex3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.popup-inner {
+		border-radius: 5px;
+		background: white;
+		width: 100%;
+		&:not(.scrollbar-container) {
+			overflow: scroll;
+		}
+		max-height: calc(100% - 67px);
+		max-width: 98%;
+		padding: 20px;
+		margin: 5px;
+		.flex-container {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			.popup-title {
+				margin-bottom: 30px;
+				margin-top: 0;
+			}
+			.top-btns {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				margin-bottom: 30px;
+			}
+			.content {
+				flex: 1;
+
+				//To center things vertically
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.btns {
+				display: flex;
+				width: 100%;
+				justify-content: space-between;
+				margin-top: 30px;
+				button {
+					margin: 0 5px;
+					flex-grow: 1;
+					flex-basis: 0;
+					&:first-child {
+						margin-left: 0;
+					}
+					&:last-child {
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media all and (min-width: 680px) {
+	.popup-inner {
+		padding: 22px;
+	}
+}

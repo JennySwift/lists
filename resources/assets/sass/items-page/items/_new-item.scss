@@ -1,0 +1,32 @@
+#new-item-btn {
+    width: 100%;
+    margin-bottom: 11px;
+    @media (max-width: $breakpoint2) {
+        margin-bottom: 6px;
+        margin-top: 0;
+    }
+    .fa-caret-down, .fa-caret-up {
+        position:relative;
+        top: 2px;
+    }
+}
+
+#new-item {
+    width: 900px;
+    max-width: 100%;
+    .fa-asterisk {
+        font-size: 16px;
+    }
+    .note {
+        width: 100%;
+    }
+    textarea {
+        display: block;
+        &::-webkit-input-placeholder {
+            text-align: center;
+        }
+    }
+    .item-body {
+        margin-top: 6px;
+    }
+}

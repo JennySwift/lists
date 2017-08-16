@@ -4,15 +4,9 @@
 
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
-// Variables
-@import "variables";
-
-
 @import "node_modules/sweetalert2/dist/sweetalert2.min";
 
-@import "mixins";
-@import "colors";
-@import "variables";
+@import 'helpers/index';
 
 $btn-default-color: $base2;
 $btn-default-border: $base2;
@@ -24,7 +18,12 @@ $btn-default-bg: white;
 @import "overrides/index";
 @import "auth/login";
 @import "auth/register";
-@import "modules/index";
-@import "categories";
+
+@import 'items-page/filter';
+@import 'items-page/favourites';
+
+@import 'items-page/index';
+@import 'categories/index';
+@import 'modules/index';
 
 @import "node_modules/spinkit/scss/spinners/7-three-bounce.scss";

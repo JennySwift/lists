@@ -1,0 +1,43 @@
+#items-page {
+    #items-page-container {
+        display: flex;
+        > :first-child {
+            margin-right: 20px;
+        }
+        ul#items {
+            padding-left: 0;
+        }
+    }
+}
+
+.guide {
+    width: 100%;
+    height: 2px;
+    background: #777;
+    display: none;
+}
+
+.item-title {
+    height: 50px;
+}
+
+.item-fields {
+    margin-top: 7px;
+}
+
+textarea.note {
+    height: 300px;
+}
+
+#item-autocomplete {
+    max-width: 500px;
+}
+
+#pinned-items, #alarms, #items {
+    h5 {
+        margin-bottom: 23px;
+    }
+    @media (max-width: $breakpoint2) {
+        padding: 0 3px;
+    }
+}

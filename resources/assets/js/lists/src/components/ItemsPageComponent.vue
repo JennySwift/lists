@@ -1,40 +1,43 @@
 <template>
-    <div>
+    <div id="items-page">
         <item-popup></item-popup>
 
-        <div id="lists" class="">
-
-            <button
-                v-on:click="toggleNewItemFields()"
-                id="new-item-btn"
-                class="btn btn-default btn-sm"
-            >
-                New Item
-                <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
-                <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
-            </button>
-
-            <breadcrumb></breadcrumb>
-
-            <favourite-items></favourite-items>
-
-            <items-filter></items-filter>
-
-            <new-item></new-item>
-
-            <!--Items-->
-            <ul id="items">
-
-                <item
-                    v-for="item in filteredItems"
-                    :key="item.id"
-                    :item="item"
-                    class="item-with-children"
+        <div id="items-page-container">
+            <div class="left-side">
+                <button
+                    v-on:click="toggleNewItemFields()"
+                    id="new-item-btn"
+                    class="btn btn-default btn-sm"
                 >
-                </item>
+                    New Item
+                    <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
+                    <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
+                </button>
 
-                <div v-if="shared.items.length === 0">No items here</div>
-            </ul>
+                <breadcrumb></breadcrumb>
+
+                <new-item></new-item>
+
+                <!--Items-->
+                <ul id="items">
+
+                    <item
+                        v-for="item in filteredItems"
+                        :key="item.id"
+                        :item="item"
+                        class="item-with-children"
+                    >
+                    </item>
+
+                    <div v-if="shared.items.length === 0">No items here</div>
+                </ul>
+            </div>
+
+            <div class="right-side">
+                <favourite-items></favourite-items>
+
+                <items-filter></items-filter>
+            </div>
 
         </div>
 
