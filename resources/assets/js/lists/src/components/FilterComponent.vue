@@ -248,7 +248,7 @@
                 }
                 if (inputId === 'title-search') {
 //                    this.chosenItemFromTitleSearch = option;
-                    this.$router.push("/items/:" + option.id);
+                    helpers.goToRoute("/items/:" + option.id);
                 }
             },
 

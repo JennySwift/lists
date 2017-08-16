@@ -38,6 +38,10 @@ export default {
         return app.__vue__.$router;
     },
 
+    goToRoute (path) {
+        this.getRouter().push(path);
+    },
+
     /**
      * for vue-js-modal
      * @param popupName
