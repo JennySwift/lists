@@ -3,6 +3,14 @@
     <transition>
         <div v-show="shared.showFilter" id="search-container">
 
+            <autocomplete
+                input-id="title-search"
+                prop="title"
+                :selected.sync="chosenItemFromTitleSearch"
+                url="/api/items"
+            >
+            </autocomplete>
+
             <div>
                 <!--<label for="">Title: </label>-->
                 <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
@@ -165,7 +173,9 @@
     export default {
         data: function () {
             return {
-                shared: store.state
+                shared: store.state,
+                //Maybe I don't actually need this property
+                chosenItemFromTitleSearch: {}
             };
         },
         computed: {
@@ -188,6 +198,11 @@
             }
         },
         methods: {
+
+            //For when item is chosen from title search autocomplete
+//            zoomChosenItem () {
+//                store.zoom();
+//            },
 
 //            dateChosen: function (args) {
 ////                this.$emit('update:model', args[0]);
@@ -230,6 +245,10 @@
             optionChosen: function (option, inputId) {
                 if (inputId === 'filter-category') {
                     store.set(option, 'filters.category');
+                }
+                if (inputId === 'title-search') {
+//                    this.chosenItemFromTitleSearch = option;
+                    this.$router.push("/items/:" + option.id);
                 }
             },
 
