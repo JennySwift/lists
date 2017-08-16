@@ -7,6 +7,8 @@ use Tests\TestCase;
 
 /**
  * Class ItemsRecurringTest
+ * Don't write tests with a not before date a long time ago,
+ * and a short recurring unit such as minutes, or the test will be slow to run
  */
 class ItemsRecurringTest extends TestCase
 {
@@ -142,36 +144,42 @@ class ItemsRecurringTest extends TestCase
 
 
     /**
-     * Todo This test is very slow to run!
      * @test
      * @return void
      */
-    public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past()
+    public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past_and_a_recurring_unit_of_days()
     {
+        $notBefore = Carbon::today()->subDays(5)->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
         //Skipping because slow to run!
 //        $this->markTestSkipped();
-        $response = $this->updateItem(['not_before' => '2016-03-01 13:30:05']);
-        $content = $this->getItemContent($response);
+        $response = $this->updateItem([
+            'not_before' => $notBefore,
+            'recurring_unit' => 'day',
+            'recurring_frequency' => 1
+        ]);
+        $this->getItemContent($response);
 
-        $this->assertEquals('2016-03-01 13:30:05', $content['notBefore']);
+        $this->assertEquals($notBefore, $this->content['notBefore']);
+        $this->assertEquals('day', $this->content['recurringUnit']);
+        $this->assertEquals(1, $this->content['recurringFrequency']);
 
-        //Todo: it's this line that's making it really slow to run
         $response = $this->rescheduleItem();
-        $content = $this->getItemContent($response);
+        $this->getItemContent($response);
 
+        $expectedNextTime = Carbon::today()->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
 
-        $expectedNextTime = Carbon::now();
+//        $expectedNextTime = Carbon::now();
 
         //Make the expected seconds right for the test
-        if ($expectedNextTime->second < 5) {
-            $expectedNextTime->second = 5;
-        }
-        else {
-            $expectedNextTime->minute++;
-            $expectedNextTime->second = 5;
-        }
+//        if ($expectedNextTime->second < 5) {
+//            $expectedNextTime->second = 5;
+//        }
+//        else {
+//            $expectedNextTime->minute++;
+//            $expectedNextTime->second = 5;
+//        }
 
-        $this->assertEquals($expectedNextTime, $content['notBefore']);
+        $this->assertEquals($expectedNextTime, $this->content['notBefore']);
 
         $this->assertResponseOk($response);
     }
