@@ -22,8 +22,11 @@
         left: 0;
     }
     .checkbox-container {
-        border: 1px solid #ccc;
-        border-top: none;
+        //border: 1px solid #ccc;
+        //border-top: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         label {
             margin-bottom: 0;
             font-weight: normal;

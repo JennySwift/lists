@@ -51,9 +51,9 @@
             <div class="checkbox-container">
                 <label for="filter-not-before">Show trashed items:</label>
                 <input
-                v-model="shared.filters.showTrashed"
-                id="filter-show-trashed"
-                type="checkbox"
+                    v-model="shared.filters.showTrashed"
+                    id="filter-show-trashed"
+                    type="checkbox"
             >
             </div>
 

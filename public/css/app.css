@@ -16251,8 +16251,15 @@ input[type="text"].line::placeholder {
 }
 
 #search-container .checkbox-container {
-  border: 1px solid #ccc;
-  border-top: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 5px 5px;
 }
 
@@ -16683,8 +16690,15 @@ textarea.note {
 }
 
 #search-container .checkbox-container {
-  border: 1px solid #ccc;
-  border-top: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 5px 5px;
 }
 
