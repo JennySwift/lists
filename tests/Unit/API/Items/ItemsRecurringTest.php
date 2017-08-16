@@ -20,18 +20,13 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future()
     {
         $this->logInUser();
-    
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
-        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         $response = $this->call('PUT', '/api/items/'.$item->id, [
             'updatingNextTimeForRecurringItem' => true
         ]);
         $content = $this->getContent($response);
-        //dd($content);
 
         $this->checkItemKeysExist($content);
 
@@ -49,12 +44,8 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future_and_a_recurring_frequency_of_5()
     {
         $this->logInUser();
-
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
-        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         //Make the recurring frequency 5
         $response = $this->call('PUT', '/api/items/'.$item->id, [
@@ -87,12 +78,8 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_future_and_a_recurring_frequency_of_5_and_a_recurring_unit_of_months()
     {
         $this->logInUser();
-
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
-        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         //Make the recurring frequency 5 and the recurring frequency 'month' and the not before date way in the future (so it's fixed and testable rather than dynamic)
         $response = $this->call('PUT', '/api/items/'.$item->id, [
@@ -127,12 +114,8 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past_and_a_recurring_frequency_of_2_and_a_recurring_unit_of_years()
     {
         $this->logInUser();
-
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
-        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         //Make the recurring frequency 2 and the recurring frequency 'year' and the not before date in the past
         $response = $this->call('PUT', '/api/items/'.$item->id, [
@@ -167,12 +150,8 @@ class ItemsRecurringTest extends TestCase
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_three_years_ago_and_a_recurring_frequency_of_2_and_a_recurring_unit_of_years()
     {
         $this->logInUser();
-
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
-        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         //Make the recurring frequency 2 and the recurring frequency 'year' and the not before date in the past
         $response = $this->call('PUT', '/api/items/'.$item->id, [
@@ -211,12 +190,8 @@ class ItemsRecurringTest extends TestCase
         //Skipping because slow to run!
 //        $this->markTestSkipped();
         $this->logInUser();
-
-        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
-
-        //Check the recurring values are as expected
-        $this->assertEquals('minute', $item->recurring_unit);
-        $this->assertEquals(1, $item->recurring_frequency);
+        $item = $this->getFirstRecurringItem();
+        $this->checkItemIsAsExpected($item);
 
         //Make the not before time in the past
         $response = $this->call('PUT', '/api/items/'.$item->id, [
@@ -251,6 +226,28 @@ class ItemsRecurringTest extends TestCase
         $this->assertEquals($expectedNextTime, $content['notBefore']);
 
         $this->assertResponseOk($response);
+    }
+
+    /**
+     *
+     * @return mixed
+     */
+    private function getFirstRecurringItem()
+    {
+        $item = Item::forCurrentUser()->whereNotNull('recurring_unit')->first();
+
+        return $item;
+    }
+
+    /**
+     *
+     * @param $item
+     */
+    private function checkItemIsAsExpected($item)
+    {
+        $this->assertEquals('minute', $item->recurring_unit);
+        $this->assertEquals(1, $item->recurring_frequency);
+        $this->assertEquals(Carbon::tomorrow()->format('Y-m-d H:i:s'), $item->not_before);
     }
 
 
