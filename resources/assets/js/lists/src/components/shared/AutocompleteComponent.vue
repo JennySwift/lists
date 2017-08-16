@@ -277,7 +277,7 @@
                 if(!this.dropdown) {
                     var that = this;
                     setTimeout(function () {
-                        $(that.$els.input).focus();
+                        $(that.$refs.input).focus();
                     }, 100);
                 }
             },
