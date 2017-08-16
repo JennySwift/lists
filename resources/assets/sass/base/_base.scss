@@ -19,10 +19,8 @@ body {
 		min-height: 100%;
 		.main {
 			min-height: 100%;
-			padding: ($navHeight + 20px) 20px $footerHeight 20px;
-			//margin: 20px;
-			//margin-top: 0;
-			//padding-top: $navHeight + 3px;
+			padding-top: $navHeight;
+			padding-bottom: $footerHeight;
 			@media all and (max-width: $breakpoint2) {
 				padding: 0 5px;
 				//To allow for the increased nav height on smaller screens
@@ -34,7 +32,6 @@ body {
 	footer {
 		display: flex;
 		justify-content: space-around;
-		padding: 11px;
 		@include footer;
 		height: $footerHeight;
 		position: relative;

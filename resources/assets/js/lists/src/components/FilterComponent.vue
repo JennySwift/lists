@@ -1,5 +1,5 @@
 <template>
-    <div v-show="showFilter" id="search-container">
+    <div v-show="shared.showFilter" id="search-container">
 
         <div class="input-group-container">
             <input-group
@@ -94,7 +94,6 @@
     export default {
         data: function () {
             return {
-                showFilter: undefined,
                 shared: store.state
             };
         },
@@ -176,14 +175,18 @@
                 }
             },
 
-            /**
-             *
-             */
-            listen: function () {
-                var that = this;
-                $(document).on('toggle-filter', function (event) {
-                    that.showFilter = !that.showFilter;
-                });
+            setFilterHeight () {
+                var appHeight = $('#app').height();
+                var navHeight = $('#navbar-1').height();
+                var footerHeight = $('footer').height();
+                console.log("height", appHeight, navHeight, footerHeight);
+
+                var filterHeight = appHeight - navHeight - footerHeight;
+
+                $('#search-container').css({height: filterHeight});
+
+                //So the filter isn't too short if there are enough items on the page, meaning the page will be scrolled
+                $('#items-page-container .left-side').css({'max-height': filterHeight, 'overflow': 'scroll'});
             }
         },
         created: function () {
@@ -191,8 +194,8 @@
             this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
-            this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
-            this.listen();
+//            this.showFilter = ItemsRepository.shouldFilterBeShownOnPageLoad();
+            this.setFilterHeight();
         }
     }
 </script>

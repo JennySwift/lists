@@ -88,7 +88,7 @@ import store from '../../repositories/Store'
              *
              */
             toggleFilter: function () {
-                $.event.trigger('toggle-filter');
+               store.toggle('showFilter');
             },
 
             /**
@@ -98,9 +98,6 @@ import store from '../../repositories/Store'
                 store.toggle('showFavourites');
             }
         },
-        props: [
-            'showFilter'
-        ],
         mounted: function () {
 
         }

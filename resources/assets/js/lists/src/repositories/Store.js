@@ -57,6 +57,7 @@ export default {
         },
         showFavourites: false,
         showPopup: false,
+        showFilter: true,
         showNewItemFields: false,
         favouriteItems: [],
         favourteItemsLoaded: false

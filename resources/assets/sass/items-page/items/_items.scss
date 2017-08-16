@@ -3,7 +3,7 @@
         display: flex;
         justify-content: space-between;
         > :first-child {
-            margin-right: 20px;
+            padding: 20px;
             flex-grow: 1;
         }
         ul#items {
