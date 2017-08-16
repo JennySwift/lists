@@ -180,13 +180,6 @@
         },
         methods: {
 
-            /**
-             *
-             */
-            toggleFavouriteItems: function () {
-                $.event.trigger('toggle-favourite-items');
-            },
-
 //            dateChosen: function (args) {
 ////                this.$emit('update:model', args[0]);
 //                store.set(args[0], 'filters.notBeforeDate');
