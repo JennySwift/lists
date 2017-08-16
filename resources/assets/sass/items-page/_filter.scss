@@ -3,13 +3,18 @@
     z-index: $zIndex2;
     //top: 47px;
     //right: 15px;
-    width: 400px;
+    width: 300px;
     //margin-bottom: 20px;
-    padding: 0;
+    padding: 20px;
     background: $base1;
     //So the animation is nicer
     white-space: nowrap;
     //max-height: calc(100% - 114px);
+    label {
+        font-size: 12px;
+        font-weight: normal;
+        font-style: italic;
+    }
     label.input-group-addon, .datepicker-label-container {
         min-width: 140px;
     }

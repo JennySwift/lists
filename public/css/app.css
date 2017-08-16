@@ -16034,6 +16034,7 @@ input[type="text"].line {
   margin-bottom: 10px;
   width: 100%;
   text-align: center;
+  background: transparent;
 }
 
 input[type="text"].line:-ms-input-placeholder {
@@ -16228,10 +16229,16 @@ input[type="text"].line::placeholder {
 
 #search-container {
   z-index: 99;
-  width: 400px;
-  padding: 0;
+  width: 300px;
+  padding: 20px;
   background: #b9efe1;
   white-space: nowrap;
+}
+
+#search-container label {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
 }
 
 #search-container label.input-group-addon,
@@ -16654,10 +16661,16 @@ textarea.note {
 
 #search-container {
   z-index: 99;
-  width: 400px;
-  padding: 0;
+  width: 300px;
+  padding: 20px;
   background: #b9efe1;
   white-space: nowrap;
+}
+
+#search-container label {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
 }
 
 #search-container label.input-group-addon,
