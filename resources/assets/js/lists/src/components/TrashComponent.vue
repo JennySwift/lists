@@ -1,53 +1,57 @@
-<!--<template>-->
-    <!--<div id="lists" class="container">-->
+<template>
+    <div id="trash" class="container">
+
+        <ul>
+            <li v-for="item in trashedItems">
+                {{item.title}}
+                <span>Deleted at {{item.deletedAt}}</span>
+            </li>
+        </ul>
+
+
+
+
         <!--<ul id="items">-->
 
             <!--<item-->
                 <!--v-for="item in items"-->
-                <!--:show-loading.sync="showLoading"-->
-                <!--:items.sync="items"-->
                 <!--:item="item"-->
-                <!--:item-popup="false"-->
-                <!--class="item-with-children"-->
             <!--&gt;-->
             <!--</item>-->
 
             <!--<div v-if="items.length === 0">No items here</div>-->
         <!--</ul>-->
-    <!--</div>-->
-<!--</template>-->
+    </div>
+</template>
 
-<!--<script>-->
-    <!--export default {-->
-        <!--template: '#trash-template',-->
-        <!--data: function () {-->
-            <!--return {-->
-                <!--showLoading: false,-->
-                <!--items: []-->
-            <!--};-->
-        <!--},-->
-        <!--components: {},-->
-        <!--methods: {-->
+<script>
+    import helpers from '../repositories/Helpers'
+    export default {
+        data: function () {
+            return {
+                trashedItems: []
+            };
+        },
+        components: {},
+        methods: {
 
-            <!--/**-->
-            <!--*-->
-            <!--*/-->
-            <!--getTrashedItems: function () {-->
-                <!--helpers.get({-->
-                    <!--url: '/api/items?trashed=true',-->
-<!--//                    storeProperty: 'trashedItems',-->
-<!--//                    loadedProperty: 'trashedItemsLoaded',-->
-                    <!--callback: function (response) {-->
-                        <!--this.items = response;-->
-                    <!--}.bind(this)-->
-                <!--});-->
-            <!--}-->
-        <!--},-->
-        <!--props: [-->
-            <!--//data to be received from parent-->
-        <!--],-->
-        <!--mounted: function () {-->
-            <!--this.getTrashedItems();-->
-        <!--}-->
-    <!--}-->
-<!--</script>-->
+            /**
+            *
+            */
+            getTrashedItems: function () {
+                helpers.get({
+                    url: '/api/items?trashed=true',
+                    callback: function (response) {
+                        this.trashedItems = response;
+                    }.bind(this)
+                });
+            }
+        },
+        props: [
+            //data to be received from parent
+        ],
+        mounted: function () {
+            this.getTrashedItems();
+        }
+    }
+</script>

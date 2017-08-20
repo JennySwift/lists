@@ -29,6 +29,7 @@ import NewCategoryComponent from './lists/src/components/NewCategoryComponent.vu
 import ItemComponent from './lists/src/components/ItemComponent.vue'
 // import CategoryComponent from './lists/src/components/CategoryComponent.vue'
 import ItemFieldsComponent from './lists/src/components/ItemFieldsComponent.vue'
+// import TrashComponent from './lists/src/components/TrashComponent.vue'
 
 //Shared components
 Vue.component('navbar', NavbarComponent);
@@ -46,6 +47,7 @@ Vue.component('date-picker', DatePickerComponent);
 // Components
 Vue.component('item-popup', ItemPopupComponent);
 Vue.component('breadcrumb', BreadcrumbComponent);
+// Vue.component('trash', TrashComponent);
 // Vue.component('category-popup', CategoryPopupComponent);
 // Vue.component('alarms', require('./lists/src/components/AlarmsComponent.vue'));
 // Vue.component('urgent-items', require('./lists/src/components/UrgentItemsComponent.vue'));
