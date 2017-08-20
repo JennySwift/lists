@@ -261,7 +261,7 @@
             this.listen();
             var that = this;
             setTimeout(function () {
-                console.log("zoomedItem.id: " + that.shared.zoomedItem.id);
+//                console.log("zoomedItem.id: " + that.shared.zoomedItem.id);
 //                that.newItem.parent_id = that.shared.zoomedItem.id;
             }, 3000);
 

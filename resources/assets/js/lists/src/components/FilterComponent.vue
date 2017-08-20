@@ -276,7 +276,7 @@
                 var appHeight = $('#app').height();
                 var navHeight = $('#navbar-1').height();
                 var footerHeight = $('footer').height();
-                console.log("height", appHeight, navHeight, footerHeight);
+//                console.log("height", appHeight, navHeight, footerHeight);
 
                 var filterHeight = appHeight - navHeight - footerHeight;
 
