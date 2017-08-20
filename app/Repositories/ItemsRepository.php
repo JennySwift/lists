@@ -120,6 +120,7 @@ class ItemsRepository {
     {
         return Item::forCurrentUser()
             ->onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
             ->get();
     }
 
