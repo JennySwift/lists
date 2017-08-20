@@ -4,6 +4,7 @@
         <div v-show="shared.showFilter" id="search-container">
 
             <autocomplete
+                v-if="!isTrashPage"
                 input-id="filter-favourites"
                 prop="title"
                 :unfiltered-options="shared.favouriteItems"
@@ -58,6 +59,7 @@
             </autocomplete>
 
             <autocomplete
+                v-if="!isTrashPage"
                 input-id="title-search"
                 prop="title"
                 url="/api/items"
@@ -66,6 +68,7 @@
             </autocomplete>
 
             <autocomplete
+                v-if="!isTrashPage"
                 input-id="note-search"
                 prop="body"
                 url="/api/items"
