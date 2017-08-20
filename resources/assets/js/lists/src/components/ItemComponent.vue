@@ -147,8 +147,8 @@
             <!--After Item-->
             <div class="after-item big-screen">
 
-                <span v-if="item.deleted_at" class="deleted-at">Deleted at {{item.deleted_at}}</span>
                 <span v-if="item.category" class="label label-primary category">{{ item.category.name }}</span>
+                <span v-if="item.deleted_at && isTrashPage" class="deleted-at">Deleted at {{item.deleted_at}}</span>
 
             </div>
 

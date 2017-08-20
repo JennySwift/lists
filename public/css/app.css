@@ -17234,6 +17234,12 @@ label.input-group-addon:not('first-child') {
   left: 0;
 }
 
+#trash .after-item {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 /*
  *  Usage:
  *
