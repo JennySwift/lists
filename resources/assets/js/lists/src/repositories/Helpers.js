@@ -193,6 +193,11 @@ export default {
         return moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format(format);
     },
 
+    getCurrentPath () {
+        console.log(this.getRouter().currentRoute.path);
+        return this.getRouter().currentRoute.path;
+    },
+
     /**
      * If url is /items/:2, return 2
      * @param that

@@ -87,6 +87,9 @@
         .category {
             background: $base2;
         }
+        .deleted-at {
+            font-size: 12px;
+        }
     }
     &:hover {
         .delete-item {

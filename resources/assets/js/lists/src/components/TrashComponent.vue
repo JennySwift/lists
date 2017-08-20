@@ -3,26 +3,26 @@
 
         <div>You have {{trashedItems.length}} items in the trash.</div>
 
-        <ul>
-            <li v-for="item in trashedItems">
-                {{item.title}}
-                <span>Deleted at {{item.deleted_at}}</span>
-            </li>
-        </ul>
-
-
-
-
-        <!--<ul id="items">-->
-
-            <!--<item-->
-                <!--v-for="item in items"-->
-                <!--:item="item"-->
-            <!--&gt;-->
-            <!--</item>-->
-
-            <!--<div v-if="items.length === 0">No items here</div>-->
+        <!--<ul>-->
+            <!--<li v-for="item in trashedItems">-->
+                <!--{{item.title}}-->
+                <!---->
+            <!--</li>-->
         <!--</ul>-->
+
+
+
+
+        <ul id="items">
+
+            <item
+                v-for="item in trashedItems"
+                :item="item"
+                :key="item.id"
+            >
+            </item>
+
+        </ul>
     </div>
 </template>
 

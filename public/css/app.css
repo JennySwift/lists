@@ -16530,6 +16530,10 @@ input[type="text"].line::placeholder {
   background: #97D7D6;
 }
 
+.item .after-item .deleted-at {
+  font-size: 12px;
+}
+
 .item:hover .delete-item {
   visibility: visible;
 }

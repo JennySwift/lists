@@ -23,29 +23,30 @@
 
                 <button
                     v-on:click="deleteItem(item)"
+                    v-if="!isTrashPage"
                     class="btn-danger btn-xs delete-item big-screen"
                 >
                     <span class="fa fa-times"></span>
                 </button>
 
-                <router-link v-bind:to="'/items/:' + item.id" tag="i" class="fa fa-search-plus big-screen"></router-link>
+                <router-link v-if="!isTrashPage" v-bind:to="'/items/:' + item.id" tag="i" class="fa fa-search-plus big-screen"></router-link>
 
                 <i
-                    v-if="item.has_children && (!item.children || item.children.length === 0)"
+                    v-if="!isTrashPage && item.has_children && (!item.children || item.children.length === 0)"
                     v-on:click="expand(item)"
                     class="fa fa-plus big-screen"
                 >
                 </i>
 
                 <i
-                    v-if="item.has_children && item.children && item.children.length > 0"
+                    v-if="!isTrashPage && item.has_children && item.children && item.children.length > 0"
                     v-on:click="collapseItem(item)"
                     class="fa fa-minus big-screen"
                 >
                 </i>
 
                 <i
-                    v-if="!item.has_children"
+                    v-if="!isTrashPage && !item.has_children"
                     class="fa fa-plus my-hidden big-screen"
                 >
                 </i>
@@ -53,7 +54,7 @@
 
 
                 <!--Actions dropdown for small screens-->
-                <div class="btn-group small-screen">
+                <div class="btn-group small-screen" v-if="!isTrashPage">
 
                     <button
                         type="button"
@@ -83,21 +84,21 @@
                 </div>
 
                 <i
-                    v-if="item.has_children && (!item.children || item.children.length === 0)"
+                    v-if="!isTrashPage && item.has_children && (!item.children || item.children.length === 0)"
                     v-on:click="expand(item)"
                     class="fa fa-plus small-screen"
                 >
                 </i>
 
                 <i
-                    v-if="item.has_children && item.children && item.children.length > 0"
+                    v-if="!isTrashPage && item.has_children && item.children && item.children.length > 0"
                     v-on:click="collapseItem(item)"
                     class="fa fa-minus small-screen"
                 >
                 </i>
 
                 <i
-                    v-if="!item.has_children"
+                    v-if="!isTrashPage && !item.has_children"
                     class="fa fa-plus my-hidden small-screen"
                 >
                 </i>
@@ -113,8 +114,8 @@
                     v-if="item.category"
                     class="label label-primary small-screen"
                 >
-        {{ item.category.name }}
-    </span>
+                    {{ item.category.name }}
+                </span>
 
             </div>
 
@@ -146,6 +147,7 @@
             <!--After Item-->
             <div class="after-item big-screen">
 
+                <span v-if="item.deleted_at" class="deleted-at">Deleted at {{item.deleted_at}}</span>
                 <span v-if="item.category" class="label label-primary category">{{ item.category.name }}</span>
 
             </div>
@@ -184,6 +186,9 @@
         },
         components: {},
         computed: {
+            isTrashPage () {
+                return helpers.getCurrentPath() === '/trash';
+            },
             filteredChildren: function () {
                 return filters.filter(this.item.children, this);
             }
