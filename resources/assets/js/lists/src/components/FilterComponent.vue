@@ -282,6 +282,9 @@
 
                 var filterHeight = appHeight - navHeight - footerHeight;
 
+                //So there's no white space
+                filterHeight+= 1;
+
                 $('#search-container').css({height: filterHeight});
 
                 //So the filter isn't too short if there are enough items on the page, meaning the page will be scrolled

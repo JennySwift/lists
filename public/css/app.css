@@ -16231,7 +16231,11 @@ input[type="text"].line::placeholder {
   z-index: 99;
   width: 300px;
   padding: 20px;
-  background: #b9efe1;
+  background: #FF5F6D;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #97D7D6, #b9efe1);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   white-space: nowrap;
 }
 
@@ -16694,7 +16698,11 @@ textarea.note {
   z-index: 99;
   width: 300px;
   padding: 20px;
-  background: #b9efe1;
+  background: #FF5F6D;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #97D7D6, #b9efe1);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   white-space: nowrap;
 }
 
@@ -16973,6 +16981,7 @@ label.input-group-addon:not('first-child') {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 0;
   margin: 0;
+  border-bottom: none;
 }
 
 #navbar #new-item-btn,
