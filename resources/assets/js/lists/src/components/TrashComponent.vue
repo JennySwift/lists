@@ -4,7 +4,7 @@
         <ul>
             <li v-for="item in trashedItems">
                 {{item.title}}
-                <span>Deleted at {{item.deletedAt}}</span>
+                <span>Deleted at {{item.deleted_at}}</span>
             </li>
         </ul>
 

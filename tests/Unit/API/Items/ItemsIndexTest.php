@@ -197,7 +197,7 @@ class ItemsIndexTest extends TestCase
 
         $response = $this->call('GET', '/api/items?trashed=true');
         $content = $this->getContent($response);
-//      dd(count($content));
+//      dd($content);
 
         $this->checkItemKeysExist($content[0]);
         $this->assertEquals(121, count($content));
