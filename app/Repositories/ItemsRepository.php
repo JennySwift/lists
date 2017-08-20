@@ -141,8 +141,9 @@ class ItemsRepository {
      */
     public function getFilteredItems(Request $request)
     {
+        $field = $request->get('field') ? $request->get('field') : 'title';
         return Item::forCurrentUser()
-            ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
+            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
             ->get();
     }
 

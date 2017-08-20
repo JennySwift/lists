@@ -201,6 +201,16 @@ abstract class TestCase extends BaseTestCase
     {
         return json_decode($response->getContent(), true);
     }
+
+    /**
+     *
+     * @param $item
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function createItem($item)
+    {
+        return $this->call('POST', '/api/items', $item);
+    }
 }
 
 

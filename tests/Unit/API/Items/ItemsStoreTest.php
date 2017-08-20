@@ -39,7 +39,7 @@ class ItemsStoreTest extends TestCase
             'recurring_frequency' => 6
         ];
 
-        $response = $this->call('POST', '/api/items', $item);
+        $response = $this->createItem($item);
         $content = $this->getContent($response);
 //      dd($content);
 

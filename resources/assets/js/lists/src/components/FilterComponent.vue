@@ -11,6 +11,14 @@
             >
             </autocomplete>
 
+            <autocomplete
+                input-id="note-search"
+                prop="body"
+                url="/api/items"
+                input-placeholder="Search all notes"
+            >
+            </autocomplete>
+
             <div>
                 <!--<label for="">Title: </label>-->
                 <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
@@ -244,7 +252,7 @@
                 if (inputId === 'filter-category') {
                     store.set(option, 'filters.category');
                 }
-                if (inputId === 'title-search') {
+                if (inputId === 'title-search' || inputId === 'note-search') {
                     helpers.goToRoute("/items/:" + option.id);
                 }
             },

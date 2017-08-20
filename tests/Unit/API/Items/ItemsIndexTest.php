@@ -65,7 +65,7 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
-    public function it_can_filter_the_items()
+    public function it_can_filter_the_items_by_title()
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/items?filter=au');
@@ -77,6 +77,42 @@ class ItemsIndexTest extends TestCase
         foreach ($content as $item) {
             $this->assertContains('au', $item['title'], '', true);
         }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_filter_the_items_by_note()
+    {
+        $this->logInUser();
+
+        //First create item with a note
+        $item = [
+            'title' => 'Title',
+            'body' => 'A really cool note',
+            'priority' => 2,
+            'favourite' => 0,
+            'category_id' => 2
+        ];
+
+        $response = $this->createItem($item);
+        $this->checkItemKeysExist($this->getContent($response));
+
+        //Then filter items by note
+        $response = $this->call('GET', '/api/items?filter=cool&field=body');
+        $content = $this->getContent($response);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        foreach ($content as $item) {
+            $this->assertContains('cool', $item['body'], '', true);
+        }
+        
+        $this->assertCount(1, $content);
 
         $this->assertResponseOk($response);
     }
