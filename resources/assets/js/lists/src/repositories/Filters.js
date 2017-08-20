@@ -1,5 +1,6 @@
 import TimeRepository from './TimeRepository'
 import DateTimeRepository from './DateTimeRepository'
+import helpers from './Helpers'
 var moment = require('moment');
 require('sugar');
 
@@ -126,7 +127,7 @@ export default {
             }
 
             //Show trashed items filter
-            else if (!that.shared.filters.showTrashed && item.deletedAt) {
+            else if (helpers.getCurrentPath() !== '/trash' && !that.shared.filters.showTrashed && item.deletedAt) {
                 filteredIn = false;
             }
 

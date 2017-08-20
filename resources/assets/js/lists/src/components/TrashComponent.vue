@@ -9,7 +9,7 @@
                 <ul id="items">
 
                     <item
-                        v-for="item in trashedItems"
+                        v-for="item in filteredTrashedItems"
                         :item="item"
                         :key="item.id"
                     >
@@ -24,12 +24,13 @@
 
         </div>
     </div>
-    
+
 </template>
 
 <script>
     import helpers from '../repositories/Helpers'
     import store from '../repositories/Store'
+    import filters from '../repositories/Filters'
     export default {
         data: function () {
             return {
@@ -38,6 +39,11 @@
             };
         },
         components: {},
+        computed: {
+            filteredTrashedItems: function () {
+                return filters.filter(this.trashedItems, this);
+            }
+        },
         methods: {
 
             /**
