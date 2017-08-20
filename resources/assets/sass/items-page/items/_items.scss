@@ -16,6 +16,9 @@
     }
     .items-leave-active {
         position: absolute;
+        .title {
+            text-decoration: line-through;
+        }
     }
     .item {
         //flex-wrap: nowrap;

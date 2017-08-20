@@ -16612,6 +16612,10 @@ input[type="text"].line::placeholder {
   position: absolute;
 }
 
+#items-page .items-leave-active .title {
+  text-decoration: line-through;
+}
+
 #items-page .item {
   width: 100%;
 }

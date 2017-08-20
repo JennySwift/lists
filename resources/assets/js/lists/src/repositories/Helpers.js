@@ -11,6 +11,7 @@ import store from './Store'
 export default {
 
     //Request methods
+    requests: requests,
     get: requests.get,
     post: requests.post,
     put: requests.put,

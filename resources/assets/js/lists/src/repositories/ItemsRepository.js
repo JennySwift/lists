@@ -137,6 +137,7 @@ export default {
                 // itemToDelete: this.item,
                 message: 'Item deleted',
                 redirectTo: this.redirectTo,
+                noConfirm: true,
                 callback: function () {
                     this.deleteJsItem(item);
                     helpers.hidePopup();

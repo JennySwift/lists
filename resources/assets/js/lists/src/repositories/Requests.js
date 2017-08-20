@@ -114,41 +114,52 @@ export default {
      */
     delete: function (options) {
         var that = this;
-        swal({
-            title: 'Are you sure?',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'Cancel',
-            confirmButtonClass: 'btn btn-danger',
-            cancelButtonClass: 'btn btn-default',
-            buttonsStyling: false,
-            reverseButtons: true,
-            showCloseButton: true
-        }).then(function() {
-            store.showLoading();
-            Vue.http.delete(options.url).then(function (response) {
-                if (options.callback) {
-                    options.callback(response);
-                }
 
-                store.hideLoading();
-
-                if (options.message) {
-                    app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
-                }
-
-                if (options.array) {
-                    store.delete(options.itemToDelete, options.array);
-                }
-
-                if (options.redirectTo) {
-                    that.getRouter().push(options.redirectTo);
-                }
-            }, function (response) {
-                helpers.handleResponseError(response);
+        if (options.noConfirm) {
+            //Do not confirm before deleting
+            //"this" refers to Helpers.js which called this method
+            this.requests.proceedWithDelete(options);
+        }
+        else {
+            //Confirm before deleting
+            swal({
+                title: 'Are you sure?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'Cancel',
+                confirmButtonClass: 'btn btn-danger',
+                cancelButtonClass: 'btn btn-default',
+                buttonsStyling: false,
+                reverseButtons: true,
+                showCloseButton: true
+            }).then(function() {
+                that.proceedWithDelete(options);
             });
-        }, function(dismiss) {
-
-        });
+        }
     },
+
+    proceedWithDelete (options) {
+        store.showLoading();
+        Vue.http.delete(options.url).then(function (response) {
+            if (options.callback) {
+                options.callback(response);
+            }
+
+            store.hideLoading();
+
+            if (options.message) {
+                app.__vue__.$bus.$emit('provide-feedback', options.message, 'success');
+            }
+
+            if (options.array) {
+                store.delete(options.itemToDelete, options.array);
+            }
+
+            if (options.redirectTo) {
+                that.getRouter().push(options.redirectTo);
+            }
+        }, function (response) {
+            helpers.handleResponseError(response);
+        });
+    }
 }
