@@ -203,7 +203,7 @@
              */
             populateOptionsFromDatabase: function () {
                 helpers.get({
-                    url: this.url + '?filter=' + this.inputValue,
+                    url: this.url + '?filter=' + this.inputValue + '&field=' + this.fieldToFilterBy,
                     callback: function (response) {
                         this.setOptions(response);
                     }.bind(this)
@@ -431,6 +431,8 @@
             inputPlaceholder: {
                 default: 'Choose an option'
             },
+            //For searching the database
+            fieldToFilterBy: ''
         },
         ready: function () {
             var that = this;

@@ -16,6 +16,7 @@
                 prop="body"
                 url="/api/items"
                 input-placeholder="Search all notes"
+                field-to-filter-by="body"
             >
             </autocomplete>
 
