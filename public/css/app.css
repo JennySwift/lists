@@ -16592,19 +16592,6 @@ input[type="text"].line::placeholder {
   }
 }
 
-#items-page .v-enter-active {
-  transition: all .4s ease-out;
-}
-
-#items-page .v-leave-active {
-  transition: all .4s ease-in;
-}
-
-#items-page .v-enter,
-#items-page .v-leave-to {
-  width: 0;
-}
-
 #items-page #items-page-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16623,6 +16610,19 @@ input[type="text"].line::placeholder {
 
 #items-page #items-page-container ul#items {
   padding-left: 0;
+}
+
+#items-page #items-page-container .v-enter-active {
+  transition: all .4s ease-out;
+}
+
+#items-page #items-page-container .v-leave-active {
+  transition: all .4s ease-in;
+}
+
+#items-page #items-page-container .v-enter,
+#items-page #items-page-container .v-leave-to {
+  width: 0;
 }
 
 .guide {
@@ -17232,6 +17232,39 @@ label.input-group-addon:not('first-child') {
 #feedback .feedback-message.ng-move.ng-move-active,
 #feedback .feedback-message.ng-enter.ng-enter-active {
   left: 0;
+}
+
+#trash {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#trash > :first-child {
+  padding: 20px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+#trash ul#items {
+  padding-left: 0;
+}
+
+#trash .v-enter-active {
+  transition: all .4s ease-out;
+}
+
+#trash .v-leave-active {
+  transition: all .4s ease-in;
+}
+
+#trash .v-enter,
+#trash .v-leave-to {
+  width: 0;
 }
 
 #trash .after-item {

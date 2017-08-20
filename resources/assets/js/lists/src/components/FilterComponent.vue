@@ -288,7 +288,7 @@
                 $('#search-container').css({height: filterHeight});
 
                 //So the filter isn't too short if there are enough items on the page, meaning the page will be scrolled
-                $('#items-page-container .left-side').css({'max-height': filterHeight, 'overflow': 'scroll'});
+                $('#items-page-container .left-side, #trash .left-side').css({'max-height': filterHeight, 'overflow': 'scroll'});
             }
         },
         created: function () {

@@ -1,37 +1,40 @@
 <template>
-    <div id="trash" class="container">
+    <div id="trash-page">
 
-        <div>You have {{trashedItems.length}} items in the trash.</div>
+        <item-popup></item-popup>
 
-        <!--<ul>-->
-            <!--<li v-for="item in trashedItems">-->
-                <!--{{item.title}}-->
-                <!---->
-            <!--</li>-->
-        <!--</ul>-->
+        <div id="trash">
+            <div class="left-side">
+                <div>You have {{trashedItems.length}} items in the trash.</div>
+                <ul id="items">
 
+                    <item
+                        v-for="item in trashedItems"
+                        :item="item"
+                        :key="item.id"
+                    >
+                    </item>
 
+                </ul>
+            </div>
 
+            <div class="right-side">
+                <items-filter></items-filter>
+            </div>
 
-        <ul id="items">
-
-            <item
-                v-for="item in trashedItems"
-                :item="item"
-                :key="item.id"
-            >
-            </item>
-
-        </ul>
+        </div>
     </div>
+    
 </template>
 
 <script>
     import helpers from '../repositories/Helpers'
+    import store from '../repositories/Store'
     export default {
         data: function () {
             return {
-                trashedItems: []
+                trashedItems: [],
+                shared: store.state
             };
         },
         components: {},
