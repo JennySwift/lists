@@ -16613,9 +16613,7 @@ input[type="text"].line::placeholder {
 }
 
 #items-page .item {
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  white-space: nowrap;
+  width: 100%;
 }
 
 #items-page #items-page-container {
