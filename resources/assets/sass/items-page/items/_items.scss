@@ -1,5 +1,37 @@
 #items-page {
 
+    //.v-move {
+    //    transition: transform 1s;
+    //}
+    ul#items {
+        position: relative;
+    }
+    .list-complete-item, .item {
+        transition: all 1s, opacity .5s;
+    }
+    .items-enter, .items-leave-to {
+        opacity: 0;
+        //transform: translateX(-2000px);
+        transform: translateY(-25px);
+    }
+    .items-leave-active {
+        position: absolute;
+    }
+    .item {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+
+
+
+
+
+
+
+
+
+
+
     #items-page-container {
         @include itemsFilterContainer;
     }

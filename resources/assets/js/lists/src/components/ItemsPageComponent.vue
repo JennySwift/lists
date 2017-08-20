@@ -5,6 +5,7 @@
         <!--<pre>@{{$data.shared.items | json}}</pre>-->
 
         <div id="items-page-container">
+
             <div class="left-side">
                 <button
                     v-on:click="toggleNewItemFields()"
@@ -21,18 +22,21 @@
                 <new-item></new-item>
 
                 <!--Items-->
-                <ul id="items">
-
+                <transition-group name="items" tag="ul" id="items">
                     <item
-                        v-for="item in filteredItems"
-                        :key="item.id"
-                        :item="item"
-                        class="item-with-children"
+                    v-for="item in filteredItems"
+                    :key="item.id"
+                    :item="item"
+                    class="item-with-children item"
                     >
                     </item>
+                </transition-group>
 
-                    <div v-if="shared.items.length === 0">No items here</div>
-                </ul>
+
+
+
+
+                <div v-if="shared.items.length === 0">No items here</div>
             </div>
 
             <div class="right-side">
@@ -51,6 +55,7 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import store from '../repositories/Store'
     import filters from '../repositories/Filters'
+//    import _ from 'lodash'
 
     export default {
         data: function () {
@@ -58,7 +63,7 @@
                 shared: store.state,
                 editingItems: false,
                 newIndex: -1,
-                currentTime: moment()
+                currentTime: moment(),
             }
         },
         computed: {
@@ -85,7 +90,6 @@
         },
         components: {},
         methods: {
-
             toggleNewItemFields: function () {
                 store.toggle('showNewItemFields');
             },

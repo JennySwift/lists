@@ -16592,6 +16592,32 @@ input[type="text"].line::placeholder {
   }
 }
 
+#items-page ul#items {
+  position: relative;
+}
+
+#items-page .list-complete-item,
+#items-page .item {
+  transition: all 1s, opacity .5s;
+}
+
+#items-page .items-enter,
+#items-page .items-leave-to {
+  opacity: 0;
+  -webkit-transform: translateY(-25px);
+          transform: translateY(-25px);
+}
+
+#items-page .items-leave-active {
+  position: absolute;
+}
+
+#items-page .item {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
 #items-page #items-page-container {
   display: -webkit-box;
   display: -ms-flexbox;

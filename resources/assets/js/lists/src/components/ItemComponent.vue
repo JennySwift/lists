@@ -1,4 +1,5 @@
 <template>
+
     <li v-if="item">
 
         <div class="item" v-bind:class="{'deleted': item.deletedAt}">
@@ -176,7 +177,6 @@
     import filters from '../repositories/Filters'
     import store from '../repositories/Store'
     import helpers from '../repositories/Helpers'
-
     export default {
         template: '#item-template',
         data: function () {
