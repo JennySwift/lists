@@ -1,6 +1,8 @@
 <template>
     <div id="trash" class="container">
 
+        <div>You have {{trashedItems.length}} items in the trash.</div>
+
         <ul>
             <li v-for="item in trashedItems">
                 {{item.title}}
