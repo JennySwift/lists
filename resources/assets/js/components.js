@@ -22,7 +22,7 @@ import FeedbackComponent from './lists/src/components/shared/FeedbackComponent.v
 import ItemPopupComponent from './lists/src/components/ItemPopupComponent.vue'
 import BreadcrumbComponent from './lists/src/components/BreadcrumbComponent.vue'
 // import CategoryPopupComponent from './lists/src/components/CategoryPopupComponent.vue'
-import FavouriteItemsComponent from './lists/src/components/FavouriteItemsComponent.vue'
+// import FavouriteItemsComponent from './lists/src/components/FavouriteItemsComponent.vue'
 import FilterComponent from './lists/src/components/FilterComponent.vue'
 import NewItemComponent from './lists/src/components/NewItemComponent.vue'
 import NewCategoryComponent from './lists/src/components/NewCategoryComponent.vue'
@@ -49,7 +49,7 @@ Vue.component('breadcrumb', BreadcrumbComponent);
 // Vue.component('category-popup', CategoryPopupComponent);
 // Vue.component('alarms', require('./lists/src/components/AlarmsComponent.vue'));
 // Vue.component('urgent-items', require('./lists/src/components/UrgentItemsComponent.vue'));
-Vue.component('favourite-items', FavouriteItemsComponent);
+// Vue.component('favourite-items', FavouriteItemsComponent);
 Vue.component('items-filter', FilterComponent);
 Vue.component('new-item', NewItemComponent);
 Vue.component('new-category', NewCategoryComponent);

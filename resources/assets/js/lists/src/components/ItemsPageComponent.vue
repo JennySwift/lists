@@ -36,7 +36,7 @@
             </div>
 
             <div class="right-side">
-                <favourite-items></favourite-items>
+                <!--<favourite-items></favourite-items>-->
 
                 <items-filter></items-filter>
             </div>

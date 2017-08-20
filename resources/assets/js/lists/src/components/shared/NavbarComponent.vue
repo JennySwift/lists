@@ -24,9 +24,9 @@
                         <router-link to="/items">Lists</router-link>
                     </li>
 
-                    <li>
-                        <a v-on:click="toggleFavouriteItems()">Favourites</a>
-                    </li>
+                    <!--<li>-->
+                        <!--<a v-on:click="toggleFavouriteItems()">Favourites</a>-->
+                    <!--</li>-->
 
                     <li>
                         <a v-on:click="toggleFilter()">Filter</a>
@@ -94,9 +94,9 @@ import store from '../../repositories/Store'
             /**
              *
              */
-            toggleFavouriteItems: function () {
-                store.toggle('showFavourites');
-            }
+//            toggleFavouriteItems: function () {
+//                store.toggle('showFavourites');
+//            }
         },
         mounted: function () {
 
