@@ -194,7 +194,6 @@ export default {
     },
 
     getCurrentPath () {
-        console.log(this.getRouter().currentRoute.path);
         return this.getRouter().currentRoute.path;
     },
 

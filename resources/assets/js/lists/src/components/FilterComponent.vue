@@ -83,7 +83,7 @@
                 >
             </div>
 
-            <div class="checkbox-container">
+            <div v-if="!isTrashPage" class="checkbox-container">
                 <label for="filter-not-before">Show trashed items:</label>
                 <input
                     v-model="shared.filters.showTrashed"
@@ -201,7 +201,12 @@
                 categories.unshift({name: 'Any'});
 
                 return categories;
+            },
+            isTrashPage () {
+                return this.$route.path === '/trash';
+//                return helpers.getCurrentPath() === '/trash';
             }
+
         },
         components: {},
         filters: {
