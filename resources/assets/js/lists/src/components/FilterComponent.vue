@@ -4,27 +4,10 @@
         <div v-show="shared.showFilter" id="search-container">
 
             <autocomplete
-                input-id="title-search"
-                prop="title"
-                url="/api/items"
-                input-placeholder="Search all titles"
-            >
-            </autocomplete>
-
-            <autocomplete
-                input-id="note-search"
-                prop="body"
-                url="/api/items"
-                input-placeholder="Search all notes"
-                field-to-filter-by="body"
-            >
-            </autocomplete>
-
-            <autocomplete
                 input-id="filter-favourites"
                 prop="title"
                 :unfiltered-options="shared.favouriteItems"
-                input-placeholder="Search favourite items"
+                input-placeholder="Favourite items"
             >
             </autocomplete>
 
@@ -70,16 +53,34 @@
                 prop="name"
                 :selected.sync="shared.filters.category"
                 :unfiltered-options="categoryOptions"
+                input-placeholder="Category"
+            >
+            </autocomplete>
+
+            <autocomplete
+                input-id="title-search"
+                prop="title"
+                url="/api/items"
+                input-placeholder="Search all by title"
+            >
+            </autocomplete>
+
+            <autocomplete
+                input-id="note-search"
+                prop="body"
+                url="/api/items"
+                input-placeholder="Search all by note"
+                field-to-filter-by="body"
             >
             </autocomplete>
 
             <div class="checkbox-container">
                 <label for="filter-not-before">Hide items not before future time:</label>
                 <input
-                v-model="shared.filters.notBefore"
-                id="filter-not-before"
-                type="checkbox"
-            >
+                    v-model="shared.filters.notBefore"
+                    id="filter-not-before"
+                    type="checkbox"
+                >
             </div>
 
             <div class="checkbox-container">
@@ -88,8 +89,9 @@
                     v-model="shared.filters.showTrashed"
                     id="filter-show-trashed"
                     type="checkbox"
-            >
+                >
             </div>
+
 
 
 

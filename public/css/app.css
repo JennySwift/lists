@@ -16250,8 +16250,13 @@ input[type="text"].line::placeholder {
   left: 0;
 }
 
-#search-container .datepicker {
-  margin-bottom: 4px;
+#search-container .datepicker,
+#search-container .autocomplete {
+  margin-bottom: 8px;
+}
+
+#search-container input.line {
+  text-align: left;
 }
 
 #search-container .datepicker input {
@@ -16708,8 +16713,13 @@ textarea.note {
   left: 0;
 }
 
-#search-container .datepicker {
-  margin-bottom: 4px;
+#search-container .datepicker,
+#search-container .autocomplete {
+  margin-bottom: 8px;
+}
+
+#search-container input.line {
+  text-align: left;
 }
 
 #search-container .datepicker input {
