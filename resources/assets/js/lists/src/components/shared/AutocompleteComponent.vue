@@ -202,8 +202,12 @@
              *
              */
             populateOptionsFromDatabase: function () {
+                var url = this.url + '?filter=' + this.inputValue;
+                if (this.fieldToFilterBy) {
+                    url += '&field=' + this.fieldToFilterBy;
+                }
                 helpers.get({
-                    url: this.url + '?filter=' + this.inputValue + '&field=' + this.fieldToFilterBy,
+                    url:  url,
                     callback: function (response) {
                         this.setOptions(response);
                     }.bind(this)
