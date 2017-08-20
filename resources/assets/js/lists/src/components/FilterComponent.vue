@@ -20,6 +20,14 @@
             >
             </autocomplete>
 
+            <autocomplete
+                input-id="filter-favourites"
+                prop="title"
+                :unfiltered-options="shared.favouriteItems"
+                input-placeholder="Search favourite items"
+            >
+            </autocomplete>
+
             <div>
                 <!--<label for="">Title: </label>-->
                 <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
@@ -253,7 +261,7 @@
                 if (inputId === 'filter-category') {
                     store.set(option, 'filters.category');
                 }
-                if (inputId === 'title-search' || inputId === 'note-search') {
+                if (inputId === 'title-search' || inputId === 'note-search' || inputId === 'filter-favourites') {
                     helpers.goToRoute("/items/:" + option.id);
                 }
             },
