@@ -315,9 +315,10 @@
         position: relative;
         .btn {
             height: 34px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-top: 0;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
             left: 1px;
         }
         .datepicker-input-label-container {
@@ -372,9 +373,7 @@
         }
         .datepicker-input {
             //margin-bottom: 20px;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border-top: 0;
+            border-radius: 0;
             border-right: 0;
         }
         .datepicker-calendar-container {
