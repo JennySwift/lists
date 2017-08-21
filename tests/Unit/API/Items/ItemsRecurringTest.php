@@ -166,7 +166,8 @@ class ItemsRecurringTest extends TestCase
         $response = $this->rescheduleItem();
         $this->getItemContent($response);
 
-        $expectedNextTime = Carbon::today()->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
+        //This might fail if the test is run before 1:30pm?
+        $expectedNextTime = Carbon::tomorrow()->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
 
 //        $expectedNextTime = Carbon::now();
 
