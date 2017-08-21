@@ -389,6 +389,7 @@
         }
         td, th {
             text-align: right;
+            padding: 4px;
         }
         .date {
             cursor: pointer;
