@@ -49,8 +49,9 @@ Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth', 
 
     //This needs to be before the resource is created or the empty trash route doesn't work
     Route::delete('items/emptyTrash', 'ItemsController@emptyTrash');
-    Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
     Route::put('/items/restore/{id}', 'ItemsController@restore');
+    Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
+
 
     Route::resource('categories', 'CategoriesController', ['except' => ['create', 'edit']]);
     Route::resource('feedback', 'FeedbackController', ['only' => ['store']]);

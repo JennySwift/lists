@@ -51,11 +51,11 @@ class Item extends Model
             }
         });
 
-        Item::restoring(function ($item) {
-            foreach ($item->children()->withTrashed()->get() as $child) {
-                $child->restore();
-            }
-        });
+//        Item::restoring(function ($item) {
+//            foreach ($item->children()->withTrashed()->get() as $child) {
+//                $child->restore();
+//            }
+//        });
     }
 
     /**

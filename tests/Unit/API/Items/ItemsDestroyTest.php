@@ -66,6 +66,41 @@ class ItemsDestroyTest extends TestCase
 
     /**
      *
+     * @test
+     * @return void
+     */
+    public function it_can_restore_an_item_from_the_trash()
+    {
+        $this->logInUser();
+        $this->createAndDeleteItems();
+        $trashedItems = $this->getTrashedItems();
+        $this->checkTrashedItemsAreAsExpected($trashedItems);
+
+        //Check the number of item's the user has before restoring the item
+        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+
+        $id = $trashedItems[0]['id'];
+        //Check the item cannot be found outside the trash
+        $this->assertNull(Item::find($id));
+
+        $response = $this->call('PUT', '/api/items/restore/' . $id);
+        $this->assertResponseOk($response);
+//        dd($response);
+
+        //Check the user has one more item now that isn't in the trash
+        $this->assertCount(859, Item::where('user_id', $this->user->id)->get());
+
+        //Check the user has one less item in the trash
+        $this->assertCount(2, $this->getTrashedItems());
+
+        $restoredItem = Item::find($id);
+        $this->assertNotNull($restoredItem);
+        $this->assertEquals('one', $restoredItem['title']);
+
+    }
+
+    /**
+     *
      */
     private function createAndDeleteItems()
     {
