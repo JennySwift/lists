@@ -33,6 +33,7 @@
     import helpers from '../repositories/Helpers'
     import store from '../repositories/Store'
     import filters from '../repositories/Filters'
+    import _ from 'lodash'
     export default {
         data: function () {
             return {
@@ -42,7 +43,8 @@
         components: {},
         computed: {
             filteredTrashedItems: function () {
-                return filters.filter(this.shared.trashedItems, this);
+                var sortedAndFiltered = filters.filter(this.shared.trashedItems, this);
+                return _.sortBy(sortedAndFiltered, 'deleted_at').reverse();
             }
         },
         methods: {
