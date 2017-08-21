@@ -158,15 +158,30 @@
         <!--Children-->
         <ul v-if="item.children.length > 0">
 
-            <item
-                v-for="item in filteredChildren"
-                :key="item.id"
-                :show-children="showChildren"
-                :item="item"
-                :zoom="zoom"
-                class="item-with-children"
-            >
-            </item>
+            <!--<item-->
+                <!--v-for="item in filteredChildren"-->
+                <!--:key="item.id"-->
+                <!--:show-children="showChildren"-->
+                <!--:item="item"-->
+                <!--:zoom="zoom"-->
+                <!--class="item-with-children"-->
+            <!--&gt;-->
+            <!--</item>-->
+
+
+            <transition-group name="items" tag="ul" v-if="item.children.length > 0">
+                <item
+                    v-for="item in filteredChildren"
+                    :key="item.id"
+                    :show-children="showChildren"
+                    :item="item"
+                    class="item-with-children item"
+                >
+                </item>
+            </transition-group>
+
+
+
         </ul>
     </li>
 </template>
