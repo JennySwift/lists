@@ -22,3 +22,5 @@ test-img/
 /storage/*.key
 /.vagrant
 
+/file_comparisons
+

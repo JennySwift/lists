@@ -6,7 +6,7 @@ import ItemPopupComponent from '@/components/ItemPopupComponent.vue'
 import store from '@/repositories/Store'
 
 
-describe.only('move item', function () {
+describe('move item', function () {
     var vm;
 
     describe('string path', function () {
@@ -102,9 +102,8 @@ describe.only('move item', function () {
             ];
         });
 
-        //Failing
         it('can remove an item from an old parent', function () {
-            vm.selectedItem = {
+            store.state.selectedItemClone = {
                 oldParentId: 12,
                 title: '1.1.2.4.1',
                 id: 13,
@@ -293,9 +292,8 @@ describe.only('move item', function () {
             ];
         });
 
-        //Failing
         it('can remove an item from an old parent', function () {
-            vm.selectedItem = {
+            store.state.selectedItemClone = {
                 oldParentId: 1,
                 title: '1.2',
                 id: 5,
@@ -332,9 +330,8 @@ describe.only('move item', function () {
             assert.deepEqual(expectedOldParent, store.state.items[0]);
         });
 
-        //Failing
         it('can remove the last item from an old parent and know that the parent no longer has children', function () {
-            vm.selectedItem = {
+            store.state.selectedItemClone = {
                 oldParentId: 2,
                 title: '2.1',
                 id: 7,
@@ -372,10 +369,9 @@ describe.only('move item', function () {
             assert.deepEqual(expectedNewParent, store.state.items[2]);
         });
 
-        //Failing
         it('can move an item to a new parent', function () {
             // console.log('\n\n items before: ' + JSON.stringify(store.state.items, null, 4) + '\n\n');
-            vm.selectedItem = {
+            store.state.selectedItemClone = {
                 oldParentId: 1,
                 title: '1.2',
                 id: 5,
