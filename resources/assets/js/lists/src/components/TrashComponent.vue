@@ -5,7 +5,7 @@
 
         <div id="trash">
             <div class="left-side">
-                <div>You have {{trashedItems.length}} items in the trash.</div>
+                <div>You have {{shared.trashedItems.length}} items in the trash.</div>
                 <button v-on:click="emptyTrash" class="btn btn-default">Empty Trash</button>
                 <ul id="items">
 
@@ -35,14 +35,13 @@
     export default {
         data: function () {
             return {
-                trashedItems: [],
                 shared: store.state
             };
         },
         components: {},
         computed: {
             filteredTrashedItems: function () {
-                return filters.filter(this.trashedItems, this);
+                return filters.filter(this.shared.trashedItems, this);
             }
         },
         methods: {
@@ -53,28 +52,17 @@
                     message: 'Trash emptied',
                     confirmMessage: 'Are you sure you want to empty the trash?',
                     callback: function () {
-                        this.getTrashedItems();
+                        store.getTrashedItems();
                     }.bind(this)
                 });
             },
 
-            /**
-            *
-            */
-            getTrashedItems: function () {
-                helpers.get({
-                    url: '/api/items?trashed=true',
-                    callback: function (response) {
-                        this.trashedItems = response;
-                    }.bind(this)
-                });
-            }
         },
         props: [
             //data to be received from parent
         ],
         mounted: function () {
-            this.getTrashedItems();
+            store.getTrashedItems();
         }
     }
 </script>

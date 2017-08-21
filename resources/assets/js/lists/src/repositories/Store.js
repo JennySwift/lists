@@ -60,7 +60,8 @@ export default {
         showFilter: true,
         showNewItemFields: false,
         favouriteItems: [],
-        favourteItemsLoaded: false
+        favourteItemsLoaded: false,
+        trashedItems: []
     },
 
     /**
@@ -75,6 +76,16 @@ export default {
         this.set('', 'newItem.notBefore');
         this.set('none', 'newItem.recurringUnit');
         this.set('', 'newItem.recurringFrequency');
+    },
+
+    /**
+     *
+     */
+    getTrashedItems: function () {
+        helpers.get({
+            url: '/api/items?trashed=true',
+            storeProperty: 'trashedItems',
+        });
     },
 
     getCategories() {
