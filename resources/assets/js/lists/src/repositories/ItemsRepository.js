@@ -140,7 +140,8 @@ export default {
                 message: 'Item deleted',
                 redirectTo: this.redirectTo,
                 noConfirm: noConfirm,
-                confirmMessage: 'Are you sure? All descendants of this item will be deleted, too.',
+                confirmTitle: 'Are you sure?.',
+                confirmText: 'All descendants of this item will be deleted, too.',
                 beforeDelete: function () {
                     item.deleting = true;
                     console.log(item);

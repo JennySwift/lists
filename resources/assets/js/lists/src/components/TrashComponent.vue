@@ -51,7 +51,8 @@
                 helpers.delete({
                     url: '/api/items/emptyTrash',
                     message: 'Trash emptied',
-                    confirmMessage: 'Are you sure you want to empty the trash?',
+                    confirmTitle: 'Are you sure?',
+                    confirmText: 'All items will be removed from the trash, and you will no longer have them.',
                     callback: function () {
                         store.getTrashedItems();
                     }.bind(this)

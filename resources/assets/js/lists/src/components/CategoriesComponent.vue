@@ -77,7 +77,8 @@
                     array: 'categories',
                     itemToDelete: this.selectedCategory,
                     message: 'Category deleted',
-                    confirmMessage: 'Are you sure? All items with this category will be deleted can NOT be restored from the trash.',
+                    confirmTitle: 'Are you sure?',
+                    confirmText: 'All items with this category will be deleted, and can NOT be restored from the trash!',
                     redirectTo: this.redirectTo,
                     callback: function () {
                         helpers.hidePopup('category-popup');
