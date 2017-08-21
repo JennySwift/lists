@@ -6,6 +6,7 @@
         <div id="trash">
             <div class="left-side">
                 <div>You have {{trashedItems.length}} items in the trash.</div>
+                <button v-on:click="emptyTrash" class="btn btn-default">Empty Trash</button>
                 <ul id="items">
 
                     <item
@@ -45,6 +46,17 @@
             }
         },
         methods: {
+
+            emptyTrash () {
+                helpers.delete({
+                    url: '/api/items/emptyTrash',
+                    message: 'Trash emptied',
+                    confirmMessage: 'Are you sure you want to empty the trash?',
+                    callback: function () {
+                        this.getTrashedItems();
+                    }.bind(this)
+                });
+            },
 
             /**
             *
