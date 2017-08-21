@@ -2,7 +2,7 @@
     <div id="items-page">
         <item-popup></item-popup>
         
-        <!--<pre>@{{$data.shared.items | json}}</pre>-->
+        <!--<pre>@{{$data.shared.items}}</pre>-->
 
         <div id="items-page-container">
 

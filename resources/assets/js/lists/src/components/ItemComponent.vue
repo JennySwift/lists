@@ -249,6 +249,12 @@
                     message: 'Item restored',
                     callback: function (response) {
                         store.delete(item, 'trashedItems');
+                        //Double equals in case one is null and another is undefined
+                        if (item.parent_id == this.shared.zoomedItem.id) {
+                            item.deletedAt = false;
+                            store.update(item, 'items');
+                        }
+//                        store.getItems();
                     }.bind(this)
                 });
             },

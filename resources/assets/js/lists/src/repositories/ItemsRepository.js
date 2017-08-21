@@ -157,7 +157,8 @@ export default {
     },
 
     /**
-     *
+     * We don't delete the item from the store items array,
+     * because we need it there if the user wants to show the completed items
      * @param item
      */
     deleteJsItem: function (item) {
