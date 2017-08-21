@@ -150,7 +150,7 @@
 
                 <span v-if="item.category" class="label label-primary category">{{ item.category.name }}</span>
                 <span v-if="item.deleted_at && isTrashPage" class="deleted-at">Deleted at {{item.deleted_at}}</span>
-                <button v-if="isTrashPage" v-on:click="restoreItem(item)" class="btn btn-sm btn-default">Restore</button>
+                <button v-if="isTrashPage" v-on:click="restoreItem(item)" :disabled="!item.canBeRestored" class="btn btn-sm btn-default">Restore</button>
 
             </div>
 

@@ -6,6 +6,7 @@
         <div id="trash">
             <div class="left-side">
                 <div>You have {{shared.trashedItems.length}} items in the trash.</div>
+                <div>If an item's parent has been deleted, the 'restore' button for that item will be disabled. You will need to restore the parent before restoring the child.</div>
                 <button v-on:click="emptyTrash" class="btn btn-default">Empty Trash</button>
                 <ul id="items">
 
