@@ -122,8 +122,9 @@ export default {
         }
         else {
             //Confirm before deleting
+            var confirmMessage = options.confirmMessage ? options.confirmMessage : 'Are you sure?';
             swal({
-                title: 'Are you sure?',
+                title: confirmMessage,
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
                 cancelButtonText: 'Cancel',
