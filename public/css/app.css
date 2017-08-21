@@ -16377,7 +16377,6 @@ input[type="text"].line::placeholder {
 }
 
 #new-item {
-  width: 900px;
   max-width: 100%;
 }
 
