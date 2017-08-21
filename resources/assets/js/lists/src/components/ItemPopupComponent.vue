@@ -18,13 +18,13 @@
                     class="favourite fa fa-star btn btn-sm btn-default">
                 </button>
 
-                <button
-                    v-if="shared.selectedItemClone.deletedAt"
-                    v-on:click="restore()"
-                    class="btn btn-success"
-                >
-                    Restore
-                </button>
+                <!--<button-->
+                    <!--v-if="shared.selectedItemClone.deletedAt"-->
+                    <!--v-on:click="restore()"-->
+                    <!--class="btn btn-success"-->
+                <!--&gt;-->
+                    <!--Restore-->
+                <!--</button>-->
 
                 <span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>
             </div>
