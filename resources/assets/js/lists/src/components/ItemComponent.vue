@@ -2,7 +2,7 @@
 
     <li v-if="item">
 
-        <div class="item" v-bind:class="{'deleted': item.deletedAt || deletingItem}">
+        <div class="item" v-bind:class="{'deleted': item.deletedAt || item.deleting}">
 
             <!--Before Item-->
             <div class="before-item">
@@ -196,8 +196,7 @@
         template: '#item-template',
         data: function () {
             return {
-                shared: store.state,
-                deletingItem: false
+                shared: store.state
             };
         },
         components: {},

@@ -131,9 +131,6 @@ export default {
         }
 
         else {
-            if (!item.recurringUnit) {
-                that.deletingItem = true;
-            }
             var noConfirm = !item.has_children;
 
             helpers.delete({
@@ -143,10 +140,17 @@ export default {
                 message: 'Item deleted',
                 redirectTo: this.redirectTo,
                 noConfirm: noConfirm,
+                beforeDelete: function () {
+                    item.deleting = true;
+                    console.log(item);
+                }.bind(this),
                 callback: function () {
                     this.deleteJsItem(item);
                     helpers.hidePopup();
-                }.bind(this)
+                }.bind(this),
+                onFail: function () {
+                    item.deleting = false;
+                }
             });
         }
     },

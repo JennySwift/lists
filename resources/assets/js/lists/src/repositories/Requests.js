@@ -140,6 +140,12 @@ export default {
 
     proceedWithDelete (options) {
         store.showLoading();
+
+        if (options.beforeDelete) {
+            //Code to run before deleting
+            options.beforeDelete();
+        }
+
         Vue.http.delete(options.url).then(function (response) {
             if (options.callback) {
                 options.callback(response);
@@ -159,6 +165,9 @@ export default {
                 that.getRouter().push(options.redirectTo);
             }
         }, function (response) {
+            if (options.onFail) {
+                options.onFail();
+            }
             helpers.handleResponseError(response);
         });
     }

@@ -37,7 +37,9 @@ class ItemTransformer extends TransformerAbstract
             'recurringFrequency' => $item->recurring_frequency,
             'deletedAt' => $item->deleted_at,
             //For Vue
-            'children' => false
+            'children' => false,
+            //So I can display the item crossed out when it is being deleted, before it has been deleted
+            'deleting' => false
         ];
 
         if ($item->trashed()) {
