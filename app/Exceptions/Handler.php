@@ -63,6 +63,13 @@ class Handler extends ExceptionHandler
             ], Response::HTTP_UNAUTHORIZED);
         }
 
+        if ($exception instanceof GeneralException) {
+            return response([
+                'error' => $exception->errorMessage,
+                'status' => Response::HTTP_BAD_REQUEST
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         return parent::render($request, $exception);
     }
 

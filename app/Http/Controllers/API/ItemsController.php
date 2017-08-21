@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\StoreItemRequest;
@@ -326,7 +327,14 @@ class ItemsController extends Controller
      */
     public function restore($id)
     {
-        $item = Item::withTrashed()->where('id', $id)->first();
+        $item = Item::onlyTrashed()->where('id', $id)->first();
+
+        //Todo: Perhaps the parent has been permanently deleted? Then what should happen?
+        //If the item has a parent that has been deleted, don't allow them to restore the item
+        if ($item->parent_id && Item::onlyTrashed()->find($item->parent_id)) {
+            throw new GeneralException('This item cannot be restored, because its parent has been deleted. Restore the parent first.');
+        }
+
         $item->restore();
 
         $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];

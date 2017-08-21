@@ -65,11 +65,49 @@ class ItemsDestroyTest extends TestCase
     }
 
     /**
+     * old test
+     * @test
+     * @return void
+     */
+//    public function it_can_restore_an_item_from_the_trash()
+//    {
+//        DB::beginTransaction();
+//        $this->logInUser();
+//
+//        //Delete an item
+//        Item::where('user_id', $this->user->id)->first()->delete();
+//
+//        $item = Item::forCurrentUser()
+////            ->whereNotNull('deleted_at')
+////            ->withTrashed()
+//            ->first();
+//
+//        $response = $this->call('PUT', '/api/items/restore/'. $item->id, [
+//            'deleted_at' => null
+//        ]);
+//
+////        dd($response);
+//        $content = $this->getContent($response);
+////        dd($content);
+//
+//        $this->checkItemKeysExist($content);
+//
+//        $this->assertNull($content['deletedAt']);
+//
+//        //Check the children are restored, too
+//        $this->assertCount(3, $item->children);
+//
+//        $this->assertResponseOk($response);
+//
+//        DB::rollBack();
+//    }
+
+    /**
      *
      * @test
      * @return void
      */
-    public function it_can_restore_an_item_from_the_trash()
+    public function it_can_restore_an_item_from_the_trash_if_it_does_not_have_deleted_parent()
     {
         $this->logInUser();
         $this->createAndDeleteItems();
@@ -83,19 +121,63 @@ class ItemsDestroyTest extends TestCase
         //Check the item cannot be found outside the trash
         $this->assertNull(Item::find($id));
 
+        //Check it does not have a deleted parent
+        $trashedParent = Item::onlyTrashed()->find($id)->parent()->onlyTrashed()->first();
+        $this->assertNull($trashedParent);
+
         $response = $this->call('PUT', '/api/items/restore/' . $id);
-        $this->assertResponseOk($response);
 //        dd($response);
+        $this->assertResponseOk($response);
 
         //Check the user has one more item now that isn't in the trash
         $this->assertCount(859, Item::where('user_id', $this->user->id)->get());
 
         //Check the user has one less item in the trash
         $this->assertCount(2, $this->getTrashedItems());
-
         $restoredItem = Item::find($id);
         $this->assertNotNull($restoredItem);
         $this->assertEquals('one', $restoredItem['title']);
+
+
+    }
+
+    /**
+     *
+     * @test
+     * @return void
+     */
+    public function it_cannot_restore_an_item_from_the_trash_if_its_parent_is_deleted()
+    {
+        $this->logInUser();
+        $this->createAndDeleteItems();
+        $trashedItems = $this->getTrashedItems();
+        $this->checkTrashedItemsAreAsExpected($trashedItems);
+
+        //Check the number of item's the user has before restoring the item
+        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+
+        $id = $trashedItems[1]['id'];
+        //Check the item cannot be found outside the trash
+        $this->assertNull(Item::find($id));
+
+        //Check the item has a parent that is deleted
+        $trashedItem = Item::onlyTrashed()->find($id);
+        $trashedParent = $trashedItem->parent()->onlyTrashed()->first();
+        $this->assertNotNull($trashedItem->deleted_at);
+        $this->assertEquals('two', $trashedItem['title']);
+
+        $response = $this->call('PUT', '/api/items/restore/' . $id);
+        $content = $this->getContent($response);
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+        $this->assertEquals('This item cannot be restored, because its parent has been deleted. Restore the parent first.', $content['error']);
+
+        //Check the user has the same number of items as before that are not in the trash
+        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+
+        //Check the user has the same number of items as before that are in the trash
+        $this->assertCount(3, $this->getTrashedItems());
+
+        $this->assertNull(Item::find($id));
 
     }
 
