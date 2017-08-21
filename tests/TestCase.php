@@ -188,6 +188,18 @@ abstract class TestCase extends BaseTestCase
         return $response;
     }
 
+    /**
+     *
+     * @param $id
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function deleteItemById($id)
+    {
+        $response = $this->call('DELETE', '/api/items/' . $id);
+
+        return $response;
+    }
+
     protected function assertResponseOk($response)
     {
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());

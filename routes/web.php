@@ -47,6 +47,8 @@ Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth', 
 //        Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
 //    });
 
+    //This needs to be before the resource is created or the empty trash route doesn't work
+    Route::delete('items/emptyTrash', 'ItemsController@emptyTrash');
     Route::resource('items', 'ItemsController', ['except' => ['create', 'edit']]);
     Route::put('/items/restore/{id}', 'ItemsController@restore');
 
@@ -55,7 +57,7 @@ Route::group(['namespace' => 'API', 'prefix' => 'api', 'middleware' => ['auth', 
     //This didn't work without the id specified for the show method
 //    Route::resource('users', 'UsersController', ['only' => ['show']]);
 
-    Route::delete('items/emptyTrash', 'ItemsController@emptyTrash');
+
     Route::put('items/undoDelete', 'ItemsController@undoDeleteItem');
     Route::get('users', 'UsersController@show');
     Route::post('pushNotifications', 'PushNotificationsController@sendPushNotification');
