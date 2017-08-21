@@ -1,5 +1,5 @@
 <template>
-    <div id="categories">
+    <div id="categories" class="padded-container">
 
         <new-popup id="category-popup">
             <div slot="content">
