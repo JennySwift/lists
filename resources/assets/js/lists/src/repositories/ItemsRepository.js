@@ -131,13 +131,18 @@ export default {
         }
 
         else {
+            if (!item.recurringUnit) {
+                that.deletingItem = true;
+            }
+            var noConfirm = !item.has_children;
+
             helpers.delete({
                 url: '/api/items/' + item.id,
                 // array: 'items',
                 // itemToDelete: this.item,
                 message: 'Item deleted',
                 redirectTo: this.redirectTo,
-                noConfirm: true,
+                noConfirm: noConfirm,
                 callback: function () {
                     this.deleteJsItem(item);
                     helpers.hidePopup();

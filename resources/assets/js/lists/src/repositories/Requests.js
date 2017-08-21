@@ -133,7 +133,7 @@ export default {
                 reverseButtons: true,
                 showCloseButton: true
             }).then(function() {
-                that.proceedWithDelete(options);
+                that.requests.proceedWithDelete(options);
             });
         }
     },

@@ -225,11 +225,7 @@
              * @param item
              */
             deleteItem: function (item) {
-                if (!item.recurringUnit) {
-                    this.deletingItem = true;
-                }
-
-                ItemsRepository.deleteItem(item);
+                ItemsRepository.deleteItem(item, this);
             },
         },
         props: [
