@@ -52,9 +52,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <router-link to="/feedback">Submit Feedback</router-link>
-                            </li>
+                            <!--<li>-->
+                                <!--<router-link to="/feedback">Submit Feedback</router-link>-->
+                            <!--</li>-->
 
                             <li>
                                 <router-link to="/help">Help</router-link>
