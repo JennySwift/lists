@@ -17026,6 +17026,15 @@ label.input-group-addon:not('first-child') {
   margin: 11px 0 0 14px;
 }
 
+#navbar .open > a,
+#navbar .open > a:hover,
+#navbar .open > a:focus,
+#guest-navbar .open > a,
+#guest-navbar .open > a:hover,
+#guest-navbar .open > a:focus {
+  background-color: #97D7D6;
+}
+
 #navbar .dropdown-menu li,
 #guest-navbar .dropdown-menu li {
   background: white;

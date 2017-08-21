@@ -13,6 +13,12 @@
 	#new-item-btn {
 		margin: 11px 0 0 14px;
 	}
+	//Override Bootstrap
+	.open {
+		> a, > a:hover, > a:focus {
+			background-color: $base2;
+		}
+	}
 	.dropdown-menu {
 		//background: white;
 		//right: 0;
