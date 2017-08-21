@@ -175,7 +175,7 @@
                     :key="item.id"
                     :show-children="showChildren"
                     :item="item"
-                    class="item-with-children item"
+                    class="item-with-children"
                 >
                 </item>
             </transition-group>

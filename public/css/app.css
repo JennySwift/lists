@@ -16597,7 +16597,8 @@ input[type="text"].line::placeholder {
 }
 
 #items-page .list-complete-item,
-#items-page .item {
+#items-page .item,
+#items-page .item-with-children {
   transition: all 1s, opacity .5s;
 }
 

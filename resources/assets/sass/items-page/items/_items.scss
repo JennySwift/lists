@@ -6,7 +6,7 @@
     ul#items {
         position: relative;
     }
-    .list-complete-item, .item {
+    .list-complete-item, .item, .item-with-children {
         transition: all 1s, opacity .5s;
     }
     .items-enter, .items-leave-to {

@@ -27,7 +27,7 @@
                     v-for="item in filteredItems"
                     :key="item.id"
                     :item="item"
-                    class="item-with-children item"
+                    class="item-with-children"
                     >
                     </item>
                 </transition-group>
