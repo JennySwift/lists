@@ -91,6 +91,7 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('recurringFrequency', $item);
         $this->assertArrayHasKey('deletedAt', $item);
         $this->assertArrayHasKey('deleting', $item);
+        $this->assertArrayHasKey('canBeRestored', $item);
     }
 
     /**

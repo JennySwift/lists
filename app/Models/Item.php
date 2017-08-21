@@ -223,6 +223,28 @@ class Item extends Model
     }
 
     /**
+     * Item cannot be restored from the trash if it has a deleted parent
+     * @return bool
+     */
+    public function canBeRestored()
+    {
+        if (!$this->deleted_at) {
+            return false;
+        }
+        //The item is deleted but it doesn't have a parent
+        if (!$this->parent_id) {
+            return true;
+        }
+        //The item is deleted and it has a deleted parent
+        if (Item::onlyTrashed()->find($this->parent_id)) {
+            return false;
+        }
+
+        //The item is deleted but it's parent is not deleted
+        return true;
+    }
+
+    /**
      *
      * @param $new_index
      */

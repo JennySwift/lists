@@ -202,6 +202,16 @@ class ItemsIndexTest extends TestCase
         $this->checkItemKeysExist($content[0]);
         $this->assertEquals(121, count($content));
 
+        //This item has no parent, so it can be restored
+        $this->assertNull($content[0]['parent_id']);
+        $this->assertTrue($content[0]['canBeRestored']);
+
+        //This item has a deleted parent, so it cannot be restored
+        $this->assertEquals(1, $content[1]['parent_id']);
+        $this->assertFalse($content[1]['canBeRestored']);
+
+        //Todo: test canBeRestored is true for an item that is deleted, but whose parent is not deleted
+
         foreach ($content as $item) {
             $this->assertArrayHasKey('deleted_at', $item);
         }

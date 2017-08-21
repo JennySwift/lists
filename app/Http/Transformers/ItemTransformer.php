@@ -16,6 +16,9 @@ class ItemTransformer extends TransformerAbstract
      */
     public function transform(Item $item)
     {
+
+
+
         $array = [
             'id' => $item->id,
             'parent_id' => $item->parent_id,
@@ -36,6 +39,7 @@ class ItemTransformer extends TransformerAbstract
             'recurringUnit' => $item->recurring_unit,
             'recurringFrequency' => $item->recurring_frequency,
             'deletedAt' => $item->deleted_at,
+            'canBeRestored' => $item->canBeRestored(),
             //For Vue
             'children' => false,
             //So I can display the item crossed out when it is being deleted, before it has been deleted
