@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbar-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <router-link to="/items">Lists</router-link>
+                        <router-link to="/items">Items</router-link>
                     </li>
 
                     <!--<li>-->
@@ -29,7 +29,7 @@
                     <!--</li>-->
 
                     <li>
-                        <a v-on:click="toggleFilter()">Filter</a>
+                        <a v-on:click="toggleFilter()">Filter/Search</a>
                     </li>
                 </ul>
 
