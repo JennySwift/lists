@@ -176,6 +176,7 @@ export default {
         this.state.zoomedItem = false;
         this.state.items = response;
         this.state.breadcrumb = [];
+        this.setNewItemParent();
     },
 
     /**
