@@ -1,0 +1,10 @@
+#toolbar {
+    position: relative;
+    top: $navHeight;
+    padding: 6px 0;
+    margin-bottom: 0;
+
+    @media (max-width: 767px) {
+        top: 50px;
+    }
+}

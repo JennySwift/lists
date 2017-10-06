@@ -76,11 +76,13 @@ class ItemsRepository {
      */
     public function itemAlreadyExists(Request $request)
     {
+        //Set the parent id to null if the value is 'none.'
+        $parentId = $request->get('parent_id') === 'none' ? null : $request->get('parent_id');
         $item = Item::forCurrentUser()
             ->where('title', $request->get('title'))
             ->where('body', $request->get('body'))
             ->where('category_id', $request->get('category_id'))
-            ->where('parent_id', $request->get('parent_id'))
+            ->where('parent_id', $parentId)
             ->first();
 
         return $item;
@@ -118,6 +120,7 @@ class ItemsRepository {
     {
         return Item::forCurrentUser()
             ->onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
             ->get();
     }
 
@@ -139,8 +142,9 @@ class ItemsRepository {
      */
     public function getFilteredItems(Request $request)
     {
+        $field = $request->get('field') ? $request->get('field') : 'title';
         return Item::forCurrentUser()
-            ->where('title', 'LIKE', '%' . $request->get('filter') . '%')
+            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
             ->get();
     }
 

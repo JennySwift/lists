@@ -1,60 +1,37 @@
-var Vue = require('vue');
-var VueRouter = require('vue-router');
-Vue.use(VueRouter);
-global.router = new VueRouter({hashbang: false});
+import ItemsPageComponent from './lists/src/components/ItemsPageComponent.vue'
+import CategoriesPageComponent from './lists/src/components/CategoriesComponent.vue'
+import HelpPageComponent from './lists/src/components/HelpPageComponent.vue'
+import TrashComponent from './lists/src/components/TrashComponent.vue'
+import WelcomePageComponent from './lists/src/components/WelcomePageComponent.vue'
 
-router.map({
-    // '/': {
-    //     component: require('./components/ItemsPageComponent.vue'),
-    //     subRoutes: {
-    //         //default for if no id is specified
-    //         '/': {
-    //             component: require('./components/ItemComponent.vue')
-    //         },
-    //         '/:id': {
-    //             component: require('./components/ItemComponent.vue')
-    //         }
-    //     }
-    // },
-    '/welcome': {
-        name: 'welcome',
-        component: require('./components/WelcomePageComponent.vue'),
+
+export default [
+    {
+        path: '/',
+        component: ItemsPageComponent
     },
-    '/items': {
-        component: require('./components/ItemsPageComponent.vue'),
-        subRoutes: {
-            //default for if no id is specified
-            '/': {
-                component: require('./components/ItemComponent.vue')
-            },
-            '/:id': {
-                component: require('./components/ItemComponent.vue')
-            }
-        }
+    {
+        path: '/items',
+        component: ItemsPageComponent
     },
-    '/categories': {
-        component: require('./components/CategoriesComponent.vue')
+    {
+        path: '/items/:id',
+        component: ItemsPageComponent
     },
-    '/trash': {
-        component: require('./components/TrashComponent.vue')
+    {
+        path: '/categories',
+        component: CategoriesPageComponent
     },
-    '/feedback': {
-        component: require('./components/FeedbackPageComponent.vue')
+    {
+        path: '/help',
+        component: HelpPageComponent
     },
-    '/help': {
-        component: require('./components/HelpPageComponent.vue')
+    {
+        path: '/welcome',
+        component: WelcomePageComponent
+    },
+    {
+        path: '/trash',
+        component: TrashComponent
     }
-});
-
-router.redirect({
-    '/': '/welcome'
-});
-
-// router.redirect({
-//     '/': '/timers'
-// });
-
-var App = Vue.component('app', require('./components/AppComponent'));
-
-router.start(App, 'body');
-
+]

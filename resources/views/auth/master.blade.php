@@ -11,12 +11,13 @@
 </head>
 
 <body>
-    <div class="main">
-        @section('content')
-        @show
+    <div id="app">
+        <div class="main">
+            @section('content')
+            @show
+        </div>
     </div>
 
     @include('templates.shared.footer')
-
 </body>
 

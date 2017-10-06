@@ -29,7 +29,8 @@ return [
     |
     */
 
-    'lifetime' => 2880,
+    //One week
+    'lifetime' => 10080,
 
     'expire_on_close' => false,
 
@@ -87,6 +88,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Session Cache Store
+    |--------------------------------------------------------------------------
+    |
+    | When using the "apc" or "memcached" session drivers, you may specify a
+    | cache store that should be used for these sessions. This value must
+    | correspond with one of the application's configured cache stores.
+    |
+    */
+
+    'store' => null,
+
+    /*
+    |--------------------------------------------------------------------------
     | Session Sweeping Lottery
     |--------------------------------------------------------------------------
     |
@@ -135,7 +149,7 @@ return [
     |
     */
 
-    'domain' => null,
+    'domain' => env('SESSION_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -148,6 +162,19 @@ return [
     |
     */
 
-    'secure' => false,
+    'secure' => env('SESSION_SECURE_COOKIE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | HTTP Access Only
+    |--------------------------------------------------------------------------
+    |
+    | Setting this value to true will prevent JavaScript from accessing the
+    | value of the cookie and the cookie will only be accessible through
+    | the HTTP protocol. You are free to modify this option if needed.
+    |
+    */
+
+    'http_only' => true,
 
 ];

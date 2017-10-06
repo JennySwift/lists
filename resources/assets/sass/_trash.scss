@@ -1,0 +1,8 @@
+#trash {
+    @include itemsFilterContainer;
+
+    .after-item {
+        justify-content: space-between;
+    }
+
+}

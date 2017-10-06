@@ -1,2 +1,32 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+@import "node_modules/sweetalert2/dist/sweetalert2.min";
+
+@import 'helpers/index';
+
+$btn-default-color: $base2;
+$btn-default-border: $base2;
+$btn-default-bg: white;
+
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "node_modules/animate.css/animate.min";
+
+@import "base/index";
+@import "overrides/index";
+@import "auth/login";
+@import "auth/register";
+
+@import 'items-page/filter';
+@import 'items-page/favourites';
+
+@import 'items-page/index';
+@import 'categories/index';
+@import 'modules/index';
+@import 'trash';
+
+@import "node_modules/spinkit/scss/spinners/7-three-bounce.scss";

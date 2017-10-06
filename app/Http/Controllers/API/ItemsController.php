@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\StoreItemRequest;
@@ -113,6 +114,7 @@ class ItemsController extends Controller
             }
 
             $parent = false;
+
             if ($request->get('parent_id')) {
                 $parent = Item::find($request->get('parent_id'));
                 $item->parent()->associate($parent);
@@ -215,7 +217,7 @@ class ItemsController extends Controller
             }
 
             //So the recurring frequency can be removed
-            if ($request->get('recurring_frequency') === '') {
+            if ($request->exists('recurring_frequency') && !$request->get('recurring_frequency')) {
                 $data['recurring_frequency'] = null;
             }
 
@@ -229,13 +231,8 @@ class ItemsController extends Controller
             }
 
             //So the body of an item can be removed
-            if ($request->get('body') === '') {
+            if ($request->exists('body') && !$request->get('body')) {
                 $data['body'] = '';
-            }
-
-            //So the item can be restored from the trash
-            if ($request->exists('deleted_at') && $request['deleted_at'] === null) {
-                $item->restore();
             }
 
             $item->update($data);
@@ -316,6 +313,27 @@ class ItemsController extends Controller
             ->onlyTrashed()
             ->orderBy('deleted_at', 'desc')
             ->first();
+
+        $item->restore();
+
+        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
+        return response($item, Response::HTTP_OK);
+    }
+
+    /**
+     *
+     * @param $id
+     * @return Response
+     */
+    public function restore($id)
+    {
+        $item = Item::onlyTrashed()->where('id', $id)->first();
+
+        //Todo: Perhaps the parent has been permanently deleted? Then what should happen?
+        //If the item has a parent that has been deleted, don't allow them to restore the item
+        if ($item->parent_id && Item::onlyTrashed()->find($item->parent_id)) {
+            throw new GeneralException('This item cannot be restored, because its parent has been deleted. Restore the parent first.');
+        }
 
         $item->restore();
 

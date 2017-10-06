@@ -1,5 +1,9 @@
 /*==============================global==============================*/
 
+* {
+	max-width: 100%;
+}
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -7,29 +11,27 @@ html, body {
 	height: 100%;
 }
 
-body {
-	padding-top: 55px;
-    color: #777;
-	@media (max-width: 600px) {
-		padding-top: 51px;
-	}
-}
-
 $footerHeight: 25px;
 
 body {
 	color: #777;
-	.main {
+	#app {
 		min-height: 100%;
-		padding: 0 20px 20px 20px;
-		//margin: 20px;
-		//margin-top: 0;
-		//padding-top: $navHeight + 3px;
+		.main {
+			min-height: 100%;
+			padding-top: $navHeight;
+			padding-bottom: $footerHeight;
+			@media all and (max-width: $breakpoint2) {
+				padding: 0 5px;
+				//To allow for the increased nav height on smaller screens
+				padding-top: 58px;
+			}
+		}
 	}
+
 	footer {
 		display: flex;
 		justify-content: space-around;
-		padding: 11px;
 		@include footer;
 		height: $footerHeight;
 		position: relative;
@@ -62,28 +64,28 @@ select {
     }
 }
 
-button {
-	background: #fff;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-	color: #555;
-	font-size: 14px;
-	padding: 6px 12px;
-	&:active {
-		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
-		border: 1px solid black;
-	}
-	&:focus {
-		outline: thin dotted;
-		outline-offset: -2px;
-	}
-	&:hover, &:focus, &:active {
-		background-color: #e6e6e6;
-		border-color: #adadad;
-		color: #333;
-	}
-}
+//button {
+//	background: #fff;
+//	border: 1px solid #ccc;
+//	border-radius: 4px;
+//	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+//	color: #555;
+//	font-size: 14px;
+//	padding: 6px 12px;
+//	&:active {
+//		box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+//		border: 1px solid black;
+//	}
+//	&:focus {
+//		outline: thin dotted;
+//		outline-offset: -2px;
+//	}
+//	&:hover, &:focus, &:active {
+//		background-color: #e6e6e6;
+//		border-color: #adadad;
+//		color: #333;
+//	}
+//}
 
 input {
   // display: block;
@@ -148,5 +150,35 @@ h1 {
 
 h1, h2 button {
 	@include characterFont;
+}
+
+textarea {
+	border: 1px solid #ccc;
+	width: 100%;
+}
+
+input[type="text"].line {
+	border: 0;
+	box-shadow: none;
+	outline: none;
+	border-bottom: 1px solid #efefef;
+	border-radius: 0;
+	margin-bottom: 10px;
+	width: 100%;
+	text-align: center;
+	background: transparent;
+
+	@include inputPlaceholder;
+
+	//&::-webkit-input-placeholder {
+	//	font-style: italic;
+	//}
+	//&::-moz-placeholder {
+	//	font-style: italic;
+	//}
+
+	//&:-moz-placeholder {
+	//	font-style: italic;
+	//}
 }
 

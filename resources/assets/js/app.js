@@ -1,48 +1,39 @@
-// require('./bootstrap');
+// require('./config');
 
-var Vue = require('vue');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter);
+
 global.$ = require('jquery');
 global.jQuery = require('jquery');
+
+// import jQuery from 'jquery'
 global._ = require('underscore');
-global.store = require('./repositories/Store');
-var VueResource = require('vue-resource');
-Vue.use(VueResource);
-require('./config.js');
-global.helpers = require('./repositories/Helpers');
-global.filters = require('./repositories/Filters');
-// Date.setLocale('en-AU');
+import store from './lists/src/repositories/Store'
 
-//Shared components
-Vue.component('navbar', require('./components/shared/NavbarComponent.vue'));
-Vue.component('feedback', require('@jennyswift/feedback'));
-Vue.component('loading', require('./components/shared/LoadingComponent.vue'));
-Vue.component('popup', require('./components/shared/PopupComponent.vue'));
-Vue.component('autocomplete', require('@jennyswift/vue-autocomplete'));
+window.Event = new Vue();
 
-// Vue.component('date-navigation', require('./components/shared/DateNavigationComponent.vue'));
-Vue.component('buttons', require('./components/shared/ButtonsComponent.vue'));
-Vue.component('input-group', require('./components/shared/InputGroupComponent.vue'));
-Vue.component('date-picker', require('./components/shared/DatepickerComponent.vue'));
-// Vue.component('checkbox-group', require('./components/shared/CheckboxGroupComponent.vue'));
+require('./components.js');
 
-//Components
-Vue.component('item-popup', require('./components/ItemPopupComponent.vue'));
-Vue.component('breadcrumb', require('./components/BreadcrumbComponent.vue'));
-Vue.component('category-popup', require('./components/CategoryPopupComponent.vue'));
-Vue.component('alarms', require('./components/AlarmsComponent.vue'));
-Vue.component('urgent-items', require('./components/UrgentItemsComponent.vue'));
-Vue.component('favourite-items', require('./components/FavouriteItemsComponent.vue'));
-Vue.component('filter', require('./components/FilterComponent.vue'));
-Vue.component('new-item', require('./components/NewItemComponent.vue'));
-Vue.component('new-category', require('./components/NewCategoryComponent.vue'));
-Vue.component('item', require('./components/ItemComponent.vue'));
-Vue.component('category', require('./components/CategoryComponent.vue'));
-Vue.component('item-fields', require('./components/ItemFieldsComponent.vue'));
+store.getCategories();
+store.getFavouriteItems();
+setTimeout(function () {
+    store.getItems('zoom');
+}, 500);
 
-//Filters
 
-//Transitions
-// Vue.transition('fade', require('./transitions/FadeTransition'));
+import routes from './routes'
 
-require('./routes');
+const router = new VueRouter({
+    routes // short for `routes: routes`
+})
+
+const bus = new Vue()
+Vue.prototype.$bus = bus
+
+const app = new Vue({
+    router
+}).$mount('#app')
+
+
 

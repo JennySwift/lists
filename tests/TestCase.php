@@ -1,30 +1,37 @@
 <?php
 
+namespace Tests;
+
 use App\Models\Item;
 use App\User;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Http\Response;
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
     /**
      * The base URL to use while testing the application.
      *
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+    protected $user;
 
     /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
      */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
-    }
+//    public function createApplication()
+//    {
+//        $app = require __DIR__.'/../bootstrap/app.php';
+//
+//        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+//
+//        return $app;
+//    }
 
     /**
      * Make an API call
@@ -83,6 +90,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->assertArrayHasKey('recurringUnit', $item);
         $this->assertArrayHasKey('recurringFrequency', $item);
         $this->assertArrayHasKey('deletedAt', $item);
+        $this->assertArrayHasKey('deleting', $item);
+        $this->assertArrayHasKey('canBeRestored', $item);
     }
 
     /**
@@ -167,4 +176,56 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         }
 
     }
+
+    /**
+     *
+     * @param $item
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function deleteItem($item)
+    {
+        $response = $this->call('DELETE', '/api/items/' . $item->id);
+
+        return $response;
+    }
+
+    /**
+     *
+     * @param $id
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function deleteItemById($id)
+    {
+        $response = $this->call('DELETE', '/api/items/' . $id);
+
+        return $response;
+    }
+
+    protected function assertResponseOk($response)
+    {
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $response
+     * @return mixed
+     */
+    protected function getContent($response)
+    {
+        return json_decode($response->getContent(), true);
+    }
+
+    /**
+     *
+     * @param $item
+     * @return \Illuminate\Foundation\Testing\TestResponse
+     */
+    protected function createItem($item)
+    {
+        return $this->call('POST', '/api/items', $item);
+    }
 }
+
+
+

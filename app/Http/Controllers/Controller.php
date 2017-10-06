@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+use Illuminate\Database\Eloquent\Model;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
 use League\Fractal\TransformerAbstract;
 
-abstract class Controller extends BaseController
+class Controller extends BaseController
 {
-    use DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
      * For Fractal transformer

@@ -1,0 +1,139 @@
+.item {
+    display: flex;
+    font-size: 16px;
+    padding: 5px 0;
+    &.deleted {
+        .title {
+            text-decoration: line-through;
+        }
+    }
+    .not-before, .recurring {
+        font-weight: bold;
+        font-size: 12px;
+    }
+    .recurring {
+        display: flex;
+        align-items: center;
+        .fa-refresh {
+            margin-right: 5px;
+        }
+    }
+    .note, .pinned, .alarm {
+        //Increasing font size too much wrecks up the vertical alignment of the text
+        font-size: 20px;
+        display: inline;
+        color: $warning;
+    }
+    &:hover {
+        background: lighten($info, 30%);
+    }
+    .fa-search-plus {
+        visibility: hidden;
+    }
+    &:hover {
+        .fa-search-plus {
+            visibility: visible;
+        }
+    }
+    .before-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .priority {
+            background: $base2;
+        }
+        .urgency-one {
+            background: $danger;
+        }
+        i {
+            cursor: pointer;
+        }
+        .my-hidden {
+            visibility: hidden;
+        }
+        .fa-search-plus, .fa-plus {
+            font-size: 19px;
+        }
+        > * {
+            margin: 0 5px;
+        }
+    }
+    .item-content {
+        margin-left: 5px;
+        cursor: pointer;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        width: 70%;
+        max-width: 650px;
+        &.top-guide {
+            border-top: 1px solid #777;
+        }
+        &.bottom-guide {
+            border-bottom: 1px solid #777;
+        }
+        .title {
+            text-align: left;
+            display: inline;
+        }
+    }
+    .after-item {
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+        align-items: center;
+        > * {
+            margin: 0 5px;
+        }
+        .category {
+            background: $base2;
+        }
+        .deleted-at {
+            font-size: 12px;
+        }
+    }
+    &:hover {
+        .delete-item {
+            visibility: visible;
+        }
+    }
+    .delete-item {
+        visibility: hidden;
+    }
+    .highlight {
+        background: lightblue;
+    }
+    .small-screen {
+        display: none;
+    }
+}
+
+@media (max-width: $breakpoint2) {
+    .item-with-children {
+        border-bottom: 1px solid;
+    }
+    .item {
+        font-size: 12px;
+        width: auto;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .small-screen {
+            display: block;
+        }
+        .big-screen {
+            display: none;
+        }
+        .before-item {
+            flex-wrap: wrap;
+            > * {
+                margin: 0 2px;
+            }
+            .fa-plus, .fa-minus {
+                margin-top: 2px;
+            }
+        }
+        .item-content {
+            font-size: 14px;
+        }
+    }
+
+}

@@ -35,7 +35,7 @@ class ItemSeeder extends Seeder
 
             $this->createItems();
 
-            $this->deleteSomeItems();
+//            $this->deleteSomeItems();
 //        $this->pinSomeItems();
             $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
@@ -171,6 +171,7 @@ class ItemSeeder extends Seeder
     }
 
     /**
+     * Todo: delete some items that don't have children
      * Delete some items
      * This broke my tests, because I then had children existing
      * whose parents were deleted, so when I tried to update the child,
@@ -250,7 +251,7 @@ class ItemSeeder extends Seeder
      */
     public function createItem($parent = NULL)
     {
-        $categoryIds = Category::where('user_id', $this->user->id)->lists('id')->all();
+        $categoryIds = Category::where('user_id', $this->user->id)->pluck('id')->all();
 
         $item = new Item([
             'title' => $this->faker->sentence,
