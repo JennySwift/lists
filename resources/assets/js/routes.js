@@ -6,10 +6,10 @@ import WelcomePageComponent from './lists/src/components/WelcomePageComponent.vu
 
 
 export default [
-    {
-        path: '/',
-        component: ItemsPageComponent
-    },
+    // {
+    //     path: '/',
+    //     component: ItemsPageComponent
+    // },
     {
         path: '/items',
         component: ItemsPageComponent
@@ -33,5 +33,7 @@ export default [
     {
         path: '/trash',
         component: TrashComponent
-    }
+    },
+
+    { path: '/', redirect: '/welcome' }
 ]
