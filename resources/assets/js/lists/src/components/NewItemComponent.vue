@@ -92,16 +92,21 @@
                 var data = ItemsRepository.setData(this.shared.newItem, this.shared.zoomedItem);
 
                 var array = 'items';
+                var message;
                 //Only add item to the array with JS if the new item is added to the current location
                 if (!this.insertItemAtCurrentLocation(data)) {
                     array = null;
+                    message = 'Item created in another location';
+                }
+                else {
+                    message = 'Item created in current location';
                 }
 
                 helpers.post({
                     url: '/api/items',
                     data: data,
                     array: array,
-                    message: 'Item created',
+                    message: message,
                     clearFields: this.clearFields,
                     redirectTo: this.redirectTo,
                     callback: function (response) {

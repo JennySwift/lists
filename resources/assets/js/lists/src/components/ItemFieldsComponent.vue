@@ -106,8 +106,6 @@
                 >
                 </input-group>
 
-                <pre>Parent id is: {{item.parent_id}}</pre>
-
                 <input-group
                     v-if="action === 'insert'"
                     label="Parent Id:"
