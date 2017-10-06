@@ -29,7 +29,7 @@
                     <!--</li>-->
 
                     <li>
-                        <a v-on:click="toggleFilter()">Filter</a>
+                        <a v-on:click="toggleFilter()">Filter/Search</a>
                     </li>
                 </ul>
 
