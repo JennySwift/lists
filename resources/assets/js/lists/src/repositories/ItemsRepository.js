@@ -210,7 +210,6 @@ export default {
             }
         });
 
-        // console.log(that.parent);
         return that.parent;
     },
 
@@ -246,7 +245,6 @@ export default {
             return this.getAncestorIds(parent, ancestorIds);
         }
 
-        console.log('ancestor ids: ' + ancestorIds);
         return ancestorIds.reverse();
     },
 
@@ -269,7 +267,6 @@ export default {
 
         var path = ItemsRepository.getPath(null, ancestorIds, [], 0);
 
-        console.log('path: ' + path);
         return ItemsRepository.createPathAsString(path);
     },
 
@@ -296,7 +293,6 @@ export default {
             return this.getPath(item, ancestorIds, path, indexInPath);
         }
 
-        console.log('path: ' + path);
         return path;
     },
 
