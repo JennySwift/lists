@@ -196,13 +196,13 @@
              *
              */
             nextMonth: function () {
-                if (this.monthNumber === 12) {
+                if (parseInt(this.monthNumber) === 12) {
                     this.monthNumber = 1;
                 }
                 else {
                     this.monthNumber++;
                 }
-                if (this.monthNumber === 1) {
+                if (parseInt(this.monthNumber) === 1) {
                     this.year++;
                 }
             },
@@ -211,13 +211,13 @@
              *
              */
             previousMonth: function () {
-                if (this.monthNumber === 1) {
+                if (parseInt(this.monthNumber) === 1) {
                     this.monthNumber = 12;
                 }
                 else {
                     this.monthNumber--;
                 }
-                if (this.monthNumber === 12) {
+                if (parseInt(this.monthNumber) === 12) {
                     this.year--;
                 }
             },
