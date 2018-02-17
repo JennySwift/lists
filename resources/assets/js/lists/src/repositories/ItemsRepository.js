@@ -299,16 +299,14 @@ export default {
     /**
      *
      */
-    getUrl: function (item) {
+    getUrl: function (pageNumber) {
         var url;
+        var id = helpers.getIdFromUrl();
+        url = id ? '/api/items/' + id : '/api/items';
 
-        // if (item) {
-        //     url = '/api/items/' + item.id;
-        // }
-        // else {
-            var id = helpers.getIdFromUrl();
-            url = id ? '/api/items/' + id : '/api/items';
-        // }
+        if (pageNumber) {
+            url += '?page=' + pageNumber
+        }
 
         return url;
     }

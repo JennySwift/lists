@@ -97,9 +97,9 @@
 
             <div>
                 Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
+                <div @click="prevPage()">Prev</div>
+                <div @click="nextPage()">Next</div>
             </div>
-
-
 
 
 
@@ -227,6 +227,14 @@
             }
         },
         methods: {
+
+            prevPage: function () {
+                store.goToPreviousPage();
+            },
+
+            nextPage: function () {
+                store.goToNextPage();
+            },
 
             //For when item is chosen from title search autocomplete
 //            zoomChosenItem () {

@@ -126,9 +126,9 @@ export default {
         });
     },
 
-    getItems: function () {
+    getItems: function (pageNumber) {
         helpers.get({
-            url: ItemsRepository.getUrl(),
+            url: ItemsRepository.getUrl(pageNumber),
             storeProperty: 'items',
             loadedProperty: 'itemsLoaded',
             callback: function (response) {
@@ -136,6 +136,14 @@ export default {
                 this.set(response.pagination, 'pagination');
             }.bind(this)
         });
+    },
+
+    goToPreviousPage: function () {
+        this.getItems(this.state.pagination.current_page - 1);
+    },
+
+    goToNextPage: function () {
+        this.getItems(this.state.pagination.current_page + 1);
     },
 
     getItemWithChildren: function (item) {

@@ -100,6 +100,31 @@ class ItemsIndexTest extends TestCase
 
     }
 
+    /**
+     * @test
+     */
+    public function it_can_go_to_page_two()
+    {
+        $this->logInUser();
+
+        $response = $this->call('GET', '/api/items?page=2');
+        $content = $this->getContent($response);
+//      dd($content);
+
+        $this->checkItemKeysExist($content['data'][0]);
+
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        $this->assertCount(5, $content['data']);
+
+        $this->assertEquals(2, $content['pagination']['current_page']);
+        $this->assertEquals('http://localhost/api/items?page=3', $content['pagination']['next_page_url']);
+        $this->assertEquals(6, $content['pagination']['from']);
+        $this->assertEquals(10, $content['pagination']['to']);
+
+        $this->assertResponseOk($response);
+    }
+
 
     /**
      * @test
