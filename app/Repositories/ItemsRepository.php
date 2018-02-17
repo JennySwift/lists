@@ -4,6 +4,7 @@ use App\Models\Item;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class ItemsRepository
@@ -95,11 +96,12 @@ class ItemsRepository {
      */
     public function getHomeItems(Request $request)
     {
+        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
         return Item::forCurrentUser()
             ->whereNull('parent_id')
             ->order('priority')
             ->withTrashed()
-            ->paginate($request->get('max'));
+            ->paginate($max);
     }
 
     /**
