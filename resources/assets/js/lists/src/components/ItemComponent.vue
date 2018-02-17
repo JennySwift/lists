@@ -169,8 +169,8 @@
                     class="item-with-children"
                 >
                 </item>
-                <li key="prev" @click="prevPage()">Prev</li>
-                <li key="next" @click="nextPage()">Next</li>
+                <li key="prev" v-if="item.children.pagination.prev_page_url" @click="prevPage()">Prev</li>
+                <li key="next" v-if="item.children.pagination.next_page_url" @click="nextPage()">Next</li>
             </transition-group>
 
         </ul>
