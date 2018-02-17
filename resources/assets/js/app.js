@@ -18,7 +18,7 @@ require('./components.js');
 store.getCategories();
 store.getFavouriteItems();
 setTimeout(function () {
-    store.getItems('zoom');
+    store.getItems();
 }, 500);
 
 

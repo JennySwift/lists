@@ -84,7 +84,7 @@
             'path': function (val, oldVal) {
                 //So this doesn't run on page load before the companies are loaded
                 if (oldVal) {
-                    store.getItems('zoom');
+                    store.getItems();
                 }
             }
         },

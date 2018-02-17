@@ -24,13 +24,15 @@ class ItemsShowTest extends TestCase
 
         $response = $this->call('GET', '/api/items/' . $item->id);
         $content = $this->getContent($response);
+        $data = $content['data'];
 //        dd($content);
 
-        $this->checkItemKeysExist($content);
-        $this->checkItemKeysExist($content['children'][0]);
-        $this->checkItemKeysExist($content['breadcrumb'][0]);
+        $this->checkItemKeysExist($data);
+        $this->checkItemKeysExist($data['children'][0]);
+        $this->checkItemKeysExist($data['breadcrumb'][0]);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->checkPaginationKeysExist($content['pagination']);
     }
 
     /**

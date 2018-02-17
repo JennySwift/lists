@@ -15,6 +15,7 @@ use Auth;
 use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use JavaScript;
 use Pusher;
 
@@ -169,15 +170,17 @@ class ItemsController extends Controller
      * @param Item $item
      * @return Response
      */
-    public function show(Item $item)
+    public function show(Item $item, Request $request)
     {
+        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
         $breadcrumb = $item->breadcrumb();
         $array = [];
         foreach (collect($breadcrumb) as $item) {
             $array[] = $item;
         }
 
-        $children = $item->children()->order('priority')->get();
+        $children = $item->children()->order('priority')->paginate($max);
+        $pagination = $this->itemsRepository->getPaginationProperties($children);
         $children = $this->transform($this->createCollection($children, new ItemTransformer))['data'];
         $array = $this->transform($this->createCollection($array, new ItemTransformer))['data'];
 
@@ -185,7 +188,14 @@ class ItemsController extends Controller
         $item['children'] = $children;
         $item['breadcrumb'] = $array;
 
-        return response($item, Response::HTTP_OK);
+
+        return response(
+            [
+                'data' => $item,
+                'pagination' => $pagination
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
