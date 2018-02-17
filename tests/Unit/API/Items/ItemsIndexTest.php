@@ -46,6 +46,39 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
+    public function it_does_not_get_more_items_than_it_should()
+    {
+        $this->logInUser();
+
+        //Delete some items to check they are still retrieved
+        $this->deleteItem(Item::find(607));
+        $this->deleteItem(Item::find(244));
+
+        $response = $this->call('GET', '/api/items?max=4');
+        $content = $this->getContent($response);
+//      dd($content);
+
+        $this->checkItemKeysExist($content[0]);
+
+        //Check the items include the deleted items
+        $count = 0;
+        foreach ($content as $item) {
+            if ($item['deletedAt']) {
+                $count++;
+            }
+        }
+        $this->assertEquals(2, $count);
+
+        $this->assertCount(4, $content);
+
+        $this->assertResponseOk($response);
+    }
+
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_throws_an_exception_for_index_method_if_user_is_not_logged_in()
     {
         $response = $this->call('GET', '/api/items');

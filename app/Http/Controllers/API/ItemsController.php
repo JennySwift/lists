@@ -67,8 +67,9 @@ class ItemsController extends Controller
         }
 
         else {
-            $items = $this->itemsRepository->getHomeItems();
+            $items = $this->itemsRepository->getHomeItems($request);
         }
+        dd($items);
 
         $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
         return response($items, Response::HTTP_OK);

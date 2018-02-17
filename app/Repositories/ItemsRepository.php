@@ -90,15 +90,16 @@ class ItemsRepository {
 
     /**
      *
+     * @param Request $request
      * @return mixed
      */
-    public function getHomeItems()
+    public function getHomeItems(Request $request)
     {
         return Item::forCurrentUser()
             ->whereNull('parent_id')
             ->order('priority')
             ->withTrashed()
-            ->get();
+            ->paginate($request->get('max'));
     }
 
     /**
