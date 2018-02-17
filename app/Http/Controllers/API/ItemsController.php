@@ -181,6 +181,7 @@ class ItemsController extends Controller
         }
 
         $children = $item->children()->order('priority')->paginate($max);
+//        dd($request->all());
         $pagination = $this->itemsRepository->getPaginationProperties($children);
         $children = [
             'data' => $this->transform($this->createCollection($children, new ItemTransformer))['data'],

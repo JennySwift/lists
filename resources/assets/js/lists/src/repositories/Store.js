@@ -149,7 +149,7 @@ export default {
     getItemWithChildren: function (item, pageNumber) {
         var url = '/api/items/' + item.id;
         if (pageNumber) {
-            url +='&page=' + pageNumber;
+            url +='?page=' + pageNumber;
         }
         helpers.get({
             url: url,
