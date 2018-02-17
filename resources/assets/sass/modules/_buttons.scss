@@ -1,3 +1,16 @@
+.child-pagination-btns {
+    display: flex;
+    justify-content: center;
+    margin: 0 5px;
+    button {
+        margin: 0 3px;
+    }
+}
+
+#parent-pagination-btns {
+
+}
+
 .btn-success{
     background: $base4;
     border-color: $base1;

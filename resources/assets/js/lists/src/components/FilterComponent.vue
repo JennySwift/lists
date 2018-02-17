@@ -97,9 +97,9 @@
 
             <div>
                 Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
-                <div>
-                    <button @click="prevPage()" class="btn btn-xs btn-warning">Prev</button>
-                    <button @click="nextPage()" class="btn btn-xs btn-warning">Next</button>
+                <div id="parent-pagination-btns">
+                    <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</button>
+                    <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</button>
                 </div>
             </div>
 
