@@ -97,8 +97,10 @@
 
             <div>
                 Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
-                <div @click="prevPage()">Prev</div>
-                <div @click="nextPage()">Next</div>
+                <div>
+                    <button @click="prevPage()" class="btn btn-xs btn-warning">Prev</button>
+                    <button @click="nextPage()" class="btn btn-xs btn-warning">Next</button>
+                </div>
             </div>
 
 
