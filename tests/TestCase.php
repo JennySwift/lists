@@ -94,6 +94,18 @@ abstract class TestCase extends BaseTestCase
         $this->assertArrayHasKey('canBeRestored', $item);
     }
 
+    public function checkPaginationKeysExist($items)
+    {
+        $this->assertArrayHasKey('total', $items);
+        $this->assertArrayHasKey('per_page', $items);
+        $this->assertArrayHasKey('current_page', $items);
+        $this->assertArrayHasKey('last_page', $items);
+        $this->assertArrayHasKey('next_page_url', $items);
+        $this->assertArrayHasKey('prev_page_url', $items);
+        $this->assertArrayHasKey('from', $items);
+        $this->assertArrayHasKey('to', $items);
+    }
+
     /**
      *
      * @param $category

@@ -88,11 +88,16 @@ class ItemsIndexTest extends TestCase
         $content = $this->getContent($response);
 //      dd($content);
 
-        $this->checkItemKeysExist($content[0]);
+        $this->checkItemKeysExist($content['data'][0]);
 
-        $this->assertCount(5, $content);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        $this->assertCount(5, $content['data']);
 
         $this->assertResponseOk($response);
+
+
+
     }
 
 
