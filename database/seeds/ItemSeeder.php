@@ -98,6 +98,41 @@ class ItemSeeder extends Seeder
             'category_id' => 1,
             'priority' => 1
         ],
+        [
+            'title' => 'Go for a walk',
+            'category_id' => 4,
+            'priority' => 2
+        ],
+        [
+            'title' => 'Do some pushups',
+            'category_id' => 4,
+            'priority' => 1
+        ],
+        [
+            'title' => 'Do some pullups',
+            'category_id' => 4,
+            'priority' => 1
+        ],
+        [
+            'title' => 'Throw stuff out',
+            'category_id' => 5,
+            'priority' => 2
+        ],
+        [
+            'title' => 'Add new feature',
+            'category_id' => 1,
+            'priority' => 2
+        ],
+        [
+            'title' => 'Throw more stuff out',
+            'category_id' => 5,
+            'priority' => 2
+        ],
+        [
+            'title' => 'Fix bug',
+            'category_id' => 1,
+            'priority' => 2
+        ],
     ];
 
     /**
