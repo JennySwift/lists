@@ -57,7 +57,7 @@ class ItemsController extends Controller
         }
 
         elseif ($request->has('trashed')) {
-            $items = $this->itemsRepository->getTrashed();
+            $items = $this->itemsRepository->getTrashed($request);
         }
 
         elseif ($request->has('urgent')) {

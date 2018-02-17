@@ -250,7 +250,7 @@ class ItemsDestroyTest extends TestCase
 
         $this->assertResponseOk($response);
 
-        return $content;
+        return $content['data'];
     }
 
     /**

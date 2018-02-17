@@ -106,6 +106,35 @@ class ItemsRepository {
 
     /**
      *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getFilteredItems(Request $request)
+    {
+        $field = $request->get('field') ? $request->get('field') : 'title';
+        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
+        return Item::forCurrentUser()
+            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
+            ->paginate($max);
+    }
+
+    /**
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function getTrashed(Request $request)
+    {
+        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
+
+        return Item::forCurrentUser()
+            ->onlyTrashed()
+            ->orderBy('deleted_at', 'desc')
+            ->paginate($max);
+    }
+
+    /**
+     *
      * @return mixed
      */
     public function getFavourites()
@@ -138,35 +167,10 @@ class ItemsRepository {
      *
      * @return mixed
      */
-    public function getTrashed()
-    {
-        return Item::forCurrentUser()
-            ->onlyTrashed()
-            ->orderBy('deleted_at', 'desc')
-            ->get();
-    }
-
-    /**
-     *
-     * @return mixed
-     */
     public function getUrgentItems()
     {
         return Item::forCurrentUser()
             ->where('urgency', 1)
-            ->get();
-    }
-
-    /**
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function getFilteredItems(Request $request)
-    {
-        $field = $request->get('field') ? $request->get('field') : 'title';
-        return Item::forCurrentUser()
-            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
             ->get();
     }
 
