@@ -26,7 +26,9 @@ export default {
                     store.update(response.data, options.storeProperty);
                 }
                 else {
-                    store.set(response.data, options.storeProperty);
+                    //Allow for pagination
+                    var data = response.data.data ? response.data.data : response.data;
+                    store.set(data, options.storeProperty);
                 }
             }
 

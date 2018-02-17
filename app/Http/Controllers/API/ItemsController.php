@@ -52,6 +52,8 @@ class ItemsController extends Controller
 
         elseif ($request->has('favourites')) {
             $items = $this->itemsRepository->getFavourites();
+            $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
+            return response($items, Response::HTTP_OK);
         }
 
         elseif ($request->has('trashed')) {
@@ -73,24 +75,10 @@ class ItemsController extends Controller
         return response(
             [
                 'data' => $this->transform($this->createCollection($items, new ItemTransformer))['data'],
-                'pagination' => $this->getPaginationProperties($items)
+                'pagination' => $this->itemsRepository->getPaginationProperties($items)
             ],
             Response::HTTP_OK
         );
-    }
-
-    private function getPaginationProperties($array)
-    {
-        return [
-            'total' => $array->total(),
-            'per_page' => $array->perPage(),
-            'current_page' => $array->currentPage(),
-            'last_page' => $array->lastPage(),
-            'next_page_url' => $array->nextPageUrl(),
-            'prev_page_url' => $array->previousPageUrl(),
-            'from' => $array->firstItem(),
-            'to' => $array->lastItem(),
-        ];
     }
 
     /**

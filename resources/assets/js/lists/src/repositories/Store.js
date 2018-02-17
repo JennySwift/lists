@@ -14,6 +14,7 @@ export default {
         categories: [],
         categoriesLoaded: false,
         items: [],
+        pagination: {},
         itemsLoaded: false,
         itemsWithAlarm: [],
         itemsWithAlarmLoaded: false,
@@ -131,7 +132,8 @@ export default {
             storeProperty: 'items',
             loadedProperty: 'itemsLoaded',
             callback: function (response) {
-                this.zoom(response);
+                this.zoom(response.data);
+                this.set(response.pagination, 'pagination');
             }.bind(this)
         });
     },

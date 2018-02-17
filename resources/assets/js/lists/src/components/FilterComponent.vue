@@ -95,6 +95,10 @@
                 >
             </div>
 
+            <div>
+                Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
+            </div>
+
 
 
 
