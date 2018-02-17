@@ -181,7 +181,10 @@ class ItemsController extends Controller
 
         $children = $item->children()->order('priority')->paginate($max);
         $pagination = $this->itemsRepository->getPaginationProperties($children);
-        $children = $this->transform($this->createCollection($children, new ItemTransformer))['data'];
+        $children = [
+            'data' => $this->transform($this->createCollection($children, new ItemTransformer))['data'],
+            'pagination' => $pagination
+        ];
         $array = $this->transform($this->createCollection($array, new ItemTransformer))['data'];
 
         $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
@@ -192,7 +195,7 @@ class ItemsController extends Controller
         return response(
             [
                 'data' => $item,
-                'pagination' => $pagination
+//                'pagination' => $pagination
             ],
             Response::HTTP_OK
         );

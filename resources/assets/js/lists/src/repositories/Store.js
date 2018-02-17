@@ -152,7 +152,7 @@ export default {
             callback: function (response) {
                 // var parent = ItemsRepository.findParent(this.state.items, item);
                 // console.log(parent);
-                item.children = response.children;
+                item.children = response.data.children;
             }.bind(this)
         });
     },

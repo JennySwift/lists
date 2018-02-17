@@ -41,7 +41,10 @@ class ItemTransformer extends TransformerAbstract
             'deletedAt' => $item->deleted_at,
             'canBeRestored' => $item->canBeRestored(),
             //For Vue
-            'children' => false,
+            'children' => [
+                'data' => [],
+                'pagination' => []
+            ],
             //So I can display the item crossed out when it is being deleted, before it has been deleted
             'deleting' => false
         ];

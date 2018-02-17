@@ -33,14 +33,14 @@
                 <router-link v-if="!isTrashPage" v-bind:to="'/items/:' + item.id" tag="i" class="fa fa-search-plus big-screen"></router-link>
 
                 <i
-                    v-if="!isTrashPage && item.has_children && (!item.children || item.children.length === 0)"
+                    v-if="!isTrashPage && item.has_children && (!item.children.data || item.children.data.length === 0)"
                     v-on:click="expand(item)"
                     class="fa fa-plus big-screen"
                 >
                 </i>
 
                 <i
-                    v-if="!isTrashPage && item.has_children && item.children && item.children.length > 0"
+                    v-if="!isTrashPage && item.has_children && item.children.data && item.children.data.length > 0"
                     v-on:click="collapseItem(item)"
                     class="fa fa-minus big-screen"
                 >
@@ -85,14 +85,14 @@
                 </div>
 
                 <i
-                    v-if="!isTrashPage && item.has_children && (!item.children || item.children.length === 0)"
+                    v-if="!isTrashPage && item.has_children && (!item.children.data || item.children.data.length === 0)"
                     v-on:click="expand(item)"
                     class="fa fa-plus small-screen"
                 >
                 </i>
 
                 <i
-                    v-if="!isTrashPage && item.has_children && item.children && item.children.length > 0"
+                    v-if="!isTrashPage && item.has_children && item.children.data && item.children.data.length > 0"
                     v-on:click="collapseItem(item)"
                     class="fa fa-minus small-screen"
                 >
@@ -157,7 +157,7 @@
         </div>
 
         <!--Children-->
-        <ul v-if="item.children.length > 0">
+        <ul v-if="item.children.data.length > 0">
 
             <!--<item-->
                 <!--v-for="item in filteredChildren"-->
@@ -170,7 +170,7 @@
             <!--</item>-->
 
 
-            <transition-group name="items" tag="ul" v-if="item.children.length > 0">
+            <transition-group name="items" tag="ul" v-if="item.children.data.length > 0">
                 <item
                     v-for="item in filteredChildren"
                     :key="item.id"
@@ -206,7 +206,7 @@
                 return helpers.getCurrentPath() === '/trash';
             },
             filteredChildren: function () {
-                return filters.filter(this.item.children, this);
+                return filters.filter(this.item.children.data, this);
             }
         },
         filters: {
@@ -219,7 +219,7 @@
         },
         methods: {
             collapseItem: function ($item) {
-                $item.children = [];
+                $item.children.data = [];
             },
 
             expand: function () {
