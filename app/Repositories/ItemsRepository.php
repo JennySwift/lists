@@ -97,6 +97,8 @@ class ItemsRepository {
     public function getHomeItems(Request $request)
     {
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
+
+        //Sort first by priority, then by notBefore, then by category name, then by id
         return Item::forCurrentUser()
             ->whereNull('parent_id')
             ->order('priority')

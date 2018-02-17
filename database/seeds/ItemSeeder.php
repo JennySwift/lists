@@ -11,6 +11,95 @@ class ItemSeeder extends Seeder
 {
     protected $user;
 
+    private $items = [
+        [
+            'title' => '1',
+            'category_id' => 1,
+            'priority' => 1,
+            'children' => [
+                [
+                    'title' => '1.1',
+                    'category_id' => 1,
+                    'priority' => 1,
+                    'children' => [
+                        [
+                            'title' => '1.1.1',
+                            'category_id' => 1,
+                            'priority' => 1,
+                        ],
+                        [
+                            'title' => '1.1.2',
+                            'category_id' => 1,
+                            'priority' => 1,
+                        ],
+                        [
+                            'title' => '1.1.3',
+                            'category_id' => 1,
+                            'priority' => 1,
+                        ]
+                    ]
+                ],
+                [
+                    'title' => '1.2',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.3',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.4',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.5',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.6',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.7',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.8',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+                [
+                    'title' => '1.9',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+            ]
+        ],
+        [
+            'title' => '2',
+            'category_id' => 1,
+            'priority' => 1,
+            'children' => [
+                [
+                    'title' => '2.1',
+                    'category_id' => 1,
+                    'priority' => 1,
+                ],
+            ]
+        ],
+        [
+            'title' => '3',
+            'category_id' => 1,
+            'priority' => 1
+        ],
+    ];
+
     /**
      *
      */
@@ -33,7 +122,7 @@ class ItemSeeder extends Seeder
         foreach ($users as $user) {
             $this->user = $user;
 
-            $this->createItems();
+            $this->createRandomItems();
 
 //            $this->deleteSomeItems();
 //        $this->pinSomeItems();
@@ -49,11 +138,11 @@ class ItemSeeder extends Seeder
     /**
      *
      */
-    private function createItems()
+    private function createRandomItems()
     {
         foreach(range(1, 8) as $index)
         {
-            $parent = $this->createItem();
+            $parent = $this->createRandomItem();
 
             if ($index !== 3) {
                 $this->createDescendants($parent);
@@ -66,55 +155,47 @@ class ItemSeeder extends Seeder
      */
     public function createControlledItems()
     {
-        //Create top level items
-        $item1 = $this->createControlledItem('1');
-        $item2 = $this->createControlledItem('2');
-        $item3 = $this->createControlledItem('3');
+        foreach($this->items as $item)
+        {
+            $newItem = $this->createItem($item);
 
-        //Create child items
-        $item1Child = $this->createControlledItem('1.1', $item1);
-        $this->createControlledItem('1.2', $item1);
-        $this->createControlledItem('1.3', $item1);
-        $this->createControlledItem('1.4', $item1);
-        $this->createControlledItem('1.5', $item1);
-        $this->createControlledItem('1.6', $item1);
-        $this->createControlledItem('1.7', $item1);
-        $this->createControlledItem('1.8', $item1);
-        $this->createControlledItem('1.9', $item1);
-
-        //Create deeper items
-        $this->createControlledItem('1.1.1', $item1Child);
-        $this->createControlledItem('1.1.2', $item1Child);
-        $this->createControlledItem('1.1.3', $item1Child);
-
-        $this->createControlledItem('2.1', $item2);
+//            if(!is_null($item['parent']))
+//            {
+//                $newItem->parent()->associate($item['parent']);
+//            }
+        }
 
     }
 
     /**
      *
-     * @param $title
-     * @param null $parent
+     * @param $item
+     * @param $parent
      * @return Item
      */
-    public function createControlledItem($title, $parent = NULL)
+    private function createItem($item, $parent = NULL)
     {
-        $item = new Item([
-            'title' => $title,
-            'category_id' => 1,
-            'priority' => 1
+        $newItem = new Item([
+            'title' => $item['title'],
+            'category_id' => $item['category_id'],
+            'priority' => $item['priority']
         ]);
 
-        $item->user()->associate($this->user);
+        $newItem->user()->associate($this->user);
 
-        if(!is_null($parent))
-        {
-            $item->parent()->associate($parent);
+        if (isset($parent)) {
+            $newItem->parent()->associate($parent);
         }
 
-        $item->save();
+        $newItem->save();
 
-        return $item;
+        if (isset($item['children'])) {
+            foreach ($item['children'] as $child) {
+                $this->createItem($child, $newItem);
+            }
+        }
+
+        return $newItem;
     }
 
     /**
@@ -230,19 +311,19 @@ class ItemSeeder extends Seeder
     {
         foreach(range(1, 3) as $index)
         {
-            $child1 = $this->createItem($parent);
+            $child1 = $this->createRandomItem($parent);
 
             foreach(range(1, 3) as $index)
             {
-                $child2 = $this->createItem($child1);
+                $child2 = $this->createRandomItem($child1);
 
                 foreach(range(1, 3) as $index)
                 {
-                    $child3 = $this->createItem($child2);
+                    $child3 = $this->createRandomItem($child2);
 
                     foreach(range(1, 3) as $index)
                     {
-                        $child4 = $this->createItem($child3);
+                        $child4 = $this->createRandomItem($child3);
                     }
                 }
             }
@@ -251,9 +332,10 @@ class ItemSeeder extends Seeder
 
     /**
      *
+     * @param null $parent
      * @return Item
      */
-    public function createItem($parent = NULL)
+    public function createRandomItem($parent = NULL)
     {
         $categoryIds = Category::where('user_id', $this->user->id)->pluck('id')->all();
 
@@ -262,13 +344,6 @@ class ItemSeeder extends Seeder
             'category_id' => $this->faker->randomElement($categoryIds),
             'priority' => $this->faker->numberBetween(1,5)
         ]);
-
-//        if ($item->priority === 1) {
-//            $urgent = $this->faker->boolean(5);
-//            if ($urgent) {
-//                $item->urgency = 1;
-//            }
-//        }
 
         $item->user()->associate($this->user);
 
