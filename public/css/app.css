@@ -16400,6 +16400,20 @@ input[type="text"].line::placeholder {
   margin-top: 6px;
 }
 
+.child-pagination-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0 5px;
+}
+
+.child-pagination-btns button {
+  margin: 0 3px;
+}
+
 .item {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -160,7 +160,8 @@
         <!--{{item}}-->
         <ul v-if="item.children && item.children.data.length > 0">
 
-            <transition-group name="items" tag="ul" v-if="item.children && item.children.data.length > 0">
+            <!--<transition-group name="items" tag="ul" v-if="item.children && item.children.data.length > 0">-->
+            <ul v-if="item.children && item.children.data.length > 0">
                 <item
                     v-for="item in item.children.data"
                     :key="item.id"
@@ -169,9 +170,16 @@
                     class="item-with-children"
                 >
                 </item>
-                <li key="prev" v-if="item.children.pagination.prev_page_url" @click="prevPage()">Prev</li>
-                <li key="next" v-if="item.children.pagination.next_page_url" @click="nextPage()">Next</li>
-            </transition-group>
+
+                <li key="pagination">
+                    <div class="child-pagination-btns">
+                        <button v-bind:disabled="!item.children.pagination.prev_page_url" @click="prevPage()" class="btn btn-xs btn-warning">Prev</button>
+                        <button v-bind:disabled="!item.children.pagination.next_page_url" @click="nextPage()" class="btn btn-xs btn-warning">Next</button>
+                    </div>
+                </li>
+
+            </ul>
+            <!--</transition-group>-->
 
         </ul>
     </li>
