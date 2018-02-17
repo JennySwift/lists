@@ -146,9 +146,13 @@ export default {
         this.getItems(this.state.pagination.current_page + 1);
     },
 
-    getItemWithChildren: function (item) {
+    getItemWithChildren: function (item, pageNumber) {
+        var url = '/api/items/' + item.id;
+        if (pageNumber) {
+            url +='&page=' + pageNumber;
+        }
         helpers.get({
-            url: '/api/items/' + item.id,
+            url: url,
             callback: function (response) {
                 // var parent = ItemsRepository.findParent(this.state.items, item);
                 // console.log(parent);
@@ -164,7 +168,7 @@ export default {
     zoom: function (response) {
         if (response.children) {
             this.state.zoomedItem = response;
-            this.state.items = response.children;
+            this.state.items = response.children.data;
             this.state.breadcrumb = response.breadcrumb;
             this.setNewItemParent();
         }

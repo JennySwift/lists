@@ -22,15 +22,18 @@
                 <new-item></new-item>
 
                 <!--Items-->
-                <transition-group name="items" tag="ul" id="items">
+                <!--<transition-group name="items" tag="ul" id="items">-->
+                <div id="items">
                     <item
-                    v-for="item in filteredItems"
-                    :key="item.id"
-                    :item="item"
-                    class="item-with-children"
+                        v-for="item in shared.items"
+                        :key="item.id"
+                        :item="item"
+                        class="item-with-children"
                     >
                     </item>
-                </transition-group>
+                </div>
+
+                <!--</transition-group>-->
 
 
 
@@ -67,9 +70,9 @@
             }
         },
         computed: {
-            filteredItems: function () {
-                return filters.filter(this.shared.items, this);
-            },
+//            filteredItems: function () {
+//                return filters.filter(this.shared.items, this);
+//            },
             path: function () {
                 return this.$route.path;
             }

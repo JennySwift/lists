@@ -168,6 +168,7 @@ class ItemsController extends Controller
     /**
      * GET /api/items/{items}
      * @param Item $item
+     * @param Request $request
      * @return Response
      */
     public function show(Item $item, Request $request)
@@ -195,7 +196,7 @@ class ItemsController extends Controller
         return response(
             [
                 'data' => $item,
-//                'pagination' => $pagination
+                'pagination' => $pagination
             ],
             Response::HTTP_OK
         );

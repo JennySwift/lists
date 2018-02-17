@@ -157,31 +157,21 @@
         </div>
 
         <!--Children-->
-        <ul v-if="item.children.data.length > 0">
+        <!--{{item}}-->
+        <ul v-if="item.children && item.children.data.length > 0">
 
-            <!--<item-->
-                <!--v-for="item in filteredChildren"-->
-                <!--:key="item.id"-->
-                <!--:show-children="showChildren"-->
-                <!--:item="item"-->
-                <!--:zoom="zoom"-->
-                <!--class="item-with-children"-->
-            <!--&gt;-->
-            <!--</item>-->
-
-
-            <transition-group name="items" tag="ul" v-if="item.children.data.length > 0">
+            <transition-group name="items" tag="ul" v-if="item.children && item.children.data.length > 0">
                 <item
-                    v-for="item in filteredChildren"
+                    v-for="item in item.children.data"
                     :key="item.id"
                     :show-children="showChildren"
                     :item="item"
                     class="item-with-children"
                 >
                 </item>
+                <li key="prev" @click="prevPage()">Prev</li>
+                <li key="next" @click="nextPage()">Next</li>
             </transition-group>
-
-
 
         </ul>
     </li>
@@ -205,9 +195,9 @@
             isTrashPage () {
                 return helpers.getCurrentPath() === '/trash';
             },
-            filteredChildren: function () {
-                return filters.filter(this.item.children.data, this);
-            }
+//            filteredChildren: function () {
+//                return filters.filter(this.item.children.data, this);
+//            }
         },
         filters: {
             timeLeftFilter: function (seconds) {
@@ -222,8 +212,16 @@
                 $item.children.data = [];
             },
 
-            expand: function () {
-                store.getItemWithChildren(this.item);
+            prevPage: function () {
+                this.expand(this.item.children.pagination.current_page - 1);
+            },
+
+            nextPage: function () {
+                this.expand(this.item.children.pagination.current_page + 1);
+            },
+
+            expand: function (pageNumber) {
+                store.getItemWithChildren(this.item, pageNumber);
             },
 
             selectItem: function (item) {
