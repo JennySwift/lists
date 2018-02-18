@@ -48,6 +48,7 @@ class ItemSeeder extends Seeder
                     'title' => '1.3',
                     'category_id' => 1,
                     'priority' => 1,
+                    'body' => 'I am a note.'
                 ],
                 [
                     'title' => '1.4',
@@ -61,7 +62,7 @@ class ItemSeeder extends Seeder
                 ],
                 [
                     'title' => '1.6',
-                    'category_id' => 1,
+                    'category_id' => 2,
                     'priority' => 1,
                 ],
                 [
@@ -71,7 +72,7 @@ class ItemSeeder extends Seeder
                 ],
                 [
                     'title' => '1.8',
-                    'category_id' => 1,
+                    'category_id' => 2,
                     'priority' => 1,
                 ],
                 [

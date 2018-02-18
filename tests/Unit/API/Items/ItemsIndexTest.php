@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Item;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -250,6 +251,89 @@ class ItemsIndexTest extends TestCase
 
         foreach ($data as $item) {
             $this->assertEquals(-1, $item['priority']);
+        }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_filter_the_current_level_by_title()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items/1?title=1.7');
+        $content = $this->getContent($response);
+        $data = $content['data']['children']['data'];
+
+        $this->checkItemKeysExist($data[0]);
+
+        foreach ($data as $item) {
+            $this->assertEquals('1.7', $item['title']);
+        }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_filter_the_current_level_by_note()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items/1?body=a note.');
+        $content = $this->getContent($response);
+        $data = $content['data']['children']['data'];
+
+        $this->checkItemKeysExist($data[0]);
+
+        foreach ($data as $item) {
+            $this->assertEquals('I am a note.', $item['body']);
+        }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_filter_the_current_level_by_category()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items/1?category_id=2');
+        $content = $this->getContent($response);
+        $data = $content['data']['children']['data'];
+
+        $this->checkItemKeysExist($data[0]);
+        $this->assertCount(2, $data);
+
+        foreach ($data as $item) {
+            $this->assertEquals(2, $item['category_id']);
+        }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_can_filter_the_top_level_by_not_before_time()
+    {
+        $this->logInUser();
+        $notBefore = Carbon::today();
+        $response = $this->call('GET', '/api/items?not_before=' . $notBefore->format('Y-m-d'));
+        $content = $this->getContent($response);
+        $data = $content['data'];
+
+        $this->checkItemKeysExist($data[0]);
+
+        foreach ($data as $item) {
+            $itemNotBefore = Carbon::createFromFormat('Y-m-d H:i:s', $item['notBefore']);
+            $this->assertEquals($notBefore->format('Y-m-d'), $itemNotBefore->format('Y-m-d'));
         }
 
         $this->assertResponseOk($response);
