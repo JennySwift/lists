@@ -343,6 +343,40 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_filter_out_items_that_are_not_before_a_future_time()
+    {
+        $this->logInUser();
+        $notBefore = Carbon::today();
+        $response = $this->call('GET', '/api/items?max=20&with_future_items=false');
+        $content = $this->getContent($response);
+        $data = $content['data'];
+
+        $this->checkItemKeysExist($data[0]);
+
+        $count = 0;
+        $nullNotBeforeCount = 0;
+        foreach ($data as $item) {
+            if ($item['notBefore']) {
+                $itemNotBefore = Carbon::createFromFormat('Y-m-d H:i:s', $item['notBefore']);
+                $this->assertTrue(Carbon::now()->gt($itemNotBefore));
+                $count++;
+            }
+            else {
+                $nullNotBeforeCount++;
+            }
+        }
+        //Check it didn't filter out all not before items because some may be in the past
+        $this->assertGreaterThan(0, $count);
+        //Check it didn't filter out items that don't have any not before date
+        $this->assertGreaterThan(0, $nullNotBeforeCount);
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_filter_the_top_level_by_min_priority()
     {
         $this->logInUser();

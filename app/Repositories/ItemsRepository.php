@@ -150,6 +150,15 @@ class ItemsRepository {
             $query = $query->whereDate('not_before', $request->get('not_before'));
         }
 
+        //Do not get items that have a not before time in the future
+        if ($request->has('with_future_items') && $request->get('with_future_items') == "false") {
+            $query = $query->where(function ($query) {
+                $query->whereDate('not_before', '<=', Carbon::now()->format('Y-m-d'))
+                    ->orWhereNull('not_before');
+            });
+        }
+
+
         if ($request->has('with_trashed')) {
             $query = $query->withTrashed();
         }
