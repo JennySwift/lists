@@ -335,9 +335,9 @@ export default {
         }
 
         if (store.state.filters.notBefore) {
-            url += '&with_future_items=' + !store.state.filters.not_before;
+            url += '&with_future_items=false';
         }
-        
+
         if (store.state.filters.showTrashed) {
             url += '&with_trashed=true';
         }
