@@ -17031,6 +17031,14 @@ label.input-group-addon:not('first-child') {
 
 #navbar,
 #guest-navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: white;
   background: #FF5F6D;
   /* fallback for old browsers */
@@ -17040,6 +17048,22 @@ label.input-group-addon:not('first-child') {
   padding: 0;
   margin: 0;
   border-bottom: none;
+}
+
+#navbar > *,
+#guest-navbar > * {
+  padding: 7px 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
+  border-right: 1px solid #97D7D6;
+}
+
+#navbar ul,
+#guest-navbar ul {
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 #navbar #new-item-btn,
