@@ -126,10 +126,6 @@ export default {
         });
     },
 
-    runFilter: function () {
-
-    },
-
     getItems: function (pageNumber) {
         helpers.get({
             url: ItemsRepository.getUrl(pageNumber),

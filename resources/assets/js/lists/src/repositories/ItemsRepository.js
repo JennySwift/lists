@@ -304,8 +304,14 @@ export default {
         var id = helpers.getIdFromUrl();
         url = id ? '/api/items/' + id : '/api/items';
 
-        if (pageNumber) {
-            url += '?page=' + pageNumber
+        if (!pageNumber) {
+            pageNumber = 1;
+        }
+
+        url += '?page=' + pageNumber;
+
+        if (store.state.filters.priority) {
+            url += '&priority=' + store.state.filters.priority;
         }
 
         return url;

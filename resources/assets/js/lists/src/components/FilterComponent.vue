@@ -179,7 +179,7 @@
             //},
 
             go: function () {
-                store.runFilter();
+                store.getItems();
             },
 
             /**
