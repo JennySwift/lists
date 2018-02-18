@@ -91,7 +91,7 @@ class Item extends Model
      */
     public function children()
     {
-        return $this->hasMany('\App\Models\Item', 'parent_id')->withTrashed();
+        return $this->hasMany('\App\Models\Item', 'parent_id');
     }
 
     /**

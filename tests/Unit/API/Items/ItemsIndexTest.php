@@ -13,6 +13,8 @@ class ItemsIndexTest extends TestCase
 {
     use DatabaseTransactions;
 
+    private $expectedTrashedItemCount = 4;
+
     /**
      * @test
      * @return void
@@ -23,7 +25,7 @@ class ItemsIndexTest extends TestCase
 
         //Check the trashed items exist
         $trashed = Item::forCurrentUser()->onlyTrashed()->get();
-        $this->assertCount(3, $trashed);
+        $this->assertCount($this->expectedTrashedItemCount, $trashed);
 
         $response = $this->call('GET', '/api/items');
         $content = $this->getContent($response);
@@ -541,16 +543,16 @@ class ItemsIndexTest extends TestCase
 //      dd($content);
 
         $this->checkItemKeysExist($data[0]);
-        $this->assertEquals(3, count($data));
-        $this->assertEquals(3, $content['pagination']['total']);
+        $this->assertEquals($this->expectedTrashedItemCount, count($data));
+        $this->assertEquals($this->expectedTrashedItemCount, $content['pagination']['total']);
 
-        //This item has no parent, so it can be restored (todo: check item indeed has no parent)
-        $this->assertNull($data[0]['parent_id']);
-        $this->assertTrue($data[0]['canBeRestored']);
+        //This item has no parent, so it can be restored
+        $this->assertNull($data[1]['parent_id']);
+        $this->assertTrue($data[1]['canBeRestored']);
 
         //This item has a deleted parent, so it cannot be restored (todo: check parent is indeed deleted)
-        $this->assertEquals(30, $data[1]['parent_id']);
-        $this->assertFalse($data[1]['canBeRestored']);
+        $this->assertEquals(31, $data[2]['parent_id']);
+        $this->assertFalse($data[2]['canBeRestored']);
 
         //Todo: test canBeRestored is true for an item that is deleted, but whose parent is not deleted
 

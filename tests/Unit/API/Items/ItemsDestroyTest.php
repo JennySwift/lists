@@ -12,7 +12,7 @@ class ItemsDestroyTest extends TestCase
 {
     use DatabaseTransactions;
 
-    private $expectedTrashSizeBeforeEmptying = 3;
+    private $expectedTrashSizeBeforeEmptying = 4;
     private $expectedUndeletedItemCount = 877;
 
     /**
@@ -139,9 +139,6 @@ class ItemsDestroyTest extends TestCase
         $this->assertCount($this->expectedTrashSizeBeforeEmptying -1, $this->getTrashedItems());
         $restoredItem = Item::find($id);
         $this->assertNotNull($restoredItem);
-        $this->assertEquals('A completed item', $restoredItem['title']);
-
-
     }
 
     /**
@@ -159,7 +156,7 @@ class ItemsDestroyTest extends TestCase
         //Check the number of item's the user has before restoring the item
         $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
-        $id = $trashedItems[1]['id'];
+        $id = $trashedItems[2]['id'];
         //Check the item cannot be found outside the trash
         $this->assertNull(Item::find($id));
 
@@ -167,7 +164,8 @@ class ItemsDestroyTest extends TestCase
         $trashedItem = Item::onlyTrashed()->find($id);
         $trashedParent = $trashedItem->parent()->onlyTrashed()->first();
         $this->assertNotNull($trashedItem->deleted_at);
-        $this->assertEquals('A child of a completed item', $trashedItem['title']);
+        $this->assertNotNull($trashedParent);
+        $this->assertNotNull($trashedParent->deleted_at);
 
         $response = $this->call('PUT', '/api/items/restore/' . $id);
         $content = $this->getContent($response);
@@ -264,9 +262,10 @@ class ItemsDestroyTest extends TestCase
     {
         $this->checkItemKeysExist($trashedItems[0]);
         $this->assertCount($this->expectedTrashSizeBeforeEmptying, $trashedItems);
-        $this->assertEquals('A completed item', $trashedItems[0]['title']);
-        $this->assertEquals('A child of a completed item', $trashedItems[1]['title']);
-        $this->assertEquals('Another completed item', $trashedItems[2]['title']);
+        $this->assertEquals('A completed child', $trashedItems[0]['title']);
+        $this->assertEquals('A completed item', $trashedItems[1]['title']);
+        $this->assertEquals('A child of a completed item', $trashedItems[2]['title']);
+        $this->assertEquals('Another completed item', $trashedItems[3]['title']);
 
         foreach ($trashedItems as $item) {
             $this->assertArrayHasKey('deleted_at', $item);

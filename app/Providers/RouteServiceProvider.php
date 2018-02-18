@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('items', function($id)
         {
-            return Item::forCurrentUser()->withTrashed()->findOrFail($id);
+            return Item::forCurrentUser()->findOrFail($id);
         });
 
         Route::bind('categories', function($id)

@@ -164,7 +164,15 @@ class ItemSeeder extends Seeder
             'title' => 'Do something yesterday',
             'category_id' => 2,
             'priority' => 3,
-            'days_ago' => 1
+            'days_ago' => 1,
+            'children' => [
+                [
+                    'title' => 'A completed child',
+                    'category_id' => 2,
+                    'priority' => 3,
+                    'deleted' => 1
+                ],
+            ]
         ],
         [
             'title' => 'Do something tomorrow',
