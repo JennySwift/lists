@@ -101,7 +101,12 @@ class ItemsRepository {
         //Sort first by priority, then by notBefore, then by category name, then by id
         return Item::forCurrentUser()
             ->whereNull('parent_id')
-            ->order('priority')
+//            ->order('priority')
+            ->orderBy('priority', 'asc')
+            ->orderByRaw('`not_before` IS NULL')
+            ->orderBy('not_before', 'asc')
+            ->orderBy('category_id', 'asc')
+            ->orderBy('id', 'desc')
             ->withTrashed()
             ->paginate($max);
     }
@@ -115,9 +120,11 @@ class ItemsRepository {
     {
         $field = $request->get('field') ? $request->get('field') : 'title';
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
-        return Item::forCurrentUser()
+        $items = Item::forCurrentUser()
             ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
-            ->paginate($max);
+            ->toSql();
+//            ->paginate($max);
+        dd($items);
     }
 
     /**

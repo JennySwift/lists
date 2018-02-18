@@ -131,6 +131,44 @@ class ItemsIndexTest extends TestCase
         $this->assertResponseOk($response);
     }
 
+    /**
+     * Should be sorted first by priority, then by notBefore, then by category name, then by id
+     * @test
+     */
+    public function it_gets_the_items_in_the_right_order()
+    {
+        $this->logInUser();
+
+        $response = $this->call('GET', '/api/items?page=2');
+        $content = $this->getContent($response);
+        $data = $content['data'];
+//      dd($content);
+
+        $this->checkItemKeysExist($data[0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        $this->assertEquals(5, $data[3]['category_id']);
+        $this->assertEquals(5, $data[4]['category_id']);
+
+        $this->assertResponseOk($response);
+
+        //Check the not before is ordered correctly
+        $response = $this->call('GET', '/api/items?page=3');
+        $content = $this->getContent($response);
+        $data = $content['data'];
+//      dd($content);
+
+        $this->checkItemKeysExist($data[0]);
+        $this->checkPaginationKeysExist($content['pagination']);
+
+        $this->assertEquals('Do something yesterday', $data[1]['title']);
+        $this->assertEquals('Do something today', $data[2]['title']);
+        $this->assertEquals('Do something tomorrow', $data[3]['title']);
+        $this->assertEquals('Do something whenever', $data[4]['title']);
+
+        $this->assertResponseOk($response);
+    }
+
 
     /**
      * @test
@@ -161,7 +199,7 @@ class ItemsIndexTest extends TestCase
         $response = $this->call('GET', '/api/items?filter=au');
         $content = $this->getContent($response);
         $data = $content['data'];
-//      dd($content);
+      dd($content);
 
         $this->checkItemKeysExist($data[0]);
 

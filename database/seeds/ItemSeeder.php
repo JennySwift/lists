@@ -129,9 +129,37 @@ class ItemSeeder extends Seeder
             'priority' => 2
         ],
         [
+            'title' => 'Clean up',
+            'category_id' => 5,
+            'priority' => 2
+        ],
+        [
             'title' => 'Fix bug',
             'category_id' => 1,
             'priority' => 2
+        ],
+        [
+            'title' => 'Do something whenever',
+            'category_id' => 2,
+            'priority' => 3
+        ],
+        [
+            'title' => 'Do something today',
+            'category_id' => 2,
+            'priority' => 3,
+            'days_ago' => 0
+        ],
+        [
+            'title' => 'Do something yesterday',
+            'category_id' => 2,
+            'priority' => 3,
+            'days_ago' => 1
+        ],
+        [
+            'title' => 'Do something tomorrow',
+            'category_id' => 2,
+            'priority' => 3,
+            'days_ago' => -1
         ],
     ];
 
@@ -157,14 +185,14 @@ class ItemSeeder extends Seeder
         foreach ($users as $user) {
             $this->user = $user;
 
-            $this->createRandomItems();
+//            $this->createRandomItems();
 
 //            $this->deleteSomeItems();
 //        $this->pinSomeItems();
             $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
-            $this->giveANotBeforeValueToSomeItems();
+//            $this->giveANotBeforeValueToSomeItems();
 
             $this->createControlledItems();
         }
@@ -215,6 +243,11 @@ class ItemSeeder extends Seeder
             'category_id' => $item['category_id'],
             'priority' => $item['priority']
         ]);
+
+        if (isset($item['days_ago'])) {
+            $newItem['not_before'] = Carbon::today()->subDays($item['days_ago'])->format('Y-m-d H:i:s');
+        }
+
 
         $newItem->user()->associate($this->user);
 
