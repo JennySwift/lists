@@ -1,6 +1,7 @@
 import DateTimeRepository from './DateTimeRepository'
 import helpers from './Helpers'
 import store from './Store'
+require('sugar');
 
 export default {
 
@@ -331,7 +332,9 @@ export default {
         }
 
         if (store.state.filters.notBeforeDate) {
-            url += '&not_before=' + store.state.filters.not_before;
+            var notBeforeDate = Date.create(store.state.filters.notBeforeDate).format('{yyyy}-{MM}-{dd}');
+            console.log(notBeforeDate);
+            url += '&not_before=' + notBeforeDate;
         }
 
         if (store.state.filters.notBefore) {

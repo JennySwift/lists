@@ -321,7 +321,7 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
-    public function it_can_filter_the_top_level_by_not_before_time()
+    public function it_can_filter_the_top_level_by_not_before_date()
     {
         $this->logInUser();
         $notBefore = Carbon::today();
