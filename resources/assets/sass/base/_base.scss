@@ -23,8 +23,6 @@ body {
 			padding-bottom: $footerHeight;
 			@media all and (max-width: $breakpoint2) {
 				padding: 0 5px;
-				//To allow for the increased nav height on smaller screens
-				padding-top: 58px;
 			}
 		}
 	}

@@ -15895,7 +15895,6 @@ body #app .main {
 @media all and (max-width: 768px) {
   body #app .main {
     padding: 0 5px;
-    padding-top: 58px;
   }
 }
 
