@@ -19,7 +19,7 @@ body {
 		min-height: 100%;
 		.main {
 			min-height: 100%;
-			padding-top: $navHeight;
+			//padding-top: $navHeight;
 			padding-bottom: $footerHeight;
 			@media all and (max-width: $breakpoint2) {
 				padding: 0;
