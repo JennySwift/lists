@@ -106,7 +106,8 @@ class ItemSeeder extends Seeder
         [
             'title' => 'Do some pushups',
             'category_id' => 4,
-            'priority' => 1
+            'priority' => 1,
+            'body' => 'How good are pushups. :)'
         ],
         [
             'title' => 'Do some pullups',
@@ -163,6 +164,26 @@ class ItemSeeder extends Seeder
             'priority' => 3,
             'days_ago' => -1
         ],
+        [
+            'title' => 'A completed item',
+            'category_id' => 2,
+            'priority' => 4,
+            'deleted' => 1,
+            'children' => [
+                [
+                    'title' => 'A child of a completed item',
+                    'category_id' => 2,
+                    'priority' => 4,
+                    'deleted' => 1
+                ],
+            ]
+        ],
+        [
+            'title' => 'Another completed item',
+            'category_id' => 2,
+            'priority' => 4,
+            'deleted' => 1
+        ],
     ];
 
     /**
@@ -187,16 +208,17 @@ class ItemSeeder extends Seeder
         foreach ($users as $user) {
             $this->user = $user;
 
-//            $this->createRandomItems();
-
 //            $this->deleteSomeItems();
 //        $this->pinSomeItems();
 //            $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
-//            $this->giveANotBeforeValueToSomeItems();
+
 
             $this->createControlledItems();
+
+            $this->createRandomItems();
+            $this->giveANotBeforeValueToSomeItems();
         }
     }
 
@@ -254,6 +276,9 @@ class ItemSeeder extends Seeder
             $newItem['favourite'] = 1;
         }
 
+        if (isset($item['body'])) {
+            $newItem['body'] = $item['body'];
+        }
 
         $newItem->user()->associate($this->user);
 
@@ -267,6 +292,10 @@ class ItemSeeder extends Seeder
             foreach ($item['children'] as $child) {
                 $this->createItem($child, $newItem);
             }
+        }
+
+        if (isset($item['deleted'])) {
+            $newItem->delete();
         }
 
         return $newItem;
@@ -338,20 +367,20 @@ class ItemSeeder extends Seeder
      * whose parents were deleted, so when I tried to update the child,
      * it errored saying that parent didn't exist.
      */
-    private function deleteSomeItems()
-    {
-        $items = Item::where('user_id', $this->user->id)->orderBy('id', 'desc')->limit(4)->get();
-        foreach ($items as $item) {
-            $item->delete();
-        }
-
-        //Delete some from the top level, too
-        $items = Item::where('user_id', $this->user->id)->where('parent_id', null)->limit(2)->get();
-
-        foreach ($items as $item) {
-            $item->delete();
-        }
-    }
+//    private function deleteSomeItems()
+//    {
+//        $items = Item::where('user_id', $this->user->id)->orderBy('id', 'desc')->limit(4)->get();
+//        foreach ($items as $item) {
+//            $item->delete();
+//        }
+//
+//        //Delete some from the top level, too
+//        $items = Item::where('user_id', $this->user->id)->where('parent_id', null)->limit(2)->get();
+//
+//        foreach ($items as $item) {
+//            $item->delete();
+//        }
+//    }
 
     /**
      *
@@ -416,7 +445,7 @@ class ItemSeeder extends Seeder
         $item = new Item([
             'title' => $this->faker->sentence,
             'category_id' => $this->faker->randomElement($categoryIds),
-            'priority' => $this->faker->numberBetween(1,5)
+            'priority' => $this->faker->numberBetween(4,7)
         ]);
 
         $item->user()->associate($this->user);

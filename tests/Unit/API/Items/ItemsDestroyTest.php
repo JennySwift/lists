@@ -12,6 +12,9 @@ class ItemsDestroyTest extends TestCase
 {
     use DatabaseTransactions;
 
+    private $expectedTrashSizeBeforeEmptying = 3;
+    private $expectedUndeletedItemCount = 876;
+
     /**
      * @test
      * @return void
@@ -35,25 +38,25 @@ class ItemsDestroyTest extends TestCase
     public function it_can_empty_the_trash()
     {
         $this->logInUser();
-        $this->createAndDeleteItems();
+//        $this->createAndDeleteItems();
         $this->checkTrashedItemsAreAsExpected($this->getTrashedItems());
 
         //Do the same for user 2, so we can test their trash won't empty
         $this->logInUser(2);
-        $this->createAndDeleteItems();
+//        $this->createAndDeleteItems();
         $this->checkTrashedItemsAreAsExpected($this->getTrashedItems());
 
         //Log in user 1 again
         $this->logInUser();
 
         //Check the number of item's the user has before emptying the trash
-        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
         $response = $this->call('DELETE', '/api/items/emptyTrash');
 //        dd($response);
 
         //Check the user still has the same number of items that are not in the trash
-        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
         $trashedItemsAfterEmpty = $this->getTrashedItems();
 
@@ -61,7 +64,7 @@ class ItemsDestroyTest extends TestCase
 
         //Check user 2's trash has not been emptied
         $this->logInUser(2);
-        $this->assertCount(3, $this->getTrashedItems());
+        $this->assertCount($this->expectedTrashSizeBeforeEmptying, $this->getTrashedItems());
     }
 
     /**
@@ -110,12 +113,12 @@ class ItemsDestroyTest extends TestCase
     public function it_can_restore_an_item_from_the_trash_if_it_does_not_have_deleted_parent()
     {
         $this->logInUser();
-        $this->createAndDeleteItems();
+//        $this->createAndDeleteItems();
         $trashedItems = $this->getTrashedItems();
         $this->checkTrashedItemsAreAsExpected($trashedItems);
 
         //Check the number of item's the user has before restoring the item
-        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
         $id = $trashedItems[0]['id'];
         //Check the item cannot be found outside the trash
@@ -130,13 +133,13 @@ class ItemsDestroyTest extends TestCase
         $this->assertResponseOk($response);
 
         //Check the user has one more item now that isn't in the trash
-        $this->assertCount(859, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount + 1, Item::where('user_id', $this->user->id)->get());
 
         //Check the user has one less item in the trash
-        $this->assertCount(2, $this->getTrashedItems());
+        $this->assertCount($this->expectedTrashSizeBeforeEmptying -1, $this->getTrashedItems());
         $restoredItem = Item::find($id);
         $this->assertNotNull($restoredItem);
-        $this->assertEquals('one', $restoredItem['title']);
+        $this->assertEquals('A completed item', $restoredItem['title']);
 
 
     }
@@ -149,12 +152,12 @@ class ItemsDestroyTest extends TestCase
     public function it_cannot_restore_an_item_from_the_trash_if_its_parent_is_deleted()
     {
         $this->logInUser();
-        $this->createAndDeleteItems();
+//        $this->createAndDeleteItems();
         $trashedItems = $this->getTrashedItems();
         $this->checkTrashedItemsAreAsExpected($trashedItems);
 
         //Check the number of item's the user has before restoring the item
-        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
         $id = $trashedItems[1]['id'];
         //Check the item cannot be found outside the trash
@@ -164,7 +167,7 @@ class ItemsDestroyTest extends TestCase
         $trashedItem = Item::onlyTrashed()->find($id);
         $trashedParent = $trashedItem->parent()->onlyTrashed()->first();
         $this->assertNotNull($trashedItem->deleted_at);
-        $this->assertEquals('two', $trashedItem['title']);
+        $this->assertEquals('A child of a completed item', $trashedItem['title']);
 
         $response = $this->call('PUT', '/api/items/restore/' . $id);
         $content = $this->getContent($response);
@@ -172,10 +175,10 @@ class ItemsDestroyTest extends TestCase
         $this->assertEquals('This item cannot be restored, because its parent has been deleted. Restore the parent first.', $content['error']);
 
         //Check the user has the same number of items as before that are not in the trash
-        $this->assertCount(858, Item::where('user_id', $this->user->id)->get());
+        $this->assertCount($this->expectedUndeletedItemCount, Item::where('user_id', $this->user->id)->get());
 
         //Check the user has the same number of items as before that are in the trash
-        $this->assertCount(3, $this->getTrashedItems());
+        $this->assertCount($this->expectedTrashSizeBeforeEmptying, $this->getTrashedItems());
 
         $this->assertNull(Item::find($id));
 
@@ -260,10 +263,10 @@ class ItemsDestroyTest extends TestCase
     private function checkTrashedItemsAreAsExpected($trashedItems)
     {
         $this->checkItemKeysExist($trashedItems[0]);
-        $this->assertCount(3, $trashedItems);
-        $this->assertEquals('one', $trashedItems[0]['title']);
-        $this->assertEquals('two', $trashedItems[1]['title']);
-        $this->assertEquals('three', $trashedItems[2]['title']);
+        $this->assertCount($this->expectedTrashSizeBeforeEmptying, $trashedItems);
+        $this->assertEquals('A completed item', $trashedItems[0]['title']);
+        $this->assertEquals('A child of a completed item', $trashedItems[1]['title']);
+        $this->assertEquals('Another completed item', $trashedItems[2]['title']);
 
         foreach ($trashedItems as $item) {
             $this->assertArrayHasKey('deleted_at', $item);

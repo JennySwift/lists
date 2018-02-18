@@ -58,7 +58,7 @@ class ItemsShowTest extends TestCase
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->checkPaginationKeysExist($content['data']['children']['pagination']);
-        $this->checkPaginationKeysExist($content•['pagination']);
+        $this->checkPaginationKeysExist($content['pagination']);
 
         $this->assertCount(1, $data);
     }
@@ -72,7 +72,7 @@ class ItemsShowTest extends TestCase
         $this->restoreTrashedItems();
 
 //        $item = Item::forCurrentUser()->first();
-        $item = Item::find(849);
+        $item = Item::find(1);
 
         $response = $this->call('GET', '/api/items/' . $item->id . '?max=3&page=2');
         $content = $this->getContent($response);
