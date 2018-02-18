@@ -67,6 +67,8 @@ class ItemsController extends Controller
 
         elseif ($request->has('filter')) {
             $items = $this->itemsRepository->getFilteredItems($request);
+            $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
+            return response($items, Response::HTTP_OK);
         }
 
         else {
