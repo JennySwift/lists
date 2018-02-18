@@ -39,6 +39,27 @@
 
     #items-page-container {
         @include itemsFilterContainer;
+        padding-bottom: 20px;
+        .pagination-info {
+            text-align: center;
+            width: 100%;
+            display: block;
+            margin: 5px 0 3px 0;
+            font-size: 11px;
+        }
+        .parent-pagination-btns {
+            display: flex;
+            justify-content: center;
+            > .btn {
+                flex-grow: 1;
+                &:first-child {
+                    margin-right: 5px;
+                }
+                &:last-child {
+                    margin-left: 5px;
+                }
+            }
+        }
     }
 }
 

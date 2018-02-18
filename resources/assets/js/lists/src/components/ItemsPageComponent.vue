@@ -40,6 +40,14 @@
 
 
                 <div v-if="shared.items.length === 0">No items here</div>
+
+                <div>
+                    <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
+                    <div class="parent-pagination-btns">
+                        <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</button>
+                        <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</button>
+                    </div>
+                </div>
             </div>
 
             <div class="right-side">
@@ -93,6 +101,14 @@
         },
         components: {},
         methods: {
+            prevPage: function () {
+                store.goToPreviousPage();
+            },
+
+            nextPage: function () {
+                store.goToNextPage();
+            },
+            
             toggleNewItemFields: function () {
                 store.toggle('showNewItemFields');
             },

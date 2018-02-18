@@ -16640,6 +16640,7 @@ input[type="text"].line::placeholder {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding-bottom: 20px;
 }
 
 #items-page #items-page-container > :first-child {
@@ -16664,6 +16665,37 @@ input[type="text"].line::placeholder {
 #items-page #items-page-container .v-enter,
 #items-page #items-page-container .v-leave-to {
   width: 0;
+}
+
+#items-page #items-page-container .pagination-info {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin: 5px 0 3px 0;
+  font-size: 11px;
+}
+
+#items-page #items-page-container .parent-pagination-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#items-page #items-page-container .parent-pagination-btns > .btn {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+#items-page #items-page-container .parent-pagination-btns > .btn:first-child {
+  margin-right: 5px;
+}
+
+#items-page #items-page-container .parent-pagination-btns > .btn:last-child {
+  margin-left: 5px;
 }
 
 .guide {
