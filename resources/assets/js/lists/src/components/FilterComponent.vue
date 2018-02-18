@@ -3,6 +3,8 @@
     <transition>
         <div v-show="shared.showFilter" id="search-container">
 
+            <h5>Find Anywhere</h5>
+
             <autocomplete
                 v-if="!isTrashPage"
                 input-id="filter-favourites"
@@ -30,6 +32,8 @@
                 field-to-filter-by="body"
             >
             </autocomplete>
+
+            <h5>Find in Current Position</h5>
 
             <div>
                 <!--<label for="">Title: </label>-->
