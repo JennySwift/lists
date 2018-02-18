@@ -314,6 +314,10 @@ export default {
             url += '&priority=' + store.state.filters.priority;
         }
 
+        if (store.state.filters.showTrashed) {
+            url += '&with_trashed=true';
+        }
+
         return url;
     }
 }
