@@ -108,7 +108,7 @@
             nextPage: function () {
                 store.goToNextPage();
             },
-            
+
             toggleNewItemFields: function () {
                 store.toggle('showNewItemFields');
             },

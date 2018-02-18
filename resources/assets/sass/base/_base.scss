@@ -22,7 +22,7 @@ body {
 			padding-top: $navHeight;
 			padding-bottom: $footerHeight;
 			@media all and (max-width: $breakpoint2) {
-				padding: 0 5px;
+				padding: 0;
 			}
 		}
 	}

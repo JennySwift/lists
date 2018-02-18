@@ -15894,7 +15894,7 @@ body #app .main {
 
 @media all and (max-width: 768px) {
   body #app .main {
-    padding: 0 5px;
+    padding: 0;
   }
 }
 
@@ -16304,13 +16304,6 @@ input[type="text"].line::placeholder {
 }
 
 @media (max-width: 768px) {
-  #search-container {
-    right: 0;
-    left: 0;
-    width: calc(100% - 27px);
-    margin: auto;
-  }
-
   #search-container #favourites ul {
     width: 100%;
   }
@@ -16698,6 +16691,15 @@ input[type="text"].line::placeholder {
   margin-left: 5px;
 }
 
+@media (max-width: 768px) {
+  #items-page #items-page-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
 .guide {
   width: 100%;
   height: 2px;
@@ -16845,13 +16847,6 @@ textarea.note {
 }
 
 @media (max-width: 768px) {
-  #search-container {
-    right: 0;
-    left: 0;
-    width: calc(100% - 27px);
-    margin: auto;
-  }
-
   #search-container #favourites ul {
     width: 100%;
   }
