@@ -13,7 +13,7 @@ class ItemsDestroyTest extends TestCase
     use DatabaseTransactions;
 
     private $expectedTrashSizeBeforeEmptying = 3;
-    private $expectedUndeletedItemCount = 876;
+    private $expectedUndeletedItemCount = 877;
 
     /**
      * @test

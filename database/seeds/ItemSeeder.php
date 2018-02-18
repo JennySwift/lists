@@ -113,7 +113,14 @@ class ItemSeeder extends Seeder
             'title' => 'Do some pullups',
             'category_id' => 4,
             'priority' => 1,
-            'favourite' => 1
+            'favourite' => 1,
+            'children' => [
+                [
+                    'title' => 'This item is very important',
+                    'category_id' => 4,
+                    'priority' => -1,
+                ]
+            ]
         ],
         [
             'title' => 'Throw stuff out',

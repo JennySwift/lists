@@ -190,15 +190,16 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
+     * This is for the autocomplete, where no pagination is needed
      * @test
      * @return void
      */
-    public function it_can_filter_the_items_by_title()
+    public function it_can_filter_all_items_by_title_with_no_pagination()
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/items?filter=push');
-        $content = $this->getContent($response);
-        $data = $content['data'];
+        $data = $this->getContent($response);
+//        $data = $content['data'];
 //      dd($content);
 
         $this->checkItemKeysExist($data[0]);
@@ -211,10 +212,11 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
+     * This is for the autocomplete, where no pagination is needed
      * @test
      * @return void
      */
-    public function it_can_filter_the_items_by_note()
+    public function it_can_filter_all_items_by_note_with_no_pagination()
     {
         $this->logInUser();
 
@@ -231,15 +233,15 @@ class ItemsIndexTest extends TestCase
         $this->checkItemKeysExist($this->getContent($response));
 
         //Then filter items by note
-        $response = $this->call('GET', '/api/items?filter=cool&field=body');
-        $content = $this->getContent($response);
-        $data = $content['data'];
+        $response = $this->call('GET', '/api/items?filter=good&field=body');
+        $data = $this->getContent($response);
+//        $data = $content['data'];
 //      dd($content);
 
         $this->checkItemKeysExist($data[0]);
 
         foreach ($data as $item) {
-            $this->assertContains('cool', $item['body'], '', true);
+            $this->assertContains('good', $item['body'], '', true);
         }
         
         $this->assertCount(1, $data);
@@ -340,7 +342,7 @@ class ItemsIndexTest extends TestCase
         $this->assertTrue($data[0]['canBeRestored']);
 
         //This item has a deleted parent, so it cannot be restored (todo: check parent is indeed deleted)
-        $this->assertEquals(29, $data[1]['parent_id']);
+        $this->assertEquals(30, $data[1]['parent_id']);
         $this->assertFalse($data[1]['canBeRestored']);
 
         //Todo: test canBeRestored is true for an item that is deleted, but whose parent is not deleted
