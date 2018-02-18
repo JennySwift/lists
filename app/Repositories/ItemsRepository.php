@@ -99,10 +99,19 @@ class ItemsRepository {
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
 
         //Sort first by priority, then by notBefore, then by category name, then by id
-        return Item::forCurrentUser()
-            ->whereNull('parent_id')
-//            ->order('priority')
-            ->orderBy('priority', 'asc')
+        $query = Item::forCurrentUser()
+            ->whereNull('parent_id');
+
+        if ($request->has('priority')) {
+            $query = $query->where('priority', $request->get('priority'));
+        }
+
+        if ($request->has('min_priority')) {
+            $query = $query->where('priority', '<=', $request->get('min_priority'));
+        }
+
+
+        return $query->orderBy('priority', 'asc')
             ->orderByRaw('`not_before` IS NULL')
             ->orderBy('not_before', 'asc')
             ->orderBy('category_id', 'asc')
