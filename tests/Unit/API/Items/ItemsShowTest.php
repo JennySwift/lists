@@ -79,7 +79,6 @@ class ItemsShowTest extends TestCase
         $item = $content['data'];
         $data = $content['data']['children']['data'];
 //        dd($content);
-
         $this->checkItemKeysExist($item);
         $this->checkItemKeysExist($data[0]);
         $this->checkItemKeysExist($content['data']['breadcrumb'][0]);
@@ -90,7 +89,8 @@ class ItemsShowTest extends TestCase
         $this->assertCount(3, $data);
         $this->assertEquals(2, $content['data']['children']['pagination']['current_page']);
 
-        $this->assertEquals('1.4', $data[0]['title']);
+
+        $this->assertEquals('1.6', $data[0]['title']);
     }
 
 
