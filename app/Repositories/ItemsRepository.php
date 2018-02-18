@@ -96,11 +96,35 @@ class ItemsRepository {
      */
     public function getHomeItems(Request $request)
     {
-        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
-
         //Sort first by priority, then by notBefore, then by category name, then by id
         $query = Item::forCurrentUser()
             ->whereNull('parent_id');
+
+        return $this->createQuery($query, $request);
+    }
+
+    /**
+     *
+     * @param Item $item
+     * @param Request $request
+     * @return mixed
+     */
+    public function getChildren(Item $item, Request $request)
+    {
+        $query = $item->children();
+
+        return $this->createQuery($query, $request);
+    }
+
+    /**
+     *
+     * @param $query
+     * @param Request $request
+     * @return mixed
+     */
+    private function createQuery($query, Request $request)
+    {
+        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
 
         if ($request->has('priority')) {
             $query = $query->where('priority', $request->get('priority'));
@@ -109,7 +133,6 @@ class ItemsRepository {
         if ($request->has('min_priority')) {
             $query = $query->where('priority', '<=', $request->get('min_priority'));
         }
-
 
         return $query->orderBy('priority', 'asc')
             ->orderByRaw('`not_before` IS NULL')

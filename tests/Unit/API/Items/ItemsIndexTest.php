@@ -214,6 +214,26 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
+    public function it_can_filter_the_current_level_by_priority()
+    {
+        $this->logInUser();
+        $response = $this->call('GET', '/api/items/19?priority=-1');
+        $content = $this->getContent($response);
+        $data = $content['data']['children']['data'];
+
+        $this->checkItemKeysExist($data[0]);
+
+        foreach ($data as $item) {
+            $this->assertEquals(-1, $item['priority']);
+        }
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
     public function it_can_filter_the_top_level_by_min_priority()
     {
         $this->logInUser();

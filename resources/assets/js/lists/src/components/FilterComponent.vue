@@ -12,6 +12,25 @@
             >
             </autocomplete>
 
+            <autocomplete
+                v-if="!isTrashPage"
+                input-id="title-search"
+                prop="title"
+                url="/api/items"
+                input-placeholder="Search all by title"
+            >
+            </autocomplete>
+
+            <autocomplete
+                v-if="!isTrashPage"
+                input-id="note-search"
+                prop="body"
+                url="/api/items"
+                input-placeholder="Search all by note"
+                field-to-filter-by="body"
+            >
+            </autocomplete>
+
             <div>
                 <!--<label for="">Title: </label>-->
                 <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
@@ -49,25 +68,6 @@
             >
             </autocomplete>
 
-            <autocomplete
-                v-if="!isTrashPage"
-                input-id="title-search"
-                prop="title"
-                url="/api/items"
-                input-placeholder="Search all by title"
-            >
-            </autocomplete>
-
-            <autocomplete
-                v-if="!isTrashPage"
-                input-id="note-search"
-                prop="body"
-                url="/api/items"
-                input-placeholder="Search all by note"
-                field-to-filter-by="body"
-            >
-            </autocomplete>
-
             <div class="checkbox-container">
                 <label for="filter-not-before">Hide items not before future time:</label>
                 <input
@@ -84,6 +84,10 @@
                     id="filter-show-trashed"
                     type="checkbox"
                 >
+            </div>
+
+            <div>
+                <button v-on:click="go()" id="go-btn" class="btn btn-info">Go</button>
             </div>
 
             <div>
@@ -173,6 +177,10 @@
             //        favourites.push(itemPopup);
             //    }
             //},
+
+            go: function () {
+                store.runFilter();
+            },
 
             /**
              *

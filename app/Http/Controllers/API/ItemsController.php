@@ -175,16 +175,16 @@ class ItemsController extends Controller
      */
     public function show(Item $item, Request $request)
     {
-        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
         $breadcrumb = $item->breadcrumb();
         $array = [];
         foreach (collect($breadcrumb) as $item) {
             $array[] = $item;
         }
 
-        $children = $item->children()->order('priority')->paginate($max);
+        $children = $this->itemsRepository->getChildren($item, $request);
+
 //        dd($request->all());
-        $pagination = $this->itemsRepository->getPaginationProperties($children);
+        $pagination = $this->itemsRepository->getPaginationProperties($children, $request);
         $children = [
             'data' => $this->transform($this->createCollection($children, new ItemTransformer))['data'],
             'pagination' => $pagination

@@ -16243,6 +16243,10 @@ input[type="text"].line::placeholder {
   white-space: nowrap;
 }
 
+#search-container #go-btn {
+  width: 100%;
+}
+
 #search-container label {
   font-size: 12px;
   font-weight: normal;
@@ -16740,6 +16744,10 @@ textarea.note {
   background: linear-gradient(to left, #97D7D6, #b9efe1);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   white-space: nowrap;
+}
+
+#search-container #go-btn {
+  width: 100%;
 }
 
 #search-container label {
