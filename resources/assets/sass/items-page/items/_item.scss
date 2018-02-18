@@ -65,6 +65,9 @@
         border-bottom: 1px solid transparent;
         width: 70%;
         max-width: 650px;
+        @media (max-width: $breakpoint2) {
+            width: 100%;
+        }
         &.top-guide {
             border-top: 1px solid #777;
         }

@@ -16500,6 +16500,12 @@ input[type="text"].line::placeholder {
   max-width: 650px;
 }
 
+@media (max-width: 768px) {
+  .item .item-content {
+    width: 100%;
+  }
+}
+
 .item .item-content.top-guide {
   border-top: 1px solid #777;
 }
