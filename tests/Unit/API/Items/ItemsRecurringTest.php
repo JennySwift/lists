@@ -90,6 +90,7 @@ class ItemsRecurringTest extends TestCase
     }
 
     /**
+     * The dates here will need to be updated for the test to pass in the future
      * @test
      * @return void
      */
@@ -97,21 +98,21 @@ class ItemsRecurringTest extends TestCase
     {
         $response = $this->updateItem([
             //Make the not-before date in the past
-            'not_before' => '2016-01-10 15:30:00',
+            'not_before' => '2018-01-10 15:30:00',
             'recurring_unit' => 'year',
             'recurring_frequency' => 2
         ]);
 
         $this->getItemContent($response);
 
-        $this->assertEquals('2016-01-10 15:30:00', $this->content['notBefore']);
+        $this->assertEquals('2018-01-10 15:30:00', $this->content['notBefore']);
         $this->assertEquals('year', $this->content['recurringUnit']);
         $this->assertEquals(2, $this->content['recurringFrequency']);
 
         $response = $this->rescheduleItem();
         $this->getItemContent($response);
 
-        $this->assertEquals('2018-01-10 15:30:00', $this->content['notBefore']);
+        $this->assertEquals('2020-01-10 15:30:00', $this->content['notBefore']);
 
         $this->assertResponseOk($response);
     }
@@ -149,7 +150,7 @@ class ItemsRecurringTest extends TestCase
      */
     public function it_can_calculate_the_next_time_for_a_recurring_item_that_has_a_not_before_time_in_the_past_and_a_recurring_unit_of_days()
     {
-        $notBefore = Carbon::today()->subDays(5)->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
+        $notBefore = Carbon::today()->subDays(5)->addHours(5)->addMinutes(5)->format('Y-m-d H:i:s');
         //Skipping because slow to run!
 //        $this->markTestSkipped();
         $response = $this->updateItem([
@@ -166,8 +167,8 @@ class ItemsRecurringTest extends TestCase
         $response = $this->rescheduleItem();
         $this->getItemContent($response);
 
-        //This might fail if the test is run before 1:30pm?
-        $expectedNextTime = Carbon::tomorrow()->addHours(13)->addMinutes(5)->format('Y-m-d H:i:s');
+        //This might fail if the test is run before 5:05am?
+        $expectedNextTime = Carbon::tomorrow()->addHours(5)->addMinutes(5)->format('Y-m-d H:i:s');
 
 //        $expectedNextTime = Carbon::now();
 
