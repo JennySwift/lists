@@ -40,15 +40,6 @@
             >
             </date-picker>
 
-            <!--<input-group-->
-                <!--label="Category:"-->
-                <!--:model.sync="shared.filters.category"-->
-                <!--id="filter-category"-->
-                <!--:options="categoryOptions"-->
-                <!--options-prop="name"-->
-            <!--&gt;-->
-            <!--</input-group>-->
-
             <autocomplete
                 input-id="filter-category"
                 prop="name"
@@ -102,88 +93,6 @@
                     <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</button>
                 </div>
             </div>
-
-
-
-            <!--<div class="input-group-container">-->
-                <!--<input-group-->
-                    <!--label="Title:"-->
-                    <!--:model.sync="shared.filters.title"-->
-                    <!--id="title-filter"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--<input-group-->
-                    <!--label="Note:"-->
-                    <!--:model.sync="shared.filters.body"-->
-                    <!--id="body-filter"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--<input-group-->
-                    <!--label="Min Priority:"-->
-                    <!--:model.sync="shared.filters.minimumPriority"-->
-                    <!--id="min-priority-filter"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--<input-group-->
-                    <!--label="Priority:"-->
-                    <!--:model.sync="shared.filters.priority"-->
-                    <!--id="priority-filter"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--&lt;!&ndash;<input-group&ndash;&gt;-->
-                <!--&lt;!&ndash;label="Urgency (in):"&ndash;&gt;-->
-                <!--&lt;!&ndash;:model.sync="shared.filters.urgency"&ndash;&gt;-->
-                <!--&lt;!&ndash;id="urgency-filter"&ndash;&gt;-->
-                <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</input-group>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<input-group&ndash;&gt;-->
-                <!--&lt;!&ndash;label="Urgency (out >=):"&ndash;&gt;-->
-                <!--&lt;!&ndash;:model.sync="shared.filters.urgencyOut"&ndash;&gt;-->
-                <!--&lt;!&ndash;id="urgency-out-filter"&ndash;&gt;-->
-                <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</input-group>&ndash;&gt;-->
-
-                <!--<date-picker-->
-                    <!--:initial-date-value.sync="shared.filters.notBeforeDate"-->
-                    <!--input-id="filter-not-before-date"-->
-                    <!--label="Not Before"-->
-                    <!--property="notBeforeDate"-->
-                    <!--@date-chosen="dateChosen"-->
-                <!--&gt;-->
-                <!--</date-picker>-->
-
-                <!--<input-group-->
-                    <!--label="Category:"-->
-                    <!--:model.sync="shared.filters.category"-->
-                    <!--id="filter-category"-->
-                    <!--:options="categoryOptions"-->
-                    <!--options-prop="name"-->
-                <!--&gt;-->
-                <!--</input-group>-->
-
-                <!--<div class="checkbox-container">-->
-                    <!--<label for="filter-not-before">Hide items not before future time:</label>-->
-                    <!--<input-->
-                        <!--v-model="shared.filters.notBefore"-->
-                        <!--id="filter-not-before"-->
-                        <!--type="checkbox"-->
-                    <!--&gt;-->
-                <!--</div>-->
-
-                <!--<div class="checkbox-container">-->
-                    <!--<label for="filter-not-before">Show trashed items:</label>-->
-                    <!--<input-->
-                        <!--v-model="shared.filters.showTrashed"-->
-                        <!--id="filter-show-trashed"-->
-                        <!--type="checkbox"-->
-                    <!--&gt;-->
-                <!--</div>-->
-            <!--</div>-->
 
         </div>
     </transition>
