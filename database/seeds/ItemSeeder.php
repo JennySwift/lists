@@ -111,7 +111,8 @@ class ItemSeeder extends Seeder
         [
             'title' => 'Do some pullups',
             'category_id' => 4,
-            'priority' => 1
+            'priority' => 1,
+            'favourite' => 1
         ],
         [
             'title' => 'Throw stuff out',
@@ -121,7 +122,8 @@ class ItemSeeder extends Seeder
         [
             'title' => 'Add new feature',
             'category_id' => 1,
-            'priority' => 2
+            'priority' => 2,
+            'favourite' => 1
         ],
         [
             'title' => 'Throw more stuff out',
@@ -189,7 +191,7 @@ class ItemSeeder extends Seeder
 
 //            $this->deleteSomeItems();
 //        $this->pinSomeItems();
-            $this->favouriteSomeItems();
+//            $this->favouriteSomeItems();
 //        $this->makeSomeItemsUrgent();
 //        $this->giveAlarmsToSomeItems();
 //            $this->giveANotBeforeValueToSomeItems();
@@ -246,6 +248,10 @@ class ItemSeeder extends Seeder
 
         if (isset($item['days_ago'])) {
             $newItem['not_before'] = Carbon::today()->subDays($item['days_ago'])->format('Y-m-d H:i:s');
+        }
+
+        if (isset($item['favourite'])) {
+            $newItem['favourite'] = 1;
         }
 
 
@@ -362,14 +368,14 @@ class ItemSeeder extends Seeder
     /**
      *
      */
-    private function favouriteSomeItems()
-    {
-        $items = Item::where('user_id', $this->user->id)->limit(18)->offset(4)->get();
-        foreach ($items as $item) {
-            $item->favourite = 1;
-            $item->save();
-        }
-    }
+//    private function favouriteSomeItems()
+//    {
+//        $items = Item::where('user_id', $this->user->id)->limit(18)->offset(4)->get();
+//        foreach ($items as $item) {
+//            $item->favourite = 1;
+//            $item->save();
+//        }
+//    }
 
     /**
      *

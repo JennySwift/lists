@@ -196,15 +196,15 @@ class ItemsIndexTest extends TestCase
     public function it_can_filter_the_items_by_title()
     {
         $this->logInUser();
-        $response = $this->call('GET', '/api/items?filter=au');
+        $response = $this->call('GET', '/api/items?filter=push');
         $content = $this->getContent($response);
         $data = $content['data'];
-      dd($content);
+//      dd($content);
 
         $this->checkItemKeysExist($data[0]);
 
         foreach ($data as $item) {
-            $this->assertContains('au', $item['title'], '', true);
+            $this->assertContains('push', $item['title'], '', true);
         }
 
         $this->assertResponseOk($response);

@@ -120,11 +120,9 @@ class ItemsRepository {
     {
         $field = $request->get('field') ? $request->get('field') : 'title';
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
-        $items = Item::forCurrentUser()
+        return Item::forCurrentUser()
             ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
-            ->toSql();
-//            ->paginate($max);
-        dd($items);
+            ->paginate($max);
     }
 
     /**
