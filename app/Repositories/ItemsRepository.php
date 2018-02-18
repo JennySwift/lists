@@ -134,12 +134,15 @@ class ItemsRepository {
             $query = $query->where('priority', '<=', $request->get('min_priority'));
         }
 
+        if ($request->has('with_trashed')) {
+            $query = $query->withTrashed();
+        }
+
         return $query->orderBy('priority', 'asc')
             ->orderByRaw('`not_before` IS NULL')
             ->orderBy('not_before', 'asc')
             ->orderBy('category_id', 'asc')
             ->orderBy('id', 'desc')
-            ->withTrashed()
             ->paginate($max);
     }
 

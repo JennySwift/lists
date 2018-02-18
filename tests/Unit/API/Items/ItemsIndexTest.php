@@ -16,14 +16,13 @@ class ItemsIndexTest extends TestCase
      * @test
      * @return void
      */
-    public function it_gets_the_items()
+    public function it_gets_the_items_without_the_trashed_items()
     {
         $this->logInUser();
 
-        //Delete some items to check they are still retrieved
-        //Todo:
-//        $this->deleteItem(Item::find(607));
-//        $this->deleteItem(Item::find(244));
+        //Check the trashed items exist
+        $trashed = Item::forCurrentUser()->onlyTrashed()->get();
+        $this->assertCount(3, $trashed);
 
         $response = $this->call('GET', '/api/items');
         $content = $this->getContent($response);
@@ -32,15 +31,41 @@ class ItemsIndexTest extends TestCase
 
         $this->checkItemKeysExist($data[0]);
 
+        //Check the items do not include the deleted items
+        $count = 0;
+        foreach ($data as $item) {
+            if ($item['deletedAt']) {
+                $count++;
+            }
+        }
+        $this->assertEquals(0, $count);
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_gets_the_items_including_the_trashed_items()
+    {
+        $this->logInUser();
+
+        $response = $this->call('GET', '/api/items?max=20&with_trashed=true');
+        $content = $this->getContent($response);
+        $data = $content['data'];
+//      dd($content);
+
+        $this->checkItemKeysExist($data[0]);
+
         //Check the items include the deleted items
-        Todo:
-//        $count = 0;
-//        foreach ($data as $item) {
-//            if ($item['deletedAt']) {
-//                $count++;
-//            }
-//        }
-//        $this->assertEquals(2, $count);
+        $count = 0;
+        foreach ($data as $item) {
+            if ($item['deletedAt']) {
+                $count++;
+            }
+        }
+        $this->assertEquals(2, $count);
 
         $this->assertResponseOk($response);
     }
