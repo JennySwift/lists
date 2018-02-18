@@ -310,10 +310,34 @@ export default {
 
         url += '?page=' + pageNumber;
 
+        if (store.state.filters.title) {
+            url += '&title=' + store.state.filters.title;
+        }
+
+        if (store.state.filters.body) {
+            url += '&body=' + store.state.filters.body;
+        }
+
         if (store.state.filters.priority) {
             url += '&priority=' + store.state.filters.priority;
         }
 
+        if (store.state.filters.minimumPriority) {
+            url += '&min_priority=' + store.state.filters.minimumPriority;
+        }
+
+        if (store.state.filters.category.id) {
+            url += '&category_id=' + store.state.filters.category.id;
+        }
+
+        if (store.state.filters.notBeforeDate) {
+            url += '&not_before=' + store.state.filters.not_before;
+        }
+
+        if (store.state.filters.notBefore) {
+            url += '&with_future_items=' + !store.state.filters.not_before;
+        }
+        
         if (store.state.filters.showTrashed) {
             url += '&with_trashed=true';
         }
