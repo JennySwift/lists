@@ -11,6 +11,7 @@ import helpers from './Helpers'
 
 
 
+
 export default {
     /**
      * storeProperty is the store property to set once the items are loaded.
@@ -19,7 +20,7 @@ export default {
      */
     get: function (options) {
         store.showLoading();
-        Vue.http.get(options.url).then(function (response) {
+        axios.get(options.url).then(function (response) {
             if (options.storeProperty) {
                 if (options.updatingArray) {
                     //Update the array the item is in
@@ -53,7 +54,7 @@ export default {
     post: function (options) {
         store.showLoading();
         var that = this;
-        Vue.http.post(options.url, options.data).then(function (response) {
+        axios.post(options.url, options.data).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
             }
@@ -86,7 +87,7 @@ export default {
     put: function (options) {
         store.showLoading();
         var that = this;
-        Vue.http.put(options.url, options.data).then(function (response) {
+        axios.put(options.url, options.data).then(function (response) {
             if (options.callback) {
                 options.callback(response.data);
             }
@@ -150,7 +151,7 @@ export default {
             options.beforeDelete();
         }
 
-        Vue.http.delete(options.url).then(function (response) {
+        axios.delete(options.url).then(function (response) {
             if (options.callback) {
                 options.callback(response);
             }
