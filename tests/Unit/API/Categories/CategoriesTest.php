@@ -42,6 +42,7 @@ class CategoriesTest extends TestCase
         ];
 
         $response = $this->call('POST', '/api/categories', $category);
+//        dd($response);
         $content = $this->getContent($response);
 //      dd($content);
 

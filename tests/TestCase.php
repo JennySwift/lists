@@ -63,6 +63,7 @@ abstract class TestCase extends BaseTestCase
         $user = User::find($id);
         $this->be($user);
         $this->user = $user;
+        $this->actingAs($user, 'api');
     }
 
     /**

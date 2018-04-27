@@ -2,11 +2,16 @@ import ItemsPageComponent from './lists/src/components/ItemsPageComponent.vue'
 import CategoriesPageComponent from './lists/src/components/CategoriesComponent.vue'
 import HelpPageComponent from './lists/src/components/HelpPageComponent.vue'
 import TrashComponent from './lists/src/components/TrashComponent.vue'
+import ApiPageComponent from './lists/src/components/ApiComponent.vue'
 
 export default [
     {
         path: '/',
         component: ItemsPageComponent
+    },
+    {
+        path: '/api',
+        component: ApiPageComponent
     },
     {
         path: '/items',

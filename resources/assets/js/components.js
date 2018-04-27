@@ -31,6 +31,11 @@ import ItemComponent from './lists/src/components/ItemComponent.vue'
 import ItemFieldsComponent from './lists/src/components/ItemFieldsComponent.vue'
 // import TrashComponent from './lists/src/components/TrashComponent.vue'
 
+//api
+import Clients from './components/passport/Clients.vue'
+import AuthorizedClients from './components/passport/AuthorizedClients.vue'
+import PersonalAccessTokens from './components/passport/PersonalAccessTokens.vue'
+
 //Shared components
 Vue.component('navbar', NavbarComponent);
 Vue.component('toolbar', ToolbarComponent);
@@ -58,5 +63,24 @@ Vue.component('new-category', NewCategoryComponent);
 Vue.component('item', ItemComponent);
 // Vue.component('category', CategoryComponent);
 Vue.component('item-fields', ItemFieldsComponent);
+
+Vue.component('passport-clients', Clients);
+Vue.component('passport-authorized-clients', AuthorizedClients);
+Vue.component('passport-personal-access-tokens', PersonalAccessTokens);
+
+// Vue.component(
+//     'passport-clients',
+//     require('./components/passport/Clients.vue')
+// );
+
+// Vue.component(
+//     'passport-authorized-clients',
+//     require('./components/passport/AuthorizedClients.vue')
+// );
+//
+// Vue.component(
+//     'passport-personal-access-tokens',
+//     require('./components/passport/PersonalAccessTokens.vue')
+// );
 
 // Vue.component('app', require('./lists/src/components/AppComponent.js'));
