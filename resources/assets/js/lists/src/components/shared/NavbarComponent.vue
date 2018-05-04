@@ -40,8 +40,9 @@
 <script>
 //    import jQuery from 'jquery'
 //    import bootstrap from 'bootstrap'
-require('bootstrap');
+//require('bootstrap');
 import store from '../../repositories/Store'
+import 'bootstrap';
 
     export default {
         data: function () {
