@@ -1,66 +1,44 @@
 <template>
-    <f7-page>
+    <f7-page :page-content="false">
         <navbar title="Items"></navbar>
 
-        <div id="items-page">
-            <item-popup></item-popup>
+        <!--<item-popup></item-popup>-->
 
-            <div id="items-page-container">
+        <!--<button-->
+            <!--v-on:click="toggleNewItemFields()"-->
+            <!--id="new-item-btn"-->
+            <!--class="btn btn-default btn-sm"-->
+        <!--&gt;-->
+            <!--New Item-->
+            <!--<span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>-->
+            <!--<span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>-->
+        <!--</button>-->
 
-                <div class="left-side">
-                    <button
-                        v-on:click="toggleNewItemFields()"
-                        id="new-item-btn"
-                        class="btn btn-default btn-sm"
-                    >
-                        New Item
-                        <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
-                        <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
-                    </button>
+        <!--<breadcrumb></breadcrumb>-->
 
-                    <breadcrumb></breadcrumb>
+        <!--<new-item></new-item>-->
 
-                    <new-item></new-item>
+        <f7-list contacts-list>
+            <f7-list-group>
+                <f7-list-item
+                    v-for="item in shared.items"
+                    :key="item.id"
+                    :link="'/items/' + item.id"
+                    v-bind:title="item.title"
+                >
 
-                    <div id="items">
-                        <item
-                            v-for="item in shared.items"
-                            :key="item.id"
-                            :item="item"
-                            class="item-with-children"
-                        >
-                        </item>
-                    </div>
+                </f7-list-item>
+            </f7-list-group>
+        </f7-list>
 
-                    <div v-if="shared.items.length === 0">No items here</div>
 
-                    <div>
-                        <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
-                        <div class="parent-pagination-btns">
-                            <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</button>
-                            <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</button>
-                        </div>
-                    </div>
-                </div>
+        <div v-if="shared.items.length === 0">No items here</div>
 
-            </div>
-
-        </div>
-
-        <!--<f7-list contacts-list>-->
-            <!--<f7-list-group>-->
-                <!--<f7-list-item-->
-                    <!--v-for="exercise in shared.exercises"-->
-                    <!--:link="'/exercises/' + exercise.id"-->
-                    <!--v-bind:title="exercise.name"-->
-                    <!--v-on:click="setExercise(exercise)"-->
-                    <!--v-bind:key="exercise.id"-->
-                <!--&gt;-->
-
-                <!--</f7-list-item>-->
-            <!--</f7-list-group>-->
-        <!--</f7-list>-->
-
+        <f7-toolbar class="flex-container">
+            <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
+            <f7-button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</f7-button>
+            <f7-button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</f7-button>
+        </f7-toolbar>
 
     </f7-page>
 
