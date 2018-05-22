@@ -1,79 +1,55 @@
 <template>
+    <f7-navbar>
+        <f7-nav-left v-if="shared.previousRoute">
+            <f7-link :href="shared.previousRoute" v-on:click="goToPreviousRoute()" id="back-navigation-link">
+                <f7-icon f7="chevron_left"></f7-icon>
+                <span>Back</span>
+            </f7-link>
+        </f7-nav-left>
+        <f7-nav-title>{{title}}</f7-nav-title>
+        <f7-nav-right>
+            <!--<f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" :popover-open="'#' + popoverId + '-menu'"></f7-link>-->
+            <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open></f7-link>
 
-    <nav id="navbar">
-        <!--<div>-->
-            <!--<button type="button">-->
-                <!--<span class="sr-only">Toggle navigation</span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-            <!--</button>-->
-        <!--</div>-->
-
-        <ul>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <router-link to="/categories">Categories</router-link>
-                    </li>
-
-                    <li>
-                        <router-link to="/trash">Trash</router-link>
-                    </li>
-                    <li>
-                        <router-link to="/help">Help</router-link>
-                    </li>
-                    <li><a href="/logout">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
-
-        <router-link to="/items">Items</router-link>
-
-        <div v-on:click="toggleFilter()">Filter/Search</div>
-
-    </nav>
+            <!--<f7-popover :id="popoverId + '-menu'">-->
+            <!--<f7-list contacts-list>-->
+            <!--<f7-list-group>-->
+            <!--<f7-list-item class="panel-close" link="/sessions" title="Sessions" popover-close></f7-list-item>-->
+            <!--<f7-list-item class="panel-close" link="/workouts" title="Workouts" popover-close></f7-list-item>-->
+            <!--<f7-list-item class="panel-close" link="/exercises/" title="Exercises" popover-close></f7-list-item>-->
+            <!--<slot></slot>-->
+            <!--</f7-list-group>-->
+            <!--</f7-list>-->
+            <!--</f7-popover>-->
+        </f7-nav-right>
+    </f7-navbar>
 
 </template>
 
 <script>
-//    import jQuery from 'jquery'
-//    import bootstrap from 'bootstrap'
-//require('bootstrap');
-import store from '../../repositories/Store'
-import 'bootstrap';
-
     export default {
         data: function () {
             return {
-
+                shared: store.state
             };
-        },
-        computed: {
-            path: function () {
-              return this.$route.path;
-            }
         },
         components: {},
         methods: {
-
-            /**
-             *
-             */
-            toggleFilter: function () {
-               store.toggle('showFilter');
-            },
-
-            /**
-             *
-             */
-//            toggleFavouriteItems: function () {
-//                store.toggle('showFavourites');
-//            }
+            goToPreviousRoute: function () {
+                store.goToPreviousRoute();
+            }
         },
-        mounted: function () {
+        props: [
+            'title'
+        ]
+    }
 
+</script>
+
+<style lang="scss" type="text/scss">
+    #back-navigation-link {
+        span {
+            padding-top: 1px;
         }
     }
-</script>
+</style>

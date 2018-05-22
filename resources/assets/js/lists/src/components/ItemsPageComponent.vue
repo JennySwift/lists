@@ -1,64 +1,74 @@
 <template>
-    <div id="items-page">
-        <item-popup></item-popup>
-        
-        <!--<pre>@{{$data.shared.items}}</pre>-->
+    <f7-page>
+        <navbar title="Items"></navbar>
 
-        <div id="items-page-container">
+        <div id="items-page">
+            <item-popup></item-popup>
 
-            <div class="left-side">
-                <button
-                    v-on:click="toggleNewItemFields()"
-                    id="new-item-btn"
-                    class="btn btn-default btn-sm"
-                >
-                    New Item
-                    <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
-                    <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
-                </button>
+            <div id="items-page-container">
 
-                <breadcrumb></breadcrumb>
-
-                <new-item></new-item>
-
-                <!--Items-->
-                <!--<transition-group name="items" tag="ul" id="items">-->
-                <div id="items">
-                    <item
-                        v-for="item in shared.items"
-                        :key="item.id"
-                        :item="item"
-                        class="item-with-children"
+                <div class="left-side">
+                    <button
+                        v-on:click="toggleNewItemFields()"
+                        id="new-item-btn"
+                        class="btn btn-default btn-sm"
                     >
-                    </item>
-                </div>
+                        New Item
+                        <span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>
+                        <span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>
+                    </button>
 
-                <!--</transition-group>-->
+                    <breadcrumb></breadcrumb>
 
+                    <new-item></new-item>
 
+                    <div id="items">
+                        <item
+                            v-for="item in shared.items"
+                            :key="item.id"
+                            :item="item"
+                            class="item-with-children"
+                        >
+                        </item>
+                    </div>
 
+                    <div v-if="shared.items.length === 0">No items here</div>
 
-
-                <div v-if="shared.items.length === 0">No items here</div>
-
-                <div>
-                    <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
-                    <div class="parent-pagination-btns">
-                        <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</button>
-                        <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</button>
+                    <div>
+                        <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
+                        <div class="parent-pagination-btns">
+                            <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</button>
+                            <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="right-side">
-                <!--<favourite-items></favourite-items>-->
+                <div class="right-side">
+                    <items-filter></items-filter>
+                </div>
 
-                <items-filter></items-filter>
             </div>
 
         </div>
 
-    </div>
+        <!--<f7-list contacts-list>-->
+            <!--<f7-list-group>-->
+                <!--<f7-list-item-->
+                    <!--v-for="exercise in shared.exercises"-->
+                    <!--:link="'/exercises/' + exercise.id"-->
+                    <!--v-bind:title="exercise.name"-->
+                    <!--v-on:click="setExercise(exercise)"-->
+                    <!--v-bind:key="exercise.id"-->
+                <!--&gt;-->
+
+                <!--</f7-list-item>-->
+            <!--</f7-list-group>-->
+        <!--</f7-list>-->
+
+
+    </f7-page>
+
+
 </template>
 
 <script>
@@ -66,7 +76,6 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import store from '../repositories/Store'
     import filters from '../repositories/Filters'
-//    import _ from 'lodash'
 
     export default {
         data: function () {
@@ -78,12 +87,10 @@
             }
         },
         computed: {
-//            filteredItems: function () {
-//                return filters.filter(this.shared.items, this);
-//            },
-            path: function () {
-                return this.$route.path;
-            }
+            //Commenting out after upgrade
+            // path: function () {
+            //     return this.$route.path;
+            // }
         },
         watch: {
             /**
@@ -92,12 +99,12 @@
              * @param val
              * @param oldVal
              */
-            'path': function (val, oldVal) {
-                //So this doesn't run on page load before the companies are loaded
-                if (oldVal) {
-                    store.getItems();
-                }
-            }
+            // 'path': function (val, oldVal) {
+            //     //So this doesn't run on page load before the companies are loaded
+            //     if (oldVal) {
+            //         store.getItems();
+            //     }
+            // }
         },
         components: {},
         methods: {

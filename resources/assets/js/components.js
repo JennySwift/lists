@@ -8,8 +8,8 @@ import Vue from 'vue'
 var vueTippy = require('vue-tippy');
 Vue.use(vueTippy);
 
-import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import ToolbarComponent from './lists/src/components/shared/ToolbarComponent.vue'
+import NavbarComponent from './lists/src/components/shared/NavbarComponent.vue'
 import LoadingComponent from './lists/src/components/shared/LoadingComponent.vue'
 import PopupComponent from './lists/src/components/shared/PopupComponent.vue'
 import NewPopupComponent from './lists/src/components/shared/NewPopupComponent.vue'
@@ -21,15 +21,11 @@ import FeedbackComponent from './lists/src/components/shared/FeedbackComponent.v
 
 import ItemPopupComponent from './lists/src/components/ItemPopupComponent.vue'
 import BreadcrumbComponent from './lists/src/components/BreadcrumbComponent.vue'
-// import CategoryPopupComponent from './lists/src/components/CategoryPopupComponent.vue'
-// import FavouriteItemsComponent from './lists/src/components/FavouriteItemsComponent.vue'
 import FilterComponent from './lists/src/components/FilterComponent.vue'
 import NewItemComponent from './lists/src/components/NewItemComponent.vue'
 import NewCategoryComponent from './lists/src/components/NewCategoryComponent.vue'
 import ItemComponent from './lists/src/components/ItemComponent.vue'
-// import CategoryComponent from './lists/src/components/CategoryComponent.vue'
 import ItemFieldsComponent from './lists/src/components/ItemFieldsComponent.vue'
-// import TrashComponent from './lists/src/components/TrashComponent.vue'
 
 //api
 import Clients from './components/passport/Clients.vue'
@@ -37,10 +33,8 @@ import AuthorizedClients from './components/passport/AuthorizedClients.vue'
 import PersonalAccessTokens from './components/passport/PersonalAccessTokens.vue'
 
 //Shared components
-Vue.component('navbar', NavbarComponent);
 Vue.component('toolbar', ToolbarComponent);
-Vue.component('feedback', FeedbackComponent);
-Vue.component('loading', LoadingComponent);
+Vue.component('navbar', NavbarComponent);
 Vue.component('popup', PopupComponent);
 Vue.component('new-popup', NewPopupComponent);
 Vue.component('autocomplete', AutocompleteComponent);

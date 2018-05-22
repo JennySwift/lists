@@ -129,8 +129,8 @@
                 return categories;
             },
             isTrashPage () {
-                return this.$route.path === '/trash';
-//                return helpers.getCurrentPath() === '/trash';
+                return false;
+                // return this.$route.path === '/trash';
             }
 
         },

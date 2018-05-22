@@ -302,7 +302,7 @@ export default {
      */
     getUrl: function (pageNumber) {
         var url;
-        var id = helpers.getIdFromUrl();
+        var id = helpers.getIdFromRouteParams();
         url = id ? '/api/items/' + id : '/api/items';
 
         if (!pageNumber) {

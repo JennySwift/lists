@@ -30,7 +30,12 @@
                     <span class="fa fa-times"></span>
                 </button>
 
-                <router-link v-if="!isTrashPage" v-bind:to="'/items/:' + item.id" tag="i" class="fa fa-search-plus big-screen"></router-link>
+                <f7-link
+                    v-if="!isTrashPage"
+                    v-bind:href="'/items/:' + item.id"
+                >
+                    Expand
+                </f7-link>
 
                 <i
                     v-if="!isTrashPage && item.has_children && (!item.children.data || item.children.data.length === 0)"
@@ -78,7 +83,11 @@
                         </li>
 
                         <li>
-                            <router-link v-bind:to="'/items/:' + item.id" class="fa fa-search-plus"></router-link>
+                            <f7-link
+                                v-bind:href="'/items/:' + item.id"
+                            >
+                                Expand
+                            </f7-link>
                         </li>
                     </ul>
 

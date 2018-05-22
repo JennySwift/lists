@@ -1,40 +1,58 @@
-// require('./config');
 require('./bootstrap');
 
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter);
 
-global.$ = require('jquery');
-global.jQuery = require('jquery');
+import Framework7 from 'framework7/dist/framework7.esm.bundle.js';
+import Framework7Vue from 'framework7-vue/dist/framework7-vue.esm.bundle.js';
+// import Framework7Styles from 'framework7/dist/css/framework7.css';
 
-// import jQuery from 'jquery'
-global._ = require('underscore');
+import 'framework7-icons';
+Vue.use(Framework7Vue, Framework7)
+
 import store from './lists/src/repositories/Store'
+import helpers from './lists/src/repositories/Helpers'
+import filters from './lists/src/repositories/Filters'
+import routes from './routes'
 
 window.Event = new Vue();
 
-require('./components.js');
+require('./components');
+require('./config.js');
 
-store.getCategories();
-store.getFavouriteItems();
-setTimeout(function () {
-    store.getItems();
-}, 500);
+global.store = store;
+global.helpers = helpers;
+global.filters = filters;
 
 
-import routes from './routes'
-
-const router = new VueRouter({
-    routes // short for `routes: routes`
-})
-
-const bus = new Vue()
-Vue.prototype.$bus = bus
+const bus = new Vue();
+Vue.prototype.$bus = bus;
 
 const app = new Vue({
-    router
-}).$mount('#app')
+    el: '#app',
+    mounted: function () {
+        store.getCategories();
+        store.getFavouriteItems();
+        setTimeout(function () {
+            store.getItems();
+        }, 500);
+    },
+    framework7: {
+        root: '#app',
+        id: 'lists-app',
+        name: 'Lists',
+        theme: 'ios',
+        routes: routes,
+        view: {
+            pushState: true,
+        },
+        panel: {
+            swipe: 'right'
+        }
+    }
+});
+
+
+
 
 
 

@@ -2,44 +2,49 @@ import ItemsPageComponent from './lists/src/components/ItemsPageComponent.vue'
 import CategoriesPageComponent from './lists/src/components/CategoriesComponent.vue'
 import HelpPageComponent from './lists/src/components/HelpPageComponent.vue'
 import TrashComponent from './lists/src/components/TrashComponent.vue'
-import ApiPageComponent from './lists/src/components/ApiComponent.vue'
+
+var on = {
+    pageAfterIn: function (e, page) {
+        // store.updateRouteHistory(page.route.path);
+    }
+};
 
 export default [
     {
-        path: '/',
-        component: ItemsPageComponent
-    },
-    {
-        path: '/api',
-        component: ApiPageComponent
-    },
-    {
+        name: 'items',
         path: '/items',
-        component: ItemsPageComponent
+        component: ItemsPageComponent,
+        alias: '/',
+        on: on
     },
     {
-        path: '/items/:id',
-        component: ItemsPageComponent
+        name: 'items',
+        path: '/items',
+        component: ItemsPageComponent,
+        on: on
     },
     {
-        path: '/categories',
-        component: CategoriesPageComponent
-    },
-    // {
-    //     path: '/trash',
-    //     component: require('./lists/src/components/TrashComponent.vue')
-    // },
-    // {
-    //     path: '/feedback',
-    //     component: require('./lists/src/components/FeedbackPageComponent.vue')
-    // },
-    {
-        path: '/help',
-        component: HelpPageComponent
-    },
-    {
+        name: 'trash',
         path: '/trash',
-        component: TrashComponent
+        component: TrashComponent,
+        on: on
     },
-
+    {
+        name: 'help',
+        path: '/help',
+        component: HelpPageComponent,
+        on: on
+    },
+    {
+        name: 'categories',
+        path: '/categories',
+        component: CategoriesPageComponent,
+        on: on
+    },
+    {
+        name: 'item',
+        path: '/items/:id',
+        component: ItemsPageComponent,
+        on: on
+    }
 ]

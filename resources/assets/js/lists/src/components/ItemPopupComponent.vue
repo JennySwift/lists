@@ -2,7 +2,6 @@
 
     <new-popup
         id="item-popup"
-        :redirect-to="redirectTo"
     >
         <div slot="content">
             <div class="top-btns">
@@ -45,7 +44,6 @@
                  v-if="!shared.selectedItemClone.deletedAt"
                  :save="updateItem"
                  :destroy="deleteItem"
-                 :redirect-to="redirectTo"
 
         >
         </buttons>
@@ -68,11 +66,11 @@
                 modalProps: true
             };
         },
-        computed: {
-            redirectTo: function () {
-                return this.$route.path;
-            }
-        },
+        // computed: {
+        //     redirectTo: function () {
+        //         return this.$route.path;
+        //     }
+        // },
         filters: {
             /**
              *
@@ -103,7 +101,7 @@
                     url: '/api/items/' + this.shared.selectedItemClone.id,
                     data: data,
                     message: 'Item restored',
-                    redirectTo: this.redirectTo,
+                    // redirectTo: this.redirectTo,
                     callback: function (response) {
                         store.set(null, 'selectedItem.deletedAt');
                         this.updateFavourites(response);
@@ -134,7 +132,7 @@
                     url: '/api/items/' + this.shared.selectedItemClone.id,
                     data: data,
                     message: 'Item updated',
-                    redirectTo: this.redirectTo,
+                    // redirectTo: this.redirectTo,
                     callback: function (response) {
                         store.update(response, 'items');
 

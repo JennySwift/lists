@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Lists</title>
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
-    @include('templates.shared.head-links')
+    @include('templates.shared.head')
+    @include('templates.shared.links')
 </head>
 <body>
 
 <div id="app">
-    <navbar></navbar>
-    {{--<toolbar></toolbar>--}}
+    <f7-statusbar></f7-statusbar>
 
-    <div class="main">
-        <feedback></feedback>
-        <loading></loading>
+    <f7-panel right cover>
+        <f7-block>
+            <f7-list contacts-list>
+                <f7-list-group>
+                    <f7-list-item class="panel-close" link="/items" title="Items"></f7-list-item>
+                    <f7-list-item class="panel-close" link="/categories" title="Categories"></f7-list-item>
+                    <f7-list-item class="panel-close" link="/trash" title="Trash"></f7-list-item>
+                </f7-list-group>
+            </f7-list>
+        </f7-block>
 
-        <router-view></router-view>
-    </div>
+        <f7-block>
+            <f7-list contacts-list>
+                <f7-list-group>
+                    <f7-list-item class="panel-close" external link="https://jennyswiftcreations.com/privacy-policy" title="Privacy"></f7-list-item>
+                    <f7-list-item class="panel-close" external link="https://jennyswiftcreations.com/credits" title="Credits"></f7-list-item>
+                    <f7-list-item class="panel-close" external link="https://jennyswiftcreations.com" title="jennyswiftcreations"></f7-list-item>
+                </f7-list-group>
+            </f7-list>
+        </f7-block>
+
+    </f7-panel>
+
+    <f7-view id="main-view" main>
+
+    </f7-view>
 
 </div>
 
