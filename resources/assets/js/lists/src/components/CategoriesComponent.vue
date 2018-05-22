@@ -1,37 +1,39 @@
 <template>
-    <div id="categories" class="padded-container">
+        <f7-page>
+            <navbar title="Items"></navbar>
 
-        <new-popup id="category-popup">
-            <div slot="content">
-                <input
-                    type="text"
-                    v-model="selectedCategory.name"
-                    v-on:keyup.13 = "updateCategory"
-                    placeholder="Name"
-                    class="line"
-                />
-            </div>
-            <buttons slot="buttons"
-                :save="updateCategory"
-                :destroy="deleteCategory"
-            >
-            </buttons>
-        </new-popup>
+            <!--<new-popup id="category-popup">-->
+                <!--<div slot="content">-->
+                    <!--<input-->
+                        <!--type="text"-->
+                        <!--v-model="selectedCategory.name"-->
+                        <!--v-on:keyup.13 = "updateCategory"-->
+                        <!--placeholder="Name"-->
+                        <!--class="line"-->
+                    <!--/>-->
+                <!--</div>-->
+                <!--<buttons slot="buttons"-->
+                         <!--:save="updateCategory"-->
+                         <!--:destroy="deleteCategory"-->
+                <!--&gt;-->
+                <!--</buttons>-->
+            <!--</new-popup>-->
+            <!--<new-category></new-category>-->
 
-        <new-category></new-category>
+            <f7-list contacts-list>
+                <f7-list-group>
+                    <f7-list-item
+                        v-for="category in shared.categories"
+                        :key="category.id"
+                        :link="'/categories/' + category.id"
+                        v-bind:title="category.name"
+                    >
 
-        <ul class="list-group">
-            <li v-for="category in shared.categories" class="list-group-item">
-                <div
-                    v-on:click="showCategoryPopup(category)"
-                    class="pointer"
-                >
-                    {{ category.name }}
-                </div>
-            </li>
-        </ul>
+                    </f7-list-item>
+                </f7-list-group>
+            </f7-list>
 
-    </div>
+        </f7-page>
 </template>
 
 <script>
