@@ -43,10 +43,6 @@
                     </div>
                 </div>
 
-                <div class="right-side">
-                    <items-filter></items-filter>
-                </div>
-
             </div>
 
         </div>

@@ -1,6 +1,10 @@
 export default {
     getIdFromRouteParams: function (that) {
-        return app.f7.view.main.router.currentRoute.params.id.replace(':', '');
+        var id = app.f7.view.main.router.currentRoute.params.id;
+        if (!id) {
+            return false;
+        }
+        return id.replace(':', '');
     },
 
     getCurrentUrl: function () {

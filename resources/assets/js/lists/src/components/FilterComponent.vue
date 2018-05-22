@@ -1,110 +1,107 @@
 <template>
 
-    <transition>
-        <div v-show="shared.showFilter" id="search-container">
+    <div>
 
-            <h5>Find Anywhere</h5>
+        <h5>Find Anywhere</h5>
 
-            <autocomplete
-                v-if="!isTrashPage"
-                input-id="filter-favourites"
-                prop="title"
-                :unfiltered-options="shared.favouriteItems"
-                input-placeholder="Favourite items"
-            >
-            </autocomplete>
+        <autocomplete
+            v-if="!isTrashPage"
+            input-id="filter-favourites"
+            prop="title"
+            :unfiltered-options="shared.favouriteItems"
+            input-placeholder="Favourite items"
+        >
+        </autocomplete>
 
-            <autocomplete
-                v-if="!isTrashPage"
-                input-id="title-search"
-                prop="title"
-                url="/api/items"
-                input-placeholder="Search all by title"
-            >
-            </autocomplete>
+        <autocomplete
+            v-if="!isTrashPage"
+            input-id="title-search"
+            prop="title"
+            url="/api/items"
+            input-placeholder="Search all by title"
+        >
+        </autocomplete>
 
-            <autocomplete
-                v-if="!isTrashPage"
-                input-id="note-search"
-                prop="body"
-                url="/api/items"
-                input-placeholder="Search all by note"
-                field-to-filter-by="body"
-            >
-            </autocomplete>
+        <autocomplete
+            v-if="!isTrashPage"
+            input-id="note-search"
+            prop="body"
+            url="/api/items"
+            input-placeholder="Search all by note"
+            field-to-filter-by="body"
+        >
+        </autocomplete>
 
-            <h5>Find in Current Position</h5>
+        <h5>Find in Current Position</h5>
 
-            <div>
-                <!--<label for="">Title: </label>-->
-                <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
-            </div>
-
-            <div>
-                <!--<label for="">Body: </label>-->
-                <input type="text" class="line" v-model="shared.filters.body" placeholder="Note"/>
-            </div>
-
-            <div>
-                <input type="text" class="line" v-model="shared.filters.minimumPriority" placeholder="Min Priority"/>
-            </div>
-
-            <div>
-                <input type="text" class="line" v-model="shared.filters.priority" placeholder="Priority"/>
-            </div>
-
-            <date-picker
-                :initial-date-value.sync="shared.filters.notBeforeDate"
-                input-id="filter-not-before-date"
-                label="Not Before"
-                property="notBeforeDate"
-                @date-chosen="dateChosen"
-                input-placeholder="Not before"
-            >
-            </date-picker>
-
-            <autocomplete
-                input-id="filter-category"
-                prop="name"
-                :selected.sync="shared.filters.category"
-                :unfiltered-options="categoryOptions"
-                input-placeholder="Category"
-            >
-            </autocomplete>
-
-            <div class="checkbox-container">
-                <label for="filter-not-before">Hide items not before future time:</label>
-                <input
-                    v-model="shared.filters.notBefore"
-                    id="filter-not-before"
-                    type="checkbox"
-                >
-            </div>
-
-            <div v-if="!isTrashPage" class="checkbox-container">
-                <label for="filter-not-before">Show trashed items:</label>
-                <input
-                    v-model="shared.filters.showTrashed"
-                    id="filter-show-trashed"
-                    type="checkbox"
-                >
-            </div>
-
-            <div>
-                <button v-on:click="go()" id="go-btn" class="btn btn-info">Go</button>
-            </div>
-
-            <div>
-                Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
-                <div id="parent-pagination-btns">
-                    <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</button>
-                    <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</button>
-                </div>
-            </div>
-
+        <div>
+            <!--<label for="">Title: </label>-->
+            <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
         </div>
-    </transition>
 
+        <div>
+            <!--<label for="">Body: </label>-->
+            <input type="text" class="line" v-model="shared.filters.body" placeholder="Note"/>
+        </div>
+
+        <div>
+            <input type="text" class="line" v-model="shared.filters.minimumPriority" placeholder="Min Priority"/>
+        </div>
+
+        <div>
+            <input type="text" class="line" v-model="shared.filters.priority" placeholder="Priority"/>
+        </div>
+
+        <date-picker
+            :initial-date-value.sync="shared.filters.notBeforeDate"
+            input-id="filter-not-before-date"
+            label="Not Before"
+            property="notBeforeDate"
+            @date-chosen="dateChosen"
+            input-placeholder="Not before"
+        >
+        </date-picker>
+
+        <autocomplete
+            input-id="filter-category"
+            prop="name"
+            :selected.sync="shared.filters.category"
+            :unfiltered-options="categoryOptions"
+            input-placeholder="Category"
+        >
+        </autocomplete>
+
+        <div class="checkbox-container">
+            <label for="filter-not-before">Hide items not before future time:</label>
+            <input
+                v-model="shared.filters.notBefore"
+                id="filter-not-before"
+                type="checkbox"
+            >
+        </div>
+
+        <div v-if="!isTrashPage" class="checkbox-container">
+            <label for="filter-not-before">Show trashed items:</label>
+            <input
+                v-model="shared.filters.showTrashed"
+                id="filter-show-trashed"
+                type="checkbox"
+            >
+        </div>
+
+        <div>
+            <button v-on:click="go()" id="go-btn" class="btn btn-info">Go</button>
+        </div>
+
+        <div>
+            Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
+            <div id="parent-pagination-btns">
+                <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</button>
+                <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</button>
+            </div>
+        </div>
+
+    </div>
 
 </template>
 

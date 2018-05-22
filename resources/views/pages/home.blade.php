@@ -9,7 +9,7 @@
 <div id="app">
     <f7-statusbar></f7-statusbar>
 
-    <f7-panel right cover>
+    <f7-panel left reveal>
         <f7-block>
             <f7-list contacts-list>
                 <f7-list-group>
@@ -31,6 +31,14 @@
         </f7-block>
 
     </f7-panel>
+
+    <f7-panel right cover>
+        <f7-block>
+            <items-filter></items-filter>
+        </f7-block>
+
+    </f7-panel>
+
 
     <f7-view id="main-view" main>
 
