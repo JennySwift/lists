@@ -33,10 +33,7 @@
     </f7-panel>
 
     <f7-panel right cover>
-        <f7-block>
-            <items-filter></items-filter>
-        </f7-block>
-
+        <items-filter></items-filter>
     </f7-panel>
 
 

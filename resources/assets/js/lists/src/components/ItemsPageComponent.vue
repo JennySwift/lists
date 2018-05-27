@@ -36,6 +36,7 @@
 
         <f7-toolbar class="flex-container">
             <span class="pagination-info">Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}</span>
+            <f7-button v-on:click="go()">Go</f7-button>
             <f7-button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-warning">Prev</f7-button>
             <f7-button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-warning">Next</f7-button>
         </f7-toolbar>
@@ -88,6 +89,10 @@
 
             nextPage: function () {
                 store.goToNextPage();
+            },
+
+            go: function () {
+                store.getItems();
             },
 
             toggleNewItemFields: function () {

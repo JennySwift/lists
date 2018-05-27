@@ -100,20 +100,6 @@
            </autocomplete>
        </f7-block>
 
-
-        <f7-block>
-            <f7-button v-on:click="go()">Go</f7-button>
-        </f7-block>
-
-
-        <f7-block>
-            Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
-            <f7-segmented>
-                <f7-button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</f7-button>
-                <f7-button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</f7-button>
-            </f7-segmented>
-        </f7-block>
-
     </div>
 
 </template>
@@ -191,10 +177,6 @@
             //        favourites.push(itemPopup);
             //    }
             //},
-
-            go: function () {
-                store.getItems();
-            },
 
             /**
              *
