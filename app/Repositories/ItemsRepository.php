@@ -216,25 +216,6 @@ class ItemsRepository {
 
     /**
      *
-     * @param $array
-     * @return array
-     */
-    public function getPaginationProperties($array)
-    {
-        return [
-            'total' => $array->total(),
-            'per_page' => $array->perPage(),
-            'current_page' => $array->currentPage(),
-            'last_page' => $array->lastPage(),
-            'next_page_url' => $array->nextPageUrl(),
-            'prev_page_url' => $array->previousPageUrl(),
-            'from' => $array->firstItem(),
-            'to' => $array->lastItem(),
-        ];
-    }
-
-    /**
-     *
      * @return mixed
      */
     public function getUrgentItems()

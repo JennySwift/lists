@@ -1,6 +1,13 @@
 export default {
     getIdFromRouteParams: function (that) {
-        var id = app.f7.view.main.router.currentRoute.params.id;
+        var id;
+        if (that) {
+            id = that.$f7route.params.id;
+        }
+        else {
+            id = app.f7.view.main.router.currentRoute.params.id;
+        }
+
         if (!id) {
             return false;
         }

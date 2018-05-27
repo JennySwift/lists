@@ -399,21 +399,19 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
-     * This is for the autocomplete, where no pagination is needed
      * @test
      * @return void
      */
-    public function it_can_filter_all_items_by_title_with_no_pagination()
+    public function it_can_filter_all_items_by_title()
     {
         $this->logInUser();
         $response = $this->call('GET', '/api/items?filter=push');
-        $data = $this->getContent($response);
-//        $data = $content['data'];
-//      dd($content);
+        $content = $this->getContent($response);
 
-        $this->checkItemKeysExist($data[0]);
 
-        foreach ($data as $item) {
+        $this->checkItemKeysExist($content['data'][0]);
+
+        foreach ($content['data'] as $item) {
             $this->assertContains('push', $item['title'], '', true);
         }
 
@@ -421,11 +419,10 @@ class ItemsIndexTest extends TestCase
     }
 
     /**
-     * This is for the autocomplete, where no pagination is needed
      * @test
      * @return void
      */
-    public function it_can_filter_all_items_by_note_with_no_pagination()
+    public function it_can_filter_all_items_by_note()
     {
         $this->logInUser();
 
@@ -443,17 +440,17 @@ class ItemsIndexTest extends TestCase
 
         //Then filter items by note
         $response = $this->call('GET', '/api/items?filter=good&field=body');
-        $data = $this->getContent($response);
+        $content = $this->getContent($response);
 //        $data = $content['data'];
 //      dd($content);
 
-        $this->checkItemKeysExist($data[0]);
+        $this->checkItemKeysExist($content['data'][0]);
 
-        foreach ($data as $item) {
+        foreach ($content['data'] as $item) {
             $this->assertContains('good', $item['body'], '', true);
         }
         
-        $this->assertCount(1, $data);
+        $this->assertCount(1, $content['data']);
 
         $this->assertResponseOk($response);
     }

@@ -1,5 +1,6 @@
 import ItemsPageComponent from './lists/src/components/ItemsPageComponent.vue'
 import CategoriesPageComponent from './lists/src/components/CategoriesComponent.vue'
+import CategoryComponent from './lists/src/components/CategoryComponent.vue'
 import HelpPageComponent from './lists/src/components/HelpPageComponent.vue'
 import TrashComponent from './lists/src/components/TrashComponent.vue'
 
@@ -39,6 +40,12 @@ export default [
         name: 'categories',
         path: '/categories',
         component: CategoriesPageComponent,
+        on: on
+    },
+    {
+        name: 'category',
+        path: '/categories/:id',
+        component: CategoryComponent,
         on: on
     },
     {

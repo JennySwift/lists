@@ -12,6 +12,8 @@ export default {
         me: {gravatar: ''},
         loading: false,
         categories: [],
+        category: {},
+        categoryClone: {},
         categoriesLoaded: false,
         items: [],
         pagination: {},

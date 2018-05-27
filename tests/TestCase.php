@@ -115,7 +115,7 @@ abstract class TestCase extends BaseTestCase
     {
         $this->assertArrayHasKey('id', $category);
         $this->assertArrayHasKey('name', $category);
-        $this->assertArrayHasKey('path', $category);
+//        $this->assertArrayHasKey('path', $category);
     }
 
     /**

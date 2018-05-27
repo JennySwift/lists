@@ -30,6 +30,26 @@ class CategoriesTest extends TestCase
 
     /**
      * @test
+     */
+    public function it_can_show_a_category()
+    {
+        $this->logInUser();
+
+        $category = Category::forCurrentUser()->first();
+
+        $response = $this->call('GET', '/api/categories/' . $category->id);
+        $content = $this->getContent($response);
+        //dd($content);
+
+        $this->checkCategoryKeysExist($content);
+
+        $this->assertEquals(1, $content['id']);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     * @test
      * @return void
      */
     public function it_can_create_a_category()

@@ -4,20 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Exceptions\GeneralException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Transformers\ItemTransformer;
 use App\Models\Category;
 use App\Models\Item;
-use App\Repositories\CategoriesRepository;
 use App\Repositories\ItemsRepository;
 use Auth;
-use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Config;
-use JavaScript;
-use Pusher;
 
 /**
  * Class ItemsController
@@ -29,6 +23,18 @@ class ItemsController extends Controller
      * @var ItemsRepository
      */
     protected $itemsRepository;
+
+    private $fields = [
+        'priority',
+        'urgency',
+        'title',
+        'body',
+        'favourite',
+        'alarm',
+        'not_before',
+        'recurring_unit',
+        'recurring_frequency'
+    ];
 
     /**
      * Create a new controller instance.
@@ -50,38 +56,23 @@ class ItemsController extends Controller
         if ($request->has('alarm')) {
             $items = Item::forCurrentUser()->whereNotNull('alarm')->get();
         }
-
         elseif ($request->has('favourites')) {
             $items = $this->itemsRepository->getFavourites();
-            $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
-            return response($items, Response::HTTP_OK);
+            return $this->respondIndex($items, new ItemTransformer);
         }
-
         elseif ($request->has('trashed')) {
             $items = $this->itemsRepository->getTrashed($request);
         }
-
         elseif ($request->has('urgent')) {
             $items = $this->itemsRepository->getUrgentItems();
         }
-
         elseif ($request->has('filter')) {
             $items = $this->itemsRepository->getFilteredItems($request);
-            $items = $this->transform($this->createCollection($items, new ItemTransformer))['data'];
-            return response($items, Response::HTTP_OK);
-        }
-
-        else {
+        } else {
             $items = $this->itemsRepository->getHomeItems($request);
         }
 
-        return response(
-            [
-                'data' => $this->transform($this->createCollection($items, new ItemTransformer))['data'],
-                'pagination' => $this->itemsRepository->getPaginationProperties($items)
-            ],
-            Response::HTTP_OK
-        );
+        return $this->respondIndexWithPagination($items, new ItemTransformer);
     }
 
     /**
@@ -100,19 +91,8 @@ class ItemsController extends Controller
                 'error' => "You already have this item here.",
                 'status' => Response::HTTP_BAD_REQUEST
             ], Response::HTTP_BAD_REQUEST);
-        }
-        else {
-            $item = new Item($request->only([
-                'title',
-                'body',
-                'priority',
-                'urgency',
-                'favourite',
-                'alarm',
-                'not_before',
-                'recurring_unit',
-                'recurring_frequency'
-            ]));
+        } else {
+            $item = new Item($request->only($this->fields));
 
             if ($request->get('recurring_unit') === 'none') {
                 $item->recurring_unit = null;
@@ -132,9 +112,7 @@ class ItemsController extends Controller
 
             if ($currentUser) {
                 $item->user()->associate(Auth::user());
-            }
-
-            else {
+            } else {
                 //User is not logged in. It could be a feedback request from one of my apps. Add the item to my items (user_id 1).
                 $item->user()->associate(1);
             }
@@ -144,8 +122,7 @@ class ItemsController extends Controller
 
             $item->save();
 
-            $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-            return response($item, Response::HTTP_CREATED);
+            return $this->respondStore($item, new ItemTransformer);
         }
     }
 
@@ -159,11 +136,10 @@ class ItemsController extends Controller
     {
         if ($parent) {
             return $this->show($parent);
-        }
-        else {
+        } else {
             $item = $this->itemsRepository->getHomeItems();
-            $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-            return response($item, Response::HTTP_OK);
+
+            return $this->respondShow($item, new ItemTransformer);
         }
     }
 
@@ -183,8 +159,8 @@ class ItemsController extends Controller
 
         $children = $this->itemsRepository->getChildren($item, $request);
 
-//        dd($request->all());
-        $pagination = $this->itemsRepository->getPaginationProperties($children, $request);
+        $pagination = $this->getPaginationProperties($children);
+
         $children = [
             'data' => $this->transform($this->createCollection($children, new ItemTransformer))['data'],
             'pagination' => $pagination
@@ -215,20 +191,8 @@ class ItemsController extends Controller
     {
         if ($request->has('updatingNextTimeForRecurringItem')) {
             $item = $this->itemsRepository->updateNextTimeForRecurringItem($item);
-        }
-
-        else {
-            $data = array_compare($item->toArray(), $request->only([
-                'priority',
-                'urgency',
-                'title',
-                'body',
-                'favourite',
-                'alarm',
-                'not_before',
-                'recurring_unit',
-                'recurring_frequency'
-            ]));
+        } else {
+            $data = array_compare($item->toArray(), $request->only($this->fields));
 
             //So the recurring unit can be removed
             if ($request->get('recurring_unit') === 'none') {
@@ -265,8 +229,7 @@ class ItemsController extends Controller
                 //So the parent_id can be removed (so the item moves to the top-most level, home)
                 if ($request->get('parent_id') === 'none') {
                     $item->parent()->dissociate();
-                }
-                else {
+                } else {
                     $item->parent()->associate(Item::findOrFail($request->get('parent_id')));
                 }
                 $item->save();
@@ -282,8 +245,7 @@ class ItemsController extends Controller
             }
         }
 
-        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-        return response($item, Response::HTTP_OK);
+        return $this->respondUpdate($item, new ItemTransformer);
     }
 
     /**
@@ -297,34 +259,18 @@ class ItemsController extends Controller
             $item->forceDelete();
         }
 
-        return response([], Response::HTTP_NO_CONTENT);
+        return $this->respondDestroy();
     }
 
     /**
      *
      * @param Item $item
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
     public function destroy(Item $item)
     {
-        try {
-            $item->delete();
-
-            return response([], Response::HTTP_NO_CONTENT);
-        } catch (\Exception $e) {
-            //Integrity constraint violation
-            if ($e->getCode() === '23000') {
-                $message = 'Item could not be deleted. It is in use.';
-            }
-            else {
-                $message = 'There was an error';
-            }
-
-            return response([
-                'error' => $message,
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
+        return $this->destroyModel($item);
     }
 
     /**
@@ -340,8 +286,7 @@ class ItemsController extends Controller
 
         $item->restore();
 
-        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-        return response($item, Response::HTTP_OK);
+        return $this->respondUpdate($item, new ItemTransformer);
     }
 
     /**
@@ -361,7 +306,6 @@ class ItemsController extends Controller
 
         $item->restore();
 
-        $item = $this->transform($this->createItem($item, new ItemTransformer))['data'];
-        return response($item, Response::HTTP_OK);
+        return $this->respondUpdate($item, new ItemTransformer);
     }
 }

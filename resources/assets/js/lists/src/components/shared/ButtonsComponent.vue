@@ -1,49 +1,44 @@
 <template>
-    <div class="btns">
-        <router-link
-            v-if=redirectTo
-            v-on:click.native="hidePopup"
-            :to="redirectTo"
-            tag="button"
-            class="btn btn-default"
-        >
-            Cancel
-        </router-link>
+    <div class="buttons-container">
 
-        <button
-            v-if="!redirectTo"
-            v-on:click="hidePopup()"
-            class="btn btn-default"
+        <f7-button
+            v-if="redirectTo"
+            :href="redirectTo"
+            text="Cancel"
+            color="grey"
         >
-            Cancel
-        </button>
+        </f7-button>
 
-        <button
+        <!--<router-link-->
+        <!--v-if="redirectTo"-->
+        <!--:to="redirectTo"-->
+        <!--tag="button"-->
+        <!--class="btn btn-default"-->
+        <!--&gt;-->
+        <!--Cancel-->
+        <!--</router-link>-->
+
+        <f7-button
             v-if="destroy"
             v-on:click="destroy()"
-            class="btn btn-danger"
+            text="Delete"
+            color="red"
         >
-            Delete
-        </button>
+        </f7-button>
 
-        <button
+        <!--Not adding the redirectTo here because that's done with the JS in case there is an error and we don't want to redirect-->
+        <f7-button
             v-if="save"
             v-on:click="save()"
-            class="btn btn-success"
+            text="Save"
+            color="green"
         >
-            Save
-        </button>
+        </f7-button>
     </div>
 </template>
 
 <script>
-    import store from '../../repositories/Store'
     export default {
-        methods: {
-            hidePopup () {
-                store.set(false, 'showPopup');
-            }
-        },
         props: [
             'save',
             'destroy',
@@ -51,3 +46,20 @@
         ]
     }
 </script>
+
+<style lang="scss" type="text/scss">
+    .buttons-container {
+        display: flex;
+        width: 100%;
+        > * {
+            flex-grow: 1;
+            margin: 0 5px;
+            &:first-child {
+                margin-left: 0px;
+            }
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+    }
+</style>

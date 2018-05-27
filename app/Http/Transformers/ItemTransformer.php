@@ -11,14 +11,25 @@ use League\Fractal\TransformerAbstract;
 class ItemTransformer extends TransformerAbstract
 {
     /**
+     * @var array
+     */
+    protected $defaultIncludes = ['category'];
+
+    /**
+     *
+     * @param Item $item
+     * @return \League\Fractal\Resource\Item
+     */
+    public function includeCategory(Item $item)
+    {
+        return $this->item($item->category, new CategoryTransformer);
+    }
+    /**
      * @param Item $item
      * @return array
      */
     public function transform(Item $item)
     {
-
-
-
         $array = [
             'id' => $item->id,
             'parent_id' => $item->parent_id,
@@ -32,7 +43,6 @@ class ItemTransformer extends TransformerAbstract
             'pinned' => $item->pinned,
             'path' => $item->path,
             'has_children' => $item->has_children,
-            'category' => $item->category->transform(),
             'alarm' => $item->alarm,
             'timeLeft' => null,
             'notBefore' => $item->not_before,

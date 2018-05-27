@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Transformers\CategoryTransformer;
 use App\Models\Category;
-use App\Repositories\CategoriesRepository;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -14,19 +13,7 @@ use JavaScript;
 
 class CategoriesController extends Controller
 {
-    /**
-     * @var CategoriesRepository
-     */
-    private $categoriesRepository;
-
-    /**
-     * Create a new controller instance.
-     * @param CategoriesRepository $categoriesRepository
-     */
-    public function __construct(CategoriesRepository $categoriesRepository)
-    {
-        $this->categoriesRepository = $categoriesRepository;
-    }
+    private $fields = ['name'];
 
     /**
      *
@@ -43,71 +30,60 @@ class CategoriesController extends Controller
 
     /**
      *
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::forCurrentUser()->orderBy('name', 'asc')->get();
-        $categories = $this->categoriesRepository->transform($categories);
-        return response($categories, Response::HTTP_OK);
+
+        return $this->respondIndex($categories, new CategoryTransformer);
+    }
+
+    public function show(Request $request, Category $category)
+    {
+        return $this->respondShow($category, new CategoryTransformer);
     }
 
     /**
      *
-     * @param Request $request
-     * @return Response
+     * @param CategoryStoreRequest $request
+     * @return mixed
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(CategoryStoreRequest $request)
     {
-        $category = new Category($request->only(['name']));
+        $category = new Category($request->only($this->fields));
         $category->user()->associate(Auth::user());
         $category->save();
 
-        return response($category->transform(), Response::HTTP_CREATED);
+        return $this->respondStore($category, new CategoryTransformer);
     }
 
     /**
      *
      * @param Request $request
      * @param Category $category
-     * @return Response
+     * @return mixed
      */
     public function update(Request $request, Category $category)
     {
-        // Create an array with the new fields merged
-        $data = array_compare($category->toArray(), $request->only([
-            'name'
-        ]));
-    
+        $data = $this->getData($category, $request->only($this->fields));
+
         $category->update($data);
 
-        return response($category->transform(), Response::HTTP_OK);
+        return $this->respondUpdate($category, new CategoryTransformer);
     }
 
     /**
      *
+     * @param Request $request
      * @param Category $category
-     * @return Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \ReflectionException
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
-        try {
-            $category->delete();
-            return response([], Response::HTTP_NO_CONTENT);
-        }
-        catch (\Exception $e) {
-            //Integrity constraint violation
-            if ($e->getCode() === '23000') {
-                $message = 'Category could not be deleted. It is in use.';
-            }
-            else {
-                $message = 'There was an error';
-            }
-            return response([
-                'error' => $message,
-                'status' => Response::HTTP_BAD_REQUEST
-            ], Response::HTTP_BAD_REQUEST);
-        }
+        return $this->destroyModel($category);
     }
 
 }
