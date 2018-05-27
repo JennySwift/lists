@@ -4,53 +4,82 @@
 
         <h5>Find Anywhere</h5>
 
-        <autocomplete
-            v-if="!isTrashPage"
-            input-id="filter-favourites"
-            prop="title"
-            :unfiltered-options="shared.favouriteItems"
-            input-placeholder="Favourite items"
-        >
-        </autocomplete>
+        <f7-block>
+            <autocomplete
+                v-if="!isTrashPage"
+                input-id="filter-favourites"
+                prop="title"
+                :unfiltered-options="shared.favouriteItems"
+                input-placeholder="Favourite items"
+            >
+            </autocomplete>
+        </f7-block>
 
-        <autocomplete
-            v-if="!isTrashPage"
-            input-id="title-search"
-            prop="title"
-            url="/api/items"
-            input-placeholder="Search all by title"
-        >
-        </autocomplete>
 
-        <autocomplete
-            v-if="!isTrashPage"
-            input-id="note-search"
-            prop="body"
-            url="/api/items"
-            input-placeholder="Search all by note"
-            field-to-filter-by="body"
-        >
-        </autocomplete>
+        <f7-block>
+            <autocomplete
+                v-if="!isTrashPage"
+                input-id="title-search"
+                prop="title"
+                url="/api/items"
+                input-placeholder="Search all by title"
+            >
+            </autocomplete>
+        </f7-block>
+
+        <f7-block>
+            <autocomplete
+                v-if="!isTrashPage"
+                input-id="note-search"
+                prop="body"
+                url="/api/items"
+                input-placeholder="Search all by note"
+                field-to-filter-by="body"
+            >
+            </autocomplete>
+        </f7-block>
 
         <h5>Find in Current Position</h5>
 
-        <div>
-            <!--<label for="">Title: </label>-->
-            <input type="text" class="line" v-model="shared.filters.title" placeholder="Title"/>
-        </div>
+        <f7-list no-hairlines-md contacts-list>
+            <f7-list no-hairlines-md contacts-list>
+                <f7-list-item>
+                    <f7-label>Title</f7-label>
+                    <f7-input type="text" :value="shared.filters.title" @input="shared.filters.title = $event.target.value" clear-button=""></f7-input>
+                </f7-list-item>
+            </f7-list>
 
-        <div>
-            <!--<label for="">Body: </label>-->
-            <input type="text" class="line" v-model="shared.filters.body" placeholder="Note"/>
-        </div>
+            <f7-list-item>
+                <f7-label>Note</f7-label>
+                <f7-input type="text" :value="shared.filters.body" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
-        <div>
-            <input type="text" class="line" v-model="shared.filters.minimumPriority" placeholder="Min Priority"/>
-        </div>
+            <f7-list-item>
+                <f7-label>Min Priority</f7-label>
+                <f7-input type="text" :value="shared.filters.minimumPriority" @input="shared.filters.minimumPriority = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
-        <div>
-            <input type="text" class="line" v-model="shared.filters.priority" placeholder="Priority"/>
-        </div>
+            <f7-list-item>
+                <f7-label>Priority</f7-label>
+                <f7-input type="text" :value="shared.filters.priority" @input="shared.filters.priority = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
+
+            <f7-list-item title="Show future items">
+                <div class="item-after">
+                    <label class="toggle toggle-init">
+                        <input type="checkbox" :value="shared.filters.notBefore" @input="shared.filters.notBefore = $event.target.value" ><i class="toggle-icon"></i>
+                    </label>
+                </div>
+            </f7-list-item>
+
+            <f7-list-item title="Show trashed">
+                <div class="item-after">
+                    <label class="toggle toggle-init">
+                        <input type="checkbox" :value="shared.filters.showTrashed" @input="shared.filters.showTrashed = $event.target.value" ><i class="toggle-icon"></i>
+                    </label>
+                </div>
+            </f7-list-item>
+        </f7-list>
 
         <date-picker
             :initial-date-value.sync="shared.filters.notBeforeDate"
@@ -62,44 +91,30 @@
         >
         </date-picker>
 
-        <autocomplete
-            input-id="filter-category"
-            prop="name"
-            :selected.sync="shared.filters.category"
-            :unfiltered-options="categoryOptions"
-            input-placeholder="Category"
-        >
-        </autocomplete>
+       <f7-block>
+           <autocomplete
+               input-id="filter-category"
+               prop="name"
+               :selected.sync="shared.filters.category"
+               :unfiltered-options="categoryOptions"
+               input-placeholder="Category"
+           >
+           </autocomplete>
+       </f7-block>
 
-        <div class="checkbox-container">
-            <label for="filter-not-before">Hide items not before future time:</label>
-            <input
-                v-model="shared.filters.notBefore"
-                id="filter-not-before"
-                type="checkbox"
-            >
-        </div>
 
-        <div v-if="!isTrashPage" class="checkbox-container">
-            <label for="filter-not-before">Show trashed items:</label>
-            <input
-                v-model="shared.filters.showTrashed"
-                id="filter-show-trashed"
-                type="checkbox"
-            >
-        </div>
+        <f7-block>
+            <f7-button v-on:click="go()">Go</f7-button>
+        </f7-block>
 
-        <div>
-            <button v-on:click="go()" id="go-btn" class="btn btn-info">Go</button>
-        </div>
 
-        <div>
+        <f7-block>
             Page {{shared.pagination.current_page}} of {{shared.pagination.last_page}}
-            <div id="parent-pagination-btns">
-                <button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</button>
-                <button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</button>
-            </div>
-        </div>
+            <f7-segmented>
+                <f7-button @click="prevPage()" v-bind:disabled="!shared.pagination.prev_page_url" class="btn btn-xs btn-warning">Prev</f7-button>
+                <f7-button @click="nextPage()" v-bind:disabled="!shared.pagination.next_page_url" class="btn btn-xs btn-warning">Next</f7-button>
+            </f7-segmented>
+        </f7-block>
 
     </div>
 
@@ -186,18 +201,18 @@
             /**
              *
              */
-            filter: function () {
-                var filter = $("#filter").val();
-
-                helpers.get({
-                    url: '/api/items?filter=' + filter,
-//                    storeProperty: 'items',
-//                    loadedProperty: 'itemsLoaded',
-                    callback: function (response) {
-                        this.items = response;
-                    }.bind(this)
-                });
-            },
+//             filter: function () {
+//                 var filter = $("#filter").val();
+//
+//                 helpers.get({
+//                     url: '/api/items?filter=' + filter,
+// //                    storeProperty: 'items',
+// //                    loadedProperty: 'itemsLoaded',
+//                     callback: function (response) {
+//                         this.items = response;
+//                     }.bind(this)
+//                 });
+//             },
 
             optionChosen: function (option, inputId) {
                 if (inputId === 'filter-category') {

@@ -94,14 +94,28 @@ class ItemsRepository {
      * @param Request $request
      * @return mixed
      */
-    public function getHomeItems(Request $request)
+    public function getItems(Request $request)
     {
         //Sort first by priority, then by notBefore, then by category name, then by id
         $query = Item::forCurrentUser()
-            ->whereNull('parent_id');
+           ->whereNull('parent_id');
 
         return $this->createQuery($query, $request);
     }
+
+    /**
+     *
+     * @param Request $request
+     * @return mixed
+     */
+//    public function getFilteredItems(Request $request)
+//    {
+//        $field = $request->get('field') ? $request->get('field') : 'title';
+//        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
+//        return Item::forCurrentUser()
+//            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
+//            ->paginate($max);
+//    }
 
     /**
      *
@@ -125,6 +139,13 @@ class ItemsRepository {
     private function createQuery($query, Request $request)
     {
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
+
+//        if ($request->has('parent_id')) {
+//            $query = $query->where('parent_id', $request->get('parent_id'));
+//        }
+//        else {
+//            $query = $query->whereNull('parent_id');
+//        }
 
         if ($request->has('title')) {
             $query = $query->where('title', 'LIKE', '%' . $request->get('title') . '%');
@@ -179,20 +200,6 @@ class ItemsRepository {
      * @param Request $request
      * @return mixed
      */
-    public function getFilteredItems(Request $request)
-    {
-        $field = $request->get('field') ? $request->get('field') : 'title';
-        $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
-        return Item::forCurrentUser()
-            ->where($field, 'LIKE', '%' . $request->get('filter') . '%')
-            ->paginate($max);
-    }
-
-    /**
-     *
-     * @param Request $request
-     * @return mixed
-     */
     public function getTrashed(Request $request)
     {
         $max = $request->get('max') ? $request->get('max') : Config::get('filters.max');
@@ -211,17 +218,6 @@ class ItemsRepository {
     {
         return Item::forCurrentUser()
             ->where('favourite', 1)
-            ->get();
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getUrgentItems()
-    {
-        return Item::forCurrentUser()
-            ->where('urgency', 1)
             ->get();
     }
 

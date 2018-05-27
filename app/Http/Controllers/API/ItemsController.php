@@ -53,23 +53,18 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('alarm')) {
-            $items = Item::forCurrentUser()->whereNotNull('alarm')->get();
-        }
-        elseif ($request->has('favourites')) {
+        if ($request->has('favourites')) {
             $items = $this->itemsRepository->getFavourites();
             return $this->respondIndex($items, new ItemTransformer);
         }
         elseif ($request->has('trashed')) {
             $items = $this->itemsRepository->getTrashed($request);
         }
-        elseif ($request->has('urgent')) {
-            $items = $this->itemsRepository->getUrgentItems();
-        }
-        elseif ($request->has('filter')) {
-            $items = $this->itemsRepository->getFilteredItems($request);
-        } else {
-            $items = $this->itemsRepository->getHomeItems($request);
+//        elseif ($request->has('filter')) {
+//            $items = $this->itemsRepository->getFilteredItems($request);
+//        }
+        else {
+            $items = $this->itemsRepository->getItems($request);
         }
 
         return $this->respondIndexWithPagination($items, new ItemTransformer);

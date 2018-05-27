@@ -466,8 +466,8 @@
             position: relative;
             .fa-caret-down {
                 position: absolute;
-                right: 13px;
-                top: 8px;
+                right: 0px;
+                top: -4px;
                 font-size: 20px;
                 cursor: pointer;
                 color: #777;

@@ -56,14 +56,13 @@ class ItemsIndexTest extends TestCase
 
         $response = $this->call('GET', '/api/items?max=20&with_trashed=true');
         $content = $this->getContent($response);
-        $data = $content['data'];
 //      dd($content);
 
-        $this->checkItemKeysExist($data[0]);
+        $this->checkItemKeysExist($content['data'][0]);
 
         //Check the items include the deleted items
         $count = 0;
-        foreach ($data as $item) {
+        foreach ($content['data'] as $item) {
             if ($item['deletedAt']) {
                 $count++;
             }
@@ -405,7 +404,7 @@ class ItemsIndexTest extends TestCase
     public function it_can_filter_all_items_by_title()
     {
         $this->logInUser();
-        $response = $this->call('GET', '/api/items?filter=push');
+        $response = $this->call('GET', '/api/items?title=push');
         $content = $this->getContent($response);
 
 
@@ -439,9 +438,8 @@ class ItemsIndexTest extends TestCase
         $this->checkItemKeysExist($this->getContent($response));
 
         //Then filter items by note
-        $response = $this->call('GET', '/api/items?filter=good&field=body');
+        $response = $this->call('GET', '/api/items?body=good');
         $content = $this->getContent($response);
-//        $data = $content['data'];
 //      dd($content);
 
         $this->checkItemKeysExist($content['data'][0]);
