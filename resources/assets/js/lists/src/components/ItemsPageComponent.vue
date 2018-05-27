@@ -25,8 +25,15 @@
                     :key="item.id"
                     :link="'/items/' + item.id"
                     v-bind:title="item.title"
+                    :after="item.category.data.name"
+                    class="item"
                 >
-
+                    <div slot="header">
+                        <i v-if="item.body" class="fas fa-sticky-note"></i>
+                        <i v-if="item.has_children" class="fas fa-child"></i>
+                        <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>
+                    </div>
+                    <f7-badge slot="content-start">{{item.priority}}</f7-badge>
                 </f7-list-item>
             </f7-list-group>
         </f7-list>
@@ -51,6 +58,7 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import store from '../repositories/Store'
     import filters from '../repositories/Filters'
+    import DateTimeRepository from '../repositories/DateTimeRepository'
 
     export default {
         data: function () {
@@ -66,6 +74,11 @@
             // path: function () {
             //     return this.$route.path;
             // }
+        },
+        filters: {
+            dateTimeFilter: function (dateTime) {
+                return DateTimeRepository.convertFromDateTime(dateTime);
+            },
         },
         watch: {
             /**
@@ -173,3 +186,11 @@
         }
     }
 </script>
+
+<style lang="scss" type="text/scss">
+    .item {
+        .badge {
+            margin-right: 13px;
+        }
+    }
+</style>
