@@ -32,9 +32,9 @@ const app = new Vue({
     mounted: function () {
         store.getCategories();
         store.getFavouriteItems();
-        setTimeout(function () {
-            store.getItems();
-        }, 500);
+        // setTimeout(function () {
+        //     store.getItems();
+        // }, 500);
     },
     framework7: {
         root: '#app',

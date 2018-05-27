@@ -124,9 +124,9 @@
              * Called on on page load (from getItemsSuccess-todo), and when the url is changed
              * @returns {*}
              */
-            findItemThatMatchesRoute: function () {
-                return ItemsRepository.findModelThatMatchesRoute(this, this.items);
-            },
+            // findItemThatMatchesRoute: function () {
+            //     return ItemsRepository.findModelThatMatchesRoute(this, this.items);
+            // },
 
             /**
              *
@@ -166,6 +166,9 @@
             //data to be received from parent
         ],
         mounted: function () {
+            setTimeout(function () {
+                store.getItems();
+            }, 500);
             this.keepCurrentTimeUpToDate();
         }
     }
