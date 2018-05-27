@@ -69,7 +69,7 @@
              */
             deleteCategory: function () {
                 helpers.delete({
-                    url: this.baseUrl + this.shared.category.id,
+                    url: this.baseUrl + '/' + this.shared.category.id,
                     array: 'categories',
                     itemToDelete: this.shared.category,
                     message: 'Category deleted',

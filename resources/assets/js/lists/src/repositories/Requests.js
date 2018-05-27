@@ -164,8 +164,10 @@ export default {
                 reverseButtons: true,
                 showCloseButton: true,
                 animation: false
-            }).then(function() {
-                that.requests.proceedWithDelete(options);
+            }).then(function(result) {
+                if (result.value) {
+                    that.requests.proceedWithDelete(options);
+                }
             });
         }
     },
