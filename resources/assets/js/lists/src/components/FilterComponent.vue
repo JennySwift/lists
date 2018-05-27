@@ -42,26 +42,24 @@
         <h5>Find in Current Position</h5>
 
         <f7-list no-hairlines-md contacts-list>
-            <f7-list no-hairlines-md contacts-list>
-                <f7-list-item>
-                    <f7-label>Title</f7-label>
-                    <f7-input type="text" :value="shared.filters.title" @input="shared.filters.title = $event.target.value" clear-button=""></f7-input>
-                </f7-list-item>
-            </f7-list>
+            <f7-list-item>
+                <f7-label>Title</f7-label>
+                <f7-input type="text" :value="shared.filters.title" @input:clear="shared.filters.title = $event.target.value" @input="shared.filters.title = $event.target.value" clear-button=""></f7-input>
+            </f7-list-item>
 
             <f7-list-item>
                 <f7-label>Note</f7-label>
-                <f7-input type="text" :value="shared.filters.body" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
+                <f7-input type="text" :value="shared.filters.body" @input:clear="shared.filters.body = $event.target.value" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
             </f7-list-item>
 
             <f7-list-item>
                 <f7-label>Min Priority</f7-label>
-                <f7-input type="text" :value="shared.filters.minimumPriority" @input="shared.filters.minimumPriority = $event.target.value" clear-button=""></f7-input>
+                <f7-input type="text" :value="shared.filters.minimumPriority" @input:clear="shared.filters.minimumPriority = $event.target.value" @input="shared.filters.minimumPriority = $event.target.value" clear-button=""></f7-input>
             </f7-list-item>
 
             <f7-list-item>
                 <f7-label>Priority</f7-label>
-                <f7-input type="text" :value="shared.filters.priority" @input="shared.filters.priority = $event.target.value" clear-button=""></f7-input>
+                <f7-input type="text" :value="shared.filters.priority" @input:clear="shared.filters.priority = $event.target.value" @input="shared.filters.priority = $event.target.value" clear-button=""></f7-input>
             </f7-list-item>
 
             <f7-list-item title="Show future items">

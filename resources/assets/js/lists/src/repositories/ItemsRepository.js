@@ -333,7 +333,6 @@ export default {
 
         if (store.state.filters.notBeforeDate) {
             var notBeforeDate = Date.create(store.state.filters.notBeforeDate).format('{yyyy}-{MM}-{dd}');
-            console.log(notBeforeDate);
             url += '&not_before=' + notBeforeDate;
         }
 
