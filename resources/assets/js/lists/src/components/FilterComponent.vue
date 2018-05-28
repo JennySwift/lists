@@ -60,8 +60,8 @@
                     <!--</f7-list-item>-->
 
                     <li v-if="shared.categories.length > 0">
-                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
-                            <select name="categories">
+                        <a @close="smartSelectClose(smartSelect)" class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
+                            <select v-model="shared.filters.category.id" name="categories">
                                 <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
                             </select>
                             <div class="item-content">
@@ -155,6 +155,10 @@
             }
         },
         methods: {
+
+            smartSelectClose: function (smartSelect) {
+                console.log(smartSelect);
+            },
 
             prevPage: function () {
                 store.goToPreviousPage();
