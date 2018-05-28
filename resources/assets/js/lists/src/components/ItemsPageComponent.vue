@@ -28,11 +28,20 @@
                     :after="item.category.data.name"
                     class="item"
                 >
-                    <div slot="header">
+                    <!--<div slot="header">-->
+                        <!--<f7-button><i class="fas fa-pencil-alt"></i></f7-button>-->
+                    <!--</div>-->
+                    <div slot="footer">
                         <i v-if="item.body" class="fas fa-sticky-note"></i>
                         <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>
                     </div>
-                    <f7-badge slot="content-start">{{item.priority}}</f7-badge>
+
+                    <div slot="inner-start" class="item-before">
+                        <f7-badge>{{item.priority}}</f7-badge>
+                    </div>
+
+
+
                     <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
                 </f7-list-item>
             </f7-list-group>
@@ -190,8 +199,13 @@
 <style lang="scss" type="text/scss">
     @import '../../../../sass/shared/index';
     .item {
+        .item-before {
+            display: flex;
+        }
         .badge {
             margin-right: 13px;
+            background: $blue;
+            min-width: 20px;
         }
         .item-inner {
             padding-right: 35px;
