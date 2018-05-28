@@ -188,6 +188,7 @@
 </script>
 
 <style lang="scss" type="text/scss">
+    @import '../../../../sass/shared/index';
     .item {
         .badge {
             margin-right: 13px;
@@ -201,6 +202,9 @@
             &.has-children {
                 color: darken(#8e8e93, 10%);
             }
+        }
+        .fa-sticky-note {
+            color: $yellow;
         }
     }
 </style>
