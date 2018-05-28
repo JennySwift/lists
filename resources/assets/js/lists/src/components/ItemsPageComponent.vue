@@ -4,19 +4,13 @@
 
         <item-popup></item-popup>
 
-        <!--<button-->
-            <!--v-on:click="toggleNewItemFields()"-->
-            <!--id="new-item-btn"-->
-            <!--class="btn btn-default btn-sm"-->
-        <!--&gt;-->
-            <!--New Item-->
-            <!--<span v-show="shared.showNewItemFields" class="fa fa-caret-up"></span>-->
-            <!--<span v-show="!shared.showNewItemFields" class="fa fa-caret-down"></span>-->
-        <!--</button>-->
-
         <!--<breadcrumb></breadcrumb>-->
 
-        <!--<new-item></new-item>-->
+        <new-item></new-item>
+
+        <f7-fab color="pink" @click="openNewItemPopup" position="right-bottom">
+            <f7-icon f7="add"></f7-icon>
+        </f7-fab>
 
         <f7-list contacts-list class="no-chevron">
             <f7-list-group>
@@ -121,6 +115,13 @@
                 store.getItems();
             },
 
+            openNewItemPopup: function () {
+                var popup = app.f7.popup.create({
+                    el: '.new-item-popup'
+                });
+                popup.open();
+            },
+
             openItemPopup: function (item) {
                 store.set(helpers.clone(item), 'selectedItemClone');
                 store.set(item.parent_id, 'selectedItemClone.oldParentId');
@@ -213,6 +214,9 @@
 
 <style lang="scss" type="text/scss">
     @import '../../../../sass/shared/index';
+    .ios .fab[class*="-bottom"] {
+        bottom: 54px;
+    }
     .item {
         .item-before {
             display: flex;

@@ -1,34 +1,38 @@
 <template>
-    <div v-show="shared.showNewItemFields" id="new-item">
-        
-        <!--<pre>@{{$data.shared.zoomedItem.id}}</pre>-->
-        <!--<pre>@{{$data.shared.newItem.parent_id}}</pre>-->
+    <f7-popup
+        class="new-item-popup"
+    >
+        <f7-page>
+            <f7-navbar>
+                <f7-nav-title>New Item</f7-nav-title>
+                <f7-nav-right>
+                    <f7-link popup-close>Close</f7-link>
+                </f7-nav-right>
+            </f7-navbar>
 
-        <item-fields
-            :item="shared.newItem"
-            action="insert"
-            :enter="insertItem"
-            :focus="showFields"
-        >
-        </item-fields>
-
-        <div class="form-group">
-            <!--<button-->
-                <!--v-on:click="showNewItemFields = false"-->
-                <!--class="btn btn-default"-->
-            <!--&gt;-->
-                <!--Cancel-->
-            <!--</button>-->
-            <button
-                v-on:click="insertItem(13)"
-                :disabled="!shared.newItem.title || !shared.newItem.category || !shared.newItem.priority"
-                class="btn btn-success"
+            <item-fields
+                :item="shared.newItem"
+                action="insert"
+                :enter="insertItem"
+                :focus="showFields"
             >
-                Add
-            </button>
-        </div>
+            </item-fields>
 
-    </div>
+            <f7-toolbar>
+                <buttons
+                    :save="insertItem"
+                >
+                </buttons>
+                <!--<f7-button-->
+                    <!--v-on:click="insertItem(13)"-->
+                    <!--:disabled="!shared.newItem.title || !shared.newItem.category || !shared.newItem.priority"-->
+                <!--&gt;-->
+                    <!--Save-->
+                <!--</f7-button>-->
+            </f7-toolbar>
+        </f7-page>
+
+    </f7-popup>
 
 </template>
 
@@ -37,7 +41,6 @@
     import ItemsRepository from '../repositories/ItemsRepository'
     import store from '../repositories/Store'
     import helpers from '../repositories/Helpers'
-//    import eventHub from '../EventHub'
     var $ = require('jquery');
 
     export default {
