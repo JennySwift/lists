@@ -31,7 +31,7 @@ export default {
             body: '',
             urgency: '',
             urgencyOut: '',
-            notBefore: true,
+            includeFutureItems: false,
             notBeforeDate: '',
             showTrashed: false
         },

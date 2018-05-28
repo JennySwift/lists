@@ -336,7 +336,10 @@ export default {
             url += '&not_before=' + notBeforeDate;
         }
 
-        if (store.state.filters.notBefore) {
+        if (store.state.filters.includeFutureItems) {
+            url += '&with_future_items=true';
+        }
+        else {
             url += '&with_future_items=false';
         }
 

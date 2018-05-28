@@ -62,20 +62,12 @@
                 <f7-input type="text" :value="shared.filters.priority" @input:clear="shared.filters.priority = $event.target.value" @input="shared.filters.priority = $event.target.value" clear-button=""></f7-input>
             </f7-list-item>
 
-            <f7-list-item title="Show future items">
-                <div class="item-after">
-                    <label class="toggle toggle-init">
-                        <input type="checkbox" :value="shared.filters.notBefore" @input="shared.filters.notBefore = $event.target.value" ><i class="toggle-icon"></i>
-                    </label>
-                </div>
+            <f7-list-item title="Show Future Items">
+                <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
             </f7-list-item>
 
             <f7-list-item title="Show trashed">
-                <div class="item-after">
-                    <label class="toggle toggle-init">
-                        <input type="checkbox" :value="shared.filters.showTrashed" @input="shared.filters.showTrashed = $event.target.value" ><i class="toggle-icon"></i>
-                    </label>
-                </div>
+                <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
             </f7-list-item>
         </f7-list>
 
