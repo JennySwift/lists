@@ -1,27 +1,30 @@
 <template>
 
     <div>
+        <f7-segmented>
+            <f7-button tab-link="#tab1">Main</f7-button>
+            <f7-button tab-link="#tab2">Note</f7-button>
+            <f7-button tab-link="#tab3">Parent</f7-button>
+            <f7-button tab-link="#tab4">Advanced</f7-button>
+        </f7-segmented>
 
-        <ul class="nav nav-tabs">
-            <li v-on:click="tab = 1" v-bind:class="{'active': tab === 1}"><a href="javascript:void(0)">Main</a></li>
-            <li v-on:click="tab = 2" v-bind:class="{'active': tab === 2}"><a href="javascript:void(0)">Note</a></li>
-            <li v-on:click="tab = 4" v-bind:class="{'active': tab === 4}"><a href="javascript:void(0)">Parent</a></li>
-            <li v-on:click="tab = 3" v-bind:class="{'active': tab === 3}"><a href="javascript:void(0)">Advanced</a></li>
-        </ul>
 
-        <div class="item-fields">
-            <div v-show="tab === 1" class="input-group-container">
-                <!--Title-->
-                <div class="form-group">
-                    <label for="new-item-title">Title</label>
-                    <textarea
-                        v-model="item.title"
-                        v-on:keyup.13="enter()"
-                        :id="titleId"
-                        class="item-title"
-                    >
-                    </textarea>
-                </div>
+        <f7-tabs>
+            <f7-tab id="tab1" tab-active>
+
+                <f7-list no-hairlines-md contacts-list>
+
+                    <f7-list-item>
+                        <f7-label>Title</f7-label>
+                        <f7-input type="text" :value="item.title" @input="item.title = $event.target.value" @input:clear="item.title = ''" clear-button=""></f7-input>
+                    </f7-list-item>
+
+                    <f7-list-item>
+                        <f7-label>Priority</f7-label>
+                        <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
+                    </f7-list-item>
+
+                </f7-list>
 
                 <input-group
                     label="Category:"
@@ -34,32 +37,18 @@
                     top-border="true"
                 >
                 </input-group>
-                
-                <!--<pre>Item from item fields: @{{item}}</pre>-->
+            </f7-tab>
 
-                <!--Priority-->
-                <input-group
-                    label="Priority:"
-                    :model.sync="item.priority"
-                    :enter="enter"
-                    id="new-item-priority"
-                    required="true"
-                >
-                </input-group>
-            </div>
+            <f7-tab id="tab2">
+               <f7-list no-hairlines-md contacts-list>
+                   <f7-list-item>
+                       <f7-label>Note</f7-label>
+                       <f7-input type="text" :value="item.body" @input="item.body = $event.target.value" @input:clear="item.body = ''" clear-button=""></f7-input>
+                   </f7-list-item>
+               </f7-list>
+            </f7-tab>
 
-            <!--Body-->
-            <div v-show="tab === 2" class="form-group item-body">
-                <!--<label for="new-item-body">Body</label>-->
-                <textarea
-                    v-model="item.body"
-                    class="note"
-                    name="new-item-body"
-                >
-                </textarea>
-            </div>
-
-            <div v-show="tab === 3" class="input-group-container">
+            <f7-tab id="tab3">
                 <!--Not before-->
                 <date-picker
                     :function-on-enter="enter"
@@ -82,18 +71,15 @@
                 >
                 </input-group>
 
-                <!--Recurring Frequency-->
-                <input-group
-                    label="RF:"
-                    :model.sync="item.recurringFrequency"
-                    :enter="enter"
-                    id="new-item-recurring-frequency"
-                    tooltip-message="Recurring Frequency"
-                >
-                </input-group>
-            </div>
+                <f7-list no-hairlines-md contacts-list>
+                    <f7-list-item>
+                        <f7-label>Recurring Frequency</f7-label>
+                        <f7-input type="text" :value="item.recurringFrequency" @input="item.recurringFrequency = $event.target.value" @input:clear="item.recurringFrequency = ''" clear-button=""></f7-input>
+                    </f7-list-item>
+                </f7-list>
+            </f7-tab>
 
-            <div v-show="tab === 4" class="input-group-container">
+            <f7-tab id="tab4">
                 <!--Parent for inserting item-->
                 <input-group
                     v-if="action === 'insert'"
@@ -137,8 +123,8 @@
                     tooltip-message="To move or leave item at the top level, this field should be empty"
                 >
                 </input-group>
-            </div>
-        </div>
+            </f7-tab>
+        </f7-tabs>
 
 
     </div>

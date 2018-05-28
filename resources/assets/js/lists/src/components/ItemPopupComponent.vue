@@ -10,29 +10,21 @@
                 </f7-nav-right>
             </f7-navbar>
 
-            <div class="top-btns">
-                <button
-                    v-if="!shared.selectedItemClone.favourite"
-                    v-on:click="toggleFavourite"
-                    class="favourite fa fa-star-o btn btn-sm btn-default">
-                </button>
-
-                <button
-                    v-if="shared.selectedItemClone.favourite"
-                    v-on:click="toggleFavourite"
-                    class="favourite fa fa-star btn btn-sm btn-default">
-                </button>
-
+            <!--<div class="top-btns">-->
                 <!--<button-->
-                <!--v-if="shared.selectedItemClone.deletedAt"-->
-                <!--v-on:click="restore()"-->
-                <!--class="btn btn-success"-->
-                <!--&gt;-->
-                <!--Restore-->
+                    <!--v-if="!shared.selectedItemClone.favourite"-->
+                    <!--v-on:click="toggleFavourite"-->
+                    <!--class="favourite fa fa-star-o btn btn-sm btn-default">-->
                 <!--</button>-->
 
-                <span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>
-            </div>
+                <!--<button-->
+                    <!--v-if="shared.selectedItemClone.favourite"-->
+                    <!--v-on:click="toggleFavourite"-->
+                    <!--class="favourite fa fa-star btn btn-sm btn-default">-->
+                <!--</button>-->
+
+                <!--<span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>-->
+            <!--</div>-->
 
             <div>
                 <item-fields
