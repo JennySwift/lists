@@ -62,6 +62,7 @@
                     <li v-if="shared.categories.length > 0">
                         <a @close="smartSelectClose(smartSelect)" class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
                             <select v-model="shared.filters.category.id" name="categories">
+                                <option :value="false">Any</option>
                                 <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
                             </select>
                             <div class="item-content">
@@ -100,17 +101,6 @@
                     input-placeholder="Not before"
                 >
                 </date-picker>
-
-                <f7-block>
-                    <autocomplete
-                        input-id="filter-category"
-                        prop="name"
-                        :selected.sync="shared.filters.category"
-                        :unfiltered-options="categoryOptions"
-                        input-placeholder="Category"
-                    >
-                    </autocomplete>
-                </f7-block>
             </f7-page>
         </f7-view>
     </f7-panel>
