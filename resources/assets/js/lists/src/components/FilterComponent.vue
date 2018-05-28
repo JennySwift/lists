@@ -8,18 +8,6 @@
                 <f7-block>
                     <autocomplete
                         v-if="!isTrashPage"
-                        input-id="filter-favourites"
-                        prop="title"
-                        :unfiltered-options="shared.favouriteItems"
-                        input-placeholder="Favourite items"
-                    >
-                    </autocomplete>
-                </f7-block>
-
-
-                <f7-block>
-                    <autocomplete
-                        v-if="!isTrashPage"
                         input-id="title-search"
                         prop="title"
                         url="/api/items"
@@ -43,6 +31,20 @@
                 <h5>Find in Current Position</h5>
 
                 <f7-list no-hairlines-md contacts-list>
+
+                    <li v-if="shared.favouriteItems.length > 0">
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
+                            <select v-model="shared.filters.favouriteItem.id" @change="smartSelectChanged(shared.filters.favouriteItem.id)" name="favouriteItems">
+                                <option v-for="item in shared.favouriteItems" :key="item.id" :value="item.id">{{item.title}}</option>
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Favourite Items</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
                     <f7-list-item>
                         <f7-label>Title</f7-label>
                         <f7-input type="text" :value="shared.filters.title" @input:clear="shared.filters.title = $event.target.value" @input="shared.filters.title = $event.target.value" clear-button=""></f7-input>
@@ -60,7 +62,7 @@
                     <!--</f7-list-item>-->
 
                     <li v-if="shared.categories.length > 0">
-                        <a @close="smartSelectClose(smartSelect)" class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
                             <select v-model="shared.filters.category.id" name="categories">
                                 <option :value="false">Any</option>
                                 <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
@@ -146,8 +148,8 @@
         },
         methods: {
 
-            smartSelectClose: function (smartSelect) {
-                console.log(smartSelect);
+            smartSelectChanged: function (id) {
+                helpers.goToRoute("/items/" + id);
             },
 
             prevPage: function () {

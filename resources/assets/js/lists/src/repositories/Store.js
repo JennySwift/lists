@@ -33,7 +33,8 @@ export default {
             urgencyOut: '',
             includeFutureItems: false,
             notBeforeDate: '',
-            showTrashed: false
+            showTrashed: false,
+            favouriteItem: {}
         },
         //For editing fields in item popup before the item is saved
         selectedItemClone: {
