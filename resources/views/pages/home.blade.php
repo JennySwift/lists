@@ -32,10 +32,7 @@
 
     </f7-panel>
 
-    <f7-panel right cover>
-        <items-filter></items-filter>
-    </f7-panel>
-
+    <items-filter></items-filter>
 
     <f7-view id="main-view" main>
 
