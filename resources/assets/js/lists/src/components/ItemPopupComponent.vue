@@ -1,9 +1,15 @@
 <template>
-
-    <new-popup
-        id="item-popup"
+    <f7-popup
+        class="item-popup"
     >
-        <div slot="content">
+        <f7-page>
+            <f7-navbar>
+                <f7-nav-title>Popup</f7-nav-title>
+                <f7-nav-right>
+                    <f7-link popup-close>Close</f7-link>
+                </f7-nav-right>
+            </f7-navbar>
+
             <div class="top-btns">
                 <button
                     v-if="!shared.selectedItemClone.favourite"
@@ -18,11 +24,11 @@
                 </button>
 
                 <!--<button-->
-                    <!--v-if="shared.selectedItemClone.deletedAt"-->
-                    <!--v-on:click="restore()"-->
-                    <!--class="btn btn-success"-->
+                <!--v-if="shared.selectedItemClone.deletedAt"-->
+                <!--v-on:click="restore()"-->
+                <!--class="btn btn-success"-->
                 <!--&gt;-->
-                    <!--Restore-->
+                <!--Restore-->
                 <!--</button>-->
 
                 <span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>
@@ -38,17 +44,18 @@
                 </item-fields>
             </div>
 
-        </div>
+            <f7-toolbar>
+                <buttons
+                    v-if="!shared.selectedItemClone.deletedAt"
+                    :save="updateItem"
+                    :destroy="deleteItem"
 
-        <buttons slot="buttons"
-                 v-if="!shared.selectedItemClone.deletedAt"
-                 :save="updateItem"
-                 :destroy="deleteItem"
+                >
+                </buttons>
+            </f7-toolbar>
+        </f7-page>
 
-        >
-        </buttons>
-
-    </new-popup>
+    </f7-popup>
 
 </template>
 

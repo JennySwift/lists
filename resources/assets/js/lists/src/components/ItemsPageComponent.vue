@@ -2,7 +2,7 @@
     <f7-page :page-content="false">
         <navbar title="Items"></navbar>
 
-        <!--<item-popup></item-popup>-->
+        <item-popup></item-popup>
 
         <!--<button-->
             <!--v-on:click="toggleNewItemFields()"-->
@@ -44,7 +44,7 @@
                     <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
 
                     <f7-swipeout-actions>
-                        <f7-swipeout-button close color="blue">Edit</f7-swipeout-button>
+                        <f7-swipeout-button close color="blue" v-on:click="openItemPopup(item)">Edit</f7-swipeout-button>
                     </f7-swipeout-actions>
 
                 </f7-list-item>
@@ -119,6 +119,17 @@
 
             go: function () {
                 store.getItems();
+            },
+
+            openItemPopup: function (item) {
+                store.set(helpers.clone(item), 'selectedItemClone');
+                store.set(item.parent_id, 'selectedItemClone.oldParentId');
+                store.set(item, 'selectedItem');
+
+                var popup = app.f7.popup.create({
+                    el: '.item-popup'
+                });
+                popup.open();
             },
 
             toggleNewItemFields: function () {
