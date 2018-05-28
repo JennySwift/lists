@@ -5,12 +5,6 @@
             <f7-page>
                 <h5>Find Anywhere</h5>
 
-                <f7-list-item v-if="shared.categories.length > 0" smart-select :smart-select-params="{ closeOnSelect: true, searchbar: true }" title="Category">
-                    <select name="category">
-                        <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                    </select>
-                </f7-list-item>
-
                 <f7-block>
                     <autocomplete
                         v-if="!isTrashPage"
@@ -58,6 +52,25 @@
                         <f7-label>Note</f7-label>
                         <f7-input type="text" :value="shared.filters.body" @input:clear="shared.filters.body = $event.target.value" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
                     </f7-list-item>
+
+                    <!--<f7-list-item v-if="shared.categories.length > 0" smart-select :smart-select-params="{ searchbar: true, closeOnSelect: true, openIn: 'popup' }" title="Category">-->
+                        <!--<select name="categories">-->
+                            <!--<option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>-->
+                        <!--</select>-->
+                    <!--</f7-list-item>-->
+
+                    <li v-if="shared.categories.length > 0">
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
+                            <select name="categories">
+                                <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Category</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
 
                     <f7-list-item>
                         <f7-label>Min Priority</f7-label>
