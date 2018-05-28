@@ -5,6 +5,12 @@
             <f7-page>
                 <h5>Find Anywhere</h5>
 
+                <f7-list-item v-if="shared.categories.length > 0" smart-select :smart-select-params="{ closeOnSelect: true, searchbar: true }" title="Category">
+                    <select name="category">
+                        <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                    </select>
+                </f7-list-item>
+
                 <f7-block>
                     <autocomplete
                         v-if="!isTrashPage"
