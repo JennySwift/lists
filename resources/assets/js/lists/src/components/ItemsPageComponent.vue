@@ -21,6 +21,7 @@
         <f7-list contacts-list class="no-chevron">
             <f7-list-group>
                 <f7-list-item
+                    swipeout
                     v-for="item in shared.items"
                     :key="item.id"
                     :link="'/items/' + item.id"
@@ -40,9 +41,12 @@
                         <f7-badge>{{item.priority}}</f7-badge>
                     </div>
 
-
-
                     <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
+
+                    <f7-swipeout-actions>
+                        <f7-swipeout-button close color="blue">Edit</f7-swipeout-button>
+                    </f7-swipeout-actions>
+
                 </f7-list-item>
             </f7-list-group>
         </f7-list>
