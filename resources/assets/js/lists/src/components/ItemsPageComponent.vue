@@ -18,7 +18,7 @@
 
         <!--<new-item></new-item>-->
 
-        <f7-list contacts-list>
+        <f7-list contacts-list class="no-chevron">
             <f7-list-group>
                 <f7-list-item
                     v-for="item in shared.items"
@@ -30,10 +30,10 @@
                 >
                     <div slot="header">
                         <i v-if="item.body" class="fas fa-sticky-note"></i>
-                        <i v-if="item.has_children" class="fas fa-child"></i>
                         <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>
                     </div>
                     <f7-badge slot="content-start">{{item.priority}}</f7-badge>
+                    <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
                 </f7-list-item>
             </f7-list-group>
         </f7-list>
@@ -191,6 +191,16 @@
     .item {
         .badge {
             margin-right: 13px;
+        }
+        .item-inner {
+            padding-right: 35px;
+        }
+        .chevron {
+            color: lighten(#8e8e93, 25%);
+            padding-left: 9px;
+            &.has-children {
+                color: darken(#8e8e93, 10%);
+            }
         }
     }
 </style>
