@@ -22,6 +22,7 @@
                     v-bind:title="item.title"
                     :after="item.category.data.name"
                     class="item"
+                    v-bind:class="{'deleted': item.deletedAt || item.deleting}"
                 >
                     <!--<div slot="header">-->
                         <!--<f7-button><i class="fas fa-pencil-alt"></i></f7-button>-->
@@ -218,6 +219,11 @@
         bottom: 54px;
     }
     .item {
+        &.deleted {
+            .item-title {
+                text-decoration: line-through;
+            }
+        }
         .item-before {
             display: flex;
         }
