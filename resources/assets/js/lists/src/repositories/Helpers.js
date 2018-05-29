@@ -27,6 +27,12 @@ export default {
     isHomePage: routes.isHomePage,
     getRouteHistory: routes.getRouteHistory,
 
+    convertBooleanToInteger: function (boolean) {
+        if (boolean) {
+            return 1;
+        }
+        return 0;
+    },
 
     toast: function (message, type) {
         var toast = app.f7.toast.create({
