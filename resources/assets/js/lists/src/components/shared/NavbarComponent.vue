@@ -4,8 +4,9 @@
             <f7-link icon-if-ios="f7:menu" icon-if-md="material:menu" panel-open></f7-link>
         </f7-nav-left>
         <f7-nav-title>{{title}}</f7-nav-title>
-        <f7-nav-right v-if="pageHasSearch">
-            <f7-link panel-open="right"><f7-icon f7="search"></f7-icon></f7-link>
+        <f7-nav-right>
+            <f7-link class="add" v-if="add" @click="add"><f7-icon f7="add"></f7-icon></f7-link>
+            <f7-link v-if="pageHasSearch" panel-open="right"><f7-icon f7="search"></f7-icon></f7-link>
         </f7-nav-right>
     </f7-navbar>
 
@@ -26,7 +27,8 @@
         },
         props: [
             'title',
-            'pageHasSearch'
+            'pageHasSearch',
+            'add'
         ]
     }
 
@@ -37,5 +39,9 @@
         span {
             padding-top: 1px;
         }
+    }
+    .add i.icon.f7-icons {
+        font-size: 28px;
+        width: 50px;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <f7-page :page-content="false" with-subnavbar>
-        <navbar title="Items" :page-has-search="true"></navbar>
+        <navbar title="Items" :page-has-search="true" :add="openNewItemPopup"></navbar>
         <breadcrumb></breadcrumb>
         <item-popup></item-popup>
 
@@ -8,9 +8,9 @@
 
         <f7-page-content>
 
-            <f7-fab color="pink" @click="openNewItemPopup" position="right-bottom">
-                <f7-icon f7="add"></f7-icon>
-            </f7-fab>
+            <!--<f7-fab color="pink" @click="openNewItemPopup" position="right-bottom">-->
+                <!--<f7-icon f7="add"></f7-icon>-->
+            <!--</f7-fab>-->
 
             <f7-list contacts-list class="no-chevron">
                 <f7-list-group>
