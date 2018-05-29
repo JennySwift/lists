@@ -2,50 +2,52 @@
     <f7-popup
         class="item-popup"
     >
-        <f7-page>
-            <f7-navbar>
-                <f7-nav-title>Popup</f7-nav-title>
-                <f7-nav-right>
-                    <f7-link popup-close>Close</f7-link>
-                </f7-nav-right>
-            </f7-navbar>
+        <f7-view>
+            <f7-page>
+                <f7-navbar>
+                    <f7-nav-title>Popup</f7-nav-title>
+                    <f7-nav-right>
+                        <f7-link popup-close>Close</f7-link>
+                    </f7-nav-right>
+                </f7-navbar>
 
-            <!--<div class="top-btns">-->
+                <!--<div class="top-btns">-->
                 <!--<button-->
-                    <!--v-if="!shared.selectedItemClone.favourite"-->
-                    <!--v-on:click="toggleFavourite"-->
-                    <!--class="favourite fa fa-star-o btn btn-sm btn-default">-->
+                <!--v-if="!shared.selectedItemClone.favourite"-->
+                <!--v-on:click="toggleFavourite"-->
+                <!--class="favourite fa fa-star-o btn btn-sm btn-default">-->
                 <!--</button>-->
 
                 <!--<button-->
-                    <!--v-if="shared.selectedItemClone.favourite"-->
-                    <!--v-on:click="toggleFavourite"-->
-                    <!--class="favourite fa fa-star btn btn-sm btn-default">-->
+                <!--v-if="shared.selectedItemClone.favourite"-->
+                <!--v-on:click="toggleFavourite"-->
+                <!--class="favourite fa fa-star btn btn-sm btn-default">-->
                 <!--</button>-->
 
                 <!--<span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>-->
-            <!--</div>-->
+                <!--</div>-->
 
-            <div>
-                <item-fields
-                    :item="shared.selectedItemClone"
-                    action="update"
-                    :show="true"
-                    :enter="updateItem"
-                >
-                </item-fields>
-            </div>
+                <div>
+                    <item-fields
+                        :item="shared.selectedItemClone"
+                        action="update"
+                        :show="true"
+                        :enter="updateItem"
+                    >
+                    </item-fields>
+                </div>
 
-            <f7-toolbar>
-                <buttons
-                    v-if="!shared.selectedItemClone.deletedAt"
-                    :save="updateItem"
-                    :destroy="deleteItem"
+                <f7-toolbar>
+                    <buttons
+                        v-if="!shared.selectedItemClone.deletedAt"
+                        :save="updateItem"
+                        :destroy="deleteItem"
 
-                >
-                </buttons>
-            </f7-toolbar>
-        </f7-page>
+                    >
+                    </buttons>
+                </f7-toolbar>
+            </f7-page>
+        </f7-view>
 
     </f7-popup>
 

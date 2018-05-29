@@ -35,6 +35,7 @@
     <items-filter></items-filter>
 
     <new-item></new-item>
+    <item-popup></item-popup>
 
     <f7-view id="main-view" main>
 

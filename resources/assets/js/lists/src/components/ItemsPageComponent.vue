@@ -2,7 +2,6 @@
     <f7-page :page-content="false" with-subnavbar>
         <navbar title="Items" :page-has-search="true" :add="openNewItemPopup"></navbar>
         <breadcrumb></breadcrumb>
-        <item-popup></item-popup>
 
         <f7-page-content>
 
