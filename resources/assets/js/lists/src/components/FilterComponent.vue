@@ -1,34 +1,16 @@
 <template>
 
-    <f7-panel right cover>
-        <f7-view id="filter-view">
+    <f7-popup
+        class="filter-popup"
+    >
+        <f7-view>
             <f7-page>
-                <h5>Find Anywhere</h5>
-
-                <f7-block>
-                    <autocomplete
-                        v-if="!isTrashPage"
-                        input-id="title-search"
-                        prop="title"
-                        url="/api/items"
-                        input-placeholder="Search all by title"
-                    >
-                    </autocomplete>
-                </f7-block>
-
-                <f7-block>
-                    <autocomplete
-                        v-if="!isTrashPage"
-                        input-id="note-search"
-                        prop="body"
-                        url="/api/items"
-                        input-placeholder="Search all by note"
-                        field-to-filter-by="body"
-                    >
-                    </autocomplete>
-                </f7-block>
-
-                <h5>Find in Current Position</h5>
+                <f7-navbar>
+                    <f7-nav-title>Filter</f7-nav-title>
+                    <f7-nav-right>
+                        <f7-link popup-close>Close</f7-link>
+                    </f7-nav-right>
+                </f7-navbar>
 
                 <f7-list no-hairlines-md contacts-list>
 
@@ -56,9 +38,9 @@
                     </f7-list-item>
 
                     <!--<f7-list-item v-if="shared.categories.length > 0" smart-select :smart-select-params="{ searchbar: true, closeOnSelect: true, openIn: 'popup' }" title="Category">-->
-                        <!--<select name="categories">-->
-                            <!--<option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>-->
-                        <!--</select>-->
+                    <!--<select name="categories">-->
+                    <!--<option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>-->
+                    <!--</select>-->
                     <!--</f7-list-item>-->
 
                     <li v-if="shared.categories.length > 0">
@@ -92,20 +74,49 @@
                     <f7-list-item title="Show trashed">
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
+
+                    <!--<f7-block>-->
+                    <!--<autocomplete-->
+                    <!--v-if="!isTrashPage"-->
+                    <!--input-id="title-search"-->
+                    <!--prop="title"-->
+                    <!--url="/api/items"-->
+                    <!--input-placeholder="Search all by title"-->
+                    <!--&gt;-->
+                    <!--</autocomplete>-->
+                    <!--</f7-block>-->
+
+                    <!--<f7-block>-->
+                    <!--<autocomplete-->
+                    <!--v-if="!isTrashPage"-->
+                    <!--input-id="note-search"-->
+                    <!--prop="body"-->
+                    <!--url="/api/items"-->
+                    <!--input-placeholder="Search all by note"-->
+                    <!--field-to-filter-by="body"-->
+                    <!--&gt;-->
+                    <!--</autocomplete>-->
+                    <!--</f7-block>-->
+
+                    <!--<h5>Find in Current Position</h5>-->
+
+
+
+                    <!--<date-picker-->
+                    <!--:initial-date-value.sync="shared.filters.notBeforeDate"-->
+                    <!--input-id="filter-not-before-date"-->
+                    <!--label="Not Before"-->
+                    <!--property="notBeforeDate"-->
+                    <!--@date-chosen="dateChosen"-->
+                    <!--input-placeholder="Not before"-->
+                    <!--&gt;-->
+                    <!--</date-picker>-->
                 </f7-list>
 
-                <date-picker
-                    :initial-date-value.sync="shared.filters.notBeforeDate"
-                    input-id="filter-not-before-date"
-                    label="Not Before"
-                    property="notBeforeDate"
-                    @date-chosen="dateChosen"
-                    input-placeholder="Not before"
-                >
-                </date-picker>
+
             </f7-page>
         </f7-view>
-    </f7-panel>
+    </f7-popup>
 
 </template>
 

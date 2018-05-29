@@ -32,7 +32,7 @@ const app = new Vue({
     mounted: function () {
         store.getCategories();
         store.getFavouriteItems();
-        this.$f7.views.create('#filter-view');
+        // this.$f7.views.create('#filter-view');
         // setTimeout(function () {
         //     store.getItems();
         // }, 500);

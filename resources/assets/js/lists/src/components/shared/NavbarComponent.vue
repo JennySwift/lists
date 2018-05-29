@@ -6,7 +6,7 @@
         <f7-nav-title>{{title}}</f7-nav-title>
         <f7-nav-right>
             <f7-link class="add" v-if="add" @click="add"><f7-icon f7="add"></f7-icon></f7-link>
-            <f7-link v-if="pageHasSearch" panel-open="right"><f7-icon f7="search"></f7-icon></f7-link>
+            <f7-link v-if="pageHasSearch" @click="openFilterPopup"><f7-icon f7="search"></f7-icon></f7-link>
         </f7-nav-right>
     </f7-navbar>
 
@@ -23,7 +23,13 @@
         methods: {
             goToPreviousRoute: function () {
                 store.goToPreviousRoute();
-            }
+            },
+            openFilterPopup: function () {
+                var popup = app.f7.popup.create({
+                    el: '.filter-popup'
+                });
+                popup.open();
+            },
         },
         props: [
             'title',
