@@ -10,7 +10,7 @@ export default {
 
     state: {
         me: {gravatar: ''},
-        loading: false,
+        // loading: false,
         categories: [],
         category: {},
         categoryClone: {},
@@ -104,19 +104,15 @@ export default {
      *
      */
     showLoading: function () {
-        this.state.loading = true;
+        app.f7.preloader.show();
     },
 
     /**
      *
      */
     hideLoading: function () {
-        this.state.loading = false;
+        app.f7.preloader.hide();
     },
-
-
-
-
 
     /**
      *

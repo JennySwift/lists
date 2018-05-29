@@ -18,10 +18,11 @@ export default {
      * todo: allow for sending data: add {params:data} as second argument
      */
     get: function (options) {
-        if (!helpers.isHomePage()) {
-            store.showLoading();
-        }
+        // if (!helpers.isHomePage()) {
+        //     store.showLoading();
+        // }
 
+        store.showLoading();
         axios.get(options.url)
             .then(function (response) {
                 if (options.storeProperty) {
@@ -55,10 +56,10 @@ export default {
                     helpers.toast('haha');
                 }
 
-                if (!helpers.isHomePage()) {
-                    store.hideLoading();
-                }
-
+                // if (!helpers.isHomePage()) {
+                //     store.hideLoading();
+                // }
+                store.hideLoading();
 
             })
             .catch(function (error) {
