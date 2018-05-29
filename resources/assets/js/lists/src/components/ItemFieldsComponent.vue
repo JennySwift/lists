@@ -21,20 +21,32 @@
                         <f7-label>Priority</f7-label>
                         <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
                     </f7-list-item>
+                    <li v-if="shared.categories.length > 0 && item.category">
+                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
+                            <select v-model="item.category.id" name="categories">
+                                <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
+                            </select>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">Category</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
 
                 </f7-list>
 
-                <input-group
-                    label="Category:"
-                    :model.sync="item.category"
-                    :enter="enter"
-                    :id="type + '-item-category'"
-                    :options="shared.categories"
-                    options-prop="name"
-                    required="true"
-                    top-border="true"
-                >
-                </input-group>
+                <!--<input-group-->
+                    <!--label="Category:"-->
+                    <!--:model.sync="item.category"-->
+                    <!--:enter="enter"-->
+                    <!--:id="type + '-item-category'"-->
+                    <!--:options="shared.categories"-->
+                    <!--options-prop="name"-->
+                    <!--required="true"-->
+                    <!--top-border="true"-->
+                <!--&gt;-->
+                <!--</input-group>-->
             </f7-tab>
 
             <f7-tab class="tab2">

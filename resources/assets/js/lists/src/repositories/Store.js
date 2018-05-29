@@ -104,14 +104,18 @@ export default {
      *
      */
     showLoading: function () {
-        app.f7.preloader.show();
+        if (app.f7) {
+            app.f7.preloader.show();
+        }
     },
 
     /**
      *
      */
     hideLoading: function () {
-        app.f7.preloader.hide();
+        if (app.f7) {
+            app.f7.preloader.hide();
+        }
     },
 
     /**

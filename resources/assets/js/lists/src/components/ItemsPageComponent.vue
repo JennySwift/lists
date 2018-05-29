@@ -4,8 +4,6 @@
         <breadcrumb></breadcrumb>
         <item-popup></item-popup>
 
-        <new-item></new-item>
-
         <f7-page-content>
 
             <!--<f7-fab color="pink" @click="openNewItemPopup" position="right-bottom">-->

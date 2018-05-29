@@ -2,37 +2,39 @@
     <f7-popup
         class="new-item-popup"
     >
-        <f7-page>
-            <f7-navbar>
-                <f7-nav-title>New Item</f7-nav-title>
-                <f7-nav-right>
-                    <f7-link popup-close>Close</f7-link>
-                </f7-nav-right>
-            </f7-navbar>
+        <f7-view>
+            <f7-page>
+                <f7-navbar>
+                    <f7-nav-title>New Item</f7-nav-title>
+                    <f7-nav-right>
+                        <f7-link popup-close>Close</f7-link>
+                    </f7-nav-right>
+                </f7-navbar>
 
-            <item-fields
-                :item="shared.newItem"
-                action="insert"
-                :enter="insertItem"
-                :focus="showFields"
-            >
-            </item-fields>
-
-            <f7-toolbar>
-                <buttons
-                    :save="insertItem"
+                <item-fields
+                    :item="shared.newItem"
+                    action="insert"
+                    :enter="insertItem"
+                    :focus="showFields"
                 >
-                </buttons>
-                <!--<f7-button-->
+                </item-fields>
+
+                <f7-toolbar>
+                    <buttons
+                        :save="insertItem"
+                    >
+                    </buttons>
+                    <!--<f7-button-->
                     <!--v-on:click="insertItem(13)"-->
                     <!--:disabled="!shared.newItem.title || !shared.newItem.category || !shared.newItem.priority"-->
-                <!--&gt;-->
+                    <!--&gt;-->
                     <!--Save-->
-                <!--</f7-button>-->
-            </f7-toolbar>
-        </f7-page>
-
+                    <!--</f7-button>-->
+                </f7-toolbar>
+            </f7-page>
+        </f7-view>
     </f7-popup>
+
 
 </template>
 
