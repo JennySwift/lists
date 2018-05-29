@@ -1,6 +1,6 @@
 <template>
         <f7-page>
-            <navbar title="Items"></navbar>
+            <navbar title="Categories"></navbar>
 
             <f7-list contacts-list>
                 <f7-list-group>
