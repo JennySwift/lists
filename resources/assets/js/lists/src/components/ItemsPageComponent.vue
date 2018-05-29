@@ -1,6 +1,6 @@
 <template>
     <f7-page :page-content="false">
-        <navbar title="Items"></navbar>
+        <navbar title="Items" :page-has-search="true"></navbar>
 
         <item-popup></item-popup>
 
