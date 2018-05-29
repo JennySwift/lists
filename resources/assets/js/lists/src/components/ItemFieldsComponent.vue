@@ -1,16 +1,14 @@
 <template>
-
     <div>
-        <f7-segmented>
-            <f7-button tab-link="#tab1">Main</f7-button>
-            <f7-button tab-link="#tab2">Note</f7-button>
-            <f7-button tab-link="#tab3">Parent</f7-button>
-            <f7-button tab-link="#tab4">Advanced</f7-button>
-        </f7-segmented>
-
+        <f7-toolbar tabbar>
+            <f7-link tab-link-active tab-link=".tab1">Main</f7-link>
+            <f7-link tab-link=".tab2">Note</f7-link>
+            <f7-link tab-link=".tab3">Parent</f7-link>
+            <f7-link tab-link=".tab4">Advanced</f7-link>
+        </f7-toolbar>
 
         <f7-tabs>
-            <f7-tab id="tab1" tab-active>
+            <f7-tab class="tab1" tab-active>
 
                 <f7-list no-hairlines-md contacts-list>
 
@@ -39,7 +37,7 @@
                 </input-group>
             </f7-tab>
 
-            <f7-tab id="tab2">
+            <f7-tab class="tab2">
                <f7-list no-hairlines-md contacts-list>
                    <f7-list-item>
                        <f7-label>Note</f7-label>
@@ -48,7 +46,7 @@
                </f7-list>
             </f7-tab>
 
-            <f7-tab id="tab3">
+            <f7-tab class="tab3">
                 <!--Not before-->
                 <date-picker
                     :function-on-enter="enter"
@@ -79,7 +77,7 @@
                 </f7-list>
             </f7-tab>
 
-            <f7-tab id="tab4">
+            <f7-tab class="tab4">
                 <!--Parent for inserting item-->
                 <input-group
                     v-if="action === 'insert'"
