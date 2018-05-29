@@ -34,6 +34,10 @@ export default {
         return 0;
     },
 
+    hidePopup: function () {
+        app.f7.popup.close();
+    },
+
     toast: function (message, type) {
         var toast = app.f7.toast.create({
             text: message,

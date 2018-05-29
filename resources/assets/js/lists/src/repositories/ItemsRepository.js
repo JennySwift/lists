@@ -126,6 +126,7 @@ export default {
                 redirectTo: this.redirectTo,
                 callback: function (response) {
                     item.notBefore = response.notBefore;
+                    helpers.hidePopup();
                 }
             });
         }
@@ -148,6 +149,7 @@ export default {
                 }.bind(this),
                 callback: function () {
                     this.deleteJsItem(item);
+                    helpers.hidePopup();
                 }.bind(this),
                 onFail: function () {
                     item.deleting = false;
