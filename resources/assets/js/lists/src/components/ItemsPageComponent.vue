@@ -115,10 +115,7 @@
             },
 
             openNewItemPopup: function () {
-                var popup = app.f7.popup.create({
-                    el: '.new-item-popup'
-                });
-                popup.open();
+                store.openPopup('.new-item-popup');
             },
 
             openItemPopup: function (item) {
@@ -126,10 +123,7 @@
                 store.set(item.parent_id, 'selectedItemClone.oldParentId');
                 store.set(item, 'selectedItem');
 
-                var popup = app.f7.popup.create({
-                    el: '.item-popup'
-                });
-                popup.open();
+                store.openPopup('.item-popup');
             },
 
             toggleNewItemFields: function () {

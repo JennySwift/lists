@@ -25,10 +25,7 @@
                 store.goToPreviousRoute();
             },
             openFilterPopup: function () {
-                var popup = app.f7.popup.create({
-                    el: '.filter-popup'
-                });
-                popup.open();
+                store.openPopup('.filter-popup');
             },
         },
         props: [

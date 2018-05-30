@@ -82,6 +82,22 @@ export default {
         this.set('', 'newItem.recurringFrequency');
     },
 
+    createPopups: function () {
+        app.f7.popup.create({
+            el: '.item-popup'
+        });
+        app.f7.popup.create({
+            el: '.new-item-popup'
+        });
+        app.f7.popup.create({
+            el: '.filter-popup'
+        });
+    },
+
+    openPopup: function (popup) {
+        app.f7.popup.get(popup).open();
+    },
+
     /**
      *
      */
