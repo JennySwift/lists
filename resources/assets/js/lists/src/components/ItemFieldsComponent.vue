@@ -27,18 +27,6 @@
                     </f7-list-item>
                     <selector :options="shared.categories" :model.sync="item.category.data" :id="action + '-item-category-selector'"></selector>
                 </f7-list>
-
-                <!--<input-group-->
-                    <!--label="Category:"-->
-                    <!--:model.sync="item.category"-->
-                    <!--:enter="enter"-->
-                    <!--:id="type + '-item-category'"-->
-                    <!--:options="shared.categories"-->
-                    <!--options-prop="name"-->
-                    <!--required="true"-->
-                    <!--top-border="true"-->
-                <!--&gt;-->
-                <!--</input-group>-->
             </f7-tab>
 
             <f7-tab class="tab2">
