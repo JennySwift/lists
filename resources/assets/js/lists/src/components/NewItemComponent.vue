@@ -1,8 +1,7 @@
 <template>
-    <f7-popup
-        class="new-item-popup"
-    >
-        <f7-view>
+
+    <div class="popup new-item-popup">
+        <div class="view">
             <f7-page>
                 <f7-navbar>
                     <f7-nav-title>New Item</f7-nav-title>
@@ -32,9 +31,9 @@
                     <!--</f7-button>-->
                 </f7-toolbar>
             </f7-page>
-        </f7-view>
-    </f7-popup>
+        </div>
 
+    </div>
 
 </template>
 

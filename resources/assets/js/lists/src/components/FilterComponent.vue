@@ -1,9 +1,7 @@
 <template>
 
-    <f7-popup
-        class="filter-popup"
-    >
-        <f7-view>
+    <div class="popup filter-popup">
+        <div class="view">
             <f7-page>
                 <f7-navbar>
                     <f7-nav-title>Filter</f7-nav-title>
@@ -113,10 +111,10 @@
                     <!--</date-picker>-->
                 </f7-list>
 
-
             </f7-page>
-        </f7-view>
-    </f7-popup>
+        </div>
+
+    </div>
 
 </template>
 

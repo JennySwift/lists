@@ -1,6 +1,6 @@
 <template>
     <f7-page :page-content="false" with-subnavbar>
-        <navbar title="Items" :page-has-search="true" :add="openNewItemPopup"></navbar>
+        <navbar title="Items" :page-has-search="true" add=".new-item-popup"></navbar>
         <breadcrumb></breadcrumb>
 
         <f7-page-content>
@@ -112,10 +112,6 @@
 
             go: function () {
                 store.getItems();
-            },
-
-            openNewItemPopup: function () {
-                store.openPopup('.new-item-popup');
             },
 
             openItemPopup: function (item) {
