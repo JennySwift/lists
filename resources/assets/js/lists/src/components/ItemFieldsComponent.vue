@@ -25,6 +25,7 @@
                     <f7-list-item title="Category" link popup-open=".selector-popup">
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
+                    <selector></selector>
                     <!--<li v-if="shared.categories.length > 0 && item.category">-->
                         <!--<a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">-->
                             <!--<select v-model="item.category.id" name="categories">-->
