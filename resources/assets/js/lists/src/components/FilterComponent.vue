@@ -48,6 +48,10 @@
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
 
+                    <f7-list-item title="Search all by title" link popup-open="#filter-all-by-title-selector">
+                    </f7-list-item>
+                    <selector display-prop="title" url="/api/items" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
+
                     <!--<f7-block>-->
                     <!--<autocomplete-->
                     <!--v-if="!isTrashPage"-->
