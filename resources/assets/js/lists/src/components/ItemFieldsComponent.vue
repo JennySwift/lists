@@ -25,7 +25,7 @@
                     <f7-list-item title="Category" link :popup-open="'#' + action + '-item-category-selector'">
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
-                    <selector :options="shared.categories" :model.sync="item.category.data" :id="action + '-item-category-selector'"></selector>
+                    <selector :options="shared.categories" :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
                 </f7-list>
             </f7-tab>
 
@@ -40,28 +40,22 @@
 
             <f7-tab class="tab3">
                 <!--Not before-->
-                <date-picker
-                    :function-on-enter="enter"
-                    :initial-date-value="item.notBefore"
-                    :input-id="type + '-item-not-before'"
-                    label="Not Before"
-                    input-placeholder=""
-                    property="notBefore"
-                >
-                </date-picker>
-
-                <!--Recurring unit-->
-                <input-group
-                    label="RU:"
-                    :model.sync="item.recurringUnit"
-                    :enter="enter"
-                    :id="type + '-item-recurring-unit'"
-                    :options="shared.recurringUnits"
-                    tooltip-message="Recurring Unit"
-                >
-                </input-group>
+                <!--<date-picker-->
+                    <!--:function-on-enter="enter"-->
+                    <!--:initial-date-value="item.notBefore"-->
+                    <!--:input-id="type + '-item-not-before'"-->
+                    <!--label="Not Before"-->
+                    <!--input-placeholder=""-->
+                    <!--property="notBefore"-->
+                <!--&gt;-->
+                <!--</date-picker>-->
 
                 <f7-list no-hairlines-md contacts-list>
+                    <f7-list-item title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
+                        <div slot="after">{{item.recurringUnit}}</div>
+                    </f7-list-item>
+                    <selector :options="shared.recurringUnits" :model.sync="item.recurringUnit" :id="action + '-item-recurring-unit-selector'"></selector>
+
                     <f7-list-item>
                         <f7-label>Recurring Frequency</f7-label>
                         <f7-input type="text" :value="item.recurringFrequency" @input="item.recurringFrequency = $event.target.value" @input:clear="item.recurringFrequency = ''" clear-button=""></f7-input>

@@ -11,9 +11,11 @@
             <f7-list no-hairlines-md contacts-list>
                 <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
                 <f7-list-item v-for="option in options" :key="option.id" v-on:click="selectOption(option)">
-                    {{option[displayProp]}}
+                    <span v-if="displayProp">{{option[displayProp]}}</span>
+                    <span v-if="!displayProp">{{option}}</span>
                 </f7-list-item>
             </f7-list>
+
         </f7-page>
     </f7-popup>
 
@@ -46,7 +48,7 @@
         },
         props: {
             displayProp: {
-                default: 'name'
+//                default: 'name'
             },
             options: {},
             model: {},
