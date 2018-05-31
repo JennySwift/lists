@@ -54,7 +54,7 @@
                     <f7-list-item title="Category" link popup-open="#filter-category-selector">
                         <div slot="after">{{shared.filters.category.name}}</div>
                     </f7-list-item>
-                    <selector :options="shared.categories" path="filters.category" id="filter-category-selector"></selector>
+                    <selector :options="shared.categories" :any="true" path="filters.category" id="filter-category-selector"></selector>
 
                     <f7-list-item title="Show Future Items">
                         <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>

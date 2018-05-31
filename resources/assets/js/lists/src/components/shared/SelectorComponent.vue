@@ -9,6 +9,7 @@
             </f7-navbar>
 
             <f7-list no-hairlines-md contacts-list>
+                <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
                 <f7-list-item v-for="option in options" :key="option.id" v-on:click="selectOption(option)">
                     {{option.name}}
                 </f7-list-item>
@@ -42,7 +43,9 @@
             'options',
             'model',
             'path',
-            'id'
+            'id',
+            //Add 'Any' option before the other options
+            'any'
         ]
     }
 </script>
