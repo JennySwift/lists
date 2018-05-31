@@ -7,7 +7,7 @@
     <title>Lists App</title>
     {{--<link rel="stylesheet" href="../tools/bootstrap.min.css">--}}
     {{--Bootstrap is the only one I need from plugins.css--}}
-    @include('templates.shared.head-links')
+    @include('templates.shared.links')
 </head>
 
 <body>
