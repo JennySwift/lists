@@ -21,18 +21,18 @@
                         <f7-label>Priority</f7-label>
                         <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
                     </f7-list-item>
-                    <li v-if="shared.categories.length > 0 && item.category">
-                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
-                            <select v-model="item.category.id" name="categories">
-                                <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                            </select>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Category</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    <!--<li v-if="shared.categories.length > 0 && item.category">-->
+                        <!--<a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">-->
+                            <!--<select v-model="item.category.id" name="categories">-->
+                                <!--<option v-for="category in shared.categories" :key="category.id" :value="category.id" :selected="category.id === item.category_id">{{category.name}}</option>-->
+                            <!--</select>-->
+                            <!--<div class="item-content">-->
+                                <!--<div class="item-inner">-->
+                                    <!--<div class="item-title">Category</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    <!--</li>-->
 
                 </f7-list>
 

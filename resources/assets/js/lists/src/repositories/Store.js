@@ -40,19 +40,27 @@ export default {
         selectedItemClone: {
             oldParentId: null,
             favourite: '',
-            deletedAt: ''
+            deletedAt: '',
+            category: {
+                data: {}
+            },
         },
         selectedItem: {
             oldParentId: null,
             favourite: '',
-            deletedAt: ''
+            deletedAt: '',
+            category: {
+                data: {}
+            },
         },
         newItem: {
             title: '',
             body: '',
             favourite: false,
             pinned: false,
-            category: {},
+            category: {
+                data: {}
+            },
             priority: 1,
             parent_id: '',
             notBefore: '',
