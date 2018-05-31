@@ -12,18 +12,8 @@
 
                 <f7-list no-hairlines-md contacts-list>
 
-                    <li v-if="shared.favouriteItems.length > 0">
-                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
-                            <select v-model="shared.filters.favouriteItem.id" @change="smartSelectChanged(shared.filters.favouriteItem.id)" name="favouriteItems">
-                                <option v-for="item in shared.favouriteItems" :key="item.id" :value="item.id">{{item.title}}</option>
-                            </select>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Favourite Items</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    <f7-list-item title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
+                    <selector :options="shared.favouriteItems" displayProp="title" id="filter-favourites-selector" :on-select="selectFavouriteItem"></selector>
 
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
@@ -148,8 +138,8 @@
         },
         methods: {
 
-            smartSelectChanged: function (id) {
-                helpers.goToRoute("/items/" + id);
+            selectFavouriteItem: function (item) {
+                helpers.goToRoute("/items/" + item.id);
             },
 
             prevPage: function () {

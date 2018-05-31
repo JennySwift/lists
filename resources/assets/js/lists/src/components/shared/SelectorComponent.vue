@@ -11,7 +11,7 @@
             <f7-list no-hairlines-md contacts-list>
                 <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
                 <f7-list-item v-for="option in options" :key="option.id" v-on:click="selectOption(option)">
-                    {{option.name}}
+                    {{option[displayProp]}}
                 </f7-list-item>
             </f7-list>
         </f7-page>
@@ -31,22 +31,31 @@
                 store.closePopup('.selector-popup');
             },
             selectOption: function (option) {
-                this.$emit('update:model', option);
+                if (this.model) {
+                    this.$emit('update:model', option);
+                }
                 if (this.path) {
                     store.set(option, this.path);
                 }
-
+                if (this.onSelect) {
+                    this.onSelect(option);
+                }
+                
                 this.closePopup();
             }
         },
-        props: [
-            'options',
-            'model',
-            'path',
-            'id',
+        props: {
+            displayProp: {
+                default: 'name'
+            },
+            options: {},
+            model: {},
+            path: {},
+            id: {},
             //Add 'Any' option before the other options
-            'any'
-        ]
+            any: {},
+            onSelect: {}
+        }
     }
 </script>
 
