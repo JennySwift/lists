@@ -3,8 +3,8 @@
         <f7-toolbar tabbar>
             <f7-link tab-link-active tab-link=".tab1">Main</f7-link>
             <f7-link tab-link=".tab2">Note</f7-link>
-            <f7-link tab-link=".tab3">Parent</f7-link>
-            <f7-link tab-link=".tab4">Advanced</f7-link>
+            <f7-link tab-link=".tab3">Scheduling</f7-link>
+            <!--<f7-link tab-link=".tab4">Advanced</f7-link>-->
         </f7-toolbar>
 
         <f7-tabs>
@@ -63,51 +63,51 @@
                 </f7-list>
             </f7-tab>
 
-            <f7-tab class="tab4">
-                <!--Parent for inserting item-->
-                <input-group
-                    v-if="action === 'insert'"
-                    label="Parent:"
-                    :model.sync="item.parent"
-                    :enter="enter"
-                    id="new-item-parent"
-                    url="/api/items"
-                    options-prop="title"
-                >
-                </input-group>
+            <!--<f7-tab class="tab4">-->
+                <!--&lt;!&ndash;Parent for inserting item&ndash;&gt;-->
+                <!--<input-group-->
+                    <!--v-if="action === 'insert'"-->
+                    <!--label="Parent:"-->
+                    <!--:model.sync="item.parent"-->
+                    <!--:enter="enter"-->
+                    <!--id="new-item-parent"-->
+                    <!--url="/api/items"-->
+                    <!--options-prop="title"-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-                <input-group
-                    v-if="action === 'insert'"
-                    label="Parent Id:"
-                    :model.sync="item.parent_id"
-                    :enter="enter"
-                    id="new-item-parent-id"
-                    tooltip-message="To make a new item in the current location, leave this field empty."
-                >
-                </input-group>
+                <!--<input-group-->
+                    <!--v-if="action === 'insert'"-->
+                    <!--label="Parent Id:"-->
+                    <!--:model.sync="item.parent_id"-->
+                    <!--:enter="enter"-->
+                    <!--id="new-item-parent-id"-->
+                    <!--tooltip-message="To make a new item in the current location, leave this field empty."-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-                <!--Parent for updating item-->
-                <input-group
-                    v-if="action === 'update'"
-                    label="New Parent:"
-                    :model.sync="item.newParent"
-                    :enter="enter"
-                    id="selected-item-new-parent"
-                    url="/api/items"
-                    options-prop="title"
-                >
-                </input-group>
+                <!--&lt;!&ndash;Parent for updating item&ndash;&gt;-->
+                <!--<input-group-->
+                    <!--v-if="action === 'update'"-->
+                    <!--label="New Parent:"-->
+                    <!--:model.sync="item.newParent"-->
+                    <!--:enter="enter"-->
+                    <!--id="selected-item-new-parent"-->
+                    <!--url="/api/items"-->
+                    <!--options-prop="title"-->
+                <!--&gt;-->
+                <!--</input-group>-->
 
-                <input-group
-                    v-if="action === 'update'"
-                    label="Parent Id:"
-                    :model.sync="item.parent_id"
-                    :enter="enter"
-                    id="selected-item-parent-id"
-                    tooltip-message="To move or leave item at the top level, this field should be empty"
-                >
-                </input-group>
-            </f7-tab>
+                <!--<input-group-->
+                    <!--v-if="action === 'update'"-->
+                    <!--label="Parent Id:"-->
+                    <!--:model.sync="item.parent_id"-->
+                    <!--:enter="enter"-->
+                    <!--id="selected-item-parent-id"-->
+                    <!--tooltip-message="To move or leave item at the top level, this field should be empty"-->
+                <!--&gt;-->
+                <!--</input-group>-->
+            <!--</f7-tab>-->
         </f7-tabs>
 
 
