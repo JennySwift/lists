@@ -33,7 +33,9 @@ const app = new Vue({
         store.getCategories();
         store.getFavouriteItems();
         store.createPopups();
-        // this.$f7.views.create('#filter-view');
+        this.$f7.views.create('.item-popup-view');
+        this.$f7.views.create('.filter-view');
+        this.$f7.views.create('.new-item-popup-view');
         // setTimeout(function () {
         //     store.getItems();
         // }, 500);

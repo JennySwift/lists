@@ -1,7 +1,7 @@
 <template>
 
     <div class="popup filter-popup">
-        <div class="view">
+        <div class="view filter-view">
             <f7-page>
                 <f7-navbar>
                     <f7-nav-title>Filter</f7-nav-title>
