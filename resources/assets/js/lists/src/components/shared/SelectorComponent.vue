@@ -40,7 +40,7 @@
                 if (this.onSelect) {
                     this.onSelect(option);
                 }
-                
+
                 this.closePopup();
             }
         },

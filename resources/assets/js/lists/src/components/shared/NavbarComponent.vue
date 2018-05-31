@@ -5,7 +5,6 @@
         </f7-nav-left>
         <f7-nav-title>{{title}}</f7-nav-title>
         <f7-nav-right>
-            <f7-link @click="openItemPopup">Item</f7-link>
             <f7-link class="add" v-if="add" :popup-open="add"><f7-icon f7="add"></f7-icon></f7-link>
             <f7-link v-if="pageHasSearch" popup-open=".filter-popup"><f7-icon f7="search"></f7-icon></f7-link>
         </f7-nav-right>
