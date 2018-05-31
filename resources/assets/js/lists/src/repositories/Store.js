@@ -31,7 +31,9 @@ export default {
         filters: {
             minimumPriority: '',
             priority: '',
-            category: {},
+            category: {
+
+            },
             title: '',
             body: '',
             urgency: '',

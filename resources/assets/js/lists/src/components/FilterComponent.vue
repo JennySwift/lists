@@ -51,19 +51,10 @@
                     <!--</select>-->
                     <!--</f7-list-item>-->
 
-                    <li v-if="shared.categories.length > 0">
-                        <a class="item-link smart-select smart-select-init" data-open-in="popup" data-close-on-select="true" data-searchbar="true">
-                            <select v-model="shared.filters.category.id" name="categories">
-                                <option :value="false">Any</option>
-                                <option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>
-                            </select>
-                            <div class="item-content">
-                                <div class="item-inner">
-                                    <div class="item-title">Category</div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
+                    <f7-list-item title="Category" link popup-open="#filter-category-selector">
+                        <div slot="after">{{shared.filters.category.name}}</div>
+                    </f7-list-item>
+                    <selector :options="shared.categories" path="filters.category" id="filter-category-selector"></selector>
 
                     <f7-list-item title="Show Future Items">
                         <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
@@ -128,7 +119,7 @@
     export default {
         data: function () {
             return {
-                shared: store.state,
+                shared: store.state
             };
         },
         computed: {
