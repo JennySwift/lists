@@ -13,7 +13,7 @@
                 <f7-list no-hairlines-md contacts-list>
 
                     <f7-list-item v-on:click="setSelectorOptions(shared.favouriteItems)" title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
-                    <selector displayProp="title" id="filter-favourites-selector" :on-select="selectFavouriteItem"></selector>
+                    <selector displayProp="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
 
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
@@ -50,12 +50,12 @@
 
                     <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
                     </f7-list-item>
-                    <selector display-prop="title" url="/api/items" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
+                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
 
                     <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
                     </f7-list-item>
-                    <selector display-prop="title" url="/api/items" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
-                    
+                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
+
                     <!--<date-picker-->
                     <!--:initial-date-value.sync="shared.filters.notBeforeDate"-->
                     <!--input-id="filter-not-before-date"-->
@@ -117,7 +117,7 @@
                 store.set(options, 'selectorOptions.data');
             },
 
-            selectFavouriteItem: function (item) {
+            goToSelectedItem: function (item) {
                 helpers.goToRoute("/items/" + item.id);
             },
 
