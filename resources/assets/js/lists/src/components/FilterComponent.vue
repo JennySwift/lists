@@ -35,12 +35,6 @@
                         <f7-input type="text" :value="shared.filters.body" @input:clear="shared.filters.body = $event.target.value" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
                     </f7-list-item>
 
-                    <!--<f7-list-item v-if="shared.categories.length > 0" smart-select :smart-select-params="{ searchbar: true, closeOnSelect: true, openIn: 'popup' }" title="Category">-->
-                    <!--<select name="categories">-->
-                    <!--<option v-for="category in shared.categories" :key="category.id" :value="category.id">{{category.name}}</option>-->
-                    <!--</select>-->
-                    <!--</f7-list-item>-->
-
                     <f7-list-item title="Category" link popup-open="#filter-category-selector">
                         <div slot="after">{{shared.filters.category.name}}</div>
                     </f7-list-item>
