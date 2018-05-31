@@ -26,6 +26,13 @@
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
                     <selector :options="shared.categories" :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
+
+                    <f7-list-item>{{item.favourite}}</f7-list-item>
+
+                    <f7-list-item title="Favourite">
+                        <f7-toggle @change="item.favourite = $event.target.checked" :checked="item.favourite"></f7-toggle>
+                    </f7-list-item>
+
                 </f7-list>
             </f7-tab>
 
@@ -134,6 +141,12 @@
                 }
                 return 'selected-item-title';
             },
+//            isFavourite: function () {
+//                if (this.item.favourite) {
+//                    return true;
+//                }
+//                return false;
+//            },
             type () {
                 if (this.action === 'insert') {
                     return 'new';
@@ -144,6 +157,13 @@
             }
         },
         methods: {
+            /**
+             * Make the selected item a favourite item if it wasn't already, and vice versa
+             */
+//            toggleFavourite () {
+//                store.set(!this.item.favourite, 'selectedItemClone.favourite');
+//            },
+
             setTab: function (number) {
                 this.tab = number;
             },

@@ -9,22 +9,6 @@
                     </f7-nav-right>
                 </f7-navbar>
 
-                <!--<div class="top-btns">-->
-                <!--<button-->
-                <!--v-if="!shared.selectedItemClone.favourite"-->
-                <!--v-on:click="toggleFavourite"-->
-                <!--class="favourite fa fa-star-o btn btn-sm btn-default">-->
-                <!--</button>-->
-
-                <!--<button-->
-                <!--v-if="shared.selectedItemClone.favourite"-->
-                <!--v-on:click="toggleFavourite"-->
-                <!--class="favourite fa fa-star btn btn-sm btn-default">-->
-                <!--</button>-->
-
-                <!--<span class="label label-default id-label">ID: {{ shared.selectedItem.id }}</span>-->
-                <!--</div>-->
-
                 <div>
                     <item-fields
                         :item="shared.selectedItemClone"
@@ -82,13 +66,6 @@
         },
         components: {},
         methods: {
-
-            /**
-             * Make the selected item a favourite item if it wasn't already, and vice versa
-             */
-            toggleFavourite () {
-                store.set(!this.shared.selectedItemClone.favourite, 'selectedItemClone.favourite');
-            },
 
             /**
              * Restore a deleted item

@@ -34,6 +34,13 @@ export default {
         return 0;
     },
 
+    convertIntegerToBoolean: function (boolean) {
+        if (boolean) {
+            return true;
+        }
+        return false;
+    },
+
     hidePopup: function () {
         app.f7.popup.close();
     },
