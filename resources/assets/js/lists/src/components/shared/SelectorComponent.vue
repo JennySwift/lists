@@ -7,7 +7,7 @@
                     <f7-link @click="closePopup">Close</f7-link>
                 </f7-nav-right>
                 <f7-subnavbar v-if="url">
-                    <f7-searchbar :custom-search="true" @searchbar:search="onSearch" @input="onInput">
+                    <f7-searchbar :custom-search="true" @searchbar:search="onSearch" @input="onInput" :backdrop="false">
                         <div slot="inner-end">
                             <f7-button v-on:click="searchDatabase">Go</f7-button>
                         </div>

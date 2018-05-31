@@ -118,6 +118,7 @@
             },
 
             goToSelectedItem: function (item) {
+                store.closePopup('.filter-popup');
                 helpers.goToRoute("/items/" + item.id);
             },
 
