@@ -55,34 +55,7 @@
                     <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
                     </f7-list-item>
                     <selector display-prop="title" url="/api/items" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
-
-                    <!--<f7-block>-->
-                    <!--<autocomplete-->
-                    <!--v-if="!isTrashPage"-->
-                    <!--input-id="title-search"-->
-                    <!--prop="title"-->
-                    <!--url="/api/items"-->
-                    <!--input-placeholder="Search all by title"-->
-                    <!--&gt;-->
-                    <!--</autocomplete>-->
-                    <!--</f7-block>-->
-
-                    <!--<f7-block>-->
-                    <!--<autocomplete-->
-                    <!--v-if="!isTrashPage"-->
-                    <!--input-id="note-search"-->
-                    <!--prop="body"-->
-                    <!--url="/api/items"-->
-                    <!--input-placeholder="Search all by note"-->
-                    <!--field-to-filter-by="body"-->
-                    <!--&gt;-->
-                    <!--</autocomplete>-->
-                    <!--</f7-block>-->
-
-                    <!--<h5>Find in Current Position</h5>-->
-
-
-
+                    
                     <!--<date-picker-->
                     <!--:initial-date-value.sync="shared.filters.notBeforeDate"-->
                     <!--input-id="filter-not-before-date"-->
