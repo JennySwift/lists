@@ -51,7 +51,7 @@ export default {
             urgency: item.urgency,
             favourite: helpers.convertBooleanToInteger(item.favourite),
             pinned: item.pinned,
-            category_id: item.category.id,
+            category_id: item.category.data.id,
             alarm: false,
             not_before: DateTimeRepository.convertToDateTime(item.notBefore),
             recurring_unit: item.recurringUnit,

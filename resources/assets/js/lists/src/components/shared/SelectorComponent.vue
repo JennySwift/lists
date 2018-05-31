@@ -9,8 +9,8 @@
             </f7-navbar>
 
             <f7-list no-hairlines-md contacts-list>
-                <f7-list-item>
-                    Hello
+                <f7-list-item v-for="option in shared.categories" :key="option.id" v-on:click="selectOption(option)">
+                    {{option.name}}
                 </f7-list-item>
             </f7-list>
         </f7-page>
@@ -20,11 +20,23 @@
 
 <script>
     export default {
+        data: function () {
+            return {
+                shared: store.state
+            }
+        },
         methods: {
             closePopup: function () {
                 store.closePopup('.selector-popup');
+            },
+            selectOption: function (option) {
+                this.$emit('update:model', option);
+                this.closePopup();
             }
-        }
+        },
+        props: [
+            'model'
+        ]
     }
 </script>
 
