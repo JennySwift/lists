@@ -22,7 +22,7 @@
                         <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
                     </f7-list-item>
 
-                    <f7-list-item title="Category" link>
+                    <f7-list-item title="Category" link popup-open=".selector-popup">
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
                     <!--<li v-if="shared.categories.length > 0 && item.category">-->

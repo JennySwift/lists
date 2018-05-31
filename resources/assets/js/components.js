@@ -18,6 +18,7 @@ import InputGroupComponent from './lists/src/components/shared/InputGroupCompone
 import DatePickerComponent from './lists/src/components/shared/DatePickerComponent.vue'
 import AutocompleteComponent from './lists/src/components/shared/AutocompleteComponent.vue'
 import FeedbackComponent from './lists/src/components/shared/FeedbackComponent.vue'
+import SelectorComponent from './lists/src/components/shared/SelectorComponent.vue'
 
 import ItemPopupComponent from './lists/src/components/ItemPopupComponent.vue'
 import BreadcrumbComponent from './lists/src/components/BreadcrumbComponent.vue'
@@ -38,6 +39,7 @@ Vue.component('navbar', NavbarComponent);
 Vue.component('popup', PopupComponent);
 Vue.component('new-popup', NewPopupComponent);
 Vue.component('autocomplete', AutocompleteComponent);
+Vue.component('selector', SelectorComponent);
 
 Vue.component('buttons', ButtonsComponent);
 Vue.component('input-group', InputGroupComponent);

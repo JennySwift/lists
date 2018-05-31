@@ -37,6 +37,7 @@
     <item-popup></item-popup>
     <new-item></new-item>
     <items-filter></items-filter>
+    <selector></selector>
 
     <f7-view id="main-view" main>
 

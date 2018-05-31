@@ -100,10 +100,17 @@ export default {
         app.f7.popup.create({
             el: '.filter-popup'
         });
+        app.f7.popup.create({
+            el: '.selector-popup'
+        });
     },
 
     openPopup: function (popup) {
         app.f7.popup.get(popup).open();
+    },
+
+    closePopup: function (popup) {
+        app.f7.popup.get(popup).close();
     },
 
     /**
