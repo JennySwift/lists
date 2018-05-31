@@ -12,8 +12,8 @@
 
                 <f7-list no-hairlines-md contacts-list>
 
-                    <f7-list-item title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
-                    <selector :options="shared.favouriteItems" displayProp="title" id="filter-favourites-selector" :on-select="selectFavouriteItem"></selector>
+                    <f7-list-item v-on:click="setSelectorOptions(shared.favouriteItems)" title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
+                    <selector displayProp="title" id="filter-favourites-selector" :on-select="selectFavouriteItem"></selector>
 
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
@@ -35,10 +35,10 @@
                         <f7-input type="text" :value="shared.filters.body" @input:clear="shared.filters.body = $event.target.value" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
                     </f7-list-item>
 
-                    <f7-list-item title="Category" link popup-open="#filter-category-selector">
+                    <f7-list-item v-on:click="setSelectorOptions(shared.categories)" title="Category" link popup-open="#filter-category-selector">
                         <div slot="after">{{shared.filters.category.name}}</div>
                     </f7-list-item>
-                    <selector :options="shared.categories" :any="true" display-prop="name" path="filters.category" id="filter-category-selector"></selector>
+                    <selector :any="true" display-prop="name" path="filters.category" id="filter-category-selector"></selector>
 
                     <f7-list-item title="Show Future Items">
                         <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
@@ -48,7 +48,7 @@
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
 
-                    <f7-list-item title="Search all by title" link popup-open="#filter-all-by-title-selector">
+                    <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
                     </f7-list-item>
                     <selector display-prop="title" url="/api/items" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
 
@@ -135,6 +135,10 @@
             }
         },
         methods: {
+
+            setSelectorOptions: function (options) {
+                store.set(options, 'selectorOptions.data');
+            },
 
             selectFavouriteItem: function (item) {
                 helpers.goToRoute("/items/" + item.id);

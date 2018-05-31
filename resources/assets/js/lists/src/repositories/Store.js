@@ -17,7 +17,7 @@ export default {
         categoriesLoaded: false,
         selectorOptions: {
             data: [],
-            propToDisplay: 'name'
+            // propToDisplay: 'name'
         },
 
         items: [],

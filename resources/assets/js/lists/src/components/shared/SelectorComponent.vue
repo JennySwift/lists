@@ -19,7 +19,7 @@
 
             <f7-list no-hairlines-md contacts-list>
                 <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
-                <f7-list-item v-for="option in mutableOptions" :key="option.id" v-on:click="selectOption(option)">
+                <f7-list-item v-for="option in shared.selectorOptions.data" :key="option.id" v-on:click="selectOption(option)">
                     <span v-if="displayProp">{{option[displayProp]}}</span>
                     <span v-if="!displayProp">{{option}}</span>
                 </f7-list-item>
@@ -36,7 +36,7 @@
             return {
                 shared: store.state,
                 searchTerm: '',
-                mutableOptions: this.options
+//                mutableOptions: []
             }
         },
         methods: {
@@ -45,8 +45,9 @@
 
                 helpers.get({
                     url:  url,
+                    storeProperty: 'selectorOptions',
                     callback: function (response) {
-                        this.mutableOptions = response.data;
+//                        this.mutableOptions = response.data;
                     }.bind(this)
                 });
             },
@@ -79,7 +80,7 @@
             displayProp: {
 //                default: 'name'
             },
-            options: {},
+//            options: {},
             model: {},
             path: {},
             id: {},

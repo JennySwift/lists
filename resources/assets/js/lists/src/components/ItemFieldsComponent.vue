@@ -22,10 +22,10 @@
                         <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
                     </f7-list-item>
 
-                    <f7-list-item title="Category" link :popup-open="'#' + action + '-item-category-selector'">
+                    <f7-list-item v-on:click="setSelectorOptions(shared.categories)" title="Category" link :popup-open="'#' + action + '-item-category-selector'">
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
-                    <selector :options="shared.categories" :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
+                    <selector :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
 
                     <f7-list-item>{{item.favourite}}</f7-list-item>
 
@@ -58,10 +58,10 @@
                 <!--</date-picker>-->
 
                 <f7-list no-hairlines-md contacts-list>
-                    <f7-list-item title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
+                    <f7-list-item v-on:click="setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
                         <div slot="after">{{item.recurringUnit}}</div>
                     </f7-list-item>
-                    <selector :options="shared.recurringUnits" :model.sync="item.recurringUnit" :id="action + '-item-recurring-unit-selector'"></selector>
+                    <selector :model.sync="item.recurringUnit" :id="action + '-item-recurring-unit-selector'"></selector>
 
                     <f7-list-item>
                         <f7-label>Recurring Frequency</f7-label>
