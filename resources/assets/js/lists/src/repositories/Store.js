@@ -112,6 +112,10 @@ export default {
         });
     },
 
+    setSelectorOptions: function (options) {
+        store.set(options, 'selectorOptions.data');
+    },
+
     openPopup: function (popup) {
         app.f7.popup.get(popup).open();
     },

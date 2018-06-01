@@ -22,7 +22,7 @@
                         <f7-input type="text" :value="item.priority" @input="item.priority = $event.target.value" @input:clear="item.priority = ''" clear-button=""></f7-input>
                     </f7-list-item>
 
-                    <f7-list-item v-on:click="setSelectorOptions(shared.categories)" title="Category" link :popup-open="'#' + action + '-item-category-selector'">
+                    <f7-list-item v-on:click="store.setSelectorOptions(shared.categories)" title="Category" link :popup-open="'#' + action + '-item-category-selector'">
                         <div slot="after">{{item.category.data.name}}</div>
                     </f7-list-item>
                     <selector :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
@@ -52,7 +52,7 @@
                     </f7-list-item>
                     <date-picker v-on:date-chosen="dateChosen" :id="action + 'item-not-before-date-picker'" :initial-date-value.sync="item.notBefore"></date-picker>
 
-                    <f7-list-item v-on:click="setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
+                    <f7-list-item v-on:click="store.setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
                         <div slot="after">{{item.recurringUnit}}</div>
                     </f7-list-item>
                     <selector :model.sync="item.recurringUnit" :id="action + '-item-recurring-unit-selector'"></selector>
@@ -125,6 +125,7 @@
         data: function () {
             return {
                 shared: store.state,
+                store: store,
                 tab: 1
             };
         },
@@ -154,9 +155,6 @@
             dateChosen: function (date, id) {
                 this.item.notBefore = date;
                 store.set(date, this.storePath['notBefore']);
-            },
-            setSelectorOptions: function (options) {
-                store.set(options, 'selectorOptions.data');
             },
             /**
              * Make the selected item a favourite item if it wasn't already, and vice versa
