@@ -15,7 +15,7 @@
                 <f7-list-group>
                     <f7-list-item class="panel-close" link="/items" title="Items"></f7-list-item>
                     <f7-list-item class="panel-close" link="/categories" title="Categories"></f7-list-item>
-                    <f7-list-item class="panel-close" link="/trash" title="Trash"></f7-list-item>
+                    {{--<f7-list-item class="panel-close" link="/trash" title="Trash"></f7-list-item>--}}
                 </f7-list-group>
             </f7-list>
         </f7-block>
