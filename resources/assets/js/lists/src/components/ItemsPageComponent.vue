@@ -17,7 +17,6 @@
                         :key="item.id"
                         :link="'/items/' + item.id"
                         v-bind:title="item.title"
-                        :after="item.category.data.name"
                         class="item"
                         v-bind:class="{'deleted': item.deletedAt || item.deleting}"
                     >
@@ -29,6 +28,8 @@
                             <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>
                             <span v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</span>
                         </div>
+
+                        <div slot="after"><span v-if="screenWidth > 320">{{item.category.data.name}}</span></div>
 
                         <div slot="inner-start" class="item-before">
                             <f7-badge color="yellow">{{item.priority}}</f7-badge>
@@ -75,6 +76,7 @@
                 editingItems: false,
                 newIndex: -1,
                 currentTime: moment(),
+                screenWidth: helpers.getScreenWidth()
             }
         },
         computed: {

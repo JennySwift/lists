@@ -34,6 +34,10 @@ export default {
         return 0;
     },
 
+    getScreenWidth: function () {
+        return screen.width;
+    },
+
     convertIntegerToBoolean: function (boolean) {
         if (boolean) {
             return true;
