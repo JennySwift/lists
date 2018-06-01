@@ -27,6 +27,7 @@
                         <div slot="footer">
                             <i v-if="item.body" class="fas fa-sticky-note"></i>
                             <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>
+                            <span v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</span>
                         </div>
 
                         <div slot="inner-start" class="item-before">
