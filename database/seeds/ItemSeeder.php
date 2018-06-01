@@ -200,6 +200,14 @@ class ItemSeeder extends Seeder
             'priority' => 4,
             'deleted' => 1
         ],
+        [
+            'title' => 'A repeating item',
+            'category_id' => 2,
+            'priority' => 1,
+            'days_ago' => 0,
+            'recurring_unit' => 'hour',
+            'recurring_frequency' => 12
+        ],
     ];
 
     /**
@@ -286,6 +294,14 @@ class ItemSeeder extends Seeder
 
         if (isset($item['days_ago'])) {
             $newItem['not_before'] = Carbon::today()->subDays($item['days_ago'])->format('Y-m-d H:i:s');
+        }
+
+        if (isset($item['recurring_unit'])) {
+            $newItem['recurring_unit'] = $item['recurring_unit'];
+        }
+
+        if (isset($item['recurring_frequency'])) {
+            $newItem['recurring_frequency'] = $item['recurring_frequency'];
         }
 
         if (isset($item['favourite'])) {
