@@ -37,8 +37,11 @@
 
                         <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
 
-                        <f7-swipeout-actions>
-                            <f7-swipeout-button close color="blue" v-on:click="openItemPopup(item)">Edit</f7-swipeout-button>
+                        <f7-swipeout-actions left>
+                            <f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(item)">View/Edit</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                        <f7-swipeout-actions right>
                             <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(item)">Delete</f7-swipeout-button>
                         </f7-swipeout-actions>
 
