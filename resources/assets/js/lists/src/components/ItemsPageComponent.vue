@@ -31,7 +31,7 @@
                         </div>
 
                         <div slot="inner-start" class="item-before">
-                            <f7-badge>{{item.priority}}</f7-badge>
+                            <f7-badge color="yellow">{{item.priority}}</f7-badge>
                         </div>
 
                         <f7-icon f7="chevron_right" slot="inner-end" class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
