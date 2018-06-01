@@ -40,10 +40,6 @@
                     </f7-list-item>
                     <selector :any="true" display-prop="name" path="filters.category" id="filter-category-selector"></selector>
 
-                    <f7-list-item title="Show Future Items">
-                        <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
-                    </f7-list-item>
-
                     <f7-list-item title="Show Trashed">
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
@@ -56,7 +52,10 @@
                     </f7-list-item>
                     <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
 
-                    <f7-list-item title="Not Before" link popup-open="#filter-not-before-date-picker">
+                    <f7-list-item title="Show Future Items">
+                        <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
+                    </f7-list-item>
+                    <f7-list-item v-if="shared.filters.includeFutureItems" title="Not Before" link popup-open="#filter-not-before-date-picker">
                         <div slot="after">{{shared.filters.notBeforeDate}}</div>
                     </f7-list-item>
                     <date-picker id="filter-not-before-date-picker" :initial-date-value.sync="shared.filters.notBeforeDate"></date-picker>
