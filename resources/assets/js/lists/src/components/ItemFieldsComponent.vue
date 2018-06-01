@@ -50,7 +50,6 @@
                     </f7-list-item>
                     <date-picker v-on:date-chosen="dateChosen" :id="action + 'item-not-before-date-picker'" :initial-date-value.sync="item.notBefore"></date-picker>
 
-                    <f7-list-item>{{item.recurringUnit}}</f7-list-item>
                     <f7-list-item v-on:click="store.setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
                         <div slot="after">{{item.recurringUnit}}</div>
                     </f7-list-item>
