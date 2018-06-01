@@ -152,11 +152,8 @@
         },
         methods: {
             dateChosen: function (date, id) {
-
                 this.item.notBefore = date;
                 store.set(date, this.storePath['notBefore']);
-//                this.$emit('update:item', this.item);
-                console.log(this.storePath);
             },
             setSelectorOptions: function (options) {
                 store.set(options, 'selectorOptions.data');
@@ -184,9 +181,9 @@
         mounted: function () {
             this.listen();
         },
-        created: function () {
-            this.$bus.$on('date-chosen', this.dateChosen);
-        },
+//        created: function () {
+//            this.$bus.$on('date-chosen', this.dateChosen);
+//        },
         props: [
             'item',
             'showNewItemFields',
