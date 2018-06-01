@@ -4,6 +4,9 @@
         <div class="view filter-view">
             <f7-page>
                 <f7-navbar>
+                    <f7-nav-left>
+                        <f7-link popup-close @click="go">Go</f7-link>
+                    </f7-nav-left>
                     <f7-nav-title>Filter</f7-nav-title>
                     <f7-nav-right>
                         <f7-link popup-close>Close</f7-link>
@@ -83,7 +86,8 @@
     export default {
         data: function () {
             return {
-                shared: store.state
+                shared: store.state,
+                store: store
             };
         },
         computed: {
@@ -111,6 +115,10 @@
             }
         },
         methods: {
+
+            go: function () {
+                store.getItems();
+            },
 
             setSelectorOptions: function (options) {
                 store.set(options, 'selectorOptions.data');
