@@ -18,6 +18,10 @@
 
             <!--</f7-block>-->
 
+            <f7-block>
+                <f7-button @click="chooseToday">Today</f7-button>
+            </f7-block>
+
             <data-table>
                 <div class="card-header">
                     <div class="data-table-title">{{ monthName }} {{ year }}</div>
@@ -154,6 +158,15 @@
              */
             chooseDateWithDatePicker: function (dayOfMonth) {
                 this.datePickerChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
+                this.dateChosen();
+            },
+
+            chooseToday: function () {
+                this.datePickerChosenDate = moment().format('ddd DD MMM YYYY');
+                this.dateChosen();
+            },
+
+            dateChosen: function () {
                 this.syncDateFromDatePicker();
                 this.closePopup();
             },

@@ -22,7 +22,7 @@
                     <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
                     </f7-list-item>
                     <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
-                    
+
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
                         <f7-input type="text" :value="shared.filters.minimumPriority" @input:clear="shared.filters.minimumPriority = $event.target.value" @input="shared.filters.minimumPriority = $event.target.value" clear-button=""></f7-input>
