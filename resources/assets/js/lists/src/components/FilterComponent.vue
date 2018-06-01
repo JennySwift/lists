@@ -15,6 +15,14 @@
                     <f7-list-item v-on:click="setSelectorOptions(shared.favouriteItems)" title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
                     <selector displayProp="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
 
+                    <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
+                    </f7-list-item>
+                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
+
+                    <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
+                    </f7-list-item>
+                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
+                    
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
                         <f7-input type="text" :value="shared.filters.minimumPriority" @input:clear="shared.filters.minimumPriority = $event.target.value" @input="shared.filters.minimumPriority = $event.target.value" clear-button=""></f7-input>
@@ -43,14 +51,6 @@
                     <f7-list-item title="Show Trashed">
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
-
-                    <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
-                    </f7-list-item>
-                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
-
-                    <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
-                    </f7-list-item>
-                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
 
                     <f7-list-item title="Show Future Items">
                         <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
