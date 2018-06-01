@@ -19,6 +19,7 @@ import DatePickerComponent from './lists/src/components/shared/DatePickerCompone
 import AutocompleteComponent from './lists/src/components/shared/AutocompleteComponent.vue'
 import FeedbackComponent from './lists/src/components/shared/FeedbackComponent.vue'
 import SelectorComponent from './lists/src/components/shared/SelectorComponent.vue'
+import DataTableComponent from './lists/src/components/shared/DataTableComponent.vue'
 
 import ItemPopupComponent from './lists/src/components/ItemPopupComponent.vue'
 import BreadcrumbComponent from './lists/src/components/BreadcrumbComponent.vue'
@@ -40,6 +41,7 @@ Vue.component('popup', PopupComponent);
 Vue.component('new-popup', NewPopupComponent);
 Vue.component('autocomplete', AutocompleteComponent);
 Vue.component('selector', SelectorComponent);
+Vue.component('data-table', DataTableComponent);
 
 Vue.component('buttons', ButtonsComponent);
 Vue.component('input-group', InputGroupComponent);

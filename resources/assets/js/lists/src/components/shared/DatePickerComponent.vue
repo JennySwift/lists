@@ -1,95 +1,70 @@
 <template>
-    <div class="datepicker">
-        
-        <!--<pre>initial: @{{initialDateValue}}</pre>-->
-        <!--<pre>mutable: @{{mutableDate}}</pre>-->
-        <!--<pre>dateInput: @{{dateInput}}</pre>-->
+    <f7-popup class="date-picker-popup" :id="id">
+        <f7-page>
+            <f7-navbar>
+                <f7-nav-title>Date Picker</f7-nav-title>
+                <f7-nav-right>
+                    <f7-link @click="closePopup">Close</f7-link>
+                </f7-nav-right>
+            </f7-navbar>
 
-        <div class="datepicker-input-label-container">
+            <!--<div class="datepicker-input-label-container">-->
+            <!--<input-->
+            <!--v-on:keyup="keyup"-->
+            <!--v-on:keyup.13="functionOnEnter()"-->
+            <!--v-model="dateInput"-->
+            <!--type="text"-->
+            <!--:id="inputId"-->
+            <!--:name="inputId"-->
+            <!--:placeholder="inputPlaceholder"-->
+            <!--class="form-control datepicker-input"-->
+            <!--&gt;-->
 
-
-            <input
-                v-on:keyup="keyup"
-                v-on:keyup.13="functionOnEnter()"
-                v-model="dateInput"
-                type="text"
-                :id="inputId"
-                :name="inputId"
-                :placeholder="inputPlaceholder"
-                class="form-control datepicker-input"
-            >
-
-            <button v-on:click="toggleCalendar()" class="btn btn-default">
-                <i class="fa fa-calendar"></i>
-            </button>
-
-
-
-
-            <!--<div class="datepicker-label-container">-->
-                <!--<label :for="inputId" class="">{{label}}:</label>-->
+            <!---->
             <!--</div>-->
 
-            <!--<div>-->
-                <!--<div class="input-group">-->
-                    <!--<input-->
-                        <!--v-on:keyup="keyup"-->
-                        <!--v-on:keyup.13="functionOnEnter()"-->
-                        <!--v-model="dateInput"-->
-                        <!--type="text"-->
-                        <!--:id="inputId"-->
-                        <!--:name="inputId"-->
-                        <!--:placeholder="inputPlaceholder"-->
-                        <!--class="form-control datepicker-input"-->
-                    <!--&gt;-->
-                    <!--<span class="input-group-btn">-->
-                        <!--<button v-on:click="toggleCalendar()" class="btn btn-default">-->
-                            <!--<i class="fa fa-calendar"></i>-->
-                        <!--</button>-->
-                    <!--</span>-->
-                <!--</div>-->
-            <!--</div>-->
+            <data-table>
+                <div class="card-header">
+                    <div class="data-table-title">{{ monthName }} {{ year }}</div>
+                    <div class="data-table-actions">
+                        <f7-segmented>
+                            <f7-button v-on:click="previousMonth()"><f7-icon f7="chevron_left"></f7-icon></f7-button>
+                            <f7-button v-on:click="nextMonth()"><f7-icon f7="chevron_right"></f7-icon></f7-button>
+                        </f7-segmented>
+                    </div>
+                </div>
+                <template slot="table-content">
+                    <tr>
+                        <th>Su</th>
+                        <th>Mo</th>
+                        <th>Tu</th>
+                        <th>We</th>
+                        <th>Th</th>
+                        <th>Fr</th>
+                        <th>Sa</th>
+                    </tr>
+                    <tbody>
+                        <tr v-for="week in weeks">
+                            <td v-on:click="chooseDateWithDatePicker(week.Sunday)" class="date">{{ week.Sunday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Monday)" class="date">{{ week.Monday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Tuesday)" class="date">{{ week.Tuesday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Wednesday)" class="date">{{ week.Wednesday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Thursday)" class="date">{{ week.Thursday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Friday)" class="date">{{ week.Friday }}</td>
+                            <td v-on:click="chooseDateWithDatePicker(week.Saturday)" class="date">{{ week.Saturday }}</td>
+                        </tr>
+                        </tbody>
+                </template>
+            </data-table>
 
-        </div>
 
+        </f7-page>
+    </f7-popup>
 
-
-
-        <div v-show="showCalendar" transition="fade" class="datepicker-calendar-container">
-            <div class="datepicker-heading">
-                <button v-on:click="previousMonth()" class="btn btn-default fa fa-chevron-left"></button>
-                <div class="month-and-year-heading class=date">{{ monthName }} {{ year }}</div>
-                <button v-on:click="nextMonth()" class="btn btn-default fa fa-chevron-right"></button>
-            </div>
-
-            <table class="table table-bordered datepicker-calendar">
-                <tr>
-                    <th>Su</th>
-                    <th>Mo</th>
-                    <th>Tu</th>
-                    <th>We</th>
-                    <th>Th</th>
-                    <th>Fr</th>
-                    <th>Sa</th>
-                </tr>
-                <tr v-for="week in weeks">
-                    <td v-on:click="chooseDateWithDatePicker(week.Sunday)" class="date">{{ week.Sunday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Monday)" class="date">{{ week.Monday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Tuesday)" class="date">{{ week.Tuesday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Wednesday)" class="date">{{ week.Wednesday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Thursday)" class="date">{{ week.Thursday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Friday)" class="date">{{ week.Friday }}</td>
-                    <td v-on:click="chooseDateWithDatePicker(week.Saturday)" class="date">{{ week.Saturday }}</td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
 </template>
 
 <script>
     var moment = require('moment');
-    var $ = require('jquery');
 
     export default {
         template: '#date-picker-template',
@@ -110,6 +85,7 @@
         },
         computed: {
             monthName: function () {
+                console.log('hello: ' + this.monthNumber);
                 return moment().month(this.monthNumber - 1).format('MMMM');
             },
             weeks: function () {
@@ -149,6 +125,10 @@
             }
         },
         methods: {
+
+            closePopup: function () {
+                store.closePopup('.date-picker-popup');
+            },
 
             keyup: function () {
 //                this.$emit('update:chosenDate', this.datePickerChosenDate);
@@ -270,18 +250,19 @@
             }
         },
         props: {
-            functionOnEnter: {
-                required: false,
-                type: Function,
-                default: function () {
-                    return true;
-                }
-            },
+//            functionOnEnter: {
+//                required: false,
+//                type: Function,
+//                default: function () {
+//                    return true;
+//                }
+//            },
             initialDateValue: {},
-            inputId: {},
-            inputPlaceholder: {},
-            label: {},
-            showDateFeedback: {},
+//            inputId: {},
+//            inputPlaceholder: {},
+//            label: {},
+//            showDateFeedback: {},
+            id: {}
         },
         mounted: function () {
 
@@ -290,113 +271,11 @@
 
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-    $base1:  lighten(#3CD3AD, 30%);
-    $base2: #97D7D6;
-    $base3: #B0E4DC;
-    $base4: $base2;
-    $breakpoint2: '768px';
-
-
-    $zIndex1: 9;
-    $zIndex2: 99;
-
-    @mixin inputGroupLabel {
-        background: lighten($base1, 10%);
-        color: darken($base2, 10%);
-        min-width: 160px;
-        text-align: right;
-        @media all and (max-width: $breakpoint2) {
-            min-width: 105px;
-        }
-    }
-
-    .datepicker {
-        position: relative;
-        .btn {
-            height: 34px;
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            left: 1px;
-        }
-        .datepicker-input-label-container {
-            display: flex;
-            .datepicker-label-container {
-                @include inputGroupLabel;
-                display: flex;
-                justify-content: flex-end;
-                padding: 6px 12px;
-                align-items: center;
-                label {
-                    font-weight: normal;
-                    margin-bottom: 0;
-                }
-                .fa {
-                    margin-left: 3px;
-                }
-                /*border-top: 1px solid #ccc;*/
-                border-left: 1px solid #ccc;
-                border-bottom: 1px solid #ccc;
-            }
-        }
-        table {
-            margin-bottom: 0;
-            td {
-                padding: 8px;
-            }
-        }
-        .date-feedback-for-user {
-            position: absolute;
-            right: 48px;
-            top: 8px;
-            z-index: $zIndex1;
-            @media (max-width: 800px) {
-                display: none;
-            }
-        }
-        .input-group {
-            width: 100%;
-        }
-        .datepicker-heading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            .month-and-year-heading {
-                font-size: 20px;
-                margin: 0 10px;
-                width: 150px;
-                text-align: center;
-            }
-        }
-        .datepicker-input {
-            //margin-bottom: 20px;
-            border-radius: 0;
-            border-right: 0;
-        }
-        .datepicker-calendar-container {
-            position: absolute;
-            width: 100%;
-            top: 35px;
-            padding-top: 8px;
-            background: white;
-            z-index: $zIndex2;
-        }
-        .datepicker-calendar {
-            //position: absolute;
-        }
-        td, th {
-            text-align: right;
-            padding: 4px;
-        }
-        .date {
-            cursor: pointer;
-            &:hover {
-                background: $base1;
-                color: white;
-            }
+<style lang="scss" type="text/scss">
+    //@import '../../../../sass/shared/index';
+    .date-picker-popup {
+        .segmented .button {
+            text-overflow: initial;
         }
     }
 </style>

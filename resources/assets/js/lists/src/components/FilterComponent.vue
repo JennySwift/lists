@@ -44,7 +44,7 @@
                         <f7-toggle @change="shared.filters.includeFutureItems = !shared.filters.includeFutureItems" :checked="shared.filters.includeFutureItems"></f7-toggle>
                     </f7-list-item>
 
-                    <f7-list-item title="Show trashed">
+                    <f7-list-item title="Show Trashed">
                         <f7-toggle @change="shared.filters.showTrashed = !shared.filters.showTrashed" :checked="shared.filters.showTrashed"></f7-toggle>
                     </f7-list-item>
 
@@ -56,15 +56,10 @@
                     </f7-list-item>
                     <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
 
-                    <!--<date-picker-->
-                    <!--:initial-date-value.sync="shared.filters.notBeforeDate"-->
-                    <!--input-id="filter-not-before-date"-->
-                    <!--label="Not Before"-->
-                    <!--property="notBeforeDate"-->
-                    <!--@date-chosen="dateChosen"-->
-                    <!--input-placeholder="Not before"-->
-                    <!--&gt;-->
-                    <!--</date-picker>-->
+                    <f7-list-item title="Not Before" link popup-open="#filter-not-before-date-picker">
+                        <div slot="after">{{shared.filters.notBefore}}</div>
+                    </f7-list-item>
+                    <date-picker id="filter-not-before-date-picker"></date-picker>
                 </f7-list>
 
             </f7-page>
