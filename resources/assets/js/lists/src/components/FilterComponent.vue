@@ -43,6 +43,11 @@
                         <f7-input type="text" :value="shared.filters.body" @input:clear="shared.filters.body = $event.target.value" @input="shared.filters.body = $event.target.value" clear-button=""></f7-input>
                     </f7-list-item>
 
+                    <f7-list-item>
+                        <f7-label>Per Page</f7-label>
+                        <f7-input type="tel" :value="shared.filters.max" @input:clear="shared.filters.max = $event.target.value" @input="shared.filters.max = $event.target.value" clear-button=""></f7-input>
+                    </f7-list-item>
+
                     <f7-list-item v-on:click="setSelectorOptions(shared.categories)" title="Category" link popup-open="#filter-category-selector">
                         <div slot="after">{{shared.filters.category.name}}</div>
                     </f7-list-item>

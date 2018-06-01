@@ -315,6 +315,10 @@ export default {
             url += '&title=' + store.state.filters.title;
         }
 
+        if (store.state.filters.max) {
+            url += '&max=' + store.state.filters.max;
+        }
+
         if (store.state.filters.body) {
             url += '&body=' + store.state.filters.body;
         }

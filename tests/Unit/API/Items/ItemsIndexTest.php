@@ -139,7 +139,7 @@ class ItemsIndexTest extends TestCase
     {
         $this->logInUser();
 
-        $response = $this->call('GET', '/api/items?page=2');
+        $response = $this->call('GET', '/api/items?page=2&max=4');
         $content = $this->getContent($response);
         $data = $content['data'];
 //      dd($content);
@@ -148,12 +148,12 @@ class ItemsIndexTest extends TestCase
 
         $this->checkPaginationKeysExist($content['pagination']);
 
-        $this->assertCount(5, $data);
+        $this->assertCount(4, $data);
 
         $this->assertEquals(2, $content['pagination']['current_page']);
         $this->assertEquals('http://localhost/api/items?page=3', $content['pagination']['next_page_url']);
-        $this->assertEquals(6, $content['pagination']['from']);
-        $this->assertEquals(10, $content['pagination']['to']);
+        $this->assertEquals(5, $content['pagination']['from']);
+        $this->assertEquals(8, $content['pagination']['to']);
 
         $this->assertResponseOk($response);
     }

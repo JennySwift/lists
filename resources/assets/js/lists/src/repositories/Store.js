@@ -34,6 +34,7 @@ export default {
             category: {
 
             },
+            max: 5,
             title: '',
             body: '',
             urgency: '',
