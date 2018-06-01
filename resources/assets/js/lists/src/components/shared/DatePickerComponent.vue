@@ -20,6 +20,7 @@
 
             <f7-block>
                 <f7-button @click="chooseToday">Today</f7-button>
+                <f7-button @click="chooseNone">None</f7-button>
             </f7-block>
 
             <data-table>
@@ -163,6 +164,11 @@
 
             chooseToday: function () {
                 this.datePickerChosenDate = moment().format('ddd DD MMM YYYY');
+                this.dateChosen();
+            },
+
+            chooseNone: function () {
+                this.datePickerChosenDate = false;
                 this.dateChosen();
             },
 
