@@ -1,23 +1,21 @@
-<!doctype html>
-
-<html lang="en" class="">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lists App</title>
-    {{--<link rel="stylesheet" href="../tools/bootstrap.min.css">--}}
-    {{--Bootstrap is the only one I need from plugins.css--}}
-    @include('templates.shared.links')
+    @include('templates.shared.head')
+    <link rel="stylesheet" href="/css/framework7.min.css">
 </head>
-
 <body>
-    <div id="app">
-        <div class="main">
-            @section('content')
-            @show
-        </div>
-    </div>
+<div id="app">
+    <f7-statusbar></f7-statusbar>
 
-    @include('templates.shared.footer')
+    <f7-view id="main-view" main>
+        @section('content')
+        @show
+    </f7-view>
+
+</div>
+
+<script type="text/javascript" src="{{ mix('/js/login.js') }}"></script>
+
 </body>
-
+</html>
