@@ -38,6 +38,7 @@
 
                         <f7-swipeout-actions>
                             <f7-swipeout-button close color="blue" v-on:click="openItemPopup(item)">Edit</f7-swipeout-button>
+                            <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(item)">Delete</f7-swipeout-button>
                         </f7-swipeout-actions>
 
                     </f7-list-item>
@@ -103,6 +104,10 @@
         },
         components: {},
         methods: {
+            deleteItem: function (item) {
+                ItemsRepository.deleteItem(item);
+            },
+
             prevPage: function () {
                 store.goToPreviousPage();
             },
