@@ -46,18 +46,12 @@
             </f7-tab>
 
             <f7-tab class="tab3">
-                <!--Not before-->
-                <!--<date-picker-->
-                    <!--:function-on-enter="enter"-->
-                    <!--:initial-date-value="item.notBefore"-->
-                    <!--:input-id="type + '-item-not-before'"-->
-                    <!--label="Not Before"-->
-                    <!--input-placeholder=""-->
-                    <!--property="notBefore"-->
-                <!--&gt;-->
-                <!--</date-picker>-->
-
                 <f7-list no-hairlines-md contacts-list>
+                    <f7-list-item title="Not Before" link :popup-open="'#' + action + 'item-not-before-date-picker'">
+                        <div slot="after">{{item.notBefore}}</div>
+                    </f7-list-item>
+                    <date-picker v-on:date-chosen="dateChosen" :id="action + 'item-not-before-date-picker'" :initial-date-value.sync="item.notBefore"></date-picker>
+
                     <f7-list-item v-on:click="setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
                         <div slot="after">{{item.recurringUnit}}</div>
                     </f7-list-item>
@@ -157,6 +151,16 @@
             }
         },
         methods: {
+            dateChosen: function (date, id) {
+
+                this.item.notBefore = date;
+                store.set(date, this.storePath['notBefore']);
+//                this.$emit('update:item', this.item);
+                console.log(this.storePath);
+            },
+            setSelectorOptions: function (options) {
+                store.set(options, 'selectorOptions.data');
+            },
             /**
              * Make the selected item a favourite item if it wasn't already, and vice versa
              */
@@ -180,6 +184,9 @@
         mounted: function () {
             this.listen();
         },
+        created: function () {
+            this.$bus.$on('date-chosen', this.dateChosen);
+        },
         props: [
             'item',
             'showNewItemFields',
@@ -188,7 +195,9 @@
             //Show the field or not
             'show',
             'enter',
-            'focus'
+            'focus',
+            //Path to item in store
+            'storePath'
         ]
     }
 </script>

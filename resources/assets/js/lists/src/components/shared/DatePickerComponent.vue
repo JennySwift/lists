@@ -174,6 +174,7 @@
             syncDateFromDatePicker () {
 //                this.dateInput = this.datePickerChosenDate;
                 this.$emit('update:initialDateValue', this.dateInput);
+                this.$emit('date-chosen', this.datePickerChosenDate, this.id);
                 this.$bus.$emit('date-chosen', this.datePickerChosenDate, this.id);
             },
 

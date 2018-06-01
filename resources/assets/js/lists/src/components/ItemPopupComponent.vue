@@ -15,6 +15,7 @@
                         action="update"
                         :show="true"
                         :enter="updateItem"
+                        store-path="shared.selectedItemClone"
                     >
                     </item-fields>
                 </div>
@@ -175,27 +176,27 @@
                 ItemsRepository.deleteItem(this.shared.selectedItem, this);
             },
 
-            optionChosen (option, inputId) {
-                if (inputId === 'selected-item-new-parent') {
-                    this.shared.selectedItemClone.parent_id = option.id;
-                }
-                if (inputId === 'selected-item-category') {
-                    this.shared.selectedItemClone.category = option;
-                }
-                else if (inputId === 'selected-item-recurring-unit') {
-                    this.shared.selectedItemClone.recurringUnit = option;
-                }
-            },
-
-            dateChosen (date, inputId) {
-                if (inputId === 'selected-item-not-before') {
-                    this.shared.selectedItemClone.notBefore = date;
-                }
-            }
+//            optionChosen (option, inputId) {
+//                if (inputId === 'selected-item-new-parent') {
+//                    this.shared.selectedItemClone.parent_id = option.id;
+//                }
+//                if (inputId === 'selected-item-category') {
+//                    this.shared.selectedItemClone.category = option;
+//                }
+//                else if (inputId === 'selected-item-recurring-unit') {
+//                    this.shared.selectedItemClone.recurringUnit = option;
+//                }
+//            },
+//
+//            dateChosen (date, inputId) {
+//                if (inputId === 'selected-item-not-before') {
+//                    this.shared.selectedItemClone.notBefore = date;
+//                }
+//            }
         },
         created: function () {
-            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
-            this.$bus.$on('date-chosen', this.dateChosen);
+//            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+//            this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
 

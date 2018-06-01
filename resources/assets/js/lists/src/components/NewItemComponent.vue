@@ -15,6 +15,7 @@
                     action="insert"
                     :enter="insertItem"
                     :focus="showFields"
+                    store-path="shared.newItem"
                 >
                 </item-fields>
 
@@ -228,23 +229,23 @@
                 });
             },
 
-            optionChosen: function (option, inputId) {
-                if (inputId === 'new-item-parent') {
-                    store.set(option.id, 'newItem.parent_id');
-                }
-                else if (inputId === 'new-item-category') {
-                    store.set(option, 'newItem.category');
-                }
-                else if (inputId === 'new-item-recurring-unit') {
-                    store.set(option, 'newItem.recurringUnit');
-                }
-            },
+//            optionChosen: function (option, inputId) {
+//                if (inputId === 'new-item-parent') {
+//                    store.set(option.id, 'newItem.parent_id');
+//                }
+//                else if (inputId === 'new-item-category') {
+//                    store.set(option, 'newItem.category');
+//                }
+//                else if (inputId === 'new-item-recurring-unit') {
+//                    store.set(option, 'newItem.recurringUnit');
+//                }
+//            },
 
-            dateChosen: function (date, inputId) {
-                if (inputId === 'new-item-not-before') {
-                    store.set(date, 'newItem.notBefore');
-                }
-            },
+//            dateChosen: function (date, inputId) {
+//                if (inputId === 'new-item-not-before') {
+//                    store.set(date, 'newItem.notBefore');
+//                }
+//            },
 
             /**
              *
@@ -262,8 +263,8 @@
 
         },
         created: function () {
-            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
-            this.$bus.$on('date-chosen', this.dateChosen);
+//            this.$bus.$on('autocomplete-option-chosen', this.optionChosen);
+//            this.$bus.$on('date-chosen', this.dateChosen);
         },
         mounted: function () {
             this.getUser();
