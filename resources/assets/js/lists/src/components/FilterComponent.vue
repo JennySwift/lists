@@ -57,9 +57,9 @@
                     <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
 
                     <f7-list-item title="Not Before" link popup-open="#filter-not-before-date-picker">
-                        <div slot="after">{{shared.filters.notBefore}}</div>
+                        <div slot="after">{{shared.filters.notBeforeDate}}</div>
                     </f7-list-item>
-                    <date-picker id="filter-not-before-date-picker"></date-picker>
+                    <date-picker id="filter-not-before-date-picker" :initial-date-value.sync="shared.filters.notBeforeDate"></date-picker>
                 </f7-list>
 
             </f7-page>
@@ -177,8 +177,8 @@
                 }
             },
 
-            dateChosen: function (date, inputId) {
-                if (inputId === 'filter-not-before-date') {
+            dateChosen: function (date, id) {
+                if (id === 'filter-not-before-date-picker') {
                     store.set(date, 'filters.notBeforeDate');
                 }
             },

@@ -8,20 +8,15 @@
                 </f7-nav-right>
             </f7-navbar>
 
-            <!--<div class="datepicker-input-label-container">-->
-            <!--<input-->
-            <!--v-on:keyup="keyup"-->
-            <!--v-on:keyup.13="functionOnEnter()"-->
-            <!--v-model="dateInput"-->
-            <!--type="text"-->
-            <!--:id="inputId"-->
-            <!--:name="inputId"-->
-            <!--:placeholder="inputPlaceholder"-->
-            <!--class="form-control datepicker-input"-->
-            <!--&gt;-->
+            <f7-block>
+                <f7-list no-hairlines-md contacts-list>
+                    <f7-list-item>
+                        <f7-label>Type or click a date</f7-label>
+                        <f7-input type="text" :value="dateInput" @input:clear="dateInput = $event.target.value"  clear-button=""></f7-input>
+                    </f7-list-item>
+                </f7-list>
 
-            <!---->
-            <!--</div>-->
+            </f7-block>
 
             <data-table>
                 <div class="card-header">
@@ -85,7 +80,6 @@
         },
         computed: {
             monthName: function () {
-                console.log('hello: ' + this.monthNumber);
                 return moment().month(this.monthNumber - 1).format('MMMM');
             },
             weeks: function () {
@@ -160,12 +154,13 @@
              */
             chooseDateWithDatePicker: function (dayOfMonth) {
                 this.datePickerChosenDate = moment(this.year + '-' + this.monthNumber + '-' + dayOfMonth, 'YYYY-M-D').format('ddd DD MMM YYYY');
-                this.hideCalendar();
                 this.syncDateFromDatePicker();
             },
 
             syncDateFromDatePicker () {
-                this.$bus.$emit('date-chosen', this.datePickerChosenDate, this.inputId);
+//                this.dateInput = this.datePickerChosenDate;
+                this.$emit('update:initialDateValue', this.dateInput);
+                this.$bus.$emit('date-chosen', this.datePickerChosenDate, this.id);
             },
 
             syncDateFromInput () {
