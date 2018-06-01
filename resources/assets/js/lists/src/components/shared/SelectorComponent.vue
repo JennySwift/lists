@@ -72,7 +72,7 @@
                 if (this.onSelect) {
                     this.onSelect(option);
                 }
-
+//                this.$emit('selected', option);
                 this.closePopup();
             }
         },

@@ -15,7 +15,7 @@
                         action="update"
                         :show="true"
                         :enter="updateItem"
-                        store-path="shared.selectedItemClone"
+                        store-path="selectedItemClone"
                     >
                     </item-fields>
                 </div>

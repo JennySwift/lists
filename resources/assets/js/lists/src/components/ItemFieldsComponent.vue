@@ -27,8 +27,6 @@
                     </f7-list-item>
                     <selector :model.sync="item.category.data" display-prop="name" :id="action + '-item-category-selector'"></selector>
 
-                    <f7-list-item>{{item.favourite}}</f7-list-item>
-
                     <f7-list-item title="Favourite">
                         <f7-toggle @change="item.favourite = $event.target.checked" :checked="item.favourite"></f7-toggle>
                     </f7-list-item>
@@ -52,10 +50,11 @@
                     </f7-list-item>
                     <date-picker v-on:date-chosen="dateChosen" :id="action + 'item-not-before-date-picker'" :initial-date-value.sync="item.notBefore"></date-picker>
 
+                    <f7-list-item>{{item.recurringUnit}}</f7-list-item>
                     <f7-list-item v-on:click="store.setSelectorOptions(shared.recurringUnits)" title="Recurring Unit" link :popup-open="'#' + action + '-item-recurring-unit-selector'">
                         <div slot="after">{{item.recurringUnit}}</div>
                     </f7-list-item>
-                    <selector :model.sync="item.recurringUnit" :id="action + '-item-recurring-unit-selector'"></selector>
+                    <selector :path="storePath + '.recurringUnit'" :model.sync="item.recurringUnit" v-on:selected="onSelected('recurringUnit')" :id="action + '-item-recurring-unit-selector'"></selector>
 
                     <f7-list-item>
                         <f7-label>Recurring Frequency</f7-label>
@@ -155,6 +154,11 @@
             dateChosen: function (date, id) {
                 this.item.notBefore = date;
                 store.set(date, this.storePath['notBefore']);
+            },
+            onSelected: function (field, option) {
+//                console.log(field, option);
+//                this.item.notBefore = date;
+//                store.set(date, this.storePath['notBefore']);
             },
             /**
              * Make the selected item a favourite item if it wasn't already, and vice versa

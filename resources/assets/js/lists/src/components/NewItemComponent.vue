@@ -15,7 +15,7 @@
                     action="insert"
                     :enter="insertItem"
                     :focus="showFields"
-                    store-path="shared.newItem"
+                    store-path="newItem"
                 >
                 </item-fields>
 
