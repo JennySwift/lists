@@ -49,7 +49,7 @@ export default {
         var toast = app.f7.toast.create({
             text: message,
             position: 'top',
-            closeTimeout: 2000,
+            closeTimeout: 1500,
             cssClass: 'color-theme-green'
             // icon: '<i class="f7-icons">check_round_fill</i>'
         }).open();
