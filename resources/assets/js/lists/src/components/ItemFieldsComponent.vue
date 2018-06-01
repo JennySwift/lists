@@ -14,7 +14,7 @@
 
                     <f7-list-item>
                         <f7-label>Title</f7-label>
-                        <f7-input type="text" :value="item.title" @input="item.title = $event.target.value" @input:clear="item.title = ''" clear-button=""></f7-input>
+                        <f7-input type="textarea" :value="item.title" @input="item.title = $event.target.value" @input:clear="item.title = ''" clear-button=""></f7-input>
                     </f7-list-item>
 
                     <f7-list-item>
@@ -38,7 +38,7 @@
                <f7-list no-hairlines-md contacts-list>
                    <f7-list-item>
                        <f7-label>Note</f7-label>
-                       <f7-input type="text" :value="item.body" @input="item.body = $event.target.value" @input:clear="item.body = ''" clear-button=""></f7-input>
+                       <f7-input type="textarea" :value="item.body" @input="item.body = $event.target.value" @input:clear="item.body = ''" clear-button=""></f7-input>
                    </f7-list-item>
                </f7-list>
             </f7-tab>
