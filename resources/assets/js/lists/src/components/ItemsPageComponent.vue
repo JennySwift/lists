@@ -233,10 +233,11 @@
             padding-right: 35px;
         }
         .chevron {
-            color: lighten(#8e8e93, 25%);
+            color: $gray;
             padding-left: 9px;
             &.has-children {
-                color: darken(#8e8e93, 10%);
+                color: $yellow;
+                /*color: darken(#8e8e93, 10%);*/
             }
         }
         .fa-sticky-note {
