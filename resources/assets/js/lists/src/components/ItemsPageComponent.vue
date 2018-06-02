@@ -230,14 +230,21 @@
     }
 
     .item {
-        &:hover {
-            .action-btns {
-                /*display: flex;*/
-                transform: translateX(0%);
+        .action-btns {
+            /*display: flex;*/
+            /*transform: translateX(0%);*/
+            &:hover {
+                .action-btn {
+                    transform: translateX(0%);
+                }
             }
+
+        }
+        .action-btn {
+            transition: .5s all ease;
         }
         .action-btns {
-            transition: .5s all ease;
+            /*transition: .5s all ease;*/
             display: flex;
             position: absolute;
             top: 0;
@@ -246,8 +253,9 @@
             margin-left: 20px;
             z-index: 99;
             cursor: pointer;
-            transform: translateX(100%);
+            /*transform: translateX(100%);*/
             .action-btn {
+                transform: translateX(200%);
                 /*margin: 0 5px;*/
                 min-width: 120px;
                 color: white;
