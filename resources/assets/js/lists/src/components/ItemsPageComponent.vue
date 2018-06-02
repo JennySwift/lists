@@ -226,7 +226,18 @@
         bottom: 54px;
     }
     .items {
+
+    }
+
+    .item {
+        &:hover {
+            .action-btns {
+                /*display: flex;*/
+                transform: translateX(0%);
+            }
+        }
         .action-btns {
+            transition: .5s all ease;
             display: flex;
             position: absolute;
             top: 0;
@@ -235,6 +246,7 @@
             margin-left: 20px;
             z-index: 99;
             cursor: pointer;
+            transform: translateX(100%);
             .action-btn {
                 /*margin: 0 5px;*/
                 min-width: 120px;
@@ -252,32 +264,6 @@
                 }
             }
         }
-    }
-
-    .item {
-        /*.action-btns {*/
-            /*!*display: none;*!*/
-        /*}*/
-        /*.item-after:hover {*/
-            /*.action-btns {*/
-                /*display: flex;*/
-            /*}*/
-            /*.category {*/
-                /*!*display: none;*!*/
-            /*}*/
-        /*}*/
-        /*.item-after {*/
-            /*> div {*/
-                /*display: flex;*/
-                /*.action-btns {*/
-                    /*display: flex;*/
-                    /*margin-right: 5px;*/
-                    /*.button {*/
-                        /*margin: 0 5px;*/
-                    /*}*/
-                /*}*/
-            /*}*/
-        /*}*/
         &.deleted {
             .item-title {
                 text-decoration: line-through;
