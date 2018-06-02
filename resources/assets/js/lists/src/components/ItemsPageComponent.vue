@@ -4,11 +4,6 @@
         <breadcrumb></breadcrumb>
 
         <f7-page-content>
-
-            <!--<f7-fab color="pink" @click="openNewItemPopup" position="right-bottom">-->
-                <!--<f7-icon f7="add"></f7-icon>-->
-            <!--</f7-fab>-->
-
             <f7-list contacts-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
@@ -20,9 +15,6 @@
                         class="item"
                         v-bind:class="{'deleted': item.deletedAt || item.deleting}"
                     >
-                        <!--<div slot="header">-->
-                        <!--<f7-button><i class="fas fa-pencil-alt"></i></f7-button>-->
-                        <!--</div>-->
                         <div slot="footer">
                             <i v-if="item.body" class="fas fa-sticky-note"></i>
                             <span v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</span>

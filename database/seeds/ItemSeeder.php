@@ -181,7 +181,7 @@ class ItemSeeder extends Seeder
             'days_ago' => -1
         ],
         [
-            'title' => 'This item has a title that is longer than the items that have a shorter title.',
+            'title' => 'This item has a title that is longer than the items that have a shorter title. Lorem ipsum dolor sit amet, consectetur adipisicing. Consectetur molestiae nihil officia rem temporibus.',
             'category_id' => 2,
             'priority' => 1,
         ],
