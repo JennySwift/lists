@@ -4,7 +4,56 @@
         <breadcrumb></breadcrumb>
 
         <f7-page-content>
-            <f7-list contacts-list class="no-chevron items">
+            <f7-list v-if="screenWidth <= 1024" contacts-list media-list class="no-chevron items">
+                <f7-list-group>
+                    <f7-list-item
+                        swipeout
+                        v-for="item in shared.items"
+                        :key="item.id"
+                        :link="'/items/' + item.id"
+                        v-bind:text="item.title"
+                        class="item"
+                        v-bind:class="{'deleted': item.deletedAt || item.deleting}"
+                    >
+                        <div slot="header" class="item-before">
+                            <f7-badge color="yellow">{{item.priority}}</f7-badge>
+                            <i v-if="item.body" class="fas fa-sticky-note"></i>
+                            <!--<f7-chip :text="item.category.data.name"></f7-chip>-->
+                        </div>
+
+                        <div slot="subtitle">
+                            <div v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</div>
+                            <div v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</div>
+                        </div>
+
+                        <div slot="after" class="category">
+                            <span v-if="screenWidth > 320">{{item.category.data.name}}</span>
+                        </div>
+
+
+                        <div class="chevron-container">
+                            <f7-icon f7="chevron_right"  class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
+                        </div>
+
+
+                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
+                            <div class="action-btn" v-on:click="openItemPopup(item)"><span>View/Edit</span></div>
+                            <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
+                        </div>
+
+                        <f7-swipeout-actions left>
+                            <f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(item)">View/Edit</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                        <f7-swipeout-actions right>
+                            <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(item)">Delete</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                    </f7-list-item>
+                </f7-list-group>
+            </f7-list>
+
+            <f7-list v-if="screenWidth > 1024" contacts-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
                         swipeout
@@ -218,78 +267,95 @@
         bottom: 54px;
     }
     .items {
-
-    }
-
-    .item {
-        .action-btns {
-            /*display: flex;*/
-            /*transform: translateX(0%);*/
-            &:hover {
-                .action-btn {
-                    transform: translateX(0%);
-                }
+        .item {
+            .item-subtitle {
+                font-size: 12px;
             }
-
-        }
-        .action-btn {
-            transition: .5s all ease;
-        }
-        .action-btns {
-            /*transition: .5s all ease;*/
-            display: flex;
-            position: absolute;
-            top: 0;
-            right: 0;
-            height: 100%;
-            margin-left: 20px;
-            z-index: 99;
-            cursor: pointer;
-            /*transform: translateX(100%);*/
-            .action-btn {
-                transform: translateX(200%);
-                /*margin: 0 5px;*/
-                min-width: 120px;
-                color: white;
+            .item-header {
+                padding-bottom: 12px;
+            }
+            .chevron-container {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 9px;
                 display: flex;
-                justify-content: center;
                 align-items: center;
-                &:first-child {
-                    /*margin-left:0;*/
-                    background: $blue;
+            }
+            .item-text {
+                overflow: scroll;
+            }
+            .action-btns {
+                /*display: flex;*/
+                /*transform: translateX(0%);*/
+                &:hover {
+                    .action-btn {
+                        transform: translateX(0%);
+                    }
                 }
-                &:last-child {
-                    /*margin-right: 0;*/
-                    background: $red;
+
+            }
+            .action-btn {
+                transition: .5s all ease;
+            }
+            .action-btns {
+                /*transition: .5s all ease;*/
+                display: flex;
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                margin-left: 20px;
+                z-index: 99;
+                cursor: pointer;
+                /*transform: translateX(100%);*/
+                .action-btn {
+                    transform: translateX(200%);
+                    /*margin: 0 5px;*/
+                    min-width: 120px;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &:first-child {
+                        /*margin-left:0;*/
+                        background: $blue;
+                    }
+                    &:last-child {
+                        /*margin-right: 0;*/
+                        background: $red;
+                    }
                 }
             }
-        }
-        &.deleted {
-            .item-title {
-                text-decoration: line-through;
+            &.deleted {
+                .item-title {
+                    text-decoration: line-through;
+                }
             }
-        }
-        .item-before {
-            display: flex;
-        }
-        .badge {
-            margin-right: 13px;
-            background: $blue;
-            min-width: 20px;
-        }
-        .item-inner {
-            padding-right: 35px;
-        }
-        .chevron {
-            color: $gray;
-            padding-left: 9px;
-            &.has-children {
+            .item-before {
+                display: flex;
+            }
+            .badge {
+                margin-right: 13px;
+                min-width: 20px;
+            }
+            .item-inner {
+                padding-right: 35px;
+            }
+            .chevron {
+                color: $gray;
+                padding-left: 9px;
+                &.has-children {
+                    color: $yellow;
+                    /*color: darken(#8e8e93, 10%);*/
+                }
+            }
+            .fa-sticky-note {
                 color: $yellow;
-                /*color: darken(#8e8e93, 10%);*/
+                font-size: 20px;
             }
-        }
-        .fa-sticky-note {
-            color: $yellow;
         }
     }
+
+
 </style>
