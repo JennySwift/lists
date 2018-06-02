@@ -9,7 +9,7 @@
                 <!--<f7-icon f7="add"></f7-icon>-->
             <!--</f7-fab>-->
 
-            <f7-list contacts-list class="no-chevron">
+            <f7-list contacts-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
                         swipeout
@@ -29,7 +29,14 @@
                             <span v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</span>
                         </div>
 
-                        <div slot="after"><span v-if="screenWidth > 320">{{item.category.data.name}}</span></div>
+                        <div slot="after" class="category">
+                            <span v-if="screenWidth > 320">{{item.category.data.name}}</span>
+                        </div>
+
+                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
+                            <div class="action-btn" v-on:click="openItemPopup(item)"><span>View/Edit</span></div>
+                            <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
+                        </div>
 
                         <div slot="inner-start" class="item-before">
                             <f7-badge color="yellow">{{item.priority}}</f7-badge>
@@ -218,7 +225,59 @@
     .ios .fab[class*="-bottom"] {
         bottom: 54px;
     }
+    .items {
+        .action-btns {
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            margin-left: 20px;
+            z-index: 99;
+            cursor: pointer;
+            .action-btn {
+                /*margin: 0 5px;*/
+                min-width: 120px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &:first-child {
+                    /*margin-left:0;*/
+                    background: $blue;
+                }
+                &:last-child {
+                    /*margin-right: 0;*/
+                    background: $red;
+                }
+            }
+        }
+    }
+
     .item {
+        /*.action-btns {*/
+            /*!*display: none;*!*/
+        /*}*/
+        /*.item-after:hover {*/
+            /*.action-btns {*/
+                /*display: flex;*/
+            /*}*/
+            /*.category {*/
+                /*!*display: none;*!*/
+            /*}*/
+        /*}*/
+        /*.item-after {*/
+            /*> div {*/
+                /*display: flex;*/
+                /*.action-btns {*/
+                    /*display: flex;*/
+                    /*margin-right: 5px;*/
+                    /*.button {*/
+                        /*margin: 0 5px;*/
+                    /*}*/
+                /*}*/
+            /*}*/
+        /*}*/
         &.deleted {
             .item-title {
                 text-decoration: line-through;
