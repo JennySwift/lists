@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\UsersController;
 use Illuminate\Http\Request;
 
 /*
@@ -25,6 +26,9 @@ Route::group(['namespace' => 'API', 'middleware' => 'auth:api'], function () {
 
     Route::resource('categories', 'CategoriesController', ['except' => ['create', 'edit']]);
     Route::resource('feedback', 'FeedbackController', ['only' => ['store']]);
+
+    Route::put('/users', 'UsersController@update');
+//    Route::resource('users', 'UsersController', ['only' => ['update']]);
 
     Route::put('items/undoDelete', 'ItemsController@undoDeleteItem');
     Route::get('users', 'UsersController@show');

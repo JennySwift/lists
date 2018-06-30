@@ -17,13 +17,15 @@ class UserSeeder extends Seeder
         $jenny = User::create([
             'name' => 'Jenny',
             'email' => 'cheezyspaghetti@gmail.com',
-            'password' => bcrypt('abcdefg')
+            'password' => bcrypt('abcdefg'),
+            'last_route' => '/items/16'
         ]);
 
         $dummy = User::create([
             'name' => 'Dummy',
             'email' => 'dummy@example.com',
-            'password' => bcrypt('abcdefg')
+            'password' => bcrypt('abcdefg'),
+            'last_route' => '/items'
         ]);
     }
 }

@@ -6,7 +6,7 @@ import TrashComponent from './lists/src/components/TrashComponent.vue'
 
 var on = {
     pageAfterIn: function (e, page) {
-        // store.updateRouteHistory(page.route.path);
+        store.updateLastRoute(page.route.path);
     }
 };
 

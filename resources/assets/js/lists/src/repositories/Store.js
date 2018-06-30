@@ -85,6 +85,33 @@ export default {
     },
 
     /**
+    *
+    */
+    updateLastRoute: function (route) {
+        var data = {
+            last_route: route
+        };
+
+        helpers.put({
+            url: '/api/users/',
+            data: data
+        });
+    },
+
+    /**
+    * @param user
+    */
+    getCurrentUser: function () {
+        helpers.get({
+            url: '/api/users/',
+            storeProperty: 'me',
+            callback: function (response) {
+                helpers.goToRoute(response.last_route);
+            }.bind(this)
+        });
+    },
+
+    /**
      *
      */
     clearNewItemFields () {
