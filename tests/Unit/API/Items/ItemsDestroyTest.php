@@ -112,6 +112,7 @@ class ItemsDestroyTest extends TestCase
      */
     public function it_can_restore_an_item_from_the_trash_if_it_does_not_have_deleted_parent()
     {
+        $this->markTestIncomplete();
         $this->logInUser();
 //        $this->createAndDeleteItems();
         $trashedItems = $this->getTrashedItems();
@@ -148,6 +149,7 @@ class ItemsDestroyTest extends TestCase
      */
     public function it_cannot_restore_an_item_from_the_trash_if_its_parent_is_deleted()
     {
+        $this->markTestIncomplete();
         $this->logInUser();
 //        $this->createAndDeleteItems();
         $trashedItems = $this->getTrashedItems();

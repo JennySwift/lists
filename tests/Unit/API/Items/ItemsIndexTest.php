@@ -521,11 +521,13 @@ class ItemsIndexTest extends TestCase
 //    }
 
     /**
+     * Might not need this anymore since no trash page
      * @test
      * @return void
      */
     public function it_gets_the_deleted_items()
     {
+        $this->markTestIncomplete();
         $this->logInUser();
 
         //First delete some items. This should delete items many because the item has children.
