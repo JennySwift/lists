@@ -18,6 +18,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected $baseUrl = 'http://localhost';
     protected $user;
+    protected $validationErrorMessage = 'The given data was invalid.';
 
     /**
      * Creates the application.
@@ -214,9 +215,22 @@ abstract class TestCase extends BaseTestCase
         return $response;
     }
 
+    /**
+     *
+     * @param $response
+     */
     protected function assertResponseOk($response)
     {
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+    }
+
+    /**
+     *
+     * @param $response
+     */
+    protected function assertResponseInvalid($response)
+    {
+        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
     }
 
     /**
@@ -238,7 +252,18 @@ abstract class TestCase extends BaseTestCase
     {
         return $this->call('POST', '/api/items', $item);
     }
+
+    /**
+     *
+     * @param $content
+     * @param $requiredFields
+     */
+    protected function checkValidationResponse($content, $requiredFields)
+    {
+        $this->assertEquals($this->validationErrorMessage, $content['message']);
+
+        foreach($requiredFields as $field) {
+            $this->assertArrayHasKey($field, $content['errors']);
+        }
+    }
 }
-
-
-

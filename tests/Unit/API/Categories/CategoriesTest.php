@@ -21,7 +21,7 @@ class CategoriesTest extends TestCase
         $this->logInUser();
         $response = $this->call('GET', '/api/categories');
         $content = $this->getContent($response);
-    //  dd($content);
+//      dd($content);
 
         $this->checkCategoryKeysExist($content[0]);
 
@@ -81,7 +81,6 @@ class CategoriesTest extends TestCase
      */
     public function it_throws_an_exception_for_category_store_method_without_required_fields()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $category = [
@@ -92,11 +91,8 @@ class CategoriesTest extends TestCase
         $content = $this->getContent($response);
 //            dd($content);
 
-        $this->assertArrayHasKey('name', $content);
-
-        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->checkValidationResponse($content, ['name']);
+        $this->assertResponseInvalid($response);
     }
 
 

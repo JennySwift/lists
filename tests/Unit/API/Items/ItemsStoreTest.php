@@ -251,7 +251,6 @@ class ItemsStoreTest extends TestCase
      */
     public function it_throws_an_exception_for_item_store_method_without_required_fields()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = [
@@ -262,13 +261,8 @@ class ItemsStoreTest extends TestCase
         $content = $this->getContent($response);
 //        dd($content);
 
-        $this->assertArrayHasKey('title', $content);
-        $this->assertArrayHasKey('priority', $content);
-        $this->assertArrayHasKey('category_id', $content);
-
-        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->checkValidationResponse($content, ['title', 'priority', 'category_id']);
+        $this->assertResponseInvalid($response);
     }
 
     /**
@@ -277,7 +271,6 @@ class ItemsStoreTest extends TestCase
      */
     public function it_throws_an_exception_for_item_store_method_if_title_is_too_long()
     {
-        DB::beginTransaction();
         $this->logInUser();
 
         $item = [
@@ -297,12 +290,10 @@ class ItemsStoreTest extends TestCase
         $content = $this->getContent($response);
 //        dd($content);
 
-        $this->assertArrayHasKey('title', $content);
-        $this->assertEquals('The title may not be greater than 200 characters.', $content['title'][0]);
+        $this->checkValidationResponse($content, ['title']);
+        $this->assertResponseInvalid($response);
 
-        $this->assertEquals(Response::HTTP_UNPROCESSABLE_ENTITY, $response->getStatusCode());
-
-        DB::rollBack();
+        $this->assertEquals('The title may not be greater than 200 characters.', $content['errors']['title'][0]);
     }
 
     /**

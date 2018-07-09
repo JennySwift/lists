@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\UsersController;
 use Illuminate\Http\Request;
 
 /*
@@ -33,8 +32,3 @@ Route::group(['namespace' => 'API', 'middleware' => 'auth:api'], function () {
     Route::put('items/undoDelete', 'ItemsController@undoDeleteItem');
     Route::get('users', 'UsersController@show');
 });
-
-
-
-
-
