@@ -37,6 +37,7 @@ class ItemsDestroyTest extends TestCase
      */
     public function it_can_empty_the_trash()
     {
+        $this->markTestIncomplete();
         $this->logInUser();
 //        $this->createAndDeleteItems();
         $this->checkTrashedItemsAreAsExpected($this->getTrashedItems());

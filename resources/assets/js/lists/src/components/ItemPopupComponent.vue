@@ -112,6 +112,7 @@
                     // redirectTo: this.redirectTo,
                     callback: function (response) {
                         store.update(response, 'items');
+                        helpers.hidePopup();
 
                         this.updateFavourites(response);
 

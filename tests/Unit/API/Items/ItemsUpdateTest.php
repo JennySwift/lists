@@ -68,6 +68,48 @@ class ItemsUpdateTest extends TestCase
     }
 
     /**
+     * Todo: When I made the recurring unit 'hours' instead of 'hour', it was 'hours' in the response. That shouldn't work because the column is type 'enum.'
+     * @test
+     * @return void
+     */
+    public function it_can_update_the_item_with_id_35()
+    {
+        $this->logInUser();
+
+        $item = Item::forCurrentUser()->find(35);
+
+        $response = $this->call('PUT', '/api/items/'.$item->id, [
+            'title' => 'numbat',
+            'body' => 'koala',
+            'priority' => 2,
+            'urgency' => 1,
+            'favourite' => 1,
+            'parent_id' => null,
+            'category_id' => 2,
+            'not_before' => '2050-02-03 13:30:05',
+            'recurring_unit' => 'hour',
+            'recurring_frequency' => 6
+        ]);
+
+//        dd($response);
+        $content = $this->getContent($response);
+//        dd($content);
+
+        $this->checkItemKeysExist($content);
+
+        $this->assertEquals('numbat', $content['title']);
+        $this->assertEquals('koala', $content['body']);
+        $this->assertEquals(2, $content['priority']);
+        $this->assertEquals(1, $content['favourite']);
+        $this->assertNull($content['parent_id']);
+        $this->assertEquals('2050-02-03 13:30:05', $content['notBefore']);
+        $this->assertEquals('hour', $content['recurringUnit']);
+        $this->assertEquals(6, $content['recurringFrequency']);
+
+        $this->assertResponseOk($response);
+    }
+
+    /**
      * @test
      * @return void
      */
