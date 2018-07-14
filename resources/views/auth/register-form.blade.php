@@ -1,5 +1,5 @@
 
-<form class="form-horizontal" role="form" method="POST" action="/auth/register">
+<form class="form-horizontal" role="form" method="POST" action="/register">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <div class="form-group">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group">
-        <label class="col-md-4 control-label">Password (at least 10 characters)</label>
+        <label class="col-md-4 control-label">Password</label>
         <div class="col-md-6">
             <input type="password" class="form-control" name="password">
         </div>
