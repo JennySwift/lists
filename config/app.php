@@ -150,7 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
-//        Spatie\Backup\BackupServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
 //        Laravel\Passport\PassportServiceProvider::class,
 
         /*
