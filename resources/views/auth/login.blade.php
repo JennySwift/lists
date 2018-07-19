@@ -8,6 +8,16 @@
             <f7-nav-right></f7-nav-right>
         </f7-navbar>
         <div id="login">
+
+            <f7-block>
+                To demo the app, log in with
+                <ul>
+                    <li>email:jennyswiftcreations@gmail.com</li>
+                    <li>password: abcdefg</li>
+                </ul>
+                <p>Please be aware that for the demo, the data is public, so others may see changes you make, and vice versa.</p>
+            </f7-block>
+            
             <div class="flex">
                 @include('auth.errors')
 
