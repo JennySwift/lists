@@ -2,6 +2,8 @@
         <f7-page>
             <navbar title="Categories"></navbar>
 
+            <new-category></new-category>
+
             <f7-list contacts-list>
                 <f7-list-group>
                     <f7-list-item
