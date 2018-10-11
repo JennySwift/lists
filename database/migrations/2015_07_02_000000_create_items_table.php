@@ -21,7 +21,7 @@ class CreateItemsTable extends Migration
             $table->text('body')->nullable();
             $table->integer('index')->nullable();
             $table->integer('category_id')->unsigned()->nullable()->index();
-            $table->integer('priority')->index();
+            $table->decimal('priority', 10, 1)->index();
             $table->boolean('favourite')->default(false)->index();
 //            $table->boolean('pinned')->default(false)->index();
             $table->integer('urgency')->nullable()->index();
