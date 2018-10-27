@@ -17,12 +17,33 @@
 
 
 
-            <f7-list no-hairlines-md contacts-list>
-                <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
-                <f7-list-item v-for="option in shared.selectorOptions.data" :key="option.id" v-on:click="selectOption(option)">
-                    <span v-if="displayProp">{{option[displayProp]}}</span>
-                    <span v-if="!displayProp">{{option}}</span>
-                </f7-list-item>
+            <f7-list contacts-list>
+                <f7-list-group>
+                    <f7-list-item v-if="any" v-on:click="selectOption(false)">Any</f7-list-item>
+                    <f7-list-item
+                        swipeout
+                        v-for="option in shared.selectorOptions.data"
+                        :key="option.id"
+                        v-bind:title="getTitle(option)"
+                        v-on:click="selectOption(option)"
+                        class="item"
+                    >
+
+                        <div slot="root-end" class="action-btns">
+                            <div class="action-btn" v-on:click="openItemPopup(option)"><span>View/Edit</span></div>
+                            <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
+                        </div>
+
+                        <f7-swipeout-actions left>
+                            <f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(option)">View/Edit</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                        <f7-swipeout-actions right>
+                            <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(option)">Delete</f7-swipeout-button>
+                        </f7-swipeout-actions>
+
+                    </f7-list-item>
+                </f7-list-group>
             </f7-list>
 
             <f7-toolbar v-if="url && shared.selectorOptions.pagination" class="flex-container">
@@ -37,6 +58,8 @@
 </template>
 
 <script>
+    import ItemsRepository from "../../repositories/ItemsRepository";
+
     export default {
         data: function () {
             return {
@@ -46,12 +69,33 @@
             }
         },
         methods: {
+            getTitle: function (option) {
+                if (this.displayProp) {
+                    return option[this.displayProp];
+                }
+                else if (option.title) {
+                    return option.title;
+                }
+                else if (typeof option === 'string') {
+                    return option;
+                }
+                return "";
+            },
             prevPage: function () {
                 this.searchDatabase(this.shared.selectorOptions.pagination.current_page-1);
             },
 
             nextPage: function () {
                 this.searchDatabase(this.shared.selectorOptions.pagination.current_page+1);
+            },
+
+            openItemPopup: function (item) {
+                this.selectOption(item);
+                store.openItemPopup(item);
+            },
+
+            deleteItem: function (item) {
+                ItemsRepository.deleteItem(item);
             },
 
             searchDatabase: function (pageNumber) {
@@ -110,5 +154,9 @@
 </script>
 
 <style lang="scss" type="text/scss">
-
+    @import '../../../../../sass/shared/index';
+    .selector-popup {
+        @include actionButtons;
+        @include item;
+    }
 </style>

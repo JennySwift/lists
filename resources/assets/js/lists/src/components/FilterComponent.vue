@@ -16,7 +16,7 @@
                 <f7-list no-hairlines-md contacts-list>
 
                     <f7-list-item v-on:click="setSelectorOptions(shared.favouriteItems)" title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
-                    <selector displayProp="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
+                    <selector display-prop="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
 
                     <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
                     </f7-list-item>

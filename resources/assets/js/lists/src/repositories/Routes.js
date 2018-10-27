@@ -33,7 +33,7 @@ export default {
             clearPreviousHistory: false,
             pushState: true
         });
-        console.log(this.getRouteHistory());
+        // console.log(this.getRouteHistory());
     },
 
     getRouteHistory: function () {

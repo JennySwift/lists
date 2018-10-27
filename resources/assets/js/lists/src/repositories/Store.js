@@ -156,6 +156,15 @@ export default {
         }
     },
 
+    openItemPopup: function (item) {
+        item.favourite = helpers.convertIntegerToBoolean(item.favourite);
+        store.set(helpers.clone(item), 'selectedItemClone');
+        store.set(item.parent_id, 'selectedItemClone.oldParentId');
+        store.set(item, 'selectedItem');
+
+        store.openPopup('.item-popup');
+    },
+
     /**
      *
      */

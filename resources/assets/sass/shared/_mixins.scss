@@ -58,6 +58,100 @@
     background: linear-gradient(to left, $base2 , $base1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+@mixin actionButtons {
+    .action-btns {
+        /*transition: .5s all ease;*/
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        margin-left: 20px;
+        z-index: 99;
+        cursor: pointer;
+        /*transform: translateX(100%);*/
+        .action-btn {
+            transform: translateX(200%);
+            /*margin: 0 5px;*/
+            min-width: 120px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:first-child {
+                /*margin-left:0;*/
+                background: $blue;
+            }
+            &:last-child {
+                /*margin-right: 0;*/
+                background: $red;
+            }
+        }
+        &:hover {
+            .action-btn {
+                transform: translateX(0%);
+            }
+        }
+    }
+}
+
+@mixin item {
+    .item {
+        .item-subtitle {
+            font-size: 12px;
+        }
+        .item-header {
+            padding-bottom: 12px;
+        }
+        .item-title {
+            /*To allow the text to go onto a new line if the text is too long for one line*/
+            white-space: initial;
+        }
+        .chevron-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 9px;
+            display: flex;
+            align-items: center;
+        }
+        .item-text {
+            overflow: scroll;
+        }
+        .action-btn {
+            transition: .5s all ease;
+        }
+        @include actionButtons;
+        &.deleted {
+            .item-title {
+                text-decoration: line-through;
+            }
+        }
+        .item-before {
+            display: flex;
+        }
+        .badge {
+            margin-right: 13px;
+            min-width: 20px;
+        }
+        .item-inner {
+            padding-right: 35px;
+        }
+        .chevron {
+            color: $gray;
+            padding-left: 9px;
+            &.has-children {
+                color: $yellow;
+                /*color: darken(#8e8e93, 10%);*/
+            }
+        }
+        .fa-sticky-note {
+            color: $yellow;
+            font-size: 20px;
+        }
+    }
+}
+
 @mixin footer {
     @include navBackground;
 

@@ -170,12 +170,7 @@
             },
 
             openItemPopup: function (item) {
-                item.favourite = helpers.convertIntegerToBoolean(item.favourite);
-                store.set(helpers.clone(item), 'selectedItemClone');
-                store.set(item.parent_id, 'selectedItemClone.oldParentId');
-                store.set(item, 'selectedItem');
-
-                store.openPopup('.item-popup');
+                store.openItemPopup(item);
             },
 
             toggleNewItemFields: function () {
@@ -253,7 +248,6 @@
                 store.getItems();
             }, 500);
             this.keepCurrentTimeUpToDate();
-            console.log(helpers.getScreenWidth());
         }
     }
 </script>
@@ -264,98 +258,7 @@
         bottom: 54px;
     }
     .items {
-        .item {
-            .item-subtitle {
-                font-size: 12px;
-            }
-            .item-header {
-                padding-bottom: 12px;
-            }
-            .item-title {
-                /*To allow the text to go onto a new line if the text is too long for one line*/
-                white-space: initial;
-            }
-            .chevron-container {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                right: 9px;
-                display: flex;
-                align-items: center;
-            }
-            .item-text {
-                overflow: scroll;
-            }
-            .action-btns {
-                /*display: flex;*/
-                /*transform: translateX(0%);*/
-                &:hover {
-                    .action-btn {
-                        transform: translateX(0%);
-                    }
-                }
-
-            }
-            .action-btn {
-                transition: .5s all ease;
-            }
-            .action-btns {
-                /*transition: .5s all ease;*/
-                display: flex;
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                margin-left: 20px;
-                z-index: 99;
-                cursor: pointer;
-                /*transform: translateX(100%);*/
-                .action-btn {
-                    transform: translateX(200%);
-                    /*margin: 0 5px;*/
-                    min-width: 120px;
-                    color: white;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    &:first-child {
-                        /*margin-left:0;*/
-                        background: $blue;
-                    }
-                    &:last-child {
-                        /*margin-right: 0;*/
-                        background: $red;
-                    }
-                }
-            }
-            &.deleted {
-                .item-title {
-                    text-decoration: line-through;
-                }
-            }
-            .item-before {
-                display: flex;
-            }
-            .badge {
-                margin-right: 13px;
-                min-width: 20px;
-            }
-            .item-inner {
-                padding-right: 35px;
-            }
-            .chevron {
-                color: $gray;
-                padding-left: 9px;
-                &.has-children {
-                    color: $yellow;
-                    /*color: darken(#8e8e93, 10%);*/
-                }
-            }
-            .fa-sticky-note {
-                color: $yellow;
-                font-size: 20px;
-            }
-        }
+        @include item;
     }
 
 
