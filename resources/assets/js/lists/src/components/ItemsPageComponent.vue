@@ -4,51 +4,51 @@
         <breadcrumb></breadcrumb>
 
         <f7-page-content>
-            <f7-list v-if="screenWidth <= smallScreenWidth" contacts-list media-list class="no-chevron items">
-                <f7-list-group>
-                    <f7-list-item
-                        swipeout
-                        v-for="item in shared.items"
-                        :key="item.id"
-                        :link="'/items/' + item.id"
-                        v-bind:text="item.title"
-                        class="item"
-                        v-bind:class="{'deleted': item.deletedAt || item.deleting}"
-                    >
-                        <div slot="header" class="item-before">
-                            <f7-badge color="yellow">{{item.priority}}</f7-badge>
-                            <i v-if="item.body" class="fas fa-sticky-note"></i>
-                            <!--<f7-chip :text="item.category.data.name"></f7-chip>-->
-                        </div>
+            <!--<f7-list v-if="screenWidth <= smallScreenWidth" contacts-list media-list class="no-chevron items">-->
+                <!--<f7-list-group>-->
+                    <!--<f7-list-item-->
+                        <!--swipeout-->
+                        <!--v-for="item in shared.items"-->
+                        <!--:key="item.id"-->
+                        <!--:link="'/items/' + item.id"-->
+                        <!--v-bind:text="item.title"-->
+                        <!--class="item"-->
+                        <!--v-bind:class="{'deleted': item.deletedAt || item.deleting}"-->
+                    <!--&gt;-->
+                        <!--<div slot="header" class="item-before">-->
+                            <!--<f7-badge color="yellow">{{item.priority}}</f7-badge>-->
+                            <!--<i v-if="item.body" class="fas fa-sticky-note"></i>-->
+                            <!--&lt;!&ndash;<f7-chip :text="item.category.data.name"></f7-chip>&ndash;&gt;-->
+                        <!--</div>-->
 
-                        <div slot="subtitle">
-                            <div v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</div>
-                            <div v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</div>
-                        </div>
+                        <!--<div slot="subtitle">-->
+                            <!--<div v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</div>-->
+                            <!--<div v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</div>-->
+                        <!--</div>-->
 
-                        <div class="chevron-container">
-                            <f7-icon f7="chevron_right"  class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
-                        </div>
+                        <!--<div class="chevron-container">-->
+                            <!--<f7-icon f7="chevron_right"  class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>-->
+                        <!--</div>-->
 
 
-                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
-                            <div class="action-btn" v-on:click="openItemPopup(item)"><span>View/Edit</span></div>
-                            <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
-                        </div>
+                        <!--<div slot="root-end" class="action-btns" v-if="screenWidth > 1024">-->
+                            <!--<div class="action-btn" v-on:click="openItemPopup(item)"><span>View/Edit</span></div>-->
+                            <!--<div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>-->
+                        <!--</div>-->
 
-                        <f7-swipeout-actions left>
-                            <f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(item)">View/Edit</f7-swipeout-button>
-                        </f7-swipeout-actions>
+                        <!--<f7-swipeout-actions left>-->
+                            <!--<f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(item)">View/Edit</f7-swipeout-button>-->
+                        <!--</f7-swipeout-actions>-->
 
-                        <f7-swipeout-actions right>
-                            <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(item)">Delete</f7-swipeout-button>
-                        </f7-swipeout-actions>
+                        <!--<f7-swipeout-actions right>-->
+                            <!--<f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(item)">Delete</f7-swipeout-button>-->
+                        <!--</f7-swipeout-actions>-->
 
-                    </f7-list-item>
-                </f7-list-group>
-            </f7-list>
+                    <!--</f7-list-item>-->
+                <!--</f7-list-group>-->
+            <!--</f7-list>-->
 
-            <f7-list v-if="screenWidth > smallScreenWidth" contacts-list class="no-chevron items">
+            <f7-list contacts-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
                         swipeout
