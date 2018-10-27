@@ -271,6 +271,10 @@
             .item-header {
                 padding-bottom: 12px;
             }
+            .item-title {
+                /*To allow the text to go onto a new line if the text is too long for one line*/
+                white-space: initial;
+            }
             .chevron-container {
                 position: absolute;
                 top: 0;
