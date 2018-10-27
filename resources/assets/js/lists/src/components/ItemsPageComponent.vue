@@ -4,7 +4,7 @@
         <breadcrumb></breadcrumb>
 
         <f7-page-content>
-            <f7-list v-if="screenWidth <= 1024" contacts-list media-list class="no-chevron items">
+            <f7-list v-if="screenWidth <= smallScreenWidth" contacts-list media-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
                         swipeout
@@ -25,11 +25,6 @@
                             <div v-if="item.notBefore">Not before {{ item.notBefore | dateTimeFilter}}</div>
                             <div v-if="item.recurringUnit">Repeats every {{ item.recurringFrequency }} {{item.recurringUnit}}s</div>
                         </div>
-
-                        <div slot="after" class="category">
-                            <span v-if="screenWidth > 320">{{item.category.data.name}}</span>
-                        </div>
-
 
                         <div class="chevron-container">
                             <f7-icon f7="chevron_right"  class="chevron" size="14" :class="{'has-children': item.has_children}"></f7-icon>
@@ -53,7 +48,7 @@
                 </f7-list-group>
             </f7-list>
 
-            <f7-list v-if="screenWidth > 1024" contacts-list class="no-chevron items">
+            <f7-list v-if="screenWidth > smallScreenWidth" contacts-list class="no-chevron items">
                 <f7-list-group>
                     <f7-list-item
                         swipeout
@@ -71,7 +66,7 @@
                         </div>
 
                         <div slot="after" class="category">
-                            <span v-if="screenWidth > 320">{{item.category.data.name}}</span>
+                            <span v-if="screenWidth > 700">{{item.category.data.name}}</span>
                         </div>
 
                         <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
@@ -127,7 +122,8 @@
                 editingItems: false,
                 newIndex: -1,
                 currentTime: moment(),
-                screenWidth: helpers.getScreenWidth()
+                screenWidth: helpers.getScreenWidth(),
+                smallScreenWidth: 1500
             }
         },
         computed: {
@@ -257,6 +253,7 @@
                 store.getItems();
             }, 500);
             this.keepCurrentTimeUpToDate();
+            console.log(helpers.getScreenWidth());
         }
     }
 </script>
