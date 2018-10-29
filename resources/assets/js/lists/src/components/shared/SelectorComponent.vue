@@ -29,7 +29,7 @@
                         class="item"
                     >
 
-                        <div slot="root-end" class="action-btns">
+                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
                             <div class="action-btn" v-on:click="openItemPopup(option)"><span>View/Edit</span></div>
                             <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
                         </div>
@@ -65,6 +65,7 @@
             return {
                 shared: store.state,
                 searchTerm: '',
+                screenWidth: helpers.getScreenWidth(),
 //                mutableOptions: []
             }
         },
