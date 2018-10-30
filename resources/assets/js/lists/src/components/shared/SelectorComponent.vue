@@ -29,16 +29,16 @@
                         class="item"
                     >
 
-                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024">
+                        <div slot="root-end" class="action-btns" v-if="screenWidth > 1024 && actionButtons">
                             <div class="action-btn" v-on:click="openItemPopup(option)"><span>View/Edit</span></div>
                             <div class="action-btn" v-on:click="deleteItem(item)"><span>Delete</span></div>
                         </div>
 
-                        <f7-swipeout-actions left>
+                        <f7-swipeout-actions left v-if="actionButtons">
                             <f7-swipeout-button close color="blue" overswipe v-on:click="openItemPopup(option)">View/Edit</f7-swipeout-button>
                         </f7-swipeout-actions>
 
-                        <f7-swipeout-actions right>
+                        <f7-swipeout-actions right v-if="actionButtons">
                             <f7-swipeout-button close color="red" overswipe v-on:click="deleteItem(option)">Delete</f7-swipeout-button>
                         </f7-swipeout-actions>
 
@@ -143,6 +143,8 @@
             },
 //            options: {},
             model: {},
+//            For whether or not to show the action buttons
+            actionButtons: {},
             path: {},
             id: {},
             //Add 'Any' option before the other options

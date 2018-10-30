@@ -16,15 +16,15 @@
                 <f7-list no-hairlines-md contacts-list>
 
                     <f7-list-item v-on:click="setSelectorOptions(shared.favouriteItems)" title="Favourite Items" link popup-open="#filter-favourites-selector"></f7-list-item>
-                    <selector display-prop="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
+                    <selector :action-buttons="true" display-prop="title" id="filter-favourites-selector" :on-select="goToSelectedItem"></selector>
 
                     <f7-list-item title="Search all by title" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-title-selector">
                     </f7-list-item>
-                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
+                    <selector :action-buttons="true" display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="title" id="filter-all-by-title-selector"></selector>
 
                     <f7-list-item title="Search all by note" v-on:click="setSelectorOptions([])" link popup-open="#filter-all-by-note-selector">
                     </f7-list-item>
-                    <selector display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
+                    <selector :action-buttons="true" display-prop="title" url="/api/items" :on-select="goToSelectedItem" field-to-filter-by="body" id="filter-all-by-note-selector"></selector>
 
                     <f7-list-item>
                         <f7-label>Minimum Priority</f7-label>
