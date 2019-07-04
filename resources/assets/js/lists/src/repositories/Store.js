@@ -162,7 +162,7 @@ export default {
      */
     setNoteHeight: function () {
         var popupHeight = $('.item-popup-page').height();
-        $('.item-popup-page .tab2 .item-content').height(popupHeight - 132);
+        $('.item-popup-page .tab2 .item-content textarea').height(popupHeight - 132);
     },
 
     openItemPopup: function (item) {
