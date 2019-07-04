@@ -35,6 +35,8 @@ const app = new Vue({
         store.createPopups();
         store.getCurrentUser();
 
+        // store.setNoteHeight();
+
         // this.$f7.views.create('.item-popup-view');
         // this.$f7.views.create('.filter-view');
         // this.$f7.views.create('.new-item-popup-view');

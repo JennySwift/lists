@@ -146,6 +146,7 @@ export default {
 
     openPopup: function (popup) {
         app.f7.popup.get(popup).open();
+        store.setNoteHeight();
     },
 
     closePopup: function (popup) {
@@ -154,6 +155,14 @@ export default {
         if ($(popup).hasClass('modal-in')) {
             $(popup).addClass('modal-out').removeClass('modal-in');
         }
+    },
+
+    /**
+     * Set the height of the textarea field for the note in the item popup
+     */
+    setNoteHeight: function () {
+        var popupHeight = $('.item-popup-page').height();
+        $('.item-popup-page .tab2 .item-content').height(popupHeight - 132);
     },
 
     openItemPopup: function (item) {
